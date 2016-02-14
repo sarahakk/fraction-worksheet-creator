@@ -13,3 +13,16 @@ Please see the link to our template:
 http://lumzy.com/access/?id=0609FB5E30C49781D30219D8D79BCA7C
 
 Still need to add more content. Please look at first draft and comment if you think something important is missing. It would be nice to add some screenshots of the templates to our first presentation (Ethan?).
+
+02/14/16
+
+Olga ->
+Guys,  I found the video which we could use as the tutorials with permission to post it to our website. Please see the link:
+http://www.bbc.co.uk/bitesize/ks2/maths/number/fractions_basic/play/
+Teachers: Copy and paste all the code below to put this activity on your blog or website:
+<object type="application/x-shockwave-flash" data="http://downloads.bbc.co.uk/bitesize/ks2/maths/activity05/activity.swf" width="640" height="410">
+	<param name="movie" value="http://downloads.bbc.co.uk/bitesize/ks2/maths/activity05/activity.swf" />
+	<param name="base" value="http://downloads.bbc.co.uk/maths/activity05/" />
+	<param name="allowFullScreen" value="true" />
+	<param name="allowscriptaccess" value="always" />
+</object>
