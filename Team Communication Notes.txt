@@ -3,3 +3,5 @@ Hey guys... just a quick text document to help keep our thoughts in one place.
 Eric ->  I'm going to do all of the requirement pieces on Saturday.  If no one else starts anything...
 I will also get the framework and the requirements thrown into a Powerpoint document that I will put
 on GitHub.  Let me know if you have any questions or concerns.
+
+Olga -> I will try to update the introduction part during weekend.
