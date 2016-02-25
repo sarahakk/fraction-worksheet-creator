@@ -24,11 +24,7 @@ public class SeedTester
             
             System.out.printf("%d\n", sRNG.getSeedValue());
             
-            for (int parseCount = 0; parseCount < 18; parseCount++)
-            {
-                System.out.printf("%d ", sRNG.getParsedSeedValue(parseCount));
-            }
-            System.out.println();
+            sRNG.printParseValues();
         }
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
