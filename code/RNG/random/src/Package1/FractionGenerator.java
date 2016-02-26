@@ -166,7 +166,7 @@ public class FractionGenerator
             
             while (tempNum1 >= tempDen1)
             {
-                tempNum1 = fracRNG.nextInt(tempDen1);
+                tempNum1 = fracRNG.nextInt(tempDen1) + 1;
             }
             
             fractions.get(count).setFraction(tempNum1, tempDen1);

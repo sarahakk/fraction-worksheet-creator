@@ -1,6 +1,10 @@
 //  Package Declaration
 package Package1;
 
+//  Imports  //
+//------------------------------------------------------------------------------
+import java.util.Scanner;
+
 //  Class   :  FractionTester
 //  Author  :  Eric Holm
 //  Version :  1.0.0
@@ -22,23 +26,46 @@ public class FractionTester
         
         //  Main Variables  //
         //======================================================================
-        int seedValue = 20;
-        int minN = 1;
-        int maxN = 9;
-        int minD = 2;
-        int maxD = 10;
-        int frac_gen_flag = FRAC_GEN_WILD;
-        int frac_whole_num_flag =FRAC_WHOLE_NUMBERS_NO;
-       
+        Scanner input = new Scanner(System.in);
+               
         //  Main Code  //
         //======================================================================
+        //  Request Seed Value from User
+        System.out.printf("Enter Seed Value: ");
+        int seedValue = input.nextInt();
+        
         //  FractionGenerator Test
         FractionGenerator fRNG1 = 
-                new FractionGenerator(seedValue, minN, maxN, minD, maxD, 
-                                      frac_gen_flag,
-                                      frac_whole_num_flag);
+                new FractionGenerator(seedValue, 1, 24, 2, 24, 
+                                      FRAC_GEN_WILD,
+                                      FRAC_WHOLE_NUMBERS_OK);
         System.out.printf("fRNG1: %d\n", fRNG1.getSeedValue());
+        System.out.printf("Gen - Wild / Whole - OK\n");
         fRNG1.printFractions();
+        
+        FractionGenerator fRNG2 = 
+                new FractionGenerator(seedValue, 1, 24, 2, 24, 
+                                      FRAC_GEN_MATCHDENOMINATORS,
+                                      FRAC_WHOLE_NUMBERS_OK);
+        System.out.printf("fRNG2: %d\n", fRNG2.getSeedValue());
+        System.out.printf("Gen - MatchDen / Whole - OK\n");
+        fRNG2.printFractions();
+        
+        FractionGenerator fRNG3 = 
+                new FractionGenerator(seedValue, 1, 24, 2, 24, 
+                                      FRAC_GEN_WILD,
+                                      FRAC_WHOLE_NUMBERS_NO);
+        System.out.printf("fRNG3: %d\n", fRNG3.getSeedValue());
+        System.out.printf("Gen - Wild / Whole - NO\n");
+        fRNG3.printFractions();
+        
+        FractionGenerator fRNG4 = 
+                new FractionGenerator(seedValue, 1, 24, 2, 24, 
+                                      FRAC_GEN_MATCHDENOMINATORS,
+                                      FRAC_WHOLE_NUMBERS_NO);
+        System.out.printf("fRNG4: %d\n", fRNG4.getSeedValue());
+        System.out.printf("Gen - MatchDen / Whole - NO\n");
+        fRNG4.printFractions();
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
