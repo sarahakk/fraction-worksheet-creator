@@ -1,13 +1,13 @@
 //  Package Declaration
 package Package1;
 
-//  Class   :  SeedTester
+//  Class   :  FractionTester
 //  Author  :  Eric Holm
 //  Version :  1.0.0
 
-//  Tester Class for the SeedGenerator
+//  Tester Class for the FractionGenerator
 //------------------------------------------------------------------------------
-public class SeedTester
+public class FractionTester
 {
     //  Main  //
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -18,16 +18,13 @@ public class SeedTester
        
         //  Main Code  //
         //======================================================================
-        for (int count = 0; count < 10; count++)
-        {
-            SeedGenerator sRNG = new SeedGenerator();
-            
-            System.out.printf("%d\n", sRNG.getSeedValue());
-            
-            sRNG.printParseValues();
-        }
+        //  FractionGenerator Test
+        FractionGenerator fRNG1 = new FractionGenerator(0, 10, 10, 10, 10);
+        System.out.printf("fRNG1: %d\n", fRNG1.getSeedValue());
+        FractionGenerator fRNG2 = new FractionGenerator(1234, 10, 10, 10, 10);
+        System.out.printf("fRNG2: %d\n", fRNG2.getSeedValue());
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
 //------------------------------------------------------------------------------
-//  End class SeedTester
+//  End class FractionTester
