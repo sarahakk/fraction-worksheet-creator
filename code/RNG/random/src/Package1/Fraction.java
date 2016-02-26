@@ -8,7 +8,7 @@ package Package1;
 //  Author  :  Eric Holm
 //  Version :  1.0.0
 
-//  Class to generate a contain a fraction
+//  Class to contain a fraction
 //------------------------------------------------------------------------------
 public class Fraction
 {
@@ -19,8 +19,10 @@ public class Fraction
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    public Fraction()
+    public Fraction(int numerator, int denominator)
     {
+        this.numerator   = numerator;
+        this.denominator = denominator;
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
@@ -33,6 +35,22 @@ public class Fraction
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
+    //  getNumerator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public int getNumerator()
+    {
+        return numerator;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getDenominator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public int getDenominator()
+    {
+        return denominator;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @Override
