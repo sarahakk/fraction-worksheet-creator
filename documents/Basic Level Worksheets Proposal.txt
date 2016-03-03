@@ -1,0 +1,22 @@
+Basic Worksheet 1
+
+Cirlces with different # of sections.
+Would need about 100 of these to make it really random (10 per page at this level)
+Could use fraction generator to create value and then use naming convention on files for retrieval.
+
+http://www.fractions4kids.com/Worksheets/worksheets2/Fractions-with-circles.pdf
+
+Basic Worksheet 2
+
+Same as above... but now add two sets of circles.
+Limit end result to values < 1.
+Limit fractions to having a common denominator.
+
+http://www.fractions4kids.com/Worksheets/worksheets1/Adding-fractions-from-parts.pdf
+
+Basic Worksheet 3
+
+Use same circle images as above.
+Have students order images based on least to greatest value.
+
+http://00.edu-cdn.com/worksheet-image/125941/comparing-fractions-greatest-fourth-grade.png
