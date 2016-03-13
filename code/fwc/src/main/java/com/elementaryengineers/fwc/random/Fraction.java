@@ -14,20 +14,21 @@ public class Fraction
 {
     //  Class Variables  //
     //==========================================================================
-    private int numerator;         //  Contains the numerator
-    private int denominator;       //  Contains the denominator
+    private int numerator;                      //  Contains the numerator
+    private int denominator;                    //  Contains the denominator
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //  Creates a Fraction based on the input given to the class
     public Fraction(int numerator, int denominator)
     {
-        this.numerator   = numerator;
-        this.denominator = denominator;
+        setFraction(numerator, denominator);
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  setFraction  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Sets the values of the numerator and denominator
     public void setFraction (int numerator, int denominator)
     {
         this.numerator   = numerator;
@@ -37,6 +38,7 @@ public class Fraction
     
     //  getNumerator  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the fraction numerator
     public int getNumerator()
     {
         return numerator;
@@ -45,6 +47,7 @@ public class Fraction
     
     //  getDenominator  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the fraction denominator
     public int getDenominator()
     {
         return denominator;

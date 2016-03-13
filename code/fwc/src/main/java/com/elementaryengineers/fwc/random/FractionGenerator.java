@@ -17,11 +17,17 @@ public class FractionGenerator
 {
     //  Class Constants  //
     //==========================================================================
-    private final int MAX_FRACTIONS = 10;
+    //  Maximum number of fractions to be generated.
+    private static final int MAX_FRACTIONS = 10;
     
-    int FRAC_GEN_WILD = 0;
-    int FRAC_GEN_MATCHDENOMINATORS = 1;
-    int FRAC_WHOLE_NUMBERS_NO = 1;
+    //  Flags for fraction generation
+    //  These signal if a pair of fractions should have matching denominators
+    private static final int GEN_DENOM_UNMATCHED = 0;
+    private static final int GEN_DENOM_MATCHED = 1;
+    
+    //  These signal if fractions are allowed to evaluate to 1 or greater
+    private static final int GEN_WHOLENUM_YES = 0;
+    private static final int GEN_WHOLENUM_NO = 1;
     
     //  Class Variables  //
     //==========================================================================
@@ -42,15 +48,16 @@ public class FractionGenerator
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //  Builds the fractions needed for a worksheet
     public FractionGenerator(long seedValue, int min_num, int max_num, 
                                              int min_den, int max_den,
-                                             int frac_gen_flag,
-                                             int frac_whole_num_flag)
+                                             int gen_denom_flag,
+                                             int gen_wholenum_flag)
     {
         //  Code  //
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //  If the Fraction Generator is passed a zero... then a new SEED needs
-        //  to be generated.
+        //  If the Fraction Generator is passed a zero seedValue
+        //  A new SEED needs to be generated.
         if (seedValue == 0)
         {
             this.seedValue = newSeedGenerator();
@@ -70,26 +77,22 @@ public class FractionGenerator
         fracRNG = new Random(seedValue);
         
         //  Set all the fractions
-        setFractions(frac_gen_flag, frac_whole_num_flag);
+        setFractions(gen_denom_flag, gen_wholenum_flag);
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  newSeedGenerator  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Creates a new seed value for new worksheets
     private long newSeedGenerator()
     {
-        //  Variables  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //  Temporary container for the seed value
-        long tempSeed = 0;
-
         //  Code  //
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //  Create the Random class object to make the seed values
+        //  Create the Random class object to make the new seed value
         Random seedRNG = new Random();
         
         //  Get the next long value from the RNG
-        tempSeed = seedRNG.nextLong();
+        long tempSeed = seedRNG.nextLong();
         
         //  All seeds will be positive values for ease of use.
         //  This converts negative values to positive ones
@@ -98,42 +101,52 @@ public class FractionGenerator
             tempSeed = tempSeed * -1;
         }
         
-        //  If we reach here... we have a value seed value
+        //  If we reach here... we have a valid seed value
         return tempSeed;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     //  setFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    private void setFractions(int frac_gen_flag, int frac_whole_num_flag)
+    //  Main algorithm for creating the fractions based on the generation flags
+    private void setFractions(int gen_denom_flag, int gen_wholenum_flag)
     {
         //  Code  //
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  Create the fractions using the parameters requested.
         for (int count = 0; count < MAX_FRACTIONS; count++)
         {
+            //  All fractions will be positive... so set the starting values
+            //  as negative
             int temp_num = -1;
             int temp_den = -1;
             
+            //  Loop until a positve value is generated for the numerator
             while (temp_num < min_num)
             {
                 temp_num = fracRNG.nextInt(max_num) + 1;
             }
             
+            //  Loop until a postive value is generated for the denominator
             while (temp_den < min_den)
             {
                 temp_den = fracRNG.nextInt(max_den) + 1;
             }
             
+            //  Add this fraction to the ArrayList
             fractions.add(new Fraction(temp_num, temp_den));
         }
         
-        if (frac_gen_flag == FRAC_GEN_MATCHDENOMINATORS)
+        //  Runs the function that will match the denominator of each pair of
+        //  fractions if this flag is set.
+        if (gen_denom_flag == GEN_DENOM_MATCHED)
         {
             setMatchDenominators();
         }
         
-        if (frac_whole_num_flag == FRAC_WHOLE_NUMBERS_NO)
+        //  Runs the function that will reduce the fractions to be less than 1
+        //  if this flag is set.
+        if (gen_wholenum_flag == GEN_WHOLENUM_NO)
         {
             setRemoveWholeNumbers();
         }
@@ -142,8 +155,11 @@ public class FractionGenerator
     
     //  setMatchDenominators  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Matches the denominator of each pair of fractions
     private void setMatchDenominators()
     {
+        //  Loop through the ArrayList setting the denominator of the 2nd
+        //  of each pair to the same value as the 1st.
         for (int count = 0; count < MAX_FRACTIONS;)
         {
             int tempDen1 = fractions.get(count).getDenominator();
@@ -157,17 +173,17 @@ public class FractionGenerator
     
     //  setRemoveWholeNumbers  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Reduces the fractions to be less than 1
     private void setRemoveWholeNumbers()
     {
+        //  Loop through the ArrayList and test each numerator to see if it
+        //  is greater than or equal to the denominator.
         for (int count = 0; count < MAX_FRACTIONS; count++)
         {
-            int tempNum1 = fractions.get(count).getNumerator();
             int tempDen1 = fractions.get(count).getDenominator();
             
-            while (tempNum1 >= tempDen1)
-            {
-                tempNum1 = fracRNG.nextInt(tempDen1) + 1;
-            }
+            //  Generate a new numerator based on the denominator.
+            int tempNum1 = fracRNG.nextInt(tempDen1);
             
             fractions.get(count).setFraction(tempNum1, tempDen1);
         }
@@ -176,6 +192,7 @@ public class FractionGenerator
     
     //  getSeedValue  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Obtain the seed value of the FractionGenerator
     public long getSeedValue()
     {
         //  Code  //
@@ -186,6 +203,7 @@ public class FractionGenerator
     
     //  printFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Display a listing of all the fractions generated
     public void printFractions()
     {
         //  Code  //
@@ -195,6 +213,15 @@ public class FractionGenerator
             Fraction thisFrac = fractions.get(count);
             System.out.printf("%s \n", thisFrac.toString());
         }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getFractions  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Export the ArrayList of fractions for use in a worksheet
+    public List<Fraction> getFractions()
+    {
+        return fractions;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
