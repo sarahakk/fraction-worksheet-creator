@@ -1,14 +1,15 @@
-//  Package Declaration
-package com.elementaryengineers.fwc.random;
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//  Class       :  Fraction
+//  Author      :  Eric Holm
+//  Version     :  1.0.0
+//  Description :  Class to contain a fraction
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//  Imports  //
+//  Package Declaration
+//------------------------------------------------------------------------------
+package com.elementaryengineers.fwc.random;
 //------------------------------------------------------------------------------
 
-//  Class   :  Fraction
-//  Author  :  Eric Holm
-//  Version :  1.0.0
-
-//  Class to contain a fraction
 //------------------------------------------------------------------------------
 public final class Fraction
 {
@@ -16,6 +17,7 @@ public final class Fraction
     //==========================================================================
     private int numerator;                      //  Contains the numerator
     private int denominator;                    //  Contains the denominator
+    //==========================================================================
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -63,5 +65,5 @@ public final class Fraction
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
-//------------------------------------------------------------------------------
 //  End class Fraction
+//------------------------------------------------------------------------------

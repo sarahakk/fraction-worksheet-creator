@@ -1,16 +1,13 @@
 //  Package Declaration
 package com.elementaryengineers.fwc.random;
 
-//  Imports  //
-//------------------------------------------------------------------------------
-import java.util.List;
-import java.util.ArrayList;
-
-//------------------------------------------------------------------------------
-
 //  Class   :  WS_Master
 //  Author  :  Eric Holm
 //  Version :  1.0.0
+
+//  Imports  //
+//------------------------------------------------------------------------------
+import java.util.List;
 
 //  Abstract Class for the Worksheets
 //------------------------------------------------------------------------------
@@ -21,7 +18,7 @@ abstract class WS_Master
         
     //  Class Variables  //
     //==========================================================================
-    private final List<Fraction> fractions; 
+    protected final List<Fraction> fractions; 
                 
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -44,6 +41,17 @@ abstract class WS_Master
         fractions = fRNG.getFractions();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    
+    //  PrintFractions  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void PrintFractions()
+    {
+        for (Fraction fraction : fractions) 
+        {
+            System.out.printf("%s\n", fraction.toString());
+        }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
 //------------------------------------------------------------------------------
 //  End class WS_Master

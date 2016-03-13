@@ -48,8 +48,10 @@ public class WorksheetTester
         
         //  Worksheet Test
         WS_Int_Add iaWS = new WS_Int_Add(seedValue, 20, 1, 24, 2, 24, 
-                                      GEN_DENOM_UNMATCHED,
-                                      GEN_WHOLENUM_YES);
+                                      GEN_DENOM_MATCHED,
+                                      GEN_WHOLENUM_NO);
+        
+        iaWS.PrintEquations();
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

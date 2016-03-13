@@ -1,48 +1,90 @@
-//  Package Declaration
-package com.elementaryengineers.fwc.random;
-
-//  Imports  //
-//------------------------------------------------------------------------------
-import java.util.Random;
-
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //  Class   :  Equation
 //  Author  :  Eric Holm
 //  Version :  1.0.0
+//  Description  :  Class to build equations used for the worksheets
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//  Class to build equations used for the worksheets
+//  Package Declaration
+//------------------------------------------------------------------------------
+package com.elementaryengineers.fwc.random;
+//------------------------------------------------------------------------------
+
 //------------------------------------------------------------------------------
 public class Equation
 {
-    //  Class Constants  //
-    //==========================================================================
-    
     //  Class Variables  //
     //==========================================================================
-    //  Each equation will contain two fractions, an operator, and an answer
-    private final Fraction fraction1;
-    char operator;
-    private final Fraction fraction2;
-    private Fraction answer;
+    private final Fraction fraction1;           //  First Fraction
+    private final Fraction fraction2;           //  Second Fraction
+    char operator;                              //  Operand
+    private final Fraction answer;              //  Answer Fraction
+    //==========================================================================
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //  Builds the equation based on the data passed to it
-    public Equation(Fraction frac1, Fraction frac2, char operator,
-                    int gen_denom_flag, int gen_wholenum_flag)
+    public Equation(Fraction frac1, Fraction frac2, char operator)
     {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         fraction1 = frac1;
         fraction2 = frac2;
         this.operator = operator;
+        answer = genAnswer();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
-    //  setAnswer  //
+    //  genAnswer  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void setAnswer (Fraction answer)
+    private Fraction genAnswer()
     {
-        this.answer = answer;
+        switch (operator)
+        {
+            case '+':
+            {
+                return genAnswerAddition();
+            }
+        }
+        
+        return null;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  genAnswerAddition  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    private Fraction genAnswerAddition()
+    {
+        //  Setup Variables Needed
+        Fraction tempFrac;
+        int tempDen = 0;
+        int tempNum = 0;
+        
+        //  Test denominators
+        //  If equal it's a simple addition of the numerators
+        if (fraction1.getDenominator() == fraction2.getDenominator())
+        {
+            tempNum = fraction1.getNumerator() + fraction2.getNumerator();
+            tempDen = fraction1.getDenominator();
+            tempFrac = new Fraction(tempNum, tempDen);
+        }
+        else
+        {
+            //  Error Statement
+            tempFrac = new Fraction(0,0);
+        }
+        
+        //  Return the answer
+        return tempFrac;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  toString  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @Override
+    public String toString()
+    {
+        return String.format("%s %c %s = %s", 
+                              fraction1.toString(), operator, fraction2.toString(),
+                              answer.toString());
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }

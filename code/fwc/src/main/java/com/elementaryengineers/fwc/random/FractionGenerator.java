@@ -1,62 +1,59 @@
-//  Package Declaration
-package com.elementaryengineers.fwc.random;
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//  Class        :  FractionGenerator
+//  Author       :  Eric Holm
+//  Version      :  1.0.0
+//  Description  :  Class to generate random fraction values
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//  Class   :  FractionGenerator
-//  Author  :  Eric Holm
-//  Version :  1.0.0
+//  Package Declaration
+//------------------------------------------------------------------------------
+package com.elementaryengineers.fwc.random;
+//------------------------------------------------------------------------------
 
 //  Imports  //
 //------------------------------------------------------------------------------
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
+//------------------------------------------------------------------------------
 
-//  Class to generate random fraction values
 //------------------------------------------------------------------------------
 public class FractionGenerator
 {
     //  Class Variables  //
     //==========================================================================
-    //  Contains the master seed value
-    private final long seedValue;
+    private final long seedValue;           //  Master seed value
 
-    //  Contains the parameters for the fractions produced.
-    private final int num_fractions;
-    private final int min_num;
+    private final int min_num;              //  Parameters for the numerator
     private final int max_num;
-    private final int min_den;
+    private final int min_den;              //  Parameters for the denominator
     private final int max_den;
     
-    //  Contains the RNG for all functions in the class
-    Random fracRNG;
+    Random fracRNG;                         //  RNG for fractions
     
-    //  Contains all the fractions any of the worksheets will need
+    //  Fractions generated
     private final List<Fraction> fractions = new ArrayList<>();
+    //==========================================================================
     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    //  Builds the fractions needed for a worksheet
+    //  Builds the fractions requested
     public FractionGenerator(long seedValue, int num_fractions,
                                              int min_num, int max_num, 
                                              int min_den, int max_den,
                                              int gen_denom_flag,
                                              int gen_whole_flag)
     {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  If the Fraction Generator is passed a zero seedValue
         //  A new SEED needs to be generated.
         if (seedValue == 0)
         {
-            this.seedValue = newSeedGenerator();
+            this.seedValue = genSeed();
         }
         else
         {
             this.seedValue = seedValue;
         }
-        
-        //  Set the number of fractions needed
-        this.num_fractions = num_fractions;
         
         //  Set the min/max values
         this.min_num = min_num;
@@ -64,11 +61,11 @@ public class FractionGenerator
         this.min_den = min_den;
         this.max_den = max_den;
         
-        //  Set the RNG up with the seedValue
+        //  Setup the RNG up with the seedValue
         fracRNG = new Random(seedValue);
         
-        //  Set all the fractions
-        setFractions();
+        //  Generate all the fractions
+        genFractions(num_fractions);
         
         //  If matching denominators are needed...
         if (gen_denom_flag != 0)
@@ -84,13 +81,11 @@ public class FractionGenerator
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
-    //  newSeedGenerator  //
+    //  genSeed  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Creates a new seed value for new worksheets
-    private long newSeedGenerator()
+    //  Generates a new seed value
+    private long genSeed()
     {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  Create the Random class object to make the new seed value
         Random seedRNG = new Random();
         
@@ -109,13 +104,11 @@ public class FractionGenerator
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
-    //  setFractions  //
+    //  genFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //  Main algorithm for creating the fractions based on the generation flags
-    private void setFractions()
+    private void genFractions(int num_fractions)
     {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  Create the fractions using the parameters requested.
         for (int count = 0; count < num_fractions; count++)
         {
@@ -149,7 +142,7 @@ public class FractionGenerator
     {
         //  Loop through the ArrayList setting the denominator of the 2nd
         //  of each pair to the same value as the 1st.
-        for (int count = 0; count < num_fractions; )
+        for (int count = 0; count < fractions.size(); )
         {
             int tempDen1 = fractions.get(count).getDenominator();
             int tempNum2 = fractions.get(count + 1).getNumerator();
@@ -168,7 +161,7 @@ public class FractionGenerator
     {
         //  Loop through the ArrayList looking for numerators that are higher
         //  then the denominators.
-        for (int count = 0; count < num_fractions; count++)
+        for (int count = 0; count < fractions.size(); count++)
         {
             int tempNum1 = fractions.get(count).getNumerator();
             int tempDen1 = fractions.get(count).getDenominator();
@@ -188,35 +181,18 @@ public class FractionGenerator
     //  Obtain the seed value of the FractionGenerator
     public long getSeedValue()
     {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         return seedValue;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     //  getFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Export the ArrayList of fractions for use in a worksheet
+    //  Export the ArrayList of fractions for use in worksheets
     public List<Fraction> getFractions()
     {
         return fractions;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    //  printFractions  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Display a listing of all the fractions generated
-    public void printFractions()
-    {
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        for (int count = 0; count < num_fractions; count++)
-        {
-            Fraction thisFrac = fractions.get(count);
-            System.out.printf("%s \n", thisFrac.toString());
-        }
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
-//------------------------------------------------------------------------------
 //  End class FractionGenerator
+//------------------------------------------------------------------------------
