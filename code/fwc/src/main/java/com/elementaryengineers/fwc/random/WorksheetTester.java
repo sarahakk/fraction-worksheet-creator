@@ -39,12 +39,17 @@ public class WorksheetTester
         int seedValue = input.nextInt();
         
         //  FractionGenerator Test
-        FractionGenerator fRNG1 = 
-                new FractionGenerator(seedValue, 1, 24, 2, 24, 
-                                      GEN_DENOM_MATCHED,
-                                      GEN_WHOLENUM_NO);
-        System.out.printf("fRNG1: %d\n", fRNG1.getSeedValue());
-        fRNG1.printFractions();
+//        FractionGenerator fRNG1 = 
+//                new FractionGenerator(seedValue, 1, 24, 2, 24, 
+//                                      GEN_DENOM_UNMATCHED,
+//                                      GEN_WHOLENUM_YES);
+//        System.out.printf("fRNG1: %d\n", fRNG1.getSeedValue());
+//        fRNG1.printFractions();
+        
+        //  Worksheet Test
+        WS_Int_Add iaWS = new WS_Int_Add(seedValue, 20, 1, 24, 2, 24, 
+                                      GEN_DENOM_UNMATCHED,
+                                      GEN_WHOLENUM_YES);
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

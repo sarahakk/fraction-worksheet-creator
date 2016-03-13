@@ -10,7 +10,7 @@ package com.elementaryengineers.fwc.random;
 
 //  Class to contain a fraction
 //------------------------------------------------------------------------------
-public class Fraction
+public final class Fraction
 {
     //  Class Variables  //
     //==========================================================================
