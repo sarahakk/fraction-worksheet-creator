@@ -1,2 +1,0 @@
-fwclogin.Main
-fwclogin.FWCLogin
