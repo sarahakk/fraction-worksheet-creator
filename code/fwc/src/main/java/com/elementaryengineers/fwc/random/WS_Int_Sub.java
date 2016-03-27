@@ -1,8 +1,8 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//  Class        :  WS_Int_Add
+//  Class        :  WS_Int_Sub
 //  Author       :  Eric Holm
 //  Version      :  1.0.0
-//  Description  :  Addition Worksheet (Intermediate)
+//  Description  :  Subtraction Worksheet (Intermediate)
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-public class WS_Int_Add extends WS_Master
+public class WS_Int_Sub extends WS_Master
 {
     //  Class Variables  //
     //==========================================================================
@@ -26,7 +26,7 @@ public class WS_Int_Add extends WS_Master
                     
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    public WS_Int_Add (long seedValue, int num_fractions, 
+    public WS_Int_Sub (long seedValue, int num_fractions, 
                                        int min_num, int max_num, 
                                        int min_den, int max_den,
                                        int gen_denom_flag,
@@ -37,7 +37,7 @@ public class WS_Int_Add extends WS_Master
         
         for (int count = 0; count < num_fractions; )
         {
-            Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), '+');
+            Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), '-');
             equations.add(newEq);
             count = count + 2;
         }
@@ -64,4 +64,4 @@ public class WS_Int_Add extends WS_Master
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
 //------------------------------------------------------------------------------
-//  End class WS_Int_Add
+//  End class WS_Int_Sub

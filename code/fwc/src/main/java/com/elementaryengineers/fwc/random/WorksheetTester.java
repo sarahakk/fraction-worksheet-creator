@@ -47,11 +47,11 @@ public class WorksheetTester
 //        fRNG1.printFractions();
         
         //  Worksheet Test
-        WS_Int_Add iaWS = new WS_Int_Add(seedValue, 20, 1, 24, 2, 24, 
+        WS_Beg_PicAdd bWS = new WS_Beg_PicAdd(seedValue, 20, 1, 10, 2, 10, 
                                       GEN_DENOM_MATCHED,
                                       GEN_WHOLENUM_NO);
         
-        iaWS.PrintEquations();
+        bWS.PrintEquations();
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

@@ -161,17 +161,18 @@ public class FractionGenerator
     {
         //  Loop through the ArrayList looking for numerators that are higher
         //  then the denominators.
-        for (int count = 0; count < fractions.size(); count++)
+        for (Fraction fraction : fractions) 
         {
-            int tempNum1 = fractions.get(count).getNumerator();
-            int tempDen1 = fractions.get(count).getDenominator();
+            int tempNum1 = fraction.getNumerator();
+            int tempDen1 = fraction.getDenominator();
             
-            if (tempNum1 >= tempDen1)
+            //  Generate a new numerator based on the denominator.
+            while (tempNum1 < min_num || tempNum1 >= tempDen1)
             {
-                //  Generate a new numerator based on the denominator.
                 tempNum1 = fracRNG.nextInt(tempDen1);
-                fractions.get(count).setFraction(tempNum1, tempDen1);
             }
+                
+                fraction.setFraction(tempNum1, tempDen1);
         }
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

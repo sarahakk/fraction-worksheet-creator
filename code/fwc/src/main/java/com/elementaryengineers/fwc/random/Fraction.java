@@ -55,6 +55,26 @@ public final class Fraction
         return denominator;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  lowestTerms  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void lowestTerms()
+    {
+        int tempNum = numerator;
+        int tempDen = denominator;
+        int gcf = 1;
+        
+        while (tempNum > 0)
+        {
+            gcf = tempNum;
+            tempNum = tempDen % tempNum;
+            tempDen = gcf;
+        }
+        
+        numerator = numerator / gcf;
+        denominator = denominator / gcf;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
