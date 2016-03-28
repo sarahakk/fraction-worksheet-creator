@@ -1,12 +1,11 @@
 /*
  * In the AdminHome.java file everythingis defined for the authentication.
  */
-package com.elementaryengineers.fwc.panels;
+package com.elementaryengineers.fwc.panel;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -20,7 +19,7 @@ public class AdminHome extends JFrame {
         Vector row;
         Vector data=new Vector();
         /*
-        CONN ob=new CONN();
+        DatabaseConnection ob=new DatabaseConnection();
         Connection con=ob.c();
         Statement stm=con.createStatement();
         ResultSet rst=stm.executeQuery("select * from user");
