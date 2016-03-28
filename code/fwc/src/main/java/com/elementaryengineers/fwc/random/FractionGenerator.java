@@ -29,7 +29,7 @@ public class FractionGenerator
     private final int min_den;              //  Parameters for the denominator
     private final int max_den;
     
-    Random fracRNG;                         //  RNG for fractions
+    private final Random fracRNG;           //  RNG for fractions
     
     //  Fractions generated
     private final List<Fraction> fractions = new ArrayList<>();
@@ -62,7 +62,7 @@ public class FractionGenerator
         this.max_den = max_den;
         
         //  Setup the RNG up with the seedValue
-        fracRNG = new Random(seedValue);
+        fracRNG = new Random(this.seedValue);
         
         //  Generate all the fractions
         genFractions(num_fractions);

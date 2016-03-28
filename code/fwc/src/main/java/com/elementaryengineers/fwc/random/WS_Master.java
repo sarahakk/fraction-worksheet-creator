@@ -21,6 +21,7 @@ abstract class WS_Master
     //  Class Variables  //
     //==========================================================================
     protected final List<Fraction> fractions; 
+    private final long seed;
     //==========================================================================
                 
     //  Constructor  //
@@ -42,9 +43,18 @@ abstract class WS_Master
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  Obtain the needed fractions from the generator.
         fractions = fRNG.getFractions();
+        seed = fRNG.getSeedValue();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
+    //  getSeed  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public long getSeed()
+    {
+        return seed;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       
     //  PrintFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void PrintFractions()
