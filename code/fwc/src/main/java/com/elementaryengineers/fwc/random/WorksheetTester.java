@@ -1,22 +1,30 @@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//  Class        :  WorksheetTester
+//  Author       :  Eric Holm
+//  Version      :  1.0.0
+//  Description  :  Tester Class for the FractionGenerator
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 //  Package Declaration
+//------------------------------------------------------------------------------
 package com.elementaryengineers.fwc.random;
+//------------------------------------------------------------------------------
 
 //  Imports  //
 //------------------------------------------------------------------------------
+import java.io.IOException;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import java.util.Scanner;
-import java.util.List;
+import org.apache.pdfbox.exceptions.COSVisitorException;
+//------------------------------------------------------------------------------
 
-//  Class   :  WorksheetTester
-//  Author  :  Eric Holm
-//  Version :  1.0.0
-
-//  Tester Class for the FractionGenerator
 //------------------------------------------------------------------------------
 public class WorksheetTester
 {
     //  Main  //
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException, COSVisitorException
     {
         //  Main Variables  //
         //======================================================================
@@ -31,7 +39,7 @@ public class WorksheetTester
     
     //  Menu  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public static void Menu ()
+    public static void Menu () throws IOException, COSVisitorException
     {
         //  Menu Constants  //
         //======================================================================
@@ -43,12 +51,18 @@ public class WorksheetTester
         //  These signal if fractions are allowed to evaluate to 1 or greater
         final int GEN_WHOLENUM_YES = 0;
         final int GEN_WHOLENUM_NO = 1;
+        
+        //  Flags for the answersheet generation
+        final boolean WORKSHEET_ONLY = FALSE;
+        final boolean ANSWER_SHEET = TRUE;
+        //======================================================================
 
         //  Menu Variables  //
         //======================================================================
         Scanner input = new Scanner(System.in);
         int selection = -1;
-        long seedValue = 0;
+        int seedValue = 0;
+        boolean answerFlag = WORKSHEET_ONLY;
         //======================================================================
         
         //  Menu Code //
@@ -64,9 +78,11 @@ public class WorksheetTester
             System.out.printf(" 5)  Int_Sub              \n");
             System.out.printf(" 6)  Int_MD               \n");
             System.out.printf("                          \n");
+            System.out.printf(" 9)  Answer Flag          \n");
             System.out.printf(" 0)  Exit                 \n");
             System.out.printf("--------------------------\n");
             System.out.printf("Current Seed: %d\n", seedValue);
+            System.out.printf("Answer Flag : %b\n", answerFlag);
             System.out.printf("--------------------------\n");
             System.out.printf("Selection : ");
 
@@ -79,7 +95,7 @@ public class WorksheetTester
                     System.out.println();
                     System.out.printf("--------------------------\n");
                     System.out.printf("New Seed Value: ");
-                    seedValue = input.nextLong();
+                    seedValue = input.nextInt();
                     System.out.println();
                     System.out.println();
                 }
@@ -94,7 +110,7 @@ public class WorksheetTester
                     WS_Beg_PicFrac worksheet = 
                                    new WS_Beg_PicFrac (seedValue, 10, 
                                            1, 10, 
-                                           2, 10,
+                                           3, 10,
                                            GEN_DENOM_UNMATCHED,
                                            GEN_WHOLENUM_NO);
                     worksheet.PrintFractions();
@@ -137,12 +153,13 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     System.out.printf("---    Int_Add Test    ---\n");
                     System.out.printf("--------------------------\n");
-                    WS_Int_Add worksheet = 
-                                   new WS_Int_Add (seedValue, 20, 
-                                           1, 10, 
-                                           2, 10,
+                    WS_Intermediate worksheet = 
+                                    new WS_Intermediate(seedValue, 40, 
+                                           1, 16, 
+                                           2, 16,
                                            GEN_DENOM_MATCHED,
-                                           GEN_WHOLENUM_NO);
+                                           GEN_WHOLENUM_NO,
+                                           '+');
                     worksheet.PrintEquations();
                     System.out.println();
                     System.out.println();
@@ -150,6 +167,15 @@ public class WorksheetTester
                     if (seedValue == 0)
                     {
                         seedValue = worksheet.getSeed();
+                    }
+                    
+                    if (answerFlag == WORKSHEET_ONLY)
+                    {
+                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
+                    }
+                    else
+                    {
+                        worksheet.CreateWorksheet(ANSWER_SHEET);
                     }
                 }
                 break;  
@@ -160,12 +186,13 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     System.out.printf("---    Int_Sub Test    ---\n");
                     System.out.printf("--------------------------\n");
-                    WS_Int_Sub worksheet = 
-                                   new WS_Int_Sub (seedValue, 20, 
-                                           1, 10, 
-                                           2, 10,
+                    WS_Intermediate worksheet = 
+                                    new WS_Intermediate (seedValue, 40, 
+                                           1, 16, 
+                                           2, 16,
                                            GEN_DENOM_MATCHED,
-                                           GEN_WHOLENUM_NO);
+                                           GEN_WHOLENUM_NO,
+                                           '-');
                     worksheet.PrintEquations();
                     System.out.println();
                     System.out.println();
@@ -173,6 +200,15 @@ public class WorksheetTester
                     if (seedValue == 0)
                     {
                         seedValue = worksheet.getSeed();
+                    }
+                    
+                    if (answerFlag == WORKSHEET_ONLY)
+                    {
+                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
+                    }
+                    else
+                    {
+                        worksheet.CreateWorksheet(ANSWER_SHEET);
                     }
                 }
                 break; 
@@ -183,12 +219,13 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     System.out.printf("---    Int_MD Test     ---\n");
                     System.out.printf("--------------------------\n");
-                    WS_Int_MD worksheet = 
-                                   new WS_Int_MD (seedValue, 20, 
-                                           1, 10, 
-                                           2, 10,
+                    WS_Intermediate worksheet = 
+                                    new WS_Intermediate (seedValue, 40, 
+                                           1, 16, 
+                                           2, 16,
                                            GEN_DENOM_MATCHED,
-                                           GEN_WHOLENUM_NO);
+                                           GEN_WHOLENUM_NO,
+                                           '*');
                     worksheet.PrintEquations();
                     System.out.println();
                     System.out.println();
@@ -197,8 +234,30 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
+                    
+                    if (answerFlag == WORKSHEET_ONLY)
+                    {
+                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
+                    }
+                    else
+                    {
+                        worksheet.CreateWorksheet(ANSWER_SHEET);
+                    }
                 }
                 break; 
+                    
+                case 9:
+                {
+                    if(answerFlag == WORKSHEET_ONLY)
+                    {
+                        answerFlag = ANSWER_SHEET;
+                    }
+                    else
+                    {
+                        answerFlag = WORKSHEET_ONLY;
+                    }
+                }
+                break;
             }
         }
 

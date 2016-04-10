@@ -22,7 +22,7 @@ public class FractionGenerator
 {
     //  Class Variables  //
     //==========================================================================
-    private final long seedValue;           //  Master seed value
+    private final int seedValue;           //  Master seed value
 
     private final int min_num;              //  Parameters for the numerator
     private final int max_num;
@@ -38,7 +38,7 @@ public class FractionGenerator
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //  Builds the fractions requested
-    public FractionGenerator(long seedValue, int num_fractions,
+    public FractionGenerator(int seedValue, int num_fractions,
                                              int min_num, int max_num, 
                                              int min_den, int max_den,
                                              int gen_denom_flag,
@@ -82,15 +82,15 @@ public class FractionGenerator
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  genSeed  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Generates a new seed value
-    private long genSeed()
+    private int genSeed()
     {
         //  Create the Random class object to make the new seed value
         Random seedRNG = new Random();
         
         //  Get the next long value from the RNG
-        long tempSeed = seedRNG.nextLong();
+        int tempSeed = seedRNG.nextInt();
         
         //  All seeds will be positive values for ease of use.
         //  This converts negative values to positive ones
@@ -102,10 +102,10 @@ public class FractionGenerator
         //  If we reach here... we have a valid seed value
         return tempSeed;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genFractions  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Main algorithm for creating the fractions based on the generation flags
     private void genFractions(int num_fractions)
     {
@@ -133,10 +133,10 @@ public class FractionGenerator
             fractions.add(new Fraction(temp_num, temp_den));
         }
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genMatchDenoms  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Matches the denominator of the fractions
     private void genMatchDenoms()
     {
@@ -152,10 +152,10 @@ public class FractionGenerator
             count = count + 2;
         }
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genRemoveWholeNums  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Reduces the fractions to be less than 1
     private void genRemoveWholeNums()
     {
@@ -175,12 +175,12 @@ public class FractionGenerator
                 fraction.setFraction(tempNum1, tempDen1);
         }
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  getSeedValue  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //  Obtain the seed value of the FractionGenerator
-    public long getSeedValue()
+    public int getSeedValue()
     {
         return seedValue;
     }

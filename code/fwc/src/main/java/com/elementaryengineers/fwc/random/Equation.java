@@ -13,6 +13,13 @@ package com.elementaryengineers.fwc.random;
 //------------------------------------------------------------------------------
 public class Equation
 {
+    //  Class Constants  //
+    //==========================================================================
+    private static final int FRACTION1 = 1;
+    private static final int FRACTION2 = 2;
+    private static final int ANSWER = 3;
+    //==========================================================================
+    
     //  Class Variables  //
     //==========================================================================
     private final Fraction fraction1;           //  First Fraction
@@ -34,7 +41,7 @@ public class Equation
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  genAnswer  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     private Fraction genAnswer()
     {
         switch (operator)
@@ -42,7 +49,7 @@ public class Equation
             //  Answers for Beginning Pie Addition Problems
             case 'B':
             {
-                return genAnswerPieAddition();
+                return genAnswerAdditionPie();
             }
             
             //  Answers for Addition Problems
@@ -72,11 +79,13 @@ public class Equation
         
         return null;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genAnswerPieAddition  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    private Fraction genAnswerPieAddition()
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Answer generation for Beginner Pie Addition.
+    //  Reduces fractions to ensure they add up to no more than 1.
+    private Fraction genAnswerAdditionPie()
     {
         //  Setup Variables Needed
         Fraction tempFrac;
@@ -88,14 +97,16 @@ public class Equation
         {
             if (fraction1.getNumerator() > fraction2.getNumerator())
             {
-                fraction1.setFraction(fraction1.getNumerator() - 1, fraction1.getDenominator());
+                fraction1.setFraction(fraction2.getNumerator() - 1, fraction1.getDenominator());
             }
             else
             {
-                fraction2.setFraction(fraction2.getNumerator() - 1, fraction2.getDenominator());
+                fraction2.setFraction(fraction1.getNumerator() - 1, fraction2.getDenominator());
             }
         }
         
+        //  After ensuring the fractions don't add up to more than one...
+        //  Create an answer fraction object to hold the data.
         int tempNum = fraction1.getNumerator() + fraction2.getNumerator();
         int tempDen = fraction1.getDenominator();
         tempFrac = new Fraction(tempNum, tempDen);
@@ -103,10 +114,11 @@ public class Equation
         //  Return the answer
         return tempFrac;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genAnswerAddition  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Addition of two fractions
     private Fraction genAnswerAddition()
     {
         //  Setup Variables Needed
@@ -129,10 +141,11 @@ public class Equation
         //  Return the answer
         return tempFrac;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genAnswerSubtraction  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Subtraction of two fractions
     private Fraction genAnswerSubtraction()
     {
         //  Setup Variables Needed
@@ -169,10 +182,11 @@ public class Equation
         //  Return the answer
         return tempFrac;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genAnswerMultiplication  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Multiplication of two fractions
     private Fraction genAnswerMultiplication()
     {
         //  Setup Variables Needed
@@ -187,10 +201,11 @@ public class Equation
         //  Return the answer
         return tempFrac;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genAnswerDivision  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Division of two fractions
     private Fraction genAnswerDivision()
     {
         //  Setup Variables Needed
@@ -205,7 +220,7 @@ public class Equation
         //  Return the answer
         return tempFrac;
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -225,6 +240,26 @@ public class Equation
                               fraction2.toString(), answer.toString());
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getFraction  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public Fraction getFraction (int flag)
+    {
+        switch (flag)
+        {
+            case FRACTION1:
+                return fraction1;
+                
+            case FRACTION2:
+                return fraction2;
+                
+            case ANSWER:
+                return answer;
+        }
+        
+        return null;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
-//------------------------------------------------------------------------------
 //  End class Equation
+//------------------------------------------------------------------------------

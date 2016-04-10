@@ -58,12 +58,15 @@ public final class Fraction
     
     //  lowestTerms  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Reduces a fraction to lowest terms
     public void lowestTerms()
     {
+        
         int tempNum = numerator;
         int tempDen = denominator;
         int gcf = 1;
         
+        //  Use modulus to determine the gcf
         while (tempNum > 0)
         {
             gcf = tempNum;
@@ -71,6 +74,8 @@ public final class Fraction
             tempDen = gcf;
         }
         
+        //  Divide both numerator and denominator by gcf to put faction into
+        //  lowest terms.
         numerator = numerator / gcf;
         denominator = denominator / gcf;
     }

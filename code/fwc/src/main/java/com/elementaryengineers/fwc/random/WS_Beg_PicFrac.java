@@ -15,7 +15,7 @@ public class WS_Beg_PicFrac extends WS_Master
 {
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    public WS_Beg_PicFrac (long seedValue, int num_fractions, 
+    public WS_Beg_PicFrac (int seedValue, int num_fractions, 
                                            int min_num, int max_num, 
                                            int min_den, int max_den,
                                            int gen_denom_flag,

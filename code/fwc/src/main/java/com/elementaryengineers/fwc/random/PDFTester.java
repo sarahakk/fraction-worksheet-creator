@@ -1,27 +1,29 @@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//  Class        :  PDFTester
+//  Author       :  Eric Holm
+//  Version      :  1.0.0
+//  Description  :  Tester Class for the PDFBox API
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 //  Package Declaration
+//------------------------------------------------------------------------------
 package com.elementaryengineers.fwc.random;
+//------------------------------------------------------------------------------
 
 //  Imports  //
 //------------------------------------------------------------------------------
 import java.io.IOException;
 import java.util.Scanner;
-import org.apache.pdfbox.pdmodel.*;
-import org.apache.pdfbox.pdmodel.font.*;
-import org.apache.pdfbox.pdmodel.edit.*;
+
 import org.apache.pdfbox.exceptions.COSVisitorException;
+//------------------------------------------------------------------------------
 
-//  Class   :  PDFTester
-//  Author  :  Eric Holm
-//  Version :  1.0.0
-
-//  Tester Class for the PDFBox API
 //------------------------------------------------------------------------------
 public class PDFTester
 {
     //  Main  //
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    public static void main(String[] args) throws IOException, 
-                                                  COSVisitorException
+    public static void main(String[] args) throws IOException, COSVisitorException
     {
         //  Main Constants  //
         //======================================================================
@@ -34,6 +36,10 @@ public class PDFTester
         final int GEN_WHOLENUM_YES = 0;
         final int GEN_WHOLENUM_NO = 1;
         
+        //  Flags for the answersheet generation
+        final int WORKSHEET_ONLY = 1;
+        final int ANSWER_SHEET = 2;
+        
         //  Main Variables  //
         //======================================================================
         Scanner input = new Scanner(System.in);
@@ -41,42 +47,19 @@ public class PDFTester
         //  Main Code  //
         //======================================================================
         //  Request Seed Value from User
-        System.out.printf("Enter Seed Value: ");
-        int seedValue = input.nextInt();
+//        System.out.printf("Enter Seed Value: ");
+//        int seedValue = input.nextInt();
         //  Get Number of questions from User
-        System.out.printf("Number of Questions: ");
-        int numQuestions = input.nextInt();
+//        System.out.printf("Number of Questions: ");
+//        int numQuestions = input.nextInt();
         
         //  Worksheet Test
-        WS_Int_Add iaWS = new WS_Int_Add(seedValue, numQuestions * 2, 
+        WS_Int_Add iaWS = new WS_Int_Add(100, 20 * 2, 
                                          1, 24, 2, 24, 
                                          GEN_DENOM_MATCHED,
                                          GEN_WHOLENUM_NO);
         
-        PDDocument document = new PDDocument();
-        
-        PDPage page = new PDPage();
-        document.addPage(page);
-            
-        PDFont font = PDType1Font.HELVETICA_BOLD;
-            
-        PDPageContentStream contentStream = 
-            new PDPageContentStream(document, page);
-            
-        contentStream.beginText();
-        contentStream.setFont(font, 12);
-        contentStream.moveTextPositionByAmount(100, 500);
-        for (int count = 0; count < numQuestions; count++)
-        {
-            contentStream.moveTextPositionByAmount(0, 25);
-            contentStream.drawString(iaWS.getEquation(count).toString());
-        }
-        contentStream.endText();
-        
-        contentStream.close();
-            
-        document.save("Worksheet_Demo.pdf");
-        document.close();
+        iaWS.CreateWorksheet(ANSWER_SHEET);
     }
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

@@ -12,21 +12,35 @@ package com.elementaryengineers.fwc.random;
 
 //  Imports  //
 //------------------------------------------------------------------------------
+import java.io.IOException;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import java.util.List;
+
+import org.apache.pdfbox.pdmodel.edit.*;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 abstract class WS_Master
 {
+    //  Class Constants  //
+    //==========================================================================
+    //  Flags for the answersheet generation
+    protected static final boolean WORKSHEET_ONLY = FALSE;
+    protected static final boolean ANSWER_SHEET = TRUE;
+    //==========================================================================
+    
     //  Class Variables  //
     //==========================================================================
-    protected final List<Fraction> fractions; 
-    private final long seed;
+    protected List<Fraction> fractions; 
+    protected int seed;
     //==========================================================================
                 
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    public WS_Master (long seedValue, int num_fractions, 
+    public WS_Master (int seedValue, int num_fractions, 
                                       int min_num, int max_num, 
                                       int min_den, int max_den,
                                       int gen_denom_flag,
@@ -49,7 +63,7 @@ abstract class WS_Master
     
     //  getSeed  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public long getSeed()
+    public int getSeed()
     {
         return seed;
     }
@@ -65,6 +79,68 @@ abstract class WS_Master
         }
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  genHeader  //
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    protected void genHeader(PDPageContentStream contentStream) throws IOException
+    {
+        //  Font Selection  //
+        PDFont font = PDType1Font.COURIER_BOLD;
+        
+        //  Text  //
+        contentStream.beginText();
+        contentStream.setFont(font, 16);
+        contentStream.setNonStrokingColor(0, 0, 0);
+        contentStream.moveTextPositionByAmount(50, 750);
+        contentStream.drawString("Name   : _________________");
+        contentStream.moveTextPositionByAmount(275, 0);
+        contentStream.drawString("Score  : _________________");
+        contentStream.moveTextPositionByAmount(-275, -30);
+        contentStream.drawString("Teacher: _________________");
+        contentStream.moveTextPositionByAmount(275, 0);
+        contentStream.drawString("Date   : _________________");
+        contentStream.endText();
+        
+        //  End Line  //
+        contentStream.setStrokingColor(0, 0, 0);
+        contentStream.drawLine(10, 690, 600, 690);
+    }    
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    
+    //  genExample  //
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    abstract protected void genExample (PDPageContentStream contentStream) throws IOException;
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    
+    //  genProblems  //
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    abstract protected void genProblems (PDPageContentStream contentStream, boolean answerFlag) throws IOException;
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    
+    //  genFooter  //
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    protected void genFooter(PDPageContentStream contentStream) throws IOException
+    {
+        //  Beginning Line  //
+        contentStream.setStrokingColor(0, 0, 0);
+        contentStream.drawLine(10, 30, 600, 30);
+        
+        //  Font Selection  //
+        PDFont font = PDType1Font.COURIER_BOLD;
+
+        //  Text  //
+        contentStream.beginText();
+        contentStream.setFont(font, 8);
+        contentStream.setNonStrokingColor(0, 0, 0);
+        contentStream.moveTextPositionByAmount(10, 10);
+        contentStream.drawString(String.format("Worksheet #%d", seed));
+        contentStream.moveTextPositionByAmount(430, 0);
+        contentStream.drawString("Fraction Worksheet Creator - 2016");
+        contentStream.endText();
+        
+        
+    }    
+    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 }
 //------------------------------------------------------------------------------
 //  End class WS_Master
