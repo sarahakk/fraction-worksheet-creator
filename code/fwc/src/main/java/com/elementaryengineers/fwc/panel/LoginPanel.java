@@ -1,122 +1,83 @@
 package com.elementaryengineers.fwc.panel;
 
-import com.elementaryengineers.fwc.custom.ImageButton;
-
 import javax.swing.*;
-import java.awt.Font;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 /**
  * TODO
  **/
 public class LoginPanel extends JPanel {
 
-    JLabel lblCompany, lblUser, lblPass;
-    JTextField txtUser;
-    JPasswordField txtPass;
-    JButton btnLogin,btnCancel;
+    private JPanel pnNorth, pnFields, pnSouth, pnLogin, pnForgot;
+    private JLabel lblTitle;
+    private JTextField txtUser;
+    private JPasswordField txtPass;
+    private JButton btnLogin, btnForgotPass;
 
     public LoginPanel() {
-        setSize (500,400);
-        setLocation (500, 280);
+        super(new BorderLayout());
+        this.setBackground(Color.WHITE);
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        lblCompany = new JLabel("Login Authentication");
-        lblCompany.setFont(new Font("Times New Roman",Font.BOLD,20));
-        lblCompany.setForeground(Color.blue);
+        pnNorth = new JPanel((new FlowLayout(FlowLayout.CENTER)));
+        pnNorth.setBackground(Color.WHITE);
+        lblTitle = new JLabel("Login");
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
+        lblTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+        pnNorth.add(lblTitle);
 
-        lblUser = new JLabel("Username");
-        lblPass = new JLabel("Password");
-        txtUser = new JTextField();
-        txtPass = new JPasswordField();
+        txtUser = new JTextField(24);
+        txtPass = new JPasswordField(24);
+
+        pnFields = new JPanel(new GridLayout(2, 2, 5, 10));
+        pnFields.setBackground(Color.WHITE);
+        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
+        pnFields.add(new JLabel("Username:", SwingConstants.CENTER));
+        pnFields.add(txtUser);
+        pnFields.add(new JLabel("Password:", SwingConstants.CENTER));
+        pnFields.add(txtPass);
+
+        pnSouth = new JPanel(new BorderLayout());
+        pnSouth.setBackground(Color.WHITE);
+
+        pnLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnLogin.setBackground(Color.WHITE);
         btnLogin = new JButton("Login");
-        btnCancel = new JButton("Cancel");
+        pnLogin.add(btnLogin);
 
-        lblCompany.setBounds(150,30,400,30);
-        lblUser.setBounds(80,110,200,25);
-        lblPass.setBounds(80,160,240,25);
-        txtUser.setBounds(200,110,210,25);
-        txtPass.setBounds(200,160,210,25);
-        btnLogin.setBounds(200,200,100,25);
-        btnCancel.setBounds(300,200,100,25);
+        pnForgot = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnForgot.setBackground(Color.WHITE);
+        btnForgotPass = new JButton("Forgot Password?");
+        pnForgot.add(btnForgotPass);
 
-        this.add(lblCompany);
-        this.add(lblUser);
-        this.add(txtUser);
-        this.add(lblPass);
-        this.add(txtPass);
-        this.add(btnLogin);
-        this.add(btnCancel);
+        pnSouth.add(pnLogin, BorderLayout.NORTH);
+        pnSouth.add(pnForgot, BorderLayout.SOUTH);
 
-        // TODO
-        //btnCancel.addActionListener(this);
-        //btnLogin.addActionListener(this);
+        this.add(pnNorth, BorderLayout.NORTH);
+        this.add(pnFields, BorderLayout.CENTER);
+        this.add(pnSouth, BorderLayout.SOUTH);
     }
 
-    /*
-    public void actionPerformed(ActionEvent e) {
-
-        String u=txtUser.getText();
-        String p=txtPass.getText();
-        String ut=(String)CmbUser_Type.getSelectedItem();
-
-        if(e.getSource()==btnLogin)
-        {
-            if(u.equals("")||u==null)
-            {
-                JOptionPane.showMessageDialog(rootPane, "Fill the username");
-            }
-            else
-            {
-                if(p.equals("")||p==null)
-                {
-                    JOptionPane.showMessageDialog(rootPane, "Fill the password");
-                }
-            }
-        }
-
-        if(e.getSource()==btnCancel)
-        {
-            System.exit(0);
-        }
-        try
-        {
-            DatabaseConnection ob=new DatabaseConnection();
-            Connection con=ob.c();
-            Statement stm=con.createStatement();
-            ResultSet rst = null;
-
-            if(ut.equals("Admin"))
-            {
-                rst=stm.executeQuery("select * from admin where username='"+
-                        u+"' and password='"+p+"'");
-                if(rst.next())
-                {
-                    AdminHome ob1=new AdminHome();
-                    ob1.setVisible(true);
-                    this.dispose();
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(rootPane,
-                            "Incorrect username or password");
-                }
-
-                if(ut.equals("Teacher"))
-                {
-                    rst=stm.executeQuery("select * from customer where "
-                            + "username='"+u+"' and password='"+p+"'");
-                }
-                if(ut.equals("Student"));
-                {
-                    rst=stm.executeQuery("select * from user where "
-                            + "username='"+u+"' and password='"+p+"'");
-                }
-            }
-        }
-        catch (Exception e1)
-              {
-            JOptionPane.showMessageDialog(rootPane, e1);
-        }
+    public void setLoginListener(ActionListener listener) {
+        btnLogin.addActionListener(listener);
     }
-    */
+
+    public void setForgotPassListener(ActionListener listener) {
+        btnForgotPass.addActionListener(listener);
+    }
+
+    public String getUsernameText() {
+        return txtUser.getText();
+    }
+
+    public String getPasswordText() {
+        return String.valueOf(txtPass.getPassword());
+    }
+
+    public void clearFields() {
+        txtUser.setText("");
+        txtPass.setText("");
+    }
 }
