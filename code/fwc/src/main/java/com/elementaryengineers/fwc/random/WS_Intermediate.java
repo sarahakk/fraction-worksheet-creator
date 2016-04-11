@@ -16,7 +16,6 @@ import java.awt.Desktop;
 
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Boolean.TRUE;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,7 +44,7 @@ public class WS_Intermediate extends WS_Master
     //==========================================================================
     private final List<Equation> equations = new ArrayList<>();
     private final char worksheetType;
-    private PDDocument worksheet;
+    private PDDocument document;
     //==========================================================================
                 
     //  Constructor  //
@@ -78,7 +77,7 @@ public class WS_Intermediate extends WS_Master
         }
         
         //  Prepare the worksheet object for use
-        worksheet = new PDDocument();
+        document = new PDDocument();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
@@ -105,23 +104,37 @@ public class WS_Intermediate extends WS_Master
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void CreateWorksheet(boolean answerFlag) throws IOException, COSVisitorException
     {
-        PDPage page = new PDPage();
-        worksheet.addPage(page);
-            
-        try (PDPageContentStream contentStream = new PDPageContentStream(worksheet, page)) 
+        PDPage worksheet = new PDPage();
+        document.addPage(worksheet);
+        
+        try (PDPageContentStream contentStream = new PDPageContentStream(document, worksheet)) 
         {
             super.genHeader(contentStream);
             genExample(contentStream);
-            genProblems(contentStream, answerFlag);
+            genProblems(contentStream, WORKSHEET_ONLY);
             super.genFooter(contentStream);
+        }
+        
+        if (answerFlag == ANSWER_SHEET)
+        {
+            PDPage answerSheet = new PDPage();
+            document.addPage(answerSheet);
+            
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, answerSheet)) 
+            {
+                super.genHeader(contentStream);
+                genExample(contentStream);
+                genProblems(contentStream, ANSWER_SHEET);
+                super.genFooter(contentStream);
+            }
         }
 
         if (System.getProperty("os.name").equals("Mac OS X"))
-            worksheet.save("./Temp.pdf");
+            document.save("./Temp.pdf");
         else
-            worksheet.save("C:/Temp/Temp.pdf");
+            document.save("C:/Temp/Temp.pdf");
 
-        worksheet.close();
+        document.close();
         
         if (Desktop.isDesktopSupported()) 
         {

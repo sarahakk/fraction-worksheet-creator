@@ -123,7 +123,7 @@ public class TeacherHome extends JPanel {
             worksheet.getSeed();
 
             try {
-                worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
+                worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
             }
             catch (IOException|COSVisitorException ex) {
                 JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
