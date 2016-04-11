@@ -20,4 +20,6 @@ public class User {
     public boolean verifyLogin(String pass) {
         return password.checkPassword(pass);
     }
+
+
 }

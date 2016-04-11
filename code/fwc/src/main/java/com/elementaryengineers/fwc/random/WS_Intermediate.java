@@ -115,15 +115,25 @@ public class WS_Intermediate extends WS_Master
             genProblems(contentStream, answerFlag);
             super.genFooter(contentStream);
         }
-        
-        worksheet.save("C:/Temp/Temp.pdf");
+
+        if (System.getProperty("os.name").equals("Mac OS X"))
+            worksheet.save("./Temp.pdf");
+        else
+            worksheet.save("C:/Temp/Temp.pdf");
+
         worksheet.close();
         
         if (Desktop.isDesktopSupported()) 
         {
             try 
             {
-                File myFile = new File("C:/Temp/Temp.pdf");
+                File myFile = null;
+
+                if (System.getProperty("os.name").equals("Mac OS X"))
+                    myFile = new File("./Temp.pdf");
+                else
+                    myFile = new File("C:/Temp/Temp.pdf");
+
                 Desktop.getDesktop().open(myFile);
             } 
             catch (IOException ex) 

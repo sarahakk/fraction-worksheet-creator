@@ -100,7 +100,7 @@ public class WorksheetTester
                     System.out.println();
                 }
                 break;
-                    
+
                 case 2:
                 {
 /*                    System.out.println();
@@ -147,7 +147,7 @@ public class WorksheetTester
                     }
 */
                 }
-                break;  
+                break;
                     
                 case 4:
                 {
