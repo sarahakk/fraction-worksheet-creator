@@ -14,4 +14,24 @@ public class Student extends User {
         this.classID = classID;
         this.difficultyID = difficultyID;
     }
+
+    public void setClassID(int classID) {
+        this.classID = classID;
+    }
+
+    public void setDifficultyID(int difficultyID) {
+        this.difficultyID = difficultyID;
+    }
+
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public int getClassID() {
+        return classID;
+    }
+
+    public int getDifficultyID() {
+        return difficultyID;
+    }
 }

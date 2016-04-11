@@ -12,4 +12,8 @@ public class Admin extends User {
         super(user, first, last, salt, hash);
         this.adminID = adminID;
     }
+
+    public int getAdminID() {
+        return adminID;
+    }
 }
