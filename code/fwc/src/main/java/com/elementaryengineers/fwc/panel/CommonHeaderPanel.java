@@ -46,9 +46,9 @@ public class CommonHeaderPanel extends JPanel {
         pnButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnButton.setBackground(Color.WHITE);
 
-        btnHelp = new ImageButton("images/" + HELP_IMG, 288, 70);
-        btnAccount = new ImageButton("images/" + ACCOUNT_IMG, 257, 70);
-        btnLogout = new ImageButton("images/" + LOGOUT_IMG, 255, 69);
+        btnHelp = new ImageButton("images/" + HELP_IMG, 150, 50);
+        btnAccount = new ImageButton("images/" + ACCOUNT_IMG, 150, 50);
+        btnLogout = new ImageButton("images/" + LOGOUT_IMG, 150, 50);
         btnExit = new JButton("Exit");
         btnExit.setFont(new Font("Calibri", Font.BOLD, 16));
         btnExit.addActionListener(new ActionListener() {
@@ -77,7 +77,7 @@ public class CommonHeaderPanel extends JPanel {
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
-                lblTitle = new JLabel(new ImageIcon(imgBuff.getScaledInstance(626, 202, Image.SCALE_SMOOTH)));
+                lblTitle = new JLabel(new ImageIcon(imgBuff.getScaledInstance(500, 150, Image.SCALE_SMOOTH)));
             }
             else {
                 System.out.println("imgURL is null.");

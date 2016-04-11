@@ -1,5 +1,6 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.random.WS_Intermediate;
 import org.apache.pdfbox.exceptions.COSVisitorException;
@@ -16,10 +17,13 @@ import java.io.IOException;
 public class TeacherHome extends JPanel {
 
     private JPanel pnNorth, pnButtons;
-    private JLabel lblTitle;
+    private ImageButton btnTeacherHome;
     private JButton btnBeg1, btnBeg2, btnBeg3,
             btnInt1, btnInt2, btnInt3,
             btnAdv1, btnAdv2, btnAdv3;
+    
+    private static final String HOME_IMG = "teacherhome.png";
+    private static final String BEG1_IMG = "beginninerPC.png";
 
     public TeacherHome() {
         super(new BorderLayout());
@@ -28,19 +32,17 @@ public class TeacherHome extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new JLabel("Teacher Home");
-        lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
-        lblTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-        pnNorth.add(lblTitle);
+        btnTeacherHome = new ImageButton("images/" + HOME_IMG, 250, 75);
+        pnNorth.add(btnTeacherHome);
 
         // Build buttons and center panel
         pnButtons = new JPanel(new GridLayout(3, 3, 5, 10));
         pnButtons.setBackground(Color.WHITE);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        btnBeg1 = new JButton("Beginner Pie Charts");
+        btnBeg1 = new JButton("Beginner Pie Chart");
         btnBeg1.setFont(new Font("Calibri", Font.BOLD, 16));
-
+                
         btnBeg2 = new JButton("Beginner Addition");
         btnBeg2.setFont(new Font("Calibri", Font.BOLD, 16));
 
