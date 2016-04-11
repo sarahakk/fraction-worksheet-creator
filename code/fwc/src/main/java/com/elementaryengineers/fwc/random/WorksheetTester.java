@@ -103,7 +103,7 @@ public class WorksheetTester
                     
                 case 2:
                 {
-                    System.out.println();
+/*                    System.out.println();
                     System.out.printf("--------------------------\n");
                     System.out.printf("---  Beg PicFrac Test  ---\n");
                     System.out.printf("--------------------------\n");
@@ -121,12 +121,13 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
+*/
                 }
                 break;  
                     
                 case 3:
                 {
-                    System.out.println();
+/*                    System.out.println();
                     System.out.printf("--------------------------\n");
                     System.out.printf("---  Beg PicAdd Test   ---\n");
                     System.out.printf("--------------------------\n");
@@ -144,6 +145,7 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
+*/
                 }
                 break;  
                     
