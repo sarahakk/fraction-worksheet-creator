@@ -53,8 +53,10 @@ public class WorksheetTester
         final int GEN_WHOLENUM_NO = 1;
         
         //  Flags for the answersheet generation
-        final boolean WORKSHEET_ONLY = FALSE;
-        final boolean ANSWER_SHEET = TRUE;
+        //  Flags for the answersheet generation
+        final int WORKSHEET_ONLY = 1;
+        final int ANSWER_SHEET = 2;
+        final int ANSWER_ONLY = 3;
         //======================================================================
 
         //  Menu Variables  //
@@ -62,7 +64,7 @@ public class WorksheetTester
         Scanner input = new Scanner(System.in);
         int selection = -1;
         int seedValue = 0;
-        boolean answerFlag = WORKSHEET_ONLY;
+        int answerFlag = WORKSHEET_ONLY;
         //======================================================================
         
         //  Menu Code //
@@ -82,7 +84,7 @@ public class WorksheetTester
             System.out.printf(" 0)  Exit                 \n");
             System.out.printf("--------------------------\n");
             System.out.printf("Current Seed: %d\n", seedValue);
-            System.out.printf("Answer Flag : %b\n", answerFlag);
+            System.out.printf("Answer Flag : %d\n", answerFlag);
             System.out.printf("--------------------------\n");
             System.out.printf("Selection : ");
 
@@ -171,14 +173,7 @@ public class WorksheetTester
                         seedValue = worksheet.getSeed();
                     }
                     
-                    if (answerFlag == WORKSHEET_ONLY)
-                    {
-                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
-                    }
-                    else
-                    {
-                        worksheet.CreateWorksheet(ANSWER_SHEET);
-                    }
+                    worksheet.CreateWorksheet(answerFlag);
                 }
                 break;  
                     
@@ -204,14 +199,7 @@ public class WorksheetTester
                         seedValue = worksheet.getSeed();
                     }
                     
-                    if (answerFlag == WORKSHEET_ONLY)
-                    {
-                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
-                    }
-                    else
-                    {
-                        worksheet.CreateWorksheet(ANSWER_SHEET);
-                    }
+                    worksheet.CreateWorksheet(answerFlag);
                 }
                 break; 
                      
@@ -237,24 +225,21 @@ public class WorksheetTester
                         seedValue = worksheet.getSeed();
                     }
                     
-                    if (answerFlag == WORKSHEET_ONLY)
-                    {
-                        worksheet.CreateWorksheet(WORKSHEET_ONLY);
-                    }
-                    else
-                    {
-                        worksheet.CreateWorksheet(ANSWER_SHEET);
-                    }
+                    worksheet.CreateWorksheet(answerFlag);
                 }
                 break; 
                     
                 case 9:
                 {
-                    if(answerFlag == WORKSHEET_ONLY)
+                    if (answerFlag == WORKSHEET_ONLY)
                     {
                         answerFlag = ANSWER_SHEET;
                     }
-                    else
+                    else if (answerFlag == ANSWER_SHEET)
+                    {
+                        answerFlag = ANSWER_ONLY;
+                    }
+                    else if (answerFlag == ANSWER_ONLY)
                     {
                         answerFlag = WORKSHEET_ONLY;
                     }

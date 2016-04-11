@@ -4,9 +4,6 @@ import com.elementaryengineers.fwc.model.Admin;
 import com.elementaryengineers.fwc.model.Student;
 import com.elementaryengineers.fwc.model.Teacher;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
 /**
  * Created by sarahakk on 4/10/16.
  */
@@ -28,8 +25,9 @@ public class FWCConfigurator {
     public final static int GEN_WHOLENUM_NO = 1;
 
     //  Flags for the answersheet generation
-    public final static boolean WORKSHEET_ONLY = FALSE;
-    public final static boolean ANSWER_SHEET = TRUE;
+    public static final int WORKSHEET_ONLY = 1;
+    public static final int ANSWER_SHEET = 2;
+    public static final int ANSWER_ONLY = 3;
 
     public static void setTeacher(Teacher teacher) {
         FWCConfigurator.teacher = teacher;

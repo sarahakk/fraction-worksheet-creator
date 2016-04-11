@@ -13,8 +13,6 @@ package com.elementaryengineers.fwc.random;
 //  Imports  //
 //------------------------------------------------------------------------------
 import java.io.IOException;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.edit.*;
@@ -28,8 +26,9 @@ abstract class WS_Master
     //  Class Constants  //
     //==========================================================================
     //  Flags for the answersheet generation
-    protected static final boolean WORKSHEET_ONLY = FALSE;
-    protected static final boolean ANSWER_SHEET = TRUE;
+    protected static final int WORKSHEET_ONLY = 1;
+    protected static final int ANSWER_SHEET = 2;
+    protected static final int ANSWER_ONLY = 3;
     //==========================================================================
     
     //  Class Variables  //
@@ -114,7 +113,7 @@ abstract class WS_Master
     
     //  genProblems  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    abstract protected void genProblems (PDPageContentStream contentStream, boolean answerFlag) throws IOException;
+    abstract protected void genProblems (PDPageContentStream contentStream, int answerFlag) throws IOException;
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     
     //  genFooter  //

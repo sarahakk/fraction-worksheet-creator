@@ -102,20 +102,23 @@ public class WS_Intermediate extends WS_Master
     
     //  CreateWorksheet  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public void CreateWorksheet(boolean answerFlag) throws IOException, COSVisitorException
+    public void CreateWorksheet(int answerFlag) throws IOException, COSVisitorException
     {
-        PDPage worksheet = new PDPage();
-        document.addPage(worksheet);
-        
-        try (PDPageContentStream contentStream = new PDPageContentStream(document, worksheet)) 
+        if ((answerFlag == WORKSHEET_ONLY) || (answerFlag ==  ANSWER_SHEET))
         {
-            super.genHeader(contentStream);
-            genExample(contentStream);
-            genProblems(contentStream, WORKSHEET_ONLY);
-            super.genFooter(contentStream);
+            PDPage worksheet = new PDPage();
+            document.addPage(worksheet);
+        
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, worksheet)) 
+            {
+                super.genHeader(contentStream);
+                genExample(contentStream);
+                genProblems(contentStream, WORKSHEET_ONLY);
+                super.genFooter(contentStream);
+            }
         }
         
-        if (answerFlag == ANSWER_SHEET)
+        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
         {
             PDPage answerSheet = new PDPage();
             document.addPage(answerSheet);
@@ -124,7 +127,7 @@ public class WS_Intermediate extends WS_Master
             {
                 super.genHeader(contentStream);
                 genExample(contentStream);
-                genProblems(contentStream, ANSWER_SHEET);
+                genProblems(contentStream, answerFlag);
                 super.genFooter(contentStream);
             }
         }
@@ -169,7 +172,7 @@ public class WS_Intermediate extends WS_Master
     //  genProblems  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     @Override
-    protected void genProblems(PDPageContentStream contentStream, boolean answerFlag) throws IOException
+    protected void genProblems(PDPageContentStream contentStream, int answerFlag) throws IOException
     {
         //  Method Variables  //
         //======================================================================
@@ -209,7 +212,7 @@ public class WS_Intermediate extends WS_Master
             contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString(String.format("%d", thisFr.getDenominator()));
                     
-            if (answerFlag == ANSWER_SHEET)
+            if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
                 thisFr = thisEq.getFraction(ANSWER);
                 
@@ -273,7 +276,7 @@ public class WS_Intermediate extends WS_Master
             contentStream.drawLine(startX + 320, lineY, endX + 320, lineY);
             contentStream.drawLine(startX + 395, lineY, endX + 395, lineY);
             
-            if (answerFlag == ANSWER_SHEET)
+            if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
                 contentStream.setStrokingColor(255, 0, 0);
                 contentStream.drawLine(startX + 150, lineY, endX + 150, lineY);
