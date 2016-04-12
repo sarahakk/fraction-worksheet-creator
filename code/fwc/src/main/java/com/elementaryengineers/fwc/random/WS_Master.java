@@ -47,23 +47,24 @@ abstract class WS_Master
                                       int gen_denom_flag,
                                       int gen_whole_flag)
     {
-        //  Variables  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //  Method Variables  //
+        //======================================================================
         FractionGenerator fRNG = new FractionGenerator(seedValue, num_fractions, 
                                         min_num, max_num, min_den, max_den, 
                                         gen_denom_flag,
                                         gen_whole_flag);
+        //======================================================================
 
-        //  Code  //
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //  Obtain the needed fractions from the generator.
         fractions = fRNG.getFractions();
+        //  Grab the seedValue used in the fRNG
         seed = fRNG.getSeedValue();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  getSeed  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Returns the seed value
     public int getSeed()
     {
         return seed;
@@ -72,6 +73,7 @@ abstract class WS_Master
        
     //  PrintFractions  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Used for testing purposes to show raw fraction generation
     public void PrintFractions()
     {
         for (Fraction fraction : fractions) 
@@ -83,12 +85,13 @@ abstract class WS_Master
     
     //  genHeader  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //  Creates the worksheet header
     protected void genHeader(PDPageContentStream contentStream) throws IOException
     {
-        //  Font Selection  //
+        //  Font Selection
         PDFont font = PDType1Font.COURIER_BOLD;
         
-        //  Text  //
+        //  TEXT  //
         contentStream.beginText();
         contentStream.setFont(font, 16);
         contentStream.setNonStrokingColor(0, 0, 0);
@@ -110,26 +113,29 @@ abstract class WS_Master
     
     //  genExample  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //  Example must be created by each worksheet type
     abstract protected void genExample (PDPageContentStream contentStream) throws IOException;
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     
     //  genProblems  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //  Problems must be created by each worksheet type
     abstract protected void genProblems (PDPageContentStream contentStream, int answerFlag) throws IOException;
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     
     //  genFooter  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //  Creates the worksheet footer
     protected void genFooter(PDPageContentStream contentStream) throws IOException
     {
-        //  Beginning Line  //
+        //  Beginning Line
         contentStream.setStrokingColor(0, 0, 0);
         contentStream.drawLine(10, 30, 600, 30);
         
-        //  Font Selection  //
+        //  Font Selection
         PDFont font = PDType1Font.COURIER_BOLD;
 
-        //  Text  //
+        //  TEXT  //
         contentStream.beginText();
         contentStream.setFont(font, 8);
         contentStream.setNonStrokingColor(0, 0, 0);
@@ -138,8 +144,6 @@ abstract class WS_Master
         contentStream.moveTextPositionByAmount(430, 0);
         contentStream.drawString("Fraction Worksheet Creator - 2016");
         contentStream.endText();
-        
-        
     }    
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 }

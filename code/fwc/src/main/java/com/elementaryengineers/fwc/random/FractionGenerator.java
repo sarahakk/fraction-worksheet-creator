@@ -12,9 +12,9 @@ package com.elementaryengineers.fwc.random;
 
 //  Imports  //
 //------------------------------------------------------------------------------
-import java.util.Random;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ public class FractionGenerator
 {
     //  Class Variables  //
     //==========================================================================
-    private final int seedValue;           //  Master seed value
+    private final int seedValue;            //  Master seed value
 
     private final int min_num;              //  Parameters for the numerator
     private final int max_num;
@@ -45,7 +45,7 @@ public class FractionGenerator
                                              int gen_whole_flag)
     {
         //  If the Fraction Generator is passed a zero seedValue
-        //  A new SEED needs to be generated.
+        //  a new SEED needs to be generated.
         if (seedValue == 0)
         {
             this.seedValue = genSeed();
@@ -89,7 +89,7 @@ public class FractionGenerator
         //  Create the Random class object to make the new seed value
         Random seedRNG = new Random();
         
-        //  Get the next long value from the RNG
+        //  Get the next int value from the RNG
         int tempSeed = seedRNG.nextInt();
         
         //  All seeds will be positive values for ease of use.

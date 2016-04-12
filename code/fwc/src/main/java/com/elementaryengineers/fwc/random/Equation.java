@@ -42,6 +42,7 @@ public class Equation
     
     //  genAnswer  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Generate answers based on the equation operator
     private Fraction genAnswer()
     {
         switch (operator)
@@ -87,8 +88,10 @@ public class Equation
     //  Reduces fractions to ensure they add up to no more than 1.
     private Fraction genAnswerAdditionPie()
     {
-        //  Setup Variables Needed
+        //  Method Variables  //
+        //======================================================================
         Fraction tempFrac;
+        //======================================================================
         
         //  Test numerators
         //  If they add up to more then 1.  Reduce them.
@@ -121,13 +124,16 @@ public class Equation
     //  Addition of two fractions
     private Fraction genAnswerAddition()
     {
-        //  Setup Variables Needed
+        //  Method Variables  //
+        //======================================================================
         Fraction tempFrac;
+        //======================================================================
         
         //  Test denominators
         //  If equal it's a simple addition of the numerators
         if (fraction1.getDenominator() == fraction2.getDenominator())
         {
+            //  Add numerators and pass the denominator
             int tempNum = fraction1.getNumerator() + fraction2.getNumerator();
             int tempDen = fraction1.getDenominator();
             tempFrac = new Fraction(tempNum, tempDen);
@@ -135,6 +141,8 @@ public class Equation
         else
         {
             //  Error Statement
+            //  Since right now the only fractions being produced have a
+            //  common denominator
             tempFrac = new Fraction(0,0);
         }
         
@@ -148,8 +156,10 @@ public class Equation
     //  Subtraction of two fractions
     private Fraction genAnswerSubtraction()
     {
-        //  Setup Variables Needed
+        //  Method Variables  //
+        //======================================================================
         Fraction tempFrac;
+        //======================================================================
         
         //  Test denominators
         //  If equal then it's an easier form of subtraction
@@ -169,6 +179,7 @@ public class Equation
                 fraction2.setFraction(holdNum, fraction1.getDenominator());
             }
             
+            //  Subtract numerators and pass the denominator
             int tempNum = fraction1.getNumerator() - fraction2.getNumerator();
             int tempDen = fraction1.getDenominator();
             tempFrac = new Fraction(tempNum, tempDen);
@@ -176,6 +187,8 @@ public class Equation
         else
         {
             //  Error Statement
+            //  Since right now the only fractions being produced have a
+            //  common denominator
             tempFrac = new Fraction(0,0);
         }
         
@@ -189,13 +202,17 @@ public class Equation
     //  Multiplication of two fractions
     private Fraction genAnswerMultiplication()
     {
-        //  Setup Variables Needed
+        //  Method Variables  //
+        //======================================================================
         Fraction tempFrac;
+        //======================================================================
         
+        //  Multiply numerators and denominators
         int tempNum = fraction1.getNumerator() * fraction2.getNumerator();
         int tempDen = fraction1.getDenominator() * fraction2.getDenominator();
-        
         tempFrac = new Fraction(tempNum, tempDen);
+        
+        //  Reduce to lowest terms.
         tempFrac.lowestTerms();
         
         //  Return the answer
@@ -208,19 +225,44 @@ public class Equation
     //  Division of two fractions
     private Fraction genAnswerDivision()
     {
-        //  Setup Variables Needed
+        //  Method Variables  //
+        //======================================================================
         Fraction tempFrac;
-        
+        //======================================================================
+
+        //  Cross multiply numerators and denominators
         int tempNum = fraction1.getNumerator() * fraction2.getDenominator();
         int tempDen = fraction1.getDenominator() * fraction2.getNumerator();
-        
         tempFrac = new Fraction(tempNum, tempDen);
+        
+        //  Reduce to lowest terms.
         tempFrac.lowestTerms();
         
         //  Return the answer
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    
+    //  getFraction  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the requested fraction
+    public Fraction getFraction (int flag)
+    {
+        switch (flag)
+        {
+            case FRACTION1:
+                return fraction1;
+                
+            case FRACTION2:
+                return fraction2;
+                
+            case ANSWER:
+                return answer;
+        }
+        
+        return null;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -238,26 +280,6 @@ public class Equation
         return String.format("%s %c %s = %s", 
                               fraction1.toString(), tempOperator, 
                               fraction2.toString(), answer.toString());
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    //  getFraction  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public Fraction getFraction (int flag)
-    {
-        switch (flag)
-        {
-            case FRACTION1:
-                return fraction1;
-                
-            case FRACTION2:
-                return fraction2;
-                
-            case ANSWER:
-                return answer;
-        }
-        
-        return null;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }

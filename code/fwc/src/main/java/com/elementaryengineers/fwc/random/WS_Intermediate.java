@@ -61,27 +61,35 @@ public class WS_Intermediate extends WS_Master
               gen_denom_flag,
               gen_whole_flag);
         
+        //  Intermediate Worksheets can all be created from this one class.
+        //  The worksheetType flag differentiates the three.
         this.worksheetType = worksheetType;
         
+        //  Create the equations and set up the operator to be used
         for (int count = 0; count < num_fractions; )
         {
+            //  Mulitplication and Division share a worksheet
+            //  This ensures 10 of each type.
             if (count == 10 & worksheetType == '*')
             {
                 worksheetType = '/';
             }
             
+            //  Create the equations using two fractions at a time
             Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), worksheetType);
             equations.add(newEq);
             count = count + 2;
         }
         
-        //  Prepare the worksheet object for use
+        //  Prepare the document object for use to make the worksheet and 
+        //  answersheet.
         document = new PDDocument();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //  PrintEquations  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Used to test equation creation
     public void PrintEquations()
     {
         for (Equation equation : equations) 
@@ -91,25 +99,21 @@ public class WS_Intermediate extends WS_Master
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
-    //  getEquation  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    public Equation getEquation(int number)
-    {
-        return equations.get(number);
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
     //  CreateWorksheet  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Main method for making the worksheets and answersheets
     public void CreateWorksheet(int answerFlag) throws IOException, COSVisitorException
     {
+        //  Determines if the Worksheet needs to be created.
         if ((answerFlag == WORKSHEET_ONLY) || (answerFlag ==  ANSWER_SHEET))
         {
+            //  Create a worksheet page
             PDPage worksheet = new PDPage();
             document.addPage(worksheet);
         
             try (PDPageContentStream contentStream = new PDPageContentStream(document, worksheet)) 
             {
+                //  Worksheet created in four parts
                 super.genHeader(contentStream);
                 genExample(contentStream);
                 genProblems(contentStream, WORKSHEET_ONLY);
@@ -117,13 +121,16 @@ public class WS_Intermediate extends WS_Master
             }
         }
         
+        //  Determines if the Answersheet needs to be created.
         if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
         {
+            //  Create an answersheet page
             PDPage answerSheet = new PDPage();
             document.addPage(answerSheet);
             
             try (PDPageContentStream contentStream = new PDPageContentStream(document, answerSheet)) 
             {
+                //  Answersheet create in four parts
                 super.genHeader(contentStream);
                 genExample(contentStream);
                 genProblems(contentStream, answerFlag);
@@ -131,13 +138,16 @@ public class WS_Intermediate extends WS_Master
             }
         }
 
+        //  A temp location is used to store the PDF that is made.
         if (System.getProperty("os.name").equals("Mac OS X"))
             document.save("./Temp.pdf");
         else
             document.save("C:/Temp/Temp.pdf");
 
+        //  Document is completed.  Close it so that it can be opened.
         document.close();
         
+        //  Opens the PDF so that it can be reviewed / printed / saved
         if (Desktop.isDesktopSupported()) 
         {
             try 
@@ -149,11 +159,11 @@ public class WS_Intermediate extends WS_Master
                 else
                     myFile = new File("C:/Temp/Temp.pdf");
 
+                //  Actual work of opening the file.
                 Desktop.getDesktop().open(myFile);
             } 
             catch (IOException ex) 
             {
-        // no application registered for PDFs
             }
         }
     }
@@ -161,6 +171,7 @@ public class WS_Intermediate extends WS_Master
     
     //  genExample  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Creates the example section
     @Override
     protected void genExample(PDPageContentStream contentStream) throws IOException
     {
@@ -170,6 +181,7 @@ public class WS_Intermediate extends WS_Master
     
     //  genProblems  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Creates the problem section
     @Override
     protected void genProblems(PDPageContentStream contentStream, int answerFlag) throws IOException
     {
@@ -180,113 +192,177 @@ public class WS_Intermediate extends WS_Master
         char operator = worksheetType;
         //======================================================================
         
-        //  Font Selection  //
+        //  Font Selection
         PDFont font = PDType1Font.COURIER_BOLD;
 
-        //  Text  //
+        //  TEXT  //
         contentStream.beginText();
-        contentStream.moveTextPositionByAmount(60, 520);
+        //  Starting location for the text portion
+        contentStream.moveTextPositionByAmount(80, 520);
         
         //  Print all the Fractions for each problem.
         while (problems.hasNext())
         {
+            //  Makes a 2nd column of problems after the first 10.
             if (equationCount == 10)
             {
                 contentStream.moveTextPositionByAmount(320, 500);
             }
-            contentStream.setFont(font, 20);
-            contentStream.setNonStrokingColor(0, 0, 0);           
             
+            //  Grab the next equation
             Equation thisEq = problems.next();
-            Fraction thisFr = thisEq.getFraction(FRACTION1);
             
+            //  Parameters for printing the problem fractions
+            contentStream.setFont(font, 20);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
+                        
+            //  Print the values for the first fraction
+            Fraction thisFr = thisEq.getFraction(FRACTION1);
             contentStream.drawString(String.format("%d", thisFr.getNumerator()));
             contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString(String.format("%d", thisFr.getDenominator()));
             
-            thisFr = thisEq.getFraction(FRACTION2);
+            //  Move the cursor 
+            contentStream.moveTextPositionByAmount(65, 20);
             
-            contentStream.moveTextPositionByAmount(75, 20);
+            //  Print the values for the second fraction
+            thisFr = thisEq.getFraction(FRACTION2);
             contentStream.drawString(String.format("%d", thisFr.getNumerator()));
             contentStream.moveTextPositionByAmount(0, -20);
             contentStream.drawString(String.format("%d", thisFr.getDenominator()));
                     
+            //  Determines if the answers should be printed
             if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
-                thisFr = thisEq.getFraction(ANSWER);
+                //  Parameters for printing the answer fraction
+                contentStream.setNonStrokingColor(255, 0, 0);   // Color - Red
                 
-                contentStream.setNonStrokingColor(255, 0, 0);
-                                
-                contentStream.moveTextPositionByAmount(75, 20);
+                //  Move the cursor
+                contentStream.moveTextPositionByAmount(65, 20);
+                
+                //  Print the values for the answer fraction
+                thisFr = thisEq.getFraction(ANSWER);
                 contentStream.drawString(String.format("%d", thisFr.getNumerator()));
                 contentStream.moveTextPositionByAmount(0, -20);
                 contentStream.drawString(String.format("%d", thisFr.getDenominator()));
             }
             
+            //  Determines how far to move the cursor for the next problem.
+            //  Based on if the answers are being printed or not.
             if (answerFlag == WORKSHEET_ONLY)
             {
-                contentStream.moveTextPositionByAmount(-75, -30);
+                contentStream.moveTextPositionByAmount(-65, -30);
             }
             else
             {
-                contentStream.moveTextPositionByAmount(-150, -30);
+                contentStream.moveTextPositionByAmount(-130, -30);
             }
+            
+            //  Counts the number equations to track when a column break
+            //  needs to occur
             equationCount++;
         }
+        
+        //  Reset the cursor closing and opening the contentStream
         contentStream.endText();
-        
-        //  Print all of the operators and equal signs
         contentStream.beginText();
-        contentStream.moveTextPositionByAmount(95, 510);
         
+        //  Starting location for the problem numbers
+        contentStream.moveTextPositionByAmount(30, 510);
+        
+        //  Print the problem numbers
         for (int count = 0; count < equationCount; count++)
         {
+            //  Makes a 2nd column of problems numbers after the first 10.
+            if (count == 10)
+            {
+                contentStream.moveTextPositionByAmount(290, 500);
+            }
+            
+            //  Parameters for printing the problem numbers
+            contentStream.setFont(font, 24);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 255);       // Color - Blue
+            
+            //  Print the problem number
+            contentStream.drawString(String.format("#%d", count + 1));
+            
+            //  Move the cursor
+            contentStream.moveTextPositionByAmount(0, -50);
+        }
+        
+        //  Reset the cursor closing and opening the contentStream
+        contentStream.endText();
+        contentStream.beginText();
+        
+        //  Starting location for the operators and equal signs
+        contentStream.moveTextPositionByAmount(115, 510);
+        
+        //  Print all of the operators and equal signs
+        for (int count = 0; count < equationCount; count++)
+        {
+            //  Makes a 2nd column of operators and equal signes after the first 10.
             if (count == 10)
             {
                 contentStream.moveTextPositionByAmount(320, 500);
                 
+                //  For multiplication/division worksheets
+                //  The operator needs to be changed as well
                 if (operator == '*')
                 {
                     operator = 247;
                 }
             }
             
-            contentStream.setFont(font, 28);
-            contentStream.setNonStrokingColor(0, 0, 0);
+            //  Parameters for printing the operators and equal signs
+            contentStream.setFont(font, 28);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
             
+            //  Draw the operator
             contentStream.drawString(String.format("%c", operator));
-            contentStream.moveTextPositionByAmount(80, 0);
             
+            //  Move the cursor
+            contentStream.moveTextPositionByAmount(60, 0);
+            
+            //  Draw the equal sign
             contentStream.drawString("=");
-            contentStream.moveTextPositionByAmount(-80, -50);
+            
+            //  Move the cursor
+            contentStream.moveTextPositionByAmount(-60, -50);
         }
+        
+        //  END OF TEXT  //
         contentStream.endText();
         
+        //  LINES  //
+        
         //  Print all of the lines between fractions
-        int startX = 60;
-        int endX   = 82;
-        int lineY = 515;
-                        
+        //  Starting locations for the lines
+        int startX = 80;
+        int endX   = 102;
+        int lineY  = 515;
+
+        //  Draw lines for everything on one line.
+        //  This includes four fractions and two answers (if answersheet)
         for (int count = 0; count < equationCount / 2; count++)
         {
             contentStream.setStrokingColor(0, 0, 0);
             contentStream.drawLine(startX, lineY, endX, lineY);
-            contentStream.drawLine(startX + 75, lineY, endX + 75, lineY);
+            contentStream.drawLine(startX + 65, lineY, endX + 65, lineY);
             contentStream.drawLine(startX + 320, lineY, endX + 320, lineY);
-            contentStream.drawLine(startX + 395, lineY, endX + 395, lineY);
+            contentStream.drawLine(startX + 385, lineY, endX + 385, lineY);
             
             if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
                 contentStream.setStrokingColor(255, 0, 0);
-                contentStream.drawLine(startX + 150, lineY, endX + 150, lineY);
-                contentStream.drawLine(startX + 470, lineY, endX + 470, lineY);
+                contentStream.drawLine(startX + 130, lineY, endX + 130, lineY);
+                contentStream.drawLine(startX + 450, lineY, endX + 450, lineY);
             }
  
+            //  Move to the next line
             lineY = lineY - 50;
         }
     }    
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    
 }
 //------------------------------------------------------------------------------
 //  End class WS_Intermediate

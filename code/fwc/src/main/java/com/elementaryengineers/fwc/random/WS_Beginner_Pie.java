@@ -2,7 +2,7 @@
 //  Class        :  WS_Beginniner_Pie
 //  Author       :  Eric Holm
 //  Version      :  1.0.0
-//  Description  :  Class for all Beginner Pie Worksheets
+//  Description  :  Class for Beginner Pie Worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -145,11 +145,6 @@ public class WS_Beginner_Pie extends WS_Master
         //  Font Selection  //
         PDFont font = PDType1Font.COURIER_BOLD;
         
-        //  Text  //
-        contentStream.beginText();
-        contentStream.moveTextPositionByAmount(60, 520);
-        contentStream.endText();
-        
         //  Print the pies for each problem.
         while (pies.hasNext())
         {
@@ -169,6 +164,100 @@ public class WS_Beginner_Pie extends WS_Master
             imageY = imageY - 100;
             fractionCount++;
         }
+        
+        //  TEXT  //
+        contentStream.beginText();
+        
+        //  Starting location for the problem numbers and equal signs
+        contentStream.moveTextPositionByAmount(30, 485);
+        
+        //  Reset variables for 2nd pass
+        pies = fractions.iterator();
+        fractionCount = 0;
+        
+        //  Print the problem text
+        while (pies.hasNext())
+        {
+            //  Makes a 2nd column of problem text after the first 5.
+            if (fractionCount == 5)
+            {
+                contentStream.moveTextPositionByAmount(290, 500);
+            }
+            
+            Fraction thisPie = pies.next();
+            
+            //  Parameters for printing the problem numbers
+            contentStream.setFont(font, 24);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 255);       // Color - Blue
+            
+            //  Print the problem number
+            contentStream.drawString(String.format("#%d", fractionCount + 1));
+            
+            //  Move the cursor
+            contentStream.moveTextPositionByAmount(140, 0);
+            
+            //  Parameters for printing the equals signs
+            contentStream.setFont(font, 20);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
+            
+            //  Print the equal sign
+            contentStream.drawString(String.format("="));
+            
+            //  Determines if the answers should be printed
+            if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
+            {
+                //  Parameters for printing the answer fraction
+                contentStream.setNonStrokingColor(255, 0, 0);   // Color - Red
+                
+                //  Print the values for the answer fraction
+                contentStream.moveTextPositionByAmount(40, 10);
+                contentStream.drawString(String.format("%d", thisPie.getNumerator()));
+                contentStream.moveTextPositionByAmount(0, -20);
+                contentStream.drawString(String.format("%d", thisPie.getDenominator()));
+            }
+            
+            //  Determines how far to move the cursor for the next problem.
+            //  Based on if the answers are being printed or not.
+            if (answerFlag == WORKSHEET_ONLY)
+            {
+                contentStream.moveTextPositionByAmount(-140, -100);
+            }
+            else
+            {
+                contentStream.moveTextPositionByAmount(-180, -90);
+            }
+
+            fractionCount++;
+        }
+        
+        contentStream.endText();
+        
+        //  LINES  //
+        
+        //  Print all of the lines between fractions
+        //  Starting locations for the lines
+        int startX = 80;
+        int endX   = 102;
+        int lineY  = 490;
+
+        //  Draw lines for everything on one line.
+        //  This includes four fractions and two answers (if answersheet)
+        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
+        {
+            for (int count = 0; count < fractionCount / 2; count++)
+            {
+                contentStream.setStrokingColor(255, 0, 0);
+                contentStream.drawLine(startX + 130, lineY, endX + 130, lineY);
+                contentStream.drawLine(startX + 420, lineY, endX + 420, lineY);
+                
+                //  Move to the next line
+                lineY = lineY - 100;
+            }
+        }
+        
+            
+        
+        
     }    
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     

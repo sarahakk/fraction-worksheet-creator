@@ -61,12 +61,15 @@ public final class Fraction
     //  Reduces a fraction to lowest terms
     public void lowestTerms()
     {
-        
+        //  Method Variables  //
+        //======================================================================
         int tempNum = numerator;
         int tempDen = denominator;
         int gcf = 1;
+        //======================================================================
         
         //  Use modulus to determine the gcf
+        //  Loop through reducing until there is no common divisor
         while (tempNum > 0)
         {
             gcf = tempNum;
