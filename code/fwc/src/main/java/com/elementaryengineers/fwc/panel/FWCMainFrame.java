@@ -1,5 +1,8 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Teacher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,14 +25,14 @@ public class FWCMainFrame extends JFrame {
      **/
     public FWCMainFrame() {
         super("Fraction Worksheet Creator");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setLayout(new BorderLayout());
-        this.setBackground(Color.WHITE);
-        this.buildPanels();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        buildPanels();
         pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void buildPanels() {
@@ -41,6 +44,7 @@ public class FWCMainFrame extends JFrame {
         pnCard = new JPanel(cardLayout); // Set card layout for card panel
 
         login = new LoginPanel();
+        login.setPreferredSize(new Dimension(50, 250));
         login.setLoginListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,6 +52,9 @@ public class FWCMainFrame extends JFrame {
                 if (login.getUsernameText().equals("shakkoum") &&
                         login.getPasswordText().equals("password")) {
                     login.clearFields();
+                    FWCConfigurator.setTeacher(new Teacher(0, "shakkoum", "Sara", "Hakkoum", "salt", "hash",
+                            1, 10, 3, 10));
+                            //1, 16, 2, 16));
                     buildTeacherPanels();
                     setSize(new Dimension(1000, 700));
                     setLocationRelativeTo(null);
@@ -77,6 +84,7 @@ public class FWCMainFrame extends JFrame {
                 header.showButtonsLoggedOut();
                 header.hideMenu();
                 pnCard.remove(teacherHome);
+                FWCConfigurator.setTeacher(null);
                 pack();
                 setLocationRelativeTo(null);
                 cardLayout.show(pnCard, "LoginPanel");

@@ -1,5 +1,8 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.ImageButton;
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -12,16 +15,11 @@ public class TeacherMenu extends UserMenu {
     private JButton btnHome, btnTutorials, btnHistory, btnClasses, btnPasswords;
 
     public TeacherMenu() {
-        btnHome = new JButton("Home");
-        btnHome.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnTutorials = new JButton("Tutorials");
-        btnTutorials.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnHistory = new JButton("History");
-        btnHistory.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnClasses = new JButton("Classes");
-        btnClasses.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnPasswords = new JButton("Passwords");
-        btnPasswords.setFont(new Font("Calibri", Font.BOLD, 16));
+        btnHome = new ImageButton(FWCConfigurator.HOME_IMG, 150, 50);
+        btnTutorials = new ImageButton(FWCConfigurator.TUTORIAL_IMG, 150, 50);
+        btnHistory = new ImageButton(FWCConfigurator.HISTORY_IMG, 150, 50);
+        btnClasses = new ImageButton(FWCConfigurator.CLASSES_IMG, 150, 50);
+        btnPasswords = new ImageButton(FWCConfigurator.PASSWORDS_IMG, 150, 50);
 
         this.add(btnHome);
         this.add(btnTutorials);

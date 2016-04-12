@@ -1,6 +1,8 @@
 package com.elementaryengineers.fwc.panel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -21,19 +23,23 @@ public class LoginPanel extends JPanel {
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        /*
         pnNorth = new JPanel((new FlowLayout(FlowLayout.CENTER)));
         pnNorth.setBackground(Color.WHITE);
         lblTitle = new JLabel("Login");
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
         lblTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
         pnNorth.add(lblTitle);
+        */
 
         txtUser = new JTextField(24);
         txtPass = new JPasswordField(24);
 
         pnFields = new JPanel(new GridLayout(2, 2, 5, 10));
         pnFields.setBackground(Color.WHITE);
-        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
+        pnFields.setBorder(BorderFactory.createCompoundBorder(
+                new TitledBorder("Welcome to the Fraction Worksheet Creator!"),
+                new EmptyBorder(10, 10, 10, 10)));
         pnFields.add(new JLabel("Username:", SwingConstants.CENTER));
         pnFields.add(txtUser);
         pnFields.add(new JLabel("Password:", SwingConstants.CENTER));
@@ -55,7 +61,7 @@ public class LoginPanel extends JPanel {
         pnSouth.add(pnLogin, BorderLayout.NORTH);
         pnSouth.add(pnForgot, BorderLayout.SOUTH);
 
-        this.add(pnNorth, BorderLayout.NORTH);
+        //this.add(pnNorth, BorderLayout.NORTH);
         this.add(pnFields, BorderLayout.CENTER);
         this.add(pnSouth, BorderLayout.SOUTH);
     }

@@ -29,6 +29,28 @@ public class FWCConfigurator {
     public static final int ANSWER_SHEET = 2;
     public static final int ANSWER_ONLY = 3;
 
+    // Images in resources folder
+    public static final String TITLE_IMG = "title.png";
+    public static final String HELP_IMG = "help.png";
+    public static final String ACCOUNT_IMG = "myaccount.png";
+    public static final String LOGOUT_IMG = "logout.png";
+    public static final String HOME_IMG = "home.png";
+    public static final String TUTORIAL_IMG = "tutorial.png";
+    public static final String HISTORY_IMG = "history.png";
+    public static final String CLASSES_IMG = "classes.png";
+    public static final String PASSWORDS_IMG = "passwords.png";
+    public static final String TEACHER_HOME_IMG = "teacherhome.png";
+    public static final String BEG1_IMG = "beginnerPC.png";
+    public static final String BEG2_IMG = "beginnerAdd.png";
+    public static final String BEG3_IMG = "beginnerLG.png";
+    public static final String INT1_IMG = "intermediateAdd.png";
+    public static final String INT2_IMG = "intermediateSub.png";
+    public static final String INT3_IMG = "intermediateMD.png";
+    public static final String ADV1_IMG = "advancedAdd.png";
+    public static final String ADV2_IMG = "advancedSub.png";
+    public static final String ADV3_IMG = "advancedMD.png";
+
+
     public static void setTeacher(Teacher teacher) {
         FWCConfigurator.teacher = teacher;
     }
@@ -39,5 +61,17 @@ public class FWCConfigurator {
 
     public static void setAdmin(Admin admin) {
         FWCConfigurator.admin = admin;
+    }
+
+    public static Teacher getTeacher() {
+        return teacher;
+    }
+
+    public static Student getStudent() {
+        return student;
+    }
+
+    public static Admin getAdmin() {
+        return admin;
     }
 }

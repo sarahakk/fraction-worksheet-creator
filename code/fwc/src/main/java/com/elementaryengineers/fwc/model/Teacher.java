@@ -7,9 +7,14 @@ public class Teacher extends User {
 
     private int teacherID, minNumerator, maxNumerator, minDenominator, maxDenominator;
 
-    public Teacher(int teacherID, String user, String first, String last, String salt, String hash) {
+    public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
+                   int minNumerator, int maxNumerator, int minDenominator, int maxDenominator) {
         super(user, first, last, salt, hash);
         this.teacherID = teacherID;
+        this.minNumerator = minNumerator;
+        this.maxNumerator = maxNumerator;
+        this.minDenominator = minDenominator;
+        this.maxDenominator = maxDenominator;
     }
 
     public void setMinNumerator(int minNumerator) {
