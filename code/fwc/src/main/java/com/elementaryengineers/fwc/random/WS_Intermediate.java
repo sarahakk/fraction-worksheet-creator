@@ -44,7 +44,6 @@ public class WS_Intermediate extends WS_Master
     //==========================================================================
     private final List<Equation> equations = new ArrayList<>();
     private final char worksheetType;
-    private PDDocument document;
     //==========================================================================
                 
     //  Constructor  //

@@ -13,8 +13,6 @@ package com.elementaryengineers.fwc.random;
 //  Imports  //
 //------------------------------------------------------------------------------
 import java.io.IOException;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import java.util.Scanner;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 //------------------------------------------------------------------------------
@@ -105,12 +103,12 @@ public class WorksheetTester
 
                 case 2:
                 {
-/*                    System.out.println();
+                    System.out.println();
                     System.out.printf("--------------------------\n");
                     System.out.printf("---  Beg PicFrac Test  ---\n");
                     System.out.printf("--------------------------\n");
-                    WS_Beg_PicFrac worksheet = 
-                                   new WS_Beg_PicFrac (seedValue, 10, 
+                    WS_Beginner_Pie worksheet = 
+                                   new WS_Beginner_Pie (seedValue, 10, 
                                            1, 10, 
                                            3, 10,
                                            GEN_DENOM_UNMATCHED,
@@ -123,7 +121,9 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
-*/
+                    
+                    worksheet.CreateWorksheet(answerFlag);
+
                 }
                 break;  
                     

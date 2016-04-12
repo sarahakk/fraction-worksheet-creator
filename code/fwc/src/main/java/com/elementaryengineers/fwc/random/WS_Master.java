@@ -15,6 +15,7 @@ package com.elementaryengineers.fwc.random;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.edit.*;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -35,6 +36,7 @@ abstract class WS_Master
     //==========================================================================
     protected List<Fraction> fractions; 
     protected int seed;
+    protected PDDocument document;
     //==========================================================================
                 
     //  Constructor  //
