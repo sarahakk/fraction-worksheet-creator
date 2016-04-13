@@ -6,7 +6,6 @@ import com.elementaryengineers.fwc.db.FWCConfigurator;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,13 +19,12 @@ public class CommonHeaderPanel extends JPanel {
     private JPanel pnButton;
     private JLabel lblTitle;
     private ImageButton btnHelp, btnAccount, btnLogout;
-    private JButton btnExit;
     private UserMenu menu;
 
     public CommonHeaderPanel() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         buildButtons();
         buildTitleLabel();
 
@@ -38,20 +36,12 @@ public class CommonHeaderPanel extends JPanel {
         // TODO each image needs to be checked for existence before building the buttons
 
         // Create right-aligned top panel of buttons
-        pnButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButton.setBackground(Color.WHITE);
 
         btnHelp = new ImageButton(FWCConfigurator.HELP_IMG, 150, 50);
         btnAccount = new ImageButton(FWCConfigurator.ACCOUNT_IMG, 150, 50);
         btnLogout = new ImageButton(FWCConfigurator.LOGOUT_IMG, 150, 50);
-        btnExit = new JButton("Exit");
-        btnExit.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
 
         btnAccount.setVisible(false);
         btnLogout.setVisible(false);
@@ -59,7 +49,6 @@ public class CommonHeaderPanel extends JPanel {
         pnButton.add(btnHelp);
         pnButton.add(btnAccount);
         pnButton.add(btnLogout);
-        pnButton.add(btnExit);
     }
 
     private void buildTitleLabel() {
@@ -100,13 +89,11 @@ public class CommonHeaderPanel extends JPanel {
     }
 
     public void showButtonsLoggedIn() {
-        btnExit.setVisible(false);
         btnAccount.setVisible(true);
         btnLogout.setVisible(true);
     }
 
     public void showButtonsLoggedOut() {
-        btnExit.setVisible(true);
         btnAccount.setVisible(false);
         btnLogout.setVisible(false);
     }

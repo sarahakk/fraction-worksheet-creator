@@ -18,9 +18,9 @@ public class ImageButton extends JButton {
 
     public ImageButton(String filename, int width, int height) {
         this.setText(null);
+        this.setBorderPainted(false); // Remove default JButton border
 
         // Get icon of image pointed to by filename
-
         try {
             URL imgURL = ImageButton.class.getClassLoader().getResource("images/" + filename);
             BufferedImage imgBuff = ImageIO.read(imgURL);
@@ -33,14 +33,5 @@ public class ImageButton extends JButton {
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        this.setFocusPainted(false);
-        this.setRolloverEnabled(false);
-        this.setOpaque(false);
-        this.setContentAreaFilled(false);
-        this.setBorderPainted(false);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE.darker(), Color.BLACK),
-                BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
     }
 }

@@ -4,6 +4,8 @@ import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,11 +39,16 @@ public class FWCMainFrame extends JFrame {
 
     private void buildPanels() {
         header = new CommonHeaderPanel();
-        header.setSize(1000, 300);
+        header.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
 
         // Use card layout for central area of frame
         cardLayout = new CardLayout();
         pnCard = new JPanel(cardLayout); // Set card layout for card panel
+        pnCard.setBackground(Color.WHITE);
+        pnCard.setBorder(BorderFactory.createCompoundBorder(
+                new MatteBorder(5, 0, 0, 0, Color.BLACK),
+                new EmptyBorder(10, 0, 0, 0))
+        );
 
         login = new LoginPanel();
         login.setPreferredSize(new Dimension(50, 250));
@@ -56,7 +63,7 @@ public class FWCMainFrame extends JFrame {
                             1, 10, 3, 10));
                             //1, 16, 2, 16));
                     buildTeacherPanels();
-                    setSize(new Dimension(1000, 700));
+                    setSize(new Dimension(1000, 800));
                     setLocationRelativeTo(null);
                     cardLayout.show(pnCard, "TeacherHome");
                 }

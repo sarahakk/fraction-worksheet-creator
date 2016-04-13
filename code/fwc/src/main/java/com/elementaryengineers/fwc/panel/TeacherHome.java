@@ -31,7 +31,7 @@ public class TeacherHome extends JPanel {
     public TeacherHome() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
-        //setPreferredSize(new Dimension(800, 500));
+        //setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -40,9 +40,10 @@ public class TeacherHome extends JPanel {
         pnNorth.add(lblTitle);
 
         // Build buttons and center panel
-        pnButtons = new JPanel(new GridLayout(3, 3, 0, 10));
+        pnButtons = new JPanel(new GridBagLayout());
         pnButtons.setBackground(Color.WHITE);
-        pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 20, 30, 20));
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 15, 0));
+        GridBagConstraints c = new GridBagConstraints();
 
         // Make beginner buttons
         btnBeg1 = new ImageButton(FWCConfigurator.BEG1_IMG, 200, 100);
@@ -69,15 +70,25 @@ public class TeacherHome extends JPanel {
         btnAdv3.addActionListener(new AdvancedActionListener());
 
         // Add buttons to center panel
-        pnButtons.add(btnBeg1);
-        pnButtons.add(btnInt1);
-        pnButtons.add(btnAdv1);
-        pnButtons.add(btnBeg2);
-        pnButtons.add(btnInt2);
-        pnButtons.add(btnAdv2);
-        pnButtons.add(btnBeg3);
-        pnButtons.add(btnInt3);
-        pnButtons.add(btnAdv3);
+        pnButtons.add(btnBeg1, c);
+        c.gridy = 1;
+        pnButtons.add(btnBeg2, c);
+        c.gridy = 2;
+        pnButtons.add(btnBeg3, c);
+        c.gridy = 0;
+        c.gridx = 1;
+        pnButtons.add(btnInt1, c);
+        c.gridy = 1;
+        pnButtons.add(btnInt2, c);
+        c.gridy = 2;
+        pnButtons.add(btnInt3, c);
+        c.gridy = 0;
+        c.gridx = 2;
+        pnButtons.add(btnAdv1, c);
+        c.gridy = 1;
+        pnButtons.add(btnAdv2, c);
+        c.gridy = 2;
+        pnButtons.add(btnAdv3, c);
 
         // Add north and center panel to TeacherHome
         this.add(pnNorth, BorderLayout.NORTH);

@@ -9,7 +9,7 @@ import java.awt.*;
 public class UserMenu extends JPanel {
 
     public UserMenu() {
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setBackground(Color.WHITE);
     }
 }
