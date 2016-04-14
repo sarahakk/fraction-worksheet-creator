@@ -1,3 +1,5 @@
 /code/RNG/random/nbproject/private/
 /code/RNG/random/build/
 /code/fwc/target/
+*.iml
+/code/fwc/.idea
