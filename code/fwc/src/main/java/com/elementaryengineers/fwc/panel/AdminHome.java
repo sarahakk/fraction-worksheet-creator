@@ -19,7 +19,7 @@ public class AdminHome extends JFrame {
         Vector row;
         Vector data=new Vector();
         /*
-        DatabaseConnection ob=new DatabaseConnection();
+        FWCDatabaseConnection ob=new FWCDatabaseConnection();
         Connection con=ob.c();
         Statement stm=con.createStatement();
         ResultSet rst=stm.executeQuery("select * from user");

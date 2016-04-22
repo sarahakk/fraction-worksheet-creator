@@ -12,7 +12,7 @@ package com.elementaryengineers.fwc.db;
  */
 import java.sql.*;
 
-public class DatabaseConnection {
+public class FWCDatabaseConnection implements DatabaseConnection {
  
     public void c() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");

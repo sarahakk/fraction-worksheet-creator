@@ -1,20 +1,27 @@
 package com.elementaryengineers.fwc.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by sarahakk on 4/10/16.
  */
 public class Teacher extends User {
 
     private int teacherID, minNumerator, maxNumerator, minDenominator, maxDenominator;
+    private ArrayList<Class> classes;
+    private ArrayList<Worksheet> history;
 
     public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
-                   int minNumerator, int maxNumerator, int minDenominator, int maxDenominator) {
+                   int minNumerator, int maxNumerator, int minDenominator, int maxDenominator,
+                   ArrayList<Class> classes, ArrayList<Worksheet> history) {
         super(user, first, last, salt, hash);
         this.teacherID = teacherID;
         this.minNumerator = minNumerator;
         this.maxNumerator = maxNumerator;
         this.minDenominator = minDenominator;
         this.maxDenominator = maxDenominator;
+        this.classes = classes;
+        this.history = history;
     }
 
     public void setMinNumerator(int minNumerator) {
@@ -51,5 +58,23 @@ public class Teacher extends User {
 
     public int getMaxDenominator() {
         return maxDenominator;
+    }
+
+    public ArrayList<Class> getClasses() {
+        return classes;
+    }
+
+    public ArrayList<Worksheet> getHistory() {
+        return history;
+    }
+
+    public boolean createTeacher() {
+        // TODO: talk to database
+        return true;
+    }
+
+    public boolean deleteTeacher() {
+        // TODO: talk to database
+        return true;
     }
 }

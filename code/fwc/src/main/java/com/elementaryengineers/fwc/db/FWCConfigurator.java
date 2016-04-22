@@ -9,7 +9,7 @@ import com.elementaryengineers.fwc.model.Teacher;
  */
 public class FWCConfigurator {
 
-    private static DatabaseConnection dbConn;
+    private static FWCDatabaseConnection dbConn;
 
     private static Teacher teacher;
     private static Student student;

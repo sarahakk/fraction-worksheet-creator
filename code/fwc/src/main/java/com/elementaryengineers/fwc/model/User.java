@@ -17,9 +17,35 @@ public class User {
         this.password = new EncryptedPassword(hash, salt);
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public boolean verifyLogin(String pass) {
         return password.checkPassword(pass);
     }
 
-
+    public boolean resetPassword(String newPassword) {
+        return true;
+    }
 }
