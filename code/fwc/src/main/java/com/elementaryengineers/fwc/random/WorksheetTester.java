@@ -129,12 +129,12 @@ public class WorksheetTester
                     
                 case 3:
                 {
-/*                    System.out.println();
+                    System.out.println();
                     System.out.printf("--------------------------\n");
                     System.out.printf("---  Beg PicAdd Test   ---\n");
                     System.out.printf("--------------------------\n");
-                    WS_Beg_PicAdd worksheet = 
-                                   new WS_Beg_PicAdd (seedValue, 20, 
+                    WS_Beginner_PieAdd worksheet = 
+                                   new WS_Beginner_PieAdd (seedValue, 20, 
                                            1, 10, 
                                            2, 10,
                                            GEN_DENOM_MATCHED,
@@ -147,7 +147,9 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
-*/
+                    
+                    worksheet.CreateWorksheet(answerFlag);
+
                 }
                 break;
                     
