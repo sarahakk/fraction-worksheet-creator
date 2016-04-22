@@ -1,7 +1,7 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //  Class        :  Equation
 //  Author       :  Eric Holm
-//  Version      :  1.0.0
+//  Version      :  1.1.0
 //  Description  :  Class to build equations used for the worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -213,7 +213,7 @@ public class Equation
         tempFrac = new Fraction(tempNum, tempDen);
         
         //  Reduce to lowest terms.
-        tempFrac.lowestTerms();
+        tempFrac.convertLowestTerms();
         
         //  Return the answer
         return tempFrac;
@@ -236,7 +236,7 @@ public class Equation
         tempFrac = new Fraction(tempNum, tempDen);
         
         //  Reduce to lowest terms.
-        tempFrac.lowestTerms();
+        tempFrac.convertLowestTerms();
         
         //  Return the answer
         return tempFrac;

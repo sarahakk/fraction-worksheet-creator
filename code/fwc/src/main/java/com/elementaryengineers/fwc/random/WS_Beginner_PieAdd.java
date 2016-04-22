@@ -53,14 +53,12 @@ public class WS_Beginner_PieAdd extends WS_Master
     public WS_Beginner_PieAdd (int seedValue, int num_fractions, 
                                          int min_num, int max_num, 
                                          int min_den, int max_den,
-                                         int gen_denom_flag,
-                                         int gen_whole_flag)
+                                         int gen_masterFlag)
     {
         //  Obtain the needed fractions from the generator.
         super(seedValue, num_fractions, 
               min_num, max_num, min_den, max_den, 
-              gen_denom_flag,
-              gen_whole_flag);
+              gen_masterFlag);
         
         //  Create the equations and set up the operator to be used
         for (int count = 0; count < num_fractions; )

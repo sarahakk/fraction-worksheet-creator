@@ -51,15 +51,13 @@ public class WS_Advanced extends WS_Master
     public WS_Advanced (int seedValue, int num_fractions, 
                                          int min_num, int max_num, 
                                          int min_den, int max_den,
-                                         int gen_denom_flag,
-                                         int gen_whole_flag,
+                                         int gen_masterFlag,
                                          char worksheetType)
     {
         //  Obtain the needed fractions from the generator.
         super(seedValue, num_fractions, 
               min_num, max_num, min_den, max_den, 
-              gen_denom_flag,
-              gen_whole_flag);
+              gen_masterFlag);
         
         //  Intermediate Worksheets can all be created from this one class.
         //  The worksheetType flag differentiates the three.

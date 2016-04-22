@@ -1,7 +1,7 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //  Class       :  Fraction
 //  Author      :  Eric Holm
-//  Version     :  1.0.0
+//  Version     :  1.1.0 (FINAL)
 //  Description :  Class to contain a fraction
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -15,8 +15,11 @@ public final class Fraction
 {
     //  Class Variables  //
     //==========================================================================
-    private int numerator;                      //  Contains the numerator
-    private int denominator;                    //  Contains the denominator
+    private int mixedWhole;             //  Contains mixed value whole portion
+    private int mixedNum;               //  Contains mixed value numerator
+    private int mixedDen;               //  Contains mixed value denominator
+    private int numerator;              //  Contains the numerator
+    private int denominator;            //  Contains the denominator
     //==========================================================================
     
     //  Constructor  //
@@ -35,31 +38,25 @@ public final class Fraction
     {
         this.numerator   = numerator;
         this.denominator = denominator;
+        setMixedFraction();
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
-    //  getNumerator  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Return the fraction numerator
-    public int getNumerator()
+    //  setMixedFraction  //
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Sets the values of the mixed version of the fraction
+    private void setMixedFraction()
     {
-        return numerator;
+        mixedNum = numerator;
+        mixedDen = denominator;
+        convertMixed();
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
-    //  getDenominator  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Return the fraction denominator
-    public int getDenominator()
-    {
-        return denominator;
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    //  lowestTerms  //
+    //  convertLowestTerms  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //  Reduces a fraction to lowest terms
-    public void lowestTerms()
+    public void convertLowestTerms()
     {
         //  Method Variables  //
         //======================================================================
@@ -83,13 +80,79 @@ public final class Fraction
         denominator = denominator / gcf;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+    
+    //  convertMixed  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Converts fraction into mixed fraction
+    public void convertMixed()
+    {
+        while (mixedNum >= mixedDen)
+        {
+            mixedNum = mixedNum - mixedDen;
+            mixedWhole++;
+        }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getNumerator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the fraction numerator
+    public int getNumerator()
+    {
+        return numerator;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getDenominator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the fraction denominator
+    public int getDenominator()
+    {
+        return denominator;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getMixedNumerator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the numerator of the Mixed Fraction
+    public int getMixedNumerator()
+    {
+        return mixedNum;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getMixedDenominator  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the denominator of the Mixed Fraction
+    public int getMixedDenominator()
+    {
+        return mixedDen;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  getMixedWhole  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Return the whole portion of the Mixed Fraction
+    public int getMixedWhole()
+    {
+        return mixedWhole;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @Override
     public String toString()
     {
         return String.format("%d / %d", numerator, denominator);
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  toStringMixed  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public String toStringMixed()
+    {
+        return String.format("%d %d / %d", mixedWhole, mixedNum, mixedDen);
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
