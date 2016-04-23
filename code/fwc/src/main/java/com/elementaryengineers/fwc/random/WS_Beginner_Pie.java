@@ -128,7 +128,7 @@ public class WS_Beginner_Pie extends WS_Master
         //  Starting location for the problem numbers and equal signs
         contentStream.moveTextPositionByAmount(30, 500);
         
-        //  Print the problem number text
+        //  Print the problem number text and the operators
         while (pies.hasNext())
         {
             //  Makes a 2nd column of problem text after the first 5.
@@ -147,20 +147,19 @@ public class WS_Beginner_Pie extends WS_Master
             //  Print the problem number
             contentStream.drawString(String.format("%d)", fractionCount + 1));
             
-            //  Move the cursor
-            contentStream.moveTextPositionByAmount(135, -15);
-            
             //  Parameters for printing the equals signs
             contentStream.setFont(font, 20);                    // Size
             contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
             
-            //  Print the equal sign
+            //  Move the cursor and print the equals sign
+            contentStream.moveTextPositionByAmount(135, -15);
             contentStream.drawString(String.format("="));
             
             //  Determines if the answers should be printed
             if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
                 //  Parameters for printing the answer fraction
+                contentStream.setFont(font, 20);                // Size
                 contentStream.setNonStrokingColor(255, 0, 0);   // Color - Red
                 
                 //  Print the values for the answer fraction
@@ -170,18 +169,12 @@ public class WS_Beginner_Pie extends WS_Master
                 contentStream.moveTextPositionByAmount(0, -20);
                 contentStream.drawString(String.format("%d", 
                                                 thisPie.getDenominator()));
+                //  Move cursor back
+                contentStream.moveTextPositionByAmount(-40, 10);
             }
-            
-            //  Determines how far to move the cursor for the next problem.
-            //  Based on if the answers are being printed or not.
-            if (answerFlag == WORKSHEET_ONLY)
-            {
-                contentStream.moveTextPositionByAmount(-135, -85);
-            }
-            else
-            {
-                contentStream.moveTextPositionByAmount(-175, -75);
-            }
+
+            //  Move the cursor for the next line
+            contentStream.moveTextPositionByAmount(-135, -85);
 
             //  Increment the answer number value
             fractionCount++;
@@ -195,8 +188,8 @@ public class WS_Beginner_Pie extends WS_Master
         
         //  Print all of the lines between fractions
         //  Starting locations for the lines
-        int startX = 75;
-        int endX   = 97;
+        int startX = 205;
+        int endX   = 227;
         int lineY  = 490;
 
         //  Draw lines for the answersheet fractions
@@ -206,8 +199,8 @@ public class WS_Beginner_Pie extends WS_Master
             for (int count = 0; count < fractionCount / 2; count++)
             {
                 contentStream.setStrokingColor(255, 0, 0);
-                contentStream.drawLine(startX + 130, lineY, endX + 130, lineY);
-                contentStream.drawLine(startX + 430, lineY, endX + 430, lineY);
+                contentStream.drawLine(startX, lineY, endX, lineY);
+                contentStream.drawLine(startX + 300, lineY, endX + 300, lineY);
                 
                 //  Move to the next line
                 lineY = lineY - 100;

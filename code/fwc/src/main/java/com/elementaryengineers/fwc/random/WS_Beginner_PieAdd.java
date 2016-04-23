@@ -1,8 +1,8 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//  Class        :  WS_Beginner_PieAdd
-//  Author       :  Eric Holm
-//  Version      :  1.0.0
-//  Description  :  Class for Beginner Pie Addition Worksheets
+//  Class       :  WS_Beginner_PieAdd
+//  Author      :  Eric Holm
+//  Version     :  1.1.0 (FINAL)
+//  Description :  Class for Beginner Pie Addition Worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -60,7 +60,8 @@ public class WS_Beginner_PieAdd extends WS_Master
         //  Two fractions are consumed with each pass through the loop
         for (int count = 0; count < num_fractions; )
         {
-            Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), '+');
+            Equation newEq = new Equation(fractions.get(count), 
+                                          fractions.get(count+1), '+');
             equations.add(newEq);
             count = count + 2;
         }
@@ -75,9 +76,21 @@ public class WS_Beginner_PieAdd extends WS_Master
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Creates the example section
     @Override
-    protected void genExample(PDPageContentStream contentStream) throws IOException
+    protected void genExample(PDPageContentStream contentStream) 
+                              throws IOException
     {
         contentStream.drawLine(10, 550, 600, 550);
+        
+        int imageX = 0;
+        int imageY = 560;
+        
+        String filename = 
+                String.format("src/main/resources/images/BeginnerExample2.jpg"); 
+            
+        //  Add the example image to the document
+        PDXObjectImage image = new PDJpeg(document, 
+                                          new FileInputStream(filename));
+        contentStream.drawXObject(image, imageX, imageY, 600, 120);
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
@@ -98,17 +111,17 @@ public class WS_Beginner_PieAdd extends WS_Master
         
         //  IMAGES  //
 //        System.out.println("Printing IMAGES");
-        int imageX = 60;
-        int imageY = 440;
+        int imageX = 50;
+        int imageY = 450;
 
         //  Print all the Fractions for each problem.
         while (problems.hasNext())
         {
-            //  Makes a 2nd column of problems after the first 5.
+            //  Move to a 2nd column after the first five problems
             if (equationCount == 5)
             {
-                imageX = 360;
-                imageY = 440;
+                imageX = 350;
+                imageY = 450;
             }
             
             //  Grab the next equation and the associated pictures
@@ -129,13 +142,13 @@ public class WS_Beginner_PieAdd extends WS_Master
                                                new FileInputStream(filename1));
             PDXObjectImage image2 = new PDJpeg(document, 
                                                new FileInputStream(filename2));
-            contentStream.drawXObject(image1, imageX, imageY, 75, 75);
-            contentStream.drawXObject(image2, imageX + 100, imageY, 75, 75);
+            contentStream.drawXObject(image1, imageX, imageY, 70, 70);
+            contentStream.drawXObject(image2, imageX + 80, imageY, 70, 70);
             imageY = imageY - 100;
             equationCount++;
         }
         
-        //  Reset variables for 2nd pass
+        //  Reset variables for TEXT pass
         problems = equations.iterator();
         equationCount = 0;
         
@@ -143,10 +156,10 @@ public class WS_Beginner_PieAdd extends WS_Master
 //        System.out.println("Printing TEXT");
         contentStream.beginText();
 
-        //  Starting location for the text portion
-        contentStream.moveTextPositionByAmount(30, 500);
+        //  Starting location for the problem numbers and equal signs
+        contentStream.moveTextPositionByAmount(20, 500);
         
-        //  Print the problem number text
+        //  Print the problem number text and the operators
         while (problems.hasNext())
         {
             //  Makes a 2nd column of problem text after the first 5.
@@ -170,40 +183,68 @@ public class WS_Beginner_PieAdd extends WS_Master
             contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
             
             //  Move the cursor & print the operator
-            contentStream.moveTextPositionByAmount(110, -27);
+            contentStream.moveTextPositionByAmount(99, -20);
             contentStream.drawString(String.format("+"));
             
             //  Move the cursor & print the equal sign
-            contentStream.moveTextPositionByAmount(95, 0);
+            contentStream.moveTextPositionByAmount(80, 0);
             contentStream.drawString(String.format("="));
 
             //  Determines if the answers should be printed
             if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
                 //  Parameters for printing the answer fraction
+                contentStream.setFont(font, 20);                // Size
                 contentStream.setNonStrokingColor(255, 0, 0);   // Color - Red
                 
                 //  Print the values for the answer fraction
-                contentStream.moveTextPositionByAmount(30, 10);
+                contentStream.moveTextPositionByAmount(20, 10);
                 Fraction thisFr = thisEq.getFraction(ANSWER);
                 contentStream.drawString(String.format("%d", 
                                          thisFr.getNumerator()));
                 contentStream.moveTextPositionByAmount(0, -20);
                 contentStream.drawString(String.format("%d", 
                                          thisFr.getDenominator()));
+                
+                //  Print mixed fraction values for answer as well
+                if (thisFr.getMixedWhole() > 0)
+                {
+                    //  Parameters for printing the answer fraction
+                    contentStream.setFont(font, 14);                // Size
+                    contentStream.setNonStrokingColor(255, 0, 0);   // Red
+                    
+                    //  Print the whole portion
+                    contentStream.moveTextPositionByAmount(30, 10);
+                    contentStream.drawString(String.format("or %d",
+                                             thisFr.getMixedWhole()));
+                    
+                    //  If there is an additional fractional portion
+                    if (thisFr.getMixedNumerator() > 0)
+                    {
+                        //  Print numerator and denominator
+                        contentStream.moveTextPositionByAmount(40, 10);
+                        contentStream.drawString(String.format("%d",
+                                                 thisFr.getMixedNumerator()));
+                        contentStream.moveTextPositionByAmount(0, -20);
+                        contentStream.drawString(String.format("%d",
+                                                 thisFr.getMixedDenominator()));
+                        
+                        //  Move cursor back (Fractional Value)
+                        contentStream.moveTextPositionByAmount (-40, 10);
+                    }
+                    
+                    //  Move cursor back (Whole Value)
+                    contentStream.moveTextPositionByAmount(-30, -10);
+                }
+                
+                //  Move cursor back (Answers)
+                contentStream.moveTextPositionByAmount(-20, 10);
+                
             }
 
-            //  Determines how far to move the cursor for the next problem.
-            //  Based on if the answers are being printed or not.
-            if (answerFlag == WORKSHEET_ONLY)
-            {
-                contentStream.moveTextPositionByAmount(-195, -73);
-            }
-            else
-            {
-                contentStream.moveTextPositionByAmount(-235, -63);
-            }
-
+            //  Move the cursor for the next line
+            contentStream.moveTextPositionByAmount(-179, -80);
+            
             //  Increment the answer number value
             equationCount++;
         }
@@ -212,26 +253,66 @@ public class WS_Beginner_PieAdd extends WS_Master
         contentStream.endText();
         
         //  LINES  //
-        
+//        System.out.println("Printing LINES");
+                
         //  Print all of the lines between fractions
         //  Starting locations for the lines
-        int startX = 135;
-        int endX   = 157;
-        int lineY  = 478;
+        int startX = 218;
+        int endX   = 240;
+        int lineY  = 485;
 
-        //  Draw lines for everything on one line.
-        //  This includes four fractions and two answers (if answersheet)
-        for (int count = 0; count < equationCount / 2; count++)
+        //  Draw lines for both answers on one line
+        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
         {
-            if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
+            for (int count = 0; count < equationCount / 2; count++)
             {
                 contentStream.setStrokingColor(255, 0, 0);
-                contentStream.drawLine(startX + 130, lineY, endX + 130, lineY);
-                contentStream.drawLine(startX + 430, lineY, endX + 430, lineY);
+                contentStream.drawLine(startX, lineY, endX, lineY);
+                contentStream.drawLine(startX + 300, lineY, endX + 300, lineY);
+                
+                //  Move to the next line
+                lineY = lineY - 100;
             }
- 
-            //  Move to the next line
-            lineY = lineY - 100;
+        }
+        
+        //  Reset variables for LINES pass (Mixed Fraction Lines)
+        problems = equations.iterator();
+        equationCount = 0;
+        
+        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
+        {
+            //  Reset line variables
+            startX = 288;
+            endX   = 298;
+            lineY  = 485;
+        
+            //  Draw lines for the mixed fractions
+            while (problems.hasNext())
+            {
+                if (equationCount == 5)
+                {
+                    startX = 588;
+                    endX = 598;
+                    lineY = 485;
+                }
+            
+                //  Grab the next equation and just the answer
+                Equation thisEq = problems.next();
+                Fraction thisFr = thisEq.getFraction(ANSWER);
+            
+                //  Draw only if there is a mixed fraction that requires it
+                if ((thisFr.getMixedWhole() > 0) && 
+                    (thisFr.getMixedNumerator() > 0))
+                {
+                    contentStream.setStrokingColor(255, 0, 0);
+                    contentStream.drawLine(startX, lineY, endX, lineY);
+                }
+            
+                //  Move to the next line
+                lineY = lineY - 100;
+            
+                equationCount++;
+            }
         }
     }      
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
