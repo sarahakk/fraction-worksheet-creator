@@ -1,8 +1,8 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//  Class        :  Equation
-//  Author       :  Eric Holm
-//  Version      :  1.1.0
-//  Description  :  Class to build equations used for the worksheets
+//  Class       :  Equation
+//  Author      :  Eric Holm
+//  Version     :  1.1.0 (FINAL)
+//  Description :  Class to build equations used for the worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -47,12 +47,6 @@ public class Equation
     {
         switch (operator)
         {
-            //  Answers for Beginning Pie Addition Problems
-            case 'B':
-            {
-                return genAnswerAdditionPie();
-            }
-            
             //  Answers for Addition Problems
             case '+':
             {
@@ -77,45 +71,9 @@ public class Equation
                 return genAnswerDivision();
             }
         }
-        
+
+        //  Error State - Should never be reached
         return null;
-    }
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    
-    //  genAnswerPieAddition  //
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    //  Answer generation for Beginner Pie Addition.
-    //  Reduces fractions to ensure they add up to no more than 1.
-    private Fraction genAnswerAdditionPie()
-    {
-        //  Method Variables  //
-        //======================================================================
-        Fraction tempFrac;
-        //======================================================================
-        
-        //  Test numerators
-        //  If they add up to more then 1.  Reduce them.
-        while ((fraction1.getNumerator() + fraction2.getNumerator()) 
-                                                 > fraction2.getDenominator())
-        {
-            if (fraction1.getNumerator() > fraction2.getNumerator())
-            {
-                fraction1.setFraction(fraction2.getNumerator() - 1, fraction1.getDenominator());
-            }
-            else
-            {
-                fraction2.setFraction(fraction1.getNumerator() - 1, fraction2.getDenominator());
-            }
-        }
-        
-        //  After ensuring the fractions don't add up to more than one...
-        //  Create an answer fraction object to hold the data.
-        int tempNum = fraction1.getNumerator() + fraction2.getNumerator();
-        int tempDen = fraction1.getDenominator();
-        tempFrac = new Fraction(tempNum, tempDen);
-        
-        //  Return the answer
-        return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
@@ -124,29 +82,37 @@ public class Equation
     //  Addition of two fractions
     private Fraction genAnswerAddition()
     {
-        //  Method Variables  //
-        //======================================================================
-        Fraction tempFrac;
-        //======================================================================
+        //  Grab all the values needed.
+        int num1 = fraction1.getNumerator();
+        int num2 = fraction2.getNumerator();
+        int den1 = fraction1.getDenominator();
+        int den2 = fraction2.getDenominator();
+        //  Containers for the final values
+        int addNum;
+        int addDen;
         
-        //  Test denominators
-        //  If equal it's a simple addition of the numerators
-        if (fraction1.getDenominator() == fraction2.getDenominator())
+        //  Common denominators
+        if (den1 == den2)
         {
-            //  Add numerators and pass the denominator
-            int tempNum = fraction1.getNumerator() + fraction2.getNumerator();
-            int tempDen = fraction1.getDenominator();
-            tempFrac = new Fraction(tempNum, tempDen);
+            //  Add the numerators and pass along the denominator
+            addNum = num1 + num2;
+            addDen = den1;
         }
+        //  Mixed denominators
         else
         {
-            //  Error Statement
-            //  Since right now the only fractions being produced have a
-            //  common denominator
-            tempFrac = new Fraction(0,0);
+            //  Multiply the denominators to make them common
+            addDen = den1 * den2;
+            //  Multiply by common denominator and divide by the original one
+            int tempNum1 = (num1 * addDen) / den1;
+            int tempNum2 = (num2 * addDen) / den2;
+            //  Add the new numerators togeter to get result
+            addNum = tempNum1 + tempNum2;
         }
         
-        //  Return the answer
+        //  Reduce fraction to lowest terms and return it
+        Fraction tempFrac = new Fraction(addNum, addDen);
+//        tempFrac.convertLowestTerms();
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -156,43 +122,58 @@ public class Equation
     //  Subtraction of two fractions
     private Fraction genAnswerSubtraction()
     {
-        //  Method Variables  //
-        //======================================================================
-        Fraction tempFrac;
-        //======================================================================
+        //  Grab all the values needed.
+        int num1 = fraction1.getNumerator();
+        int num2 = fraction2.getNumerator();
+        int den1 = fraction1.getDenominator();
+        int den2 = fraction2.getDenominator();
+        //  Containers for the final values
+        int subNum;
+        int subDen;
         
-        //  Test denominators
-        //  If equal then it's an easier form of subtraction
-        if (fraction1.getDenominator() == fraction2.getDenominator())
+        //  Common Denominators
+        if (den1 == den2)
         {
             //  Test numerators
-            //  To avoid negative answers we will swap them if the 2nd numerator
-            //  is greater than the 1st.
-            if (fraction1.getNumerator() < fraction2.getNumerator())
+            //  Swap them if the result of subtraction would be a negative value
+            if (num1 < num2)
             {
-                //  Hold Fraction1s numerator
-                int holdNum = fraction1.getNumerator();
-                //  Move Fraction2s numerator to Fraction1
-                fraction1.setFraction(fraction2.getNumerator(), 
-                                      fraction1.getDenominator());
-                //  Move Fraction1s numerator to Fraction2
-                fraction2.setFraction(holdNum, fraction1.getDenominator());
+                fraction1.setFraction(num2, den1);
+                fraction2.setFraction(num1, den2);
             }
             
-            //  Subtract numerators and pass the denominator
-            int tempNum = fraction1.getNumerator() - fraction2.getNumerator();
-            int tempDen = fraction1.getDenominator();
-            tempFrac = new Fraction(tempNum, tempDen);
+            //  Subtract the numerators and pass along the denominator
+            subNum = num1 - num2;
+            subDen = den1;
         }
         else
         {
-            //  Error Statement
-            //  Since right now the only fractions being produced have a
-            //  common denominator
-            tempFrac = new Fraction(0,0);
+            //  Multiply the denominators to make them common
+            subDen = den1 * den2;
+            //  Multiply by common denominator and divide by the original one
+            int tempNum1 = (num1 * subDen) / den1;
+            int tempNum2 = (num2 * subDen) / den2;
+            
+            //  Test numerators
+            //  Swap them if the result of subtraction would be a negative value
+            if (tempNum1 < tempNum2)
+            {
+                int tempHold = tempNum1;
+                tempNum1 = tempNum2;
+                tempNum2 = tempHold;
+                
+                //  Swap original fractions as well so they appear correctly
+                fraction1.setFraction(num2, den2);
+                fraction2.setFraction(num1, den1);
+            }
+            
+            //  Subtract the new numerators togeter to get result
+            subNum = tempNum1 - tempNum2;
         }
         
-        //  Return the answer
+        //  Reduce fraction to lowest terms and return it
+        Fraction tempFrac = new Fraction(subNum, subDen);
+        tempFrac.convertLowestTerms();
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -202,20 +183,22 @@ public class Equation
     //  Multiplication of two fractions
     private Fraction genAnswerMultiplication()
     {
-        //  Method Variables  //
-        //======================================================================
-        Fraction tempFrac;
-        //======================================================================
+        //  Grab all the values needed.
+        int num1 = fraction1.getNumerator();
+        int num2 = fraction2.getNumerator();
+        int den1 = fraction1.getDenominator();
+        int den2 = fraction2.getDenominator();
+        //  Containers for the final values
+        int multiNum;
+        int multiDen;
         
         //  Multiply numerators and denominators
-        int tempNum = fraction1.getNumerator() * fraction2.getNumerator();
-        int tempDen = fraction1.getDenominator() * fraction2.getDenominator();
-        tempFrac = new Fraction(tempNum, tempDen);
+        multiNum = num1 * num2;
+        multiDen = den1 * den2;
         
-        //  Reduce to lowest terms.
+        //  Reduce fraction to lowest terms and return it
+        Fraction tempFrac = new Fraction(multiNum, multiDen);
         tempFrac.convertLowestTerms();
-        
-        //  Return the answer
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -225,20 +208,22 @@ public class Equation
     //  Division of two fractions
     private Fraction genAnswerDivision()
     {
-        //  Method Variables  //
-        //======================================================================
-        Fraction tempFrac;
-        //======================================================================
-
+        //  Grab all the values needed.
+        int num1 = fraction1.getNumerator();
+        int num2 = fraction2.getNumerator();
+        int den1 = fraction1.getDenominator();
+        int den2 = fraction2.getDenominator();
+        //  Containers for the final values
+        int divNum;
+        int divDen;
+        
         //  Cross multiply numerators and denominators
-        int tempNum = fraction1.getNumerator() * fraction2.getDenominator();
-        int tempDen = fraction1.getDenominator() * fraction2.getNumerator();
-        tempFrac = new Fraction(tempNum, tempDen);
+        divNum = num1 * den2;
+        divDen = num2 * den1;
         
-        //  Reduce to lowest terms.
+        //  Reduce fraction to lowest terms and return it
+        Fraction tempFrac = new Fraction(divNum, divDen);
         tempFrac.convertLowestTerms();
-        
-        //  Return the answer
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -269,16 +254,8 @@ public class Equation
     @Override
     public String toString()
     {
-        char tempOperator = operator;
-        
-        //  Converts the temp operator for Beginner Pie Addition to the '+' sign
-        if (tempOperator == 'B')
-        {
-            tempOperator = '+';
-        }
-        
         return String.format("%s %c %s = %s", 
-                              fraction1.toString(), tempOperator, 
+                              fraction1.toString(), operator, 
                               fraction2.toString(), answer.toString());
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

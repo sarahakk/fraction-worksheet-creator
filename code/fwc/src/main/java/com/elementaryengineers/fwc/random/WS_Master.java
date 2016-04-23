@@ -1,8 +1,8 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//  Class        :  WS_Master
-//  Author       :  Eric Holm
-//  Version      :  1.0.0
-//  Description  :  Abstract Class for all Worksheets
+//  Class       :  WS_Master
+//  Author      :  Eric Holm
+//  Version     :  1.1.0 (FINAL)
+//  Description :  Abstract Class for all Worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -12,10 +12,14 @@ package com.elementaryengineers.fwc.random;
 
 //  Imports  //
 //------------------------------------------------------------------------------
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.*;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -42,15 +46,16 @@ abstract class WS_Master
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public WS_Master (int seedValue, int num_fractions, 
-                                      int min_num, int max_num, 
-                                      int min_den, int max_den,
-                                      int gen_masterFlag)
+                                     int min_num, int max_num, 
+                                     int min_den, int max_den,
+                                     int gen_masterFlag)
     {
         //  Method Variables  //
         //======================================================================
         FractionGenerator fRNG = new FractionGenerator(seedValue, num_fractions, 
-                                        min_num, max_num, min_den, max_den, 
-                                        gen_masterFlag);
+                                                       min_num, max_num, 
+                                                       min_den, max_den, 
+                                                       gen_masterFlag);
         //======================================================================
 
         //  Obtain the needed fractions from the generator.
@@ -81,10 +86,89 @@ abstract class WS_Master
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
+    //  CreateWorksheet  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void CreateWorksheet(int answerFlag) throws IOException, 
+                                                       COSVisitorException
+    {
+        //  Creates the worksheet
+        if ((answerFlag == WORKSHEET_ONLY) || (answerFlag == ANSWER_SHEET))
+        {
+            //  Make the PDF document for the worksheet page
+            PDPage worksheet = new PDPage();
+            document.addPage(worksheet);
+ 
+            //  Populate the four components of the page.
+            try (PDPageContentStream contentStream = 
+             new PDPageContentStream(document, worksheet)) 
+            {
+                genHeader(contentStream);
+                genExample(contentStream);
+                genProblems(contentStream, WORKSHEET_ONLY);
+                genFooter(contentStream);
+            }
+        }
+        
+        //  Creates the answersheet
+        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
+        {
+            //  Made the PDF document for the answersheet page
+            PDPage answerSheet = new PDPage();
+            document.addPage(answerSheet);
+            
+            //  Populate the four components of the page.
+            try (PDPageContentStream contentStream = 
+             new PDPageContentStream(document, answerSheet)) 
+            {
+                genHeader(contentStream);
+                genExample(contentStream);
+                genProblems(contentStream, answerFlag);
+                genFooter(contentStream);
+            }
+        }
+
+        //  Save the document in a temp location for viewing
+        //  OS - MAC OS X
+        if (System.getProperty("os.name").equals("Mac OS X"))
+            document.save("./Temp.pdf");
+        //  OS - Windows
+        else
+            document.save("C:/Temp/Temp.pdf");
+
+        //  Close the document
+        document.close();
+        
+        //  Automatically open the document
+        if (Desktop.isDesktopSupported()) 
+        {
+            try 
+            {
+                File myFile = null;
+
+                //  Open the document from the temp location
+                //  OS - MAC OS X
+                if (System.getProperty("os.name").equals("Mac OS X"))
+                    myFile = new File("./Temp.pdf");
+                //  OS - Windows
+                else
+                    myFile = new File("C:/Temp/Temp.pdf");
+
+                //  Open the document
+                Desktop.getDesktop().open(myFile);
+            } 
+            //  Adobe Reader is not installed
+            catch (IOException ex) 
+            {
+            }
+        }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
     //  genHeader  //
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Creates the worksheet header
-    protected void genHeader(PDPageContentStream contentStream) throws IOException
+    private void genHeader(PDPageContentStream contentStream) 
+                             throws IOException
     {
         //  Font Selection
         PDFont font = PDType1Font.COURIER_BOLD;
@@ -93,7 +177,7 @@ abstract class WS_Master
         contentStream.beginText();
         contentStream.setFont(font, 16);
         contentStream.setNonStrokingColor(0, 0, 0);
-        contentStream.moveTextPositionByAmount(50, 750);
+        contentStream.moveTextPositionByAmount(40, 750);
         contentStream.drawString("Name   : _________________");
         contentStream.moveTextPositionByAmount(275, 0);
         contentStream.drawString("Score  : _________________");
@@ -107,32 +191,35 @@ abstract class WS_Master
         contentStream.setStrokingColor(0, 0, 0);
         contentStream.drawLine(10, 690, 600, 690);
     }    
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  genExample  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     //  Example must be created by each worksheet type
-    abstract protected void genExample (PDPageContentStream contentStream) throws IOException;
+    abstract protected void genExample (PDPageContentStream contentStream) 
+                                        throws IOException;
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     
     //  genProblems  //
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     //  Problems must be created by each worksheet type
-    abstract protected void genProblems (PDPageContentStream contentStream, int answerFlag) throws IOException;
+    abstract protected void genProblems (PDPageContentStream contentStream, 
+                            int answerFlag) 
+                            throws IOException;
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     
     //  genFooter  //
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Creates the worksheet footer
-    protected void genFooter(PDPageContentStream contentStream) throws IOException
+    private void genFooter(PDPageContentStream contentStream) throws IOException
     {
         //  Beginning Line
         contentStream.setStrokingColor(0, 0, 0);
         contentStream.drawLine(10, 30, 600, 30);
         
         //  Font Selection
-        PDFont font = PDType1Font.COURIER_BOLD;
-
+        PDFont font  = PDType1Font.COURIER_BOLD;
+        
         //  TEXT  //
         contentStream.beginText();
         contentStream.setFont(font, 8);
@@ -143,7 +230,7 @@ abstract class WS_Master
         contentStream.drawString("Fraction Worksheet Creator - 2016");
         contentStream.endText();
     }    
-    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 }
 //------------------------------------------------------------------------------
 //  End class WS_Master

@@ -12,9 +12,6 @@ package com.elementaryengineers.fwc.random;
 
 //  Imports  //
 //------------------------------------------------------------------------------
-import java.awt.Desktop;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -22,9 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -51,20 +46,21 @@ public class WS_Beginner_PieAdd extends WS_Master
     //  Constructor  //
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public WS_Beginner_PieAdd (int seedValue, int num_fractions, 
-                                         int min_num, int max_num, 
-                                         int min_den, int max_den,
-                                         int gen_masterFlag)
+                                              int min_num, int max_num, 
+                                              int min_den, int max_den,
+                                              int gen_masterFlag)
     {
         //  Obtain the needed fractions from the generator.
         super(seedValue, num_fractions, 
-              min_num, max_num, min_den, max_den, 
-              gen_masterFlag);
+                         min_num, max_num, 
+                         min_den, max_den, 
+                         gen_masterFlag);
         
         //  Create the equations and set up the operator to be used
+        //  Two fractions are consumed with each pass through the loop
         for (int count = 0; count < num_fractions; )
         {
-            //  Create the equations using two fractions at a time
-            Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), 'B');
+            Equation newEq = new Equation(fractions.get(count), fractions.get(count+1), '+');
             equations.add(newEq);
             count = count + 2;
         }
@@ -74,88 +70,6 @@ public class WS_Beginner_PieAdd extends WS_Master
         document = new PDDocument();
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    
-    //  PrintEquations  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Used to test equation creation
-    public void PrintEquations()
-    {
-        for (Equation equation : equations) 
-        {
-            System.out.printf("Test: %s\n", equation.toString());
-        }
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    //  CreateWorksheet  //
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //  Main method for making the worksheets and answersheets
-    public void CreateWorksheet(int answerFlag) throws IOException, COSVisitorException
-    {
-        //  Determines if the Worksheet needs to be created.
-        if ((answerFlag == WORKSHEET_ONLY) || (answerFlag ==  ANSWER_SHEET))
-        {
-            //  Create a worksheet page
-            PDPage worksheet = new PDPage();
-            document.addPage(worksheet);
-        
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, worksheet)) 
-            {
-                //  Worksheet created in four parts
-                super.genHeader(contentStream);
-                genExample(contentStream);
-                genProblems(contentStream, WORKSHEET_ONLY);
-                super.genFooter(contentStream);
-            }
-        }
-        
-        //  Determines if the Answersheet needs to be created.
-        if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
-        {
-            //  Create an answersheet page
-            PDPage answerSheet = new PDPage();
-            document.addPage(answerSheet);
-            
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, answerSheet)) 
-            {
-                //  Answersheet create in four parts
-                super.genHeader(contentStream);
-                genExample(contentStream);
-                genProblems(contentStream, answerFlag);
-                super.genFooter(contentStream);
-            }
-        }
-
-        //  A temp location is used to store the PDF that is made.
-        if (System.getProperty("os.name").equals("Mac OS X"))
-            document.save("./Temp.pdf");
-        else
-            document.save("C:/Temp/Temp.pdf");
-
-        //  Document is completed.  Close it so that it can be opened.
-        document.close();
-        
-        //  Opens the PDF so that it can be reviewed / printed / saved
-        if (Desktop.isDesktopSupported()) 
-        {
-            try 
-            {
-                File myFile = null;
-
-                if (System.getProperty("os.name").equals("Mac OS X"))
-                    myFile = new File("./Temp.pdf");
-                else
-                    myFile = new File("C:/Temp/Temp.pdf");
-
-                //  Actual work of opening the file.
-                Desktop.getDesktop().open(myFile);
-            } 
-            catch (IOException ex) 
-            {
-            }
-        }
-    }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     //  genExample  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -171,18 +85,21 @@ public class WS_Beginner_PieAdd extends WS_Master
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     //  Creates the problem section
     @Override
-    protected void genProblems(PDPageContentStream contentStream, int answerFlag) throws IOException
+    protected void genProblems(PDPageContentStream contentStream, 
+                               int answerFlag) 
+                               throws IOException
     {
         //  Method Variables  //
         //======================================================================
         Iterator<Equation> problems = equations.iterator();
         int equationCount = 0;
-        int imageX = 60;
-        int imageY = 440;
+        PDFont font = PDType1Font.COURIER_BOLD;
         //======================================================================
         
-        //  Font Selection
-        PDFont font = PDType1Font.COURIER_BOLD;
+        //  IMAGES  //
+//        System.out.println("Printing IMAGES");
+        int imageX = 60;
+        int imageY = 440;
 
         //  Print all the Fractions for each problem.
         while (problems.hasNext())
@@ -194,35 +111,42 @@ public class WS_Beginner_PieAdd extends WS_Master
                 imageY = 440;
             }
             
-            //  Grab the next equation
+            //  Grab the next equation and the associated pictures
             Equation thisEq = problems.next();
             
-            String filename1 = String.format("src/main/resources/images/%d_%d.jpg", 
-                                              thisEq.getFraction(FRACTION1).getNumerator(),
-                                              thisEq.getFraction(FRACTION1).getDenominator());
+            String filename1 = 
+                String.format("src/main/resources/images/%d_%d.jpg", 
+                               thisEq.getFraction(FRACTION1).getNumerator(),
+                               thisEq.getFraction(FRACTION1).getDenominator());
             
-            String filename2 = String.format("src/main/resources/images/%d_%d.jpg", 
-                                              thisEq.getFraction(FRACTION2).getNumerator(),
-                                              thisEq.getFraction(FRACTION2).getDenominator());
+            String filename2 = 
+                String.format("src/main/resources/images/%d_%d.jpg", 
+                               thisEq.getFraction(FRACTION2).getNumerator(),
+                               thisEq.getFraction(FRACTION2).getDenominator());
             
-            PDXObjectImage image1 = new PDJpeg(document, new FileInputStream(filename1));
-            PDXObjectImage image2 = new PDJpeg(document, new FileInputStream(filename2));
+            //  Add both pies to the document and prep for the next equation
+            PDXObjectImage image1 = new PDJpeg(document, 
+                                               new FileInputStream(filename1));
+            PDXObjectImage image2 = new PDJpeg(document, 
+                                               new FileInputStream(filename2));
             contentStream.drawXObject(image1, imageX, imageY, 75, 75);
             contentStream.drawXObject(image2, imageX + 100, imageY, 75, 75);
             imageY = imageY - 100;
             equationCount++;
         }
         
-        //  TEXT  //
-        contentStream.beginText();
-        //  Starting location for the text portion
-        contentStream.moveTextPositionByAmount(270, 480);
-        
         //  Reset variables for 2nd pass
         problems = equations.iterator();
         equationCount = 0;
         
-        //  Print the answer text
+        //  TEXT  //
+//        System.out.println("Printing TEXT");
+        contentStream.beginText();
+
+        //  Starting location for the text portion
+        contentStream.moveTextPositionByAmount(30, 500);
+        
+        //  Print the problem number text
         while (problems.hasNext())
         {
             //  Makes a 2nd column of problem text after the first 5.
@@ -231,12 +155,28 @@ public class WS_Beginner_PieAdd extends WS_Master
                 contentStream.moveTextPositionByAmount(300, 500);
             }
             
+            //  Grab the next equation
             Equation thisEq = problems.next();
             
-            //  Parameters for printing the problem fractions
+            //  Parameters for printing the problem numbers
+            contentStream.setFont(font, 20);                    // Size
+            contentStream.setNonStrokingColor(0, 0, 255);       // Color - Blue
+            
+            //  Print the problem number
+            contentStream.drawString(String.format("%d)", equationCount + 1));
+            
+            //  Parameters for printing the operator and equals signs
             contentStream.setFont(font, 20);                    // Size
             contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
-                    
+            
+            //  Move the cursor & print the operator
+            contentStream.moveTextPositionByAmount(110, -27);
+            contentStream.drawString(String.format("+"));
+            
+            //  Move the cursor & print the equal sign
+            contentStream.moveTextPositionByAmount(95, 0);
+            contentStream.drawString(String.format("="));
+
             //  Determines if the answers should be printed
             if ((answerFlag == ANSWER_SHEET) || (answerFlag == ANSWER_ONLY))
             {
@@ -244,80 +184,28 @@ public class WS_Beginner_PieAdd extends WS_Master
                 contentStream.setNonStrokingColor(255, 0, 0);   // Color - Red
                 
                 //  Print the values for the answer fraction
+                contentStream.moveTextPositionByAmount(30, 10);
                 Fraction thisFr = thisEq.getFraction(ANSWER);
-                contentStream.drawString(String.format("%d", thisFr.getNumerator()));
+                contentStream.drawString(String.format("%d", 
+                                         thisFr.getNumerator()));
                 contentStream.moveTextPositionByAmount(0, -20);
-                contentStream.drawString(String.format("%d", thisFr.getDenominator()));
+                contentStream.drawString(String.format("%d", 
+                                         thisFr.getDenominator()));
             }
-            
+
             //  Determines how far to move the cursor for the next problem.
             //  Based on if the answers are being printed or not.
-            
-            contentStream.moveTextPositionByAmount(0, -80);
-            
-            //  Counts the number equations to track when a column break
-            //  needs to occur
+            if (answerFlag == WORKSHEET_ONLY)
+            {
+                contentStream.moveTextPositionByAmount(-195, -73);
+            }
+            else
+            {
+                contentStream.moveTextPositionByAmount(-235, -63);
+            }
+
+            //  Increment the answer number value
             equationCount++;
-        }
-        
-        //  Reset the cursor closing and opening the contentStream
-        contentStream.endText();
-        contentStream.beginText();
-        
-        //  Starting location for the problem numbers
-        contentStream.moveTextPositionByAmount(20, 475);
-        
-        //  Print the problem numbers
-        for (int count = 0; count < equationCount; count++)
-        {
-            //  Makes a 2nd column of problems numbers after the first 5.
-            if (count == 5)
-            {
-                contentStream.moveTextPositionByAmount(300, 500);
-            }
-            
-            //  Parameters for printing the problem numbers
-            contentStream.setFont(font, 24);                    // Size
-            contentStream.setNonStrokingColor(0, 0, 255);       // Color - Blue
-            
-            //  Print the problem number
-            contentStream.drawString(String.format("#%d", count + 1));
-            
-            //  Move the cursor
-            contentStream.moveTextPositionByAmount(0, -100);
-        }
-        
-        //  Reset the cursor closing and opening the contentStream
-        contentStream.endText();
-        contentStream.beginText();
-        
-        //  Starting location for the operators and equal signs
-        contentStream.moveTextPositionByAmount(135, 470);
-        
-        //  Print all of the operators and equal signs
-        for (int count = 0; count < equationCount; count++)
-        {
-            //  Makes a 2nd column of operators and equal signes after the first 10.
-            if (count == 5)
-            {
-                contentStream.moveTextPositionByAmount(300, 500);
-            }
-            
-            //  Parameters for printing the operators and equal signs
-            contentStream.setFont(font, 28);                    // Size
-            contentStream.setNonStrokingColor(0, 0, 0);         // Color - Black
-            
-            //  Draw the operator
-            contentStream.drawString(String.format("%c", '+'));
-            
-            //  Move the cursor
-            contentStream.moveTextPositionByAmount(105, 0);
-            
-            //  Draw the equal sign
-            contentStream.drawString("=");
-            
-            //  Move the cursor
-            contentStream.moveTextPositionByAmount(-105, -100);
         }
         
         //  END OF TEXT  //
@@ -327,9 +215,9 @@ public class WS_Beginner_PieAdd extends WS_Master
         
         //  Print all of the lines between fractions
         //  Starting locations for the lines
-        int startX = 140;
-        int endX   = 162;
-        int lineY  = 475;
+        int startX = 135;
+        int endX   = 157;
+        int lineY  = 478;
 
         //  Draw lines for everything on one line.
         //  This includes four fractions and two answers (if answersheet)
@@ -347,6 +235,18 @@ public class WS_Beginner_PieAdd extends WS_Master
         }
     }      
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    
+    //  PrintEquations  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Used to test equation creation
+    public void PrintEquations()
+    {
+        for (Equation equation : equations) 
+        {
+            System.out.printf("Test: %s\n", equation.toString());
+        }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
 //------------------------------------------------------------------------------
 //  End class WS_Beginniner_PieAdd

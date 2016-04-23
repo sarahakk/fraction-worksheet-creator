@@ -1,8 +1,8 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//  Class        :  FractionGenerator
-//  Author       :  Eric Holm
-//  Version      :  1.1.0
-//  Description  :  Class to generate random fraction values
+//  Class       :  FractionGenerator
+//  Author      :  Eric Holm
+//  Version     :  1.1.0 (FINAL)
+//  Description :  Class to generate random fraction values
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 //  Package Declaration
@@ -36,7 +36,7 @@ public class FractionGenerator
     private final Random fracRNG;           //  RNG for fractions
     
     //  Used for Unique 5 fraction creation
-    private int[][] exclusionMatrix = new int[11][11];
+    private final int[][] exclusionMatrix = new int[11][11];
     
     //  Fractions generated
     private final List<Fraction> fractions = new ArrayList<>();
@@ -46,9 +46,9 @@ public class FractionGenerator
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     //  Builds the fractions requested
     public FractionGenerator(int seedValue, int num_fractions,
-                                             int min_num, int max_num, 
-                                             int min_den, int max_den,
-                                             int gen_masterFlag)
+                             int min_num, int max_num, 
+                             int min_den, int max_den,
+                             int gen_masterFlag)
     {
         //  If the Fraction Generator is passed a zero seedValue
         //  a new SEED needs to be generated.
@@ -90,11 +90,11 @@ public class FractionGenerator
         }
         
         //  Testers for flags
-        System.out.printf("MatchDen - %d\n", genMatchDen);
-        System.out.printf("WholeNum - %d\n", genWholeNum);
-        System.out.printf("Unique5  - %d\n", genUnique5);
+//        System.out.printf("MatchDen - %d\n", genMatchDen);
+//        System.out.printf("WholeNum - %d\n", genWholeNum);
+//        System.out.printf("Unique5  - %d\n", genUnique5);
         
-        //  Generate all the fractions
+        //  Generate the fractions as requested
         genFractionList(num_fractions);
     }
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -132,7 +132,7 @@ public class FractionGenerator
         int temp_num = -1;
         int temp_den = -1;
             
-        //  Loop until a positve value is generated for the numerator
+        //  Loop until a positive value is generated for the numerator
         while (temp_num < minNum)
         {
             temp_num = fracRNG.nextInt(maxNum) + 1;
@@ -158,7 +158,7 @@ public class FractionGenerator
     
     //  genFractionList  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    //  Generate a list of fraction of the given number
+    //  Generate a list of fractions based on the passed parameters
     private void genFractionList(int num_fractions)
     {
         for (int count = 0; count < num_fractions;)
@@ -167,29 +167,36 @@ public class FractionGenerator
             //  Ensures fractions generated are less than 1
             if ((genMatchDen == 1) && (genWholeNum == 1))
             {
-                int lockDen = -1;
+                int matchedDen = -1;
                 
-                while (lockDen < min_den)
+                //  Generates a valid value for the denominator.
+                //  To be used for the next two fractions generated.
+                while (matchedDen < min_den)
                 {
-                    lockDen = fracRNG.nextInt(max_den) + 1;
+                    matchedDen = fracRNG.nextInt(max_den) + 1;
                 }
                 
-                fractions.add(genFraction(min_num, lockDen - 1, lockDen, lockDen));
-                fractions.add(genFraction(min_num, lockDen - 1, lockDen, lockDen));
+                fractions.add(genFraction(min_num, matchedDen - 1, 
+                                          matchedDen, matchedDen));
+                fractions.add(genFraction(min_num, matchedDen - 1, 
+                                          matchedDen, matchedDen));
                 count = count + 2;
             }
             
             //  Ensures fractions generated are less than 1
             else if (genWholeNum == 1)
             {
-                int lockDen = -1;
+                int notWholeDen = -1;
                 
-                while (lockDen < min_den)
+                //  Generates a valid value for the denominator.
+                //  To be used to create a numerator that is smaller
+                while (notWholeDen < min_den)
                 {
-                    lockDen = fracRNG.nextInt(max_den) + 1;
+                    notWholeDen = fracRNG.nextInt(max_den) + 1;
                 }
                 
-                fractions.add(genFraction(min_num, lockDen - 1, lockDen, lockDen));
+                fractions.add(genFraction(min_num, notWholeDen - 1, 
+                                          notWholeDen, notWholeDen));
                 count++;
             }
             
@@ -197,24 +204,33 @@ public class FractionGenerator
             //  No common lowest value
             else if (genUnique5 == 1)
             {
+                //  Reset the ExclusionMatrix after each set of 5 fractions are
+                //  created
                 if (count % 5 == 0)
                 {
                     formatExclusionMatrix();
                 }
                 
-                Fraction tempFrac = genFraction(min_num, max_num, min_den, max_den);
+                //  Generate a fraction
+                Fraction tempFrac = genFraction(min_num, max_num, 
+                                                min_den, max_den);
                 
-                while (exclusionMatrix[tempFrac.getNumerator()][tempFrac.getDenominator()] == 1)
+                //  Test against the exclusion matrix.
+                //  Eliminates fractions greater than one
+                //  Eliminates fractions with the same lowest common terms.
+                while (exclusionMatrix[tempFrac.getNumerator()]
+                                      [tempFrac.getDenominator()] == 1)
                 {
                     tempFrac = genFraction(min_num, max_num, min_den, max_den);
                 }
-                
+
+                //  Add fraction to the list and add it to the exclusion matrix
+                addExclusion(tempFrac.getNumerator(), 
+                             tempFrac.getDenominator());
                 fractions.add(tempFrac);
-                System.out.printf("%s\n", tempFrac.toString());
-                addExclusion(tempFrac.getNumerator(), tempFrac.getDenominator());
-                
                 count++;
-                printExclusionMatrix();
+//                System.out.printf("\n%s\n", tempFrac.toString());
+//                printExclusionMatrix();
             }
         }
     }
@@ -222,16 +238,20 @@ public class FractionGenerator
     
     //  formatExclusionMatrix  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Resets the values in the Exclusion Matrix for Unique5 requests
     private void formatExclusionMatrix()
     {
+        //  Cycle thought the matrix
         for (int matrixNum = 0; matrixNum <= 10; matrixNum++)
         {
             for (int matrixDen = 0; matrixDen <= 10; matrixDen++)
             {
+                //  Values > 1 are excluded (set to 1)
                 if (matrixNum >= matrixDen)
                 {
                     exclusionMatrix[matrixNum][matrixDen] = 1;
                 }
+                //  Values < 1 are available (set to 0)
                 else
                 {
                     exclusionMatrix[matrixNum][matrixDen] = 0;
@@ -243,61 +263,27 @@ public class FractionGenerator
     
     //  addExclusion  //
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //  Add an exclusion to the matrix for fractions already created
     private void addExclusion(int num, int den)
     {
+        //  Build new fraction so it can be reduced without destroying
+        //  the original fraction
         Fraction newFrac = new Fraction(num, den);
         newFrac.convertLowestTerms();
         int newNum = newFrac.getNumerator();
         int newDen = newFrac.getDenominator();
         
-        if (newNum == 1 && newDen == 2)
+        int countNum = newNum;
+        int countDen = newDen;
+
+        //  Cycle through matrix adding any multiple of the lowest terms
+        //  version of the fraction to the exclusion matrix
+        while (countNum <= 10 && countDen <= 10)
         {
-            exclusionMatrix[1][2] = 1;
-            exclusionMatrix[2][4] = 1;
-            exclusionMatrix[3][6] = 1;
-            exclusionMatrix[4][8] = 1;
-            exclusionMatrix[5][10] = 1;
-        }
-        else if (newNum == 1 && newDen == 3)
-        {
-            exclusionMatrix[1][3] = 1;
-            exclusionMatrix[2][6] = 1;
-            exclusionMatrix[3][9] = 1;
-        }
-        else if (newNum == 1 && newDen == 4)
-        {
-            exclusionMatrix[1][4] = 1;
-            exclusionMatrix[2][8] = 1;
-        }
-        else if (newNum == 1 && newDen == 5)
-        {
-            exclusionMatrix[1][5] = 1;
-            exclusionMatrix[2][10] = 1;
-        }
-        else if (newNum == 2 && newDen == 3)
-        {
-            exclusionMatrix[2][3] = 1;
-            exclusionMatrix[4][6] = 1;
-            exclusionMatrix[6][9] = 1;
-        }
-        else if (newNum == 2 && newDen == 5)
-        {
-            exclusionMatrix[2][5] = 1;
-            exclusionMatrix[4][10] = 1;
-        }
-        else if (newNum == 3 && newDen == 4)
-        {
-            exclusionMatrix[3][4] = 1;
-            exclusionMatrix[6][8] = 1;
-        }
-        else if (newNum == 4 && newDen == 5)
-        {
-            exclusionMatrix[4][5] = 1;
-            exclusionMatrix[8][10] = 1;
-        }
-        else
-        {
-            exclusionMatrix[num][den] = 1;
+            exclusionMatrix[countNum][countDen] = 1;
+
+            countNum += newNum;
+            countDen += newDen;
         }
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -317,7 +303,7 @@ public class FractionGenerator
             System.out.println();
         }
     }
-    ////xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
     //  getSeedValue  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

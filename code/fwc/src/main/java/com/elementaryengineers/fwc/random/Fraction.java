@@ -86,6 +86,8 @@ public final class Fraction
     //  Converts fraction into mixed fraction
     public void convertMixed()
     {
+        //  Reduce the numerator by the value of the denominator.
+        //  Each loop adds a whole value to the fraction.
         while (mixedNum >= mixedDen)
         {
             mixedNum = mixedNum - mixedDen;
@@ -141,6 +143,7 @@ public final class Fraction
     
     //  toString  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  String version of the base fraction
     @Override
     public String toString()
     {
@@ -150,6 +153,7 @@ public final class Fraction
     
     //  toStringMixed  //
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  String version of the mixed fraction
     public String toStringMixed()
     {
         return String.format("%d %d / %d", mixedWhole, mixedNum, mixedDen);
