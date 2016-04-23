@@ -63,7 +63,7 @@ public class WorksheetTester
             System.out.printf(" 1)  Enter Seed Value     \n");
             System.out.printf(" 2)  Beg_PicFrac          \n");
             System.out.printf(" 3)  Beg_PicAdd           \n");
-//            System.out.printf(" 4)  Beg_LeastGreat       \n");
+            System.out.printf(" 4)  Beg_LeastGreat       \n");
 //            System.out.printf(" 5)  Int_Add              \n");
 //            System.out.printf(" 6)  Int_Sub              \n");
 //            System.out.printf(" 7)  Int_MD               \n");
@@ -144,7 +144,7 @@ public class WorksheetTester
                 }
                 break;
                 
-/*                case 4:
+                case 4:
                 {
                     System.out.println();
                     System.out.printf("--------------------------\n");
@@ -162,9 +162,11 @@ public class WorksheetTester
                     {
                         seedValue = worksheet.getSeed();
                     }
+                    
+                    worksheet.CreateWorksheet(answerFlag);
                 }
                 break;
-*/                    
+                    
 /*                case 5:
                 {
                     System.out.println();
