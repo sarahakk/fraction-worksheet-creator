@@ -64,9 +64,9 @@ public class WorksheetTester
             System.out.printf(" 2)  Beg_PicFrac          \n");
             System.out.printf(" 3)  Beg_PicAdd           \n");
             System.out.printf(" 4)  Beg_LeastGreat       \n");
-//            System.out.printf(" 5)  Int_Add              \n");
-//            System.out.printf(" 6)  Int_Sub              \n");
-//            System.out.printf(" 7)  Int_MD               \n");
+            System.out.printf(" 5)  Int_Add              \n");
+            System.out.printf(" 6)  Int_Sub              \n");
+            System.out.printf(" 7)  Int_MD               \n");
 //            System.out.printf(" 8)  Advanced_Add         \n");
 //            System.out.printf(" 9)  Advanced_Sub         \n");
 //            System.out.printf("10)  Advanced_Multi       \n");
@@ -167,7 +167,7 @@ public class WorksheetTester
                 }
                 break;
                     
-/*                case 5:
+                case 5:
                 {
                     System.out.println();
                     System.out.printf("--------------------------\n");
@@ -175,9 +175,9 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     WS_Intermediate worksheet = 
                                     new WS_Intermediate(seedValue, 40, 
-                                           1, 16, 
-                                           2, 16,
-                                           GEN_DENOM_MATCHED + GEN_WHOLENUM_NO,
+                                           1, 12, 
+                                           2, 12,
+                                           GEN_WHOLENUM_NO,
                                            '+');
                     worksheet.PrintEquations();
                     System.out.println();
@@ -191,8 +191,8 @@ public class WorksheetTester
                     worksheet.CreateWorksheet(answerFlag);
                 }
                 break;  
-*/                    
-/*                case 6:
+                    
+                case 6:
                 {
                     System.out.println();
                     System.out.printf("--------------------------\n");
@@ -200,9 +200,9 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     WS_Intermediate worksheet = 
                                     new WS_Intermediate (seedValue, 40, 
-                                           1, 16, 
-                                           2, 16,
-                                           GEN_DENOM_MATCHED + GEN_WHOLENUM_NO,
+                                           1, 12, 
+                                           2, 12,
+                                           GEN_WHOLENUM_NO,
                                            '-');
                     worksheet.PrintEquations();
                     System.out.println();
@@ -216,8 +216,8 @@ public class WorksheetTester
                     worksheet.CreateWorksheet(answerFlag);
                 }
                 break; 
-*/
-/*                case 7:
+
+                case 7:
                 {
                     System.out.println();
                     System.out.printf("--------------------------\n");
@@ -225,9 +225,9 @@ public class WorksheetTester
                     System.out.printf("--------------------------\n");
                     WS_Intermediate worksheet = 
                                     new WS_Intermediate (seedValue, 40, 
-                                           1, 16, 
-                                           2, 16,
-                                           GEN_DENOM_MATCHED + GEN_WHOLENUM_NO,
+                                           1, 12, 
+                                           2, 12,
+                                           GEN_WHOLENUM_NO,
                                            '*');
                     worksheet.PrintEquations();
                     System.out.println();
@@ -241,7 +241,7 @@ public class WorksheetTester
                     worksheet.CreateWorksheet(answerFlag);
                 }
                 break; 
-*/                    
+                    
                 case 99:
                 {
                     System.out.println();

@@ -1,7 +1,7 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //  Class        :  WS_Beginniner_LG
 //  Author       :  Eric Holm
-//  Version      :  1.0.0
+//  Version      :  1.1.0 (FINAL)
 //  Description  :  Class for Beginner Least to Greatest Worksheets
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -76,10 +76,10 @@ public class WS_Beginner_LG extends WS_Master
                 Fraction pie = pies.next();
                 pieDecimal[count] = (double)pie.getNumerator() / 
                                     (double)pie.getDenominator();
-                System.out.printf("%d - %d/%d = %.2f\n", count, 
-                                                         pie.getNumerator(), 
-                                                         pie.getDenominator(),
-                                                         pieDecimal[count]);
+//                System.out.printf("%d - %d/%d = %.2f\n", count, 
+//                                                         pie.getNumerator(), 
+//                                                         pie.getDenominator(),
+//                                                         pieDecimal[count]);
             }
             
             //  Seed sorter with a value greater than 1 since all values 
@@ -96,7 +96,8 @@ public class WS_Beginner_LG extends WS_Master
             {
                 for (int count = 0; count < 5; count++)
                 {
-                    if (pieDecimal[count] < least && pieDecimal[count] > previousLeast)
+                    if (pieDecimal[count] < least && 
+                        pieDecimal[count] > previousLeast)
                     {
                         answerKey[problem][answer] = count;
                         least = pieDecimal[count];
@@ -109,12 +110,12 @@ public class WS_Beginner_LG extends WS_Master
             }
             
             //  Tester Code
-            System.out.printf("Problem %d - \n", problem);
-            for (int count = 0; count < 5; count++)
-            {
-                System.out.printf("%d", answerKey[problem][count]);
-            }
-            System.out.println();
+//            System.out.printf("Problem %d - \n", problem);
+//            for (int count = 0; count < 5; count++)
+//            {
+//                System.out.printf("%d", answerKey[problem][count]);
+//            }
+//            System.out.println();
             
             //  Move to next problem.
             problem++;
@@ -260,7 +261,6 @@ public class WS_Beginner_LG extends WS_Master
         }
         
         //  ANSWERS  //
-        
         //  Reset Counter
         problemCount = 0;
         
@@ -299,7 +299,6 @@ public class WS_Beginner_LG extends WS_Master
         }
     }    
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    
 }
 //------------------------------------------------------------------------------
 //  End class WS_Beginner_LG

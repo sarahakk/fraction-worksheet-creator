@@ -110,9 +110,8 @@ public class Equation
             addNum = tempNum1 + tempNum2;
         }
         
-        //  Reduce fraction to lowest terms and return it
+        //  Return Fraction
         Fraction tempFrac = new Fraction(addNum, addDen);
-//        tempFrac.convertLowestTerms();
         return tempFrac;
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -140,6 +139,10 @@ public class Equation
             {
                 fraction1.setFraction(num2, den1);
                 fraction2.setFraction(num1, den2);
+
+                int hold = num1;
+                num1 = num2;
+                num2 = hold;
             }
             
             //  Subtract the numerators and pass along the denominator

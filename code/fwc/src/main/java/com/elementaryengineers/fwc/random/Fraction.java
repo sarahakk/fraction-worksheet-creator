@@ -78,6 +78,8 @@ public final class Fraction
         //  lowest terms.
         numerator = numerator / gcf;
         denominator = denominator / gcf;
+        mixedNum = mixedNum / gcf;
+        mixedDen = mixedDen / gcf;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
