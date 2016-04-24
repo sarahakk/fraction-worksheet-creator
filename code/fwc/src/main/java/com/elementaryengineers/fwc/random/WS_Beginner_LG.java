@@ -134,7 +134,7 @@ public class WS_Beginner_LG extends WS_Master
         int imageY = 560;
         
         String filename = 
-                String.format("src/main/resources/images/BeginnerExample2.jpg"); 
+                String.format("src/main/resources/images/BeginnerExample3.jpg"); 
             
         //  Add the example image to the document
         PDXObjectImage image = new PDJpeg(document, 
@@ -229,6 +229,35 @@ public class WS_Beginner_LG extends WS_Master
         
         //  END OF TEXT  //
         contentStream.endText();
+        
+        //  LINES  //
+        //  A place for students to put their answers
+        
+        int startX = 67;
+        int endX   = 92;
+        int lineY  = 440;
+        
+        //  Generate lines for each problem presented
+        for (int problem = 0; problem < 10; problem++)
+        {
+            if (problem == 5)
+            {
+                startX = 365;
+                endX   = 395;
+                lineY  = 440;
+            }
+            
+            //  Five lines for each problem
+            contentStream.setStrokingColor(0, 0, 0);
+            contentStream.drawLine(startX, lineY, endX, lineY);
+            contentStream.drawLine(startX + 45, lineY, endX + 45, lineY);
+            contentStream.drawLine(startX + 90, lineY, endX + 90, lineY);
+            contentStream.drawLine(startX + 135, lineY, endX + 135, lineY);
+            contentStream.drawLine(startX + 180, lineY, endX + 180, lineY);
+        
+            //  Next Line
+            lineY = lineY - 100;
+        }
         
         //  ANSWERS  //
         
