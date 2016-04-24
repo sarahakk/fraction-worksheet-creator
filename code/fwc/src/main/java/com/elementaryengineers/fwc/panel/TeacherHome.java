@@ -133,7 +133,6 @@ public class TeacherHome extends JPanel {
                 WS_Beginner_Pie worksheet = new WS_Beginner_Pie(0, 10,
                         teacher.getMinNumerator(), teacher.getMaxNumerator(),
                         teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                        FWCConfigurator.GEN_DENOM_UNMATCHED,
                         FWCConfigurator.GEN_WHOLENUM_NO);
 
                 worksheet.getSeed();
@@ -157,8 +156,7 @@ public class TeacherHome extends JPanel {
             WS_Intermediate worksheet = new WS_Intermediate(0, 40,
                     teacher.getMinNumerator(), teacher.getMaxNumerator(),
                     teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                    FWCConfigurator.GEN_DENOM_MATCHED,
-                    FWCConfigurator.GEN_WHOLENUM_NO,
+                    FWCConfigurator.GEN_WHOLENUM_NO + FWCConfigurator.GEN_DENOM_MATCHED,
                     (e.getSource() == btnInt1) ? '+' :
                             (e.getSource() == btnInt2) ? '-' : '*');
 

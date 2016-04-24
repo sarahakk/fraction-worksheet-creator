@@ -16,13 +16,10 @@ public class FWCConfigurator {
     private static Admin admin;
 
     //  Flags for fraction generation
-    //  These signal if a pair of fractions should have matching denominators
-    public final static int GEN_DENOM_UNMATCHED = 0;
-    public final static int GEN_DENOM_MATCHED = 1;
+    public static final int GEN_UNIQUE5       = 1;         // Used for L->G worksheet
+    public static final int GEN_WHOLENUM_NO   = 2;         // Eliminate whole numbers
+    public static final int GEN_DENOM_MATCHED = 4;         // Match denominator pairs
 
-    //  These signal if fractions are allowed to evaluate to 1 or greater
-    public final static int GEN_WHOLENUM_YES = 0;
-    public final static int GEN_WHOLENUM_NO = 1;
 
     //  Flags for the answersheet generation
     public static final int WORKSHEET_ONLY = 1;

@@ -113,7 +113,10 @@ private JPanel pnNorth, pnButtons;
              
             //**********************************
             //????? How to print worksheet?????
-            
+            // Sara: Olga, I made the following change to line 130:
+            // Old: worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+            // Fixed: worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
+            // Now it should generate the worksheet.
             //************************************
             //checking source of event to reduce repetition
             if (e.getSource() == btnPrint)
@@ -122,13 +125,12 @@ private JPanel pnNorth, pnButtons;
                 WS_Beginner_Pie worksheet = new WS_Beginner_Pie(0, 10,
                         teacher.getMinNumerator(), teacher.getMaxNumerator(),
                         teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                        FWCConfigurator.GEN_DENOM_UNMATCHED,
                         FWCConfigurator.GEN_WHOLENUM_NO);
 
                 worksheet.getSeed();
 
                 try {
-                    worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+                    worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
                 }
                 catch (IOException|COSVisitorException ex) {
                     JOptionPane.showMessageDialog(null, "An error occurred while"
@@ -145,13 +147,20 @@ private JPanel pnNorth, pnButtons;
         @Override
         public void actionPerformed(ActionEvent e) {
             Teacher teacher = FWCConfigurator.getTeacher();
+
+            // Sara: This needs to be modified to use the seed of the
+            // selected worksheet in the JTable, and you should look at the
+            // difficulty and exercise attributes of the selected Worksheet object
+            // to determine what kind of worksheet to create. Here, we're creating
+            // an intermediate worksheet. We need to look at what's selected, and
+            // look at the exercise string to see if it's "Addition", "Subtraction",
+            // etc to determine what operator goes into the worksheet initialization.
+            // Again, below we are assuming addition. Thanks!
             WS_Intermediate worksheet = new WS_Intermediate(0, 40,
                     teacher.getMinNumerator(), teacher.getMaxNumerator(),
                     teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                    FWCConfigurator.GEN_DENOM_MATCHED,
-                    FWCConfigurator.GEN_WHOLENUM_NO,
-                    (e.getSource() == btnInt1) ? '+' :
-                            (e.getSource() == btnInt2) ? '-' : '*');
+                    FWCConfigurator.GEN_WHOLENUM_NO + FWCConfigurator.GEN_DENOM_MATCHED,
+                    '+');
 
             worksheet.getSeed();
 

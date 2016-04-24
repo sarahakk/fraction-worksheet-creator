@@ -39,10 +39,6 @@ public class FWCMainFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        String name = "Test";
-        User user = new Teacher(0, name, name, name, name, name, 0, 0, 0, 0, new ArrayList<Classroom>(), new ArrayList<Worksheet>());
-        Teacher teacher = (Teacher) user;
-        System.out.println(teacher.getFirstName());
     }
 
     private void buildPanels() {
