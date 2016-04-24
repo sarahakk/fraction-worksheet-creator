@@ -6,6 +6,7 @@ import com.elementaryengineers.fwc.db.FWCConfigurator;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class CommonHeaderPanel extends JPanel {
 
     private JPanel pnButton;
     private JLabel lblTitle;
-    private ImageButton btnHelp, btnAccount, btnLogout;
+    private ImageButton btnHelp, btnAccount, btnLogout, btnExit;
     private UserMenu menu;
 
     public CommonHeaderPanel() {
@@ -39,9 +40,17 @@ public class CommonHeaderPanel extends JPanel {
         pnButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButton.setBackground(Color.WHITE);
 
-        btnHelp = new ImageButton(FWCConfigurator.HELP_IMG, 150, 50);
-        btnAccount = new ImageButton(FWCConfigurator.ACCOUNT_IMG, 150, 50);
-        btnLogout = new ImageButton(FWCConfigurator.LOGOUT_IMG, 150, 50);
+        btnHelp = new ImageButton("Help", FWCConfigurator.HELP_IMG, 150, 50);
+        btnAccount = new ImageButton("My Account", FWCConfigurator.ACCOUNT_IMG, 150, 50);
+        btnLogout = new ImageButton("Logout", FWCConfigurator.LOGOUT_IMG, 150, 50);
+        btnExit = new ImageButton("Exit", FWCConfigurator.EXIT_IMG, 150, 50);
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FWCConfigurator.getDbConn().closeConnection();
+                System.exit(0);
+            }
+        });
 
         btnAccount.setVisible(false);
         btnLogout.setVisible(false);
@@ -49,6 +58,7 @@ public class CommonHeaderPanel extends JPanel {
         pnButton.add(btnHelp);
         pnButton.add(btnAccount);
         pnButton.add(btnLogout);
+        pnButton.add(btnExit);
     }
 
     private void buildTitleLabel() {
@@ -91,11 +101,13 @@ public class CommonHeaderPanel extends JPanel {
     public void showButtonsLoggedIn() {
         btnAccount.setVisible(true);
         btnLogout.setVisible(true);
+        btnExit.setVisible(false);
     }
 
     public void showButtonsLoggedOut() {
         btnAccount.setVisible(false);
         btnLogout.setVisible(false);
+        btnExit.setVisible(true);
     }
 
     public void setLogoutListener(ActionListener listener) {

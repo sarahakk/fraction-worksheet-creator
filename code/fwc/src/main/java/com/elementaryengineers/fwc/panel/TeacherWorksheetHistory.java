@@ -45,16 +45,16 @@ private JPanel pnNorth, pnButtons;
         GridBagConstraints c = new GridBagConstraints();
 
         //Button Print
-        btnPrint = new ImageButton(FWCConfigurator.PRINT_IMG, 200, 100);
+        btnPrint = new ImageButton("Print", FWCConfigurator.PRINT_IMG, 200, 100);
         btnPrint.addActionListener(new PrintActionListener());
         
 
         // Make intermediate buttons //Button Answer key
-        btnAnswerKey = new ImageButton(FWCConfigurator.ANSWER_IMG, 200, 100);
+        btnAnswerKey = new ImageButton("Answer Key", FWCConfigurator.ANSWER_IMG, 200, 100);
         btnAnswerKey.addActionListener(new AnswerKeyActionListener());
         
         // Make advanced buttons // Delete
-        btnDelete = new ImageButton(FWCConfigurator.DELETE_IMG, 200, 100);
+        btnDelete = new ImageButton("Delete", FWCConfigurator.DELETE_IMG, 200, 100);
         btnDelete.addActionListener(new DeleteActionListener());
         
 
@@ -127,8 +127,6 @@ private JPanel pnNorth, pnButtons;
                         teacher.getMinDenominator(), teacher.getMaxDenominator(),
                         FWCConfigurator.GEN_WHOLENUM_NO);
 
-                worksheet.getSeed();
-
                 try {
                     worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
                 }
@@ -161,8 +159,6 @@ private JPanel pnNorth, pnButtons;
                     teacher.getMinDenominator(), teacher.getMaxDenominator(),
                     FWCConfigurator.GEN_WHOLENUM_NO + FWCConfigurator.GEN_DENOM_MATCHED,
                     '+');
-
-            worksheet.getSeed();
 
             try {
                 worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);

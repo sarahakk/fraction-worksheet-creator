@@ -9,6 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private EncryptedPassword password;
+    private UserType type;
 
     public User(String user, String first, String last, String salt, String hash) {
         this.username = user;
@@ -29,6 +30,10 @@ public class User {
         return username;
     }
 
+    public UserType getType() {
+        return type;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -39,6 +44,10 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
     }
 
     public boolean verifyLogin(String pass) {

@@ -1,5 +1,8 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.ImageButton;
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -13,11 +16,11 @@ import java.util.Arrays;
  **/
 public class LoginPanel extends JPanel {
 
-    private JPanel pnFields, pnSouth, pnLogin, pnForgot, pnExit, pnWrapper;
+    private JPanel pnFields, pnSouth, pnLogin, pnForgot, pnWrapper;
     private JLabel lblUser, lblPass;
     private JTextField txtUser;
     private JPasswordField txtPass;
-    private JButton btnLogin, btnForgotPass, btnExit;
+    private JButton btnLogin, btnForgotPass;
 
     public LoginPanel() {
         super(new BorderLayout());
@@ -69,37 +72,21 @@ public class LoginPanel extends JPanel {
         pnWrapper.setBackground(Color.WHITE);
         pnWrapper.add(pnFields);
 
-        pnSouth = new JPanel(new BorderLayout());
+        pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
 
         pnLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnLogin.setBackground(Color.WHITE);
-        btnLogin = new JButton("Login");
-        btnLogin.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnLogin.setPreferredSize(new Dimension(100, 40));
+        btnLogin = new ImageButton("Login", FWCConfigurator.LOGIN_IMG, 150, 50);
         pnLogin.add(btnLogin);
 
         pnForgot = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnForgot.setBackground(Color.WHITE);
-        btnForgotPass = new JButton("Forgot Password?");
-        btnForgotPass.setFont(new Font("Calibri", Font.BOLD, 16));
+        btnForgotPass = new ImageButton("Forgot password?", FWCConfigurator.FORGOT_PASSW_IMG, 150, 50);
         pnForgot.add(btnForgotPass);
 
-        pnExit = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnExit.setBackground(Color.WHITE);
-        btnExit = new JButton("Exit");
-        btnExit.setFont(new Font("Calibri", Font.BOLD, 16));
-        btnExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        pnExit.add(btnExit);
-
-        pnSouth.add(pnLogin, BorderLayout.NORTH);
-        pnSouth.add(pnForgot, BorderLayout.CENTER);
-        pnSouth.add(pnExit, BorderLayout.SOUTH);
+        pnSouth.add(pnLogin);
+        pnSouth.add(pnForgot);
 
         this.add(pnWrapper, BorderLayout.CENTER);
         this.add(pnSouth, BorderLayout.SOUTH);

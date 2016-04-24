@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class Teacher extends User {
 
     private int teacherID, minNumerator, maxNumerator, minDenominator, maxDenominator;
+    private boolean resetPassRequested;
     private ArrayList<Classroom> classes;
     private ArrayList<Worksheet> history;
 
     public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
                    int minNumerator, int maxNumerator, int minDenominator, int maxDenominator,
-                   ArrayList<Classroom> classes, ArrayList<Worksheet> history) {
+                   ArrayList<Classroom> classes, ArrayList<Worksheet> history, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
+        setType(UserType.TEACHER);
         this.teacherID = teacherID;
         this.minNumerator = minNumerator;
         this.maxNumerator = maxNumerator;
@@ -22,26 +24,15 @@ public class Teacher extends User {
         this.maxDenominator = maxDenominator;
         this.classes = classes;
         this.history = history;
-    }
-
-    public void setMinNumerator(int minNumerator) {
-        this.minNumerator = minNumerator;
-    }
-
-    public void setMaxNumerator(int maxNumerator) {
-        this.maxNumerator = maxNumerator;
-    }
-
-    public void setMinDenominator(int minDenominator) {
-        this.minDenominator = minDenominator;
-    }
-
-    public void setMaxDenominator(int maxDenominator) {
-        this.maxDenominator = maxDenominator;
+        this.resetPassRequested = resetPassRequested;
     }
 
     public int getTeacherID() {
         return teacherID;
+    }
+
+    public boolean isResetPassRequested() {
+        return resetPassRequested;
     }
 
     public int getMinNumerator() {
@@ -66,6 +57,26 @@ public class Teacher extends User {
 
     public ArrayList<Worksheet> getHistory() {
         return history;
+    }
+
+    public void setMinNumerator(int minNumerator) {
+        this.minNumerator = minNumerator;
+    }
+
+    public void setMaxNumerator(int maxNumerator) {
+        this.maxNumerator = maxNumerator;
+    }
+
+    public void setMinDenominator(int minDenominator) {
+        this.minDenominator = minDenominator;
+    }
+
+    public void setMaxDenominator(int maxDenominator) {
+        this.maxDenominator = maxDenominator;
+    }
+
+    public void setResetPassRequested() {
+        this.resetPassRequested = true;
     }
 
     public boolean createTeacher() {

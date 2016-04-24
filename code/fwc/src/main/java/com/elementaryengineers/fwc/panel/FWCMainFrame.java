@@ -1,10 +1,8 @@
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.db.FWCConfigurator;
-import com.elementaryengineers.fwc.model.Classroom;
-import com.elementaryengineers.fwc.model.Teacher;
-import com.elementaryengineers.fwc.model.User;
-import com.elementaryengineers.fwc.model.Worksheet;
+import com.elementaryengineers.fwc.db.FWCDatabaseConnection;
+import com.elementaryengineers.fwc.model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,16 +10,17 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * TODO
  **/
 public class FWCMainFrame extends JFrame {
 
+    private FWCDatabaseConnection dbConn;
     private CardLayout cardLayout;
     private CommonHeaderPanel header;
     private LoginPanel login;
+    private ForgotPasswordPanel forgotPass;
     private TeacherHome teacherHome;
     private TeacherMenu teacherMenu;
     private JPanel pnCard;
@@ -31,6 +30,9 @@ public class FWCMainFrame extends JFrame {
      **/
     public FWCMainFrame() {
         super("Fraction Worksheet Creator");
+
+        dbConn = FWCConfigurator.connectToDatabase();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
@@ -44,6 +46,31 @@ public class FWCMainFrame extends JFrame {
     private void buildPanels() {
         header = new CommonHeaderPanel();
         header.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+        header.setLogoutListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch back to login page
+                header.showButtonsLoggedOut();
+                header.hideMenu();
+
+                switch(FWCConfigurator.getUserType()) {
+                    case TEACHER:
+                        removeTeacherPanels();
+                        break;
+                    case STUDENT:
+                        removeStudentPanels();
+                        break;
+                    case ADMIN:
+                        removeAdminPanels();
+                        break;
+                }
+
+                cardLayout.show(pnCard, "LoginPanel");
+                pack();
+                setLocationRelativeTo(null);
+                FWCConfigurator.logout();
+            }
+        });
 
         // Use card layout for central area of frame
         cardLayout = new CardLayout();
@@ -55,25 +82,132 @@ public class FWCMainFrame extends JFrame {
         );
 
         login = new LoginPanel();
-        login.setPreferredSize(new Dimension(50, 250));
         login.setLoginListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: replace with database username and password verification
-                if (login.getUsernameText().equals("shakkoum") &&
-                        login.getPasswordText().equals("password")) {
-                    login.clearFields();
-                    FWCConfigurator.setTeacher(new Teacher(0, "shakkoum", "Sara", "Hakkoum", "salt", "hash",
-                            1, 10, 3, 10, new ArrayList<Classroom>(), new ArrayList<Worksheet>()));
-                            //1, 16, 2, 16));
-                    buildTeacherPanels();
-                    setSize(new Dimension(1000, 800));
-                    setLocationRelativeTo(null);
-                    cardLayout.show(pnCard, "TeacherHome");
+                String usernameText = login.getUsernameText(),
+                        passwordText = login.getPasswordText();
+
+                if (usernameText.equals("") || passwordText.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please check your username or password.", "Login Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                User user = dbConn.getUser(usernameText);
+
+                if (user != null) { // If user exists
+                    if (user.verifyLogin(passwordText)) {
+                        // Build panels specific to the type of user that logged in
+                        switch (user.getType()) {
+                            case TEACHER: {
+                                FWCConfigurator.setTeacher((Teacher) user);
+                                buildTeacherPanels();
+                                cardLayout.show(pnCard, "TeacherHome");
+                                break;
+                            }
+
+                            case STUDENT: {
+                                FWCConfigurator.setStudent((Student) user);
+                                buildStudentPanels();
+                                cardLayout.show(pnCard, "StudentHome");
+                                break;
+                            }
+
+                            case ADMIN: {
+                                FWCConfigurator.setAdmin((Admin) user);
+                                buildAdminPanels();
+                                cardLayout.show(pnCard, "AdminHome");
+                                break;
+                            }
+                        }
+
+                        // Reset components to display home page
+                        header.showButtonsLoggedIn();
+                        setSize(new Dimension(1000, 800));
+                        setLocationRelativeTo(null);
+                        login.clearFields();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Please check your password and try again.", "Login Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Please check your username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please check your username and try again.", "Login Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+
+        login.setForgotPassListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create forgot password panel if first time clicking it
+                if (forgotPass == null) {
+                    forgotPass = new ForgotPasswordPanel();
+                    forgotPass.setBackListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            cardLayout.show(pnCard, "LoginPanel");
+                            pnCard.remove(forgotPass);
+                            pack();
+                            setLocationRelativeTo(null);
+                            forgotPass.clearFields();
+                        }
+                    });
+
+                    forgotPass.setSubmitListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            String usernameText = forgotPass.getUsernameText();
+
+                            if (usernameText.equals("")) {
+                                JOptionPane.showMessageDialog(null, "Please check your username.", "Username Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
+
+                            User user = dbConn.getUser(usernameText);
+
+                            if (user != null) { // If user exists
+                                switch (user.getType()) {
+                                    case TEACHER: { // Set reset password is requested to true
+                                        Teacher teacher = (Teacher) user;
+                                        teacher.setResetPassRequested();
+                                        dbConn.updateTeacher(teacher); // Update teacher in DB
+                                        break;
+                                    }
+
+                                    case STUDENT: { // Set reset password is requested to true
+                                        Student student = (Student) user;
+                                        student.setResetPassRequested();
+                                        dbConn.updateStudent(student); // Update student in DB
+                                        break;
+                                    }
+
+                                    case ADMIN: {
+                                        Admin admin = (Admin) user;
+                                        // TODO: go to admin reset password panel
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(null, "Please check your username and try again.", "Login Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    });
+                }
+
+                pnCard.add(forgotPass, "ForgotPasswordPanel");
+
+                // Switch to forgot password panel
+                cardLayout.show(pnCard, "ForgotPasswordPanel");
+                pack();
+                setLocationRelativeTo(null);
+                login.clearFields();
             }
         });
 
@@ -85,24 +219,39 @@ public class FWCMainFrame extends JFrame {
     }
 
     private void buildTeacherPanels() {
+        teacherHome = new TeacherHome();
+        pnCard.add(teacherHome, "TeacherHome");
+
+        // Add other teacher panels
+
         teacherMenu = new TeacherMenu();
-        header.setMenu(teacherMenu);
-        header.showButtonsLoggedIn();
-        header.setLogoutListener(new ActionListener() {
+        teacherMenu.setHistoryListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Switch back to login page
-                header.showButtonsLoggedOut();
-                header.hideMenu();
-                pnCard.remove(teacherHome);
-                FWCConfigurator.setTeacher(null);
-                pack();
-                setLocationRelativeTo(null);
-                cardLayout.show(pnCard, "LoginPanel");
+
             }
         });
 
-        teacherHome = new TeacherHome();
-        pnCard.add(teacherHome, "TeacherHome");
+        header.setMenu(teacherMenu);
+    }
+
+    private void buildStudentPanels() {
+
+    }
+
+    private void buildAdminPanels() {
+
+    }
+
+    private void removeTeacherPanels() {
+        pnCard.remove(teacherHome);
+    }
+
+    private void removeStudentPanels() {
+
+    }
+
+    private void removeAdminPanels() {
+
     }
 }

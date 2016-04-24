@@ -8,19 +8,26 @@ import java.util.ArrayList;
 public class Student extends User {
 
     private int studentID, difficultyID;
+    private boolean resetPassRequested;
     private Classroom classroom;
     private ArrayList<Worksheet> history;
 
     public Student(int studentID, String user, String first, String last, String salt, String hash,
-                   Classroom classroom, int difficultyID) {
+                   Classroom classroom, int difficultyID, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
+        setType(UserType.STUDENT);
         this.studentID = studentID;
         this.classroom = classroom;
         this.difficultyID = difficultyID;
+        this.resetPassRequested = resetPassRequested;
     }
 
     public int getStudentID() {
         return studentID;
+    }
+
+    public boolean isResetPassRequested() {
+        return resetPassRequested;
     }
 
     public Classroom getClassroom() {
@@ -41,5 +48,9 @@ public class Student extends User {
 
     public void setDifficultyID(int difficultyID) {
         this.difficultyID = difficultyID;
+    }
+
+    public void setResetPassRequested() {
+        this.resetPassRequested = true;
     }
 }

@@ -16,7 +16,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class FWCDatabaseConnection implements DatabaseConnection {
- 
+
     public void c() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         //Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "root");
@@ -57,7 +57,11 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public User getUser(String username) {
-        return null;
+        // DUMMY DATA --- this is just a placeholder to be able to login to the FWC!
+        return new Teacher(0, "shakkoum", "Sara", "Hakkoum",
+                "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC", // password salt
+                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", // password hash
+                1, 10, 3, 10, new ArrayList<Classroom>(), new ArrayList<Worksheet>(), false);
     }
 
     /**
@@ -327,7 +331,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      * This method should display a GUI pop-up when a database-specific error
      * occurs, because the rest of the GUI won't know about it.
      * Use javax.swing.JOptionPane! That's Java's GUI pop-up class.
-     *
+     * Example: JOptionPane.showMessageDialog(null, "Please check your username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
      * @param message
      */
     @Override

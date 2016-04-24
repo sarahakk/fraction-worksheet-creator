@@ -15,6 +15,7 @@ public class Admin extends User {
 
     public Admin(int adminID, String user, String first, String last, String salt, String hash) {
         super(user, first, last, salt, hash);
+        setType(UserType.ADMIN);
         this.adminID = adminID;
     }
 

@@ -16,22 +16,34 @@ import java.net.URL;
  **/
 public class ImageButton extends JButton {
 
-    public ImageButton(String filename, int width, int height) {
-        this.setText(null);
-        this.setBorderPainted(false); // Remove default JButton border
-
+    public ImageButton(String text, String filename, int width, int height) {
         // Get icon of image pointed to by filename
         try {
             URL imgURL = ImageButton.class.getClassLoader().getResource("images/" + filename);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
-            if (imgURL == null)
-                System.out.println("Could not load " + filename + ".");
-            else
+            if (imgURL != null) {
+                this.setText(null);
+                this.setBorderPainted(false); // Remove default JButton border
+                this.setFocusPainted(false);
+                this.setRolloverEnabled(false);
+                this.setOpaque(false);
+                this.setContentAreaFilled(false);
                 this.setIcon(new ImageIcon(imgBuff.getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+            }
+            else { // Create a regular JButton
+                this.setText(text);
+                this.setFont(new Font("Calibri", Font.BOLD, 16));
+                this.setPreferredSize(new Dimension(width, height));
+            }
         }
         catch (IOException e) {
             e.printStackTrace();
+
+            // Create a regular JButton
+            this.setText(text);
+            this.setFont(new Font("Calibri", Font.BOLD, 16));
+            this.setPreferredSize(new Dimension(width, height));
         }
     }
 }

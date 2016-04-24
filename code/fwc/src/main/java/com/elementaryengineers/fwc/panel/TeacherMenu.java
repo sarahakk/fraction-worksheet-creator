@@ -15,11 +15,11 @@ public class TeacherMenu extends UserMenu {
     private JButton btnHome, btnTutorials, btnHistory, btnClasses, btnPasswords;
 
     public TeacherMenu() {
-        btnHome = new ImageButton(FWCConfigurator.HOME_IMG, 150, 50);
-        btnTutorials = new ImageButton(FWCConfigurator.TUTORIAL_IMG, 150, 50);
-        btnHistory = new ImageButton(FWCConfigurator.HISTORY_IMG, 150, 50);
-        btnClasses = new ImageButton(FWCConfigurator.CLASSES_IMG, 150, 50);
-        btnPasswords = new ImageButton(FWCConfigurator.PASSWORDS_IMG, 150, 50);
+        btnHome = new ImageButton("Home", FWCConfigurator.HOME_IMG, 150, 50);
+        btnTutorials = new ImageButton("Tutorials", FWCConfigurator.TUTORIAL_IMG, 150, 50);
+        btnHistory = new ImageButton("History", FWCConfigurator.HISTORY_IMG, 150, 50);
+        btnClasses = new ImageButton("Classes", FWCConfigurator.CLASSES_IMG, 150, 50);
+        btnPasswords = new ImageButton("Passwords", FWCConfigurator.PASSWORDS_IMG, 150, 50);
 
         this.add(btnHome);
         this.add(btnTutorials);

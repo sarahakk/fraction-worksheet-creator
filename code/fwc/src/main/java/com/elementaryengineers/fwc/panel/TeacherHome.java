@@ -1,6 +1,7 @@
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
+import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
 import com.elementaryengineers.fwc.random.WS_Beginner_Pie;
@@ -23,7 +24,6 @@ public class TeacherHome extends JPanel {
 
     private JPanel pnNorth, pnButtons;
     private JLabel lblTitle;
-    private ImageButton btnTeacherHome;
     private JButton btnBeg1, btnBeg2, btnBeg3,
             btnInt1, btnInt2, btnInt3,
             btnAdv1, btnAdv2, btnAdv3;
@@ -31,12 +31,11 @@ public class TeacherHome extends JPanel {
     public TeacherHome() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
-        //setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        buildTitleLabel();
+        lblTitle = new TitleLabel("Teacher Home", FWCConfigurator.TEACHER_HOME_IMG);
         pnNorth.add(lblTitle);
 
         // Build buttons and center panel
@@ -46,27 +45,27 @@ public class TeacherHome extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
 
         // Make beginner buttons
-        btnBeg1 = new ImageButton(FWCConfigurator.BEG1_IMG, 200, 100);
+        btnBeg1 = new ImageButton("Beginner\nPie Charts", FWCConfigurator.BEG1_IMG, 200, 100);
         btnBeg1.addActionListener(new BeginnerActionListener());
-        btnBeg2 = new ImageButton(FWCConfigurator.BEG2_IMG, 200, 100);
+        btnBeg2 = new ImageButton("Beginner Addition", FWCConfigurator.BEG2_IMG, 200, 100);
         btnBeg2.addActionListener(new BeginnerActionListener());
-        btnBeg3 = new ImageButton(FWCConfigurator.BEG3_IMG, 200, 100);
+        btnBeg3 = new ImageButton("Beginner\nLeast to Greatest", FWCConfigurator.BEG3_IMG, 200, 100);
         btnBeg3.addActionListener(new BeginnerActionListener());
 
         // Make intermediate buttons
-        btnInt1 = new ImageButton(FWCConfigurator.INT1_IMG, 200, 100);
+        btnInt1 = new ImageButton("Intermediate Addition", FWCConfigurator.INT1_IMG, 200, 100);
         btnInt1.addActionListener(new IntermediateActionListener());
-        btnInt2 = new ImageButton(FWCConfigurator.INT2_IMG, 200, 100);
+        btnInt2 = new ImageButton("Intermediate Subtraction", FWCConfigurator.INT2_IMG, 200, 100);
         btnInt2.addActionListener(new IntermediateActionListener());
-        btnInt3 = new ImageButton(FWCConfigurator.INT3_IMG, 200, 100);
+        btnInt3 = new ImageButton("Intermediate Multiplication\nand Division", FWCConfigurator.INT3_IMG, 200, 100);
         btnInt3.addActionListener(new IntermediateActionListener());
 
         // Make advanced buttons
-        btnAdv1 = new ImageButton(FWCConfigurator.ADV1_IMG, 200, 100);
+        btnAdv1 = new ImageButton("Advanced Addition", FWCConfigurator.ADV1_IMG, 200, 100);
         btnAdv1.addActionListener(new AdvancedActionListener());
-        btnAdv2 = new ImageButton(FWCConfigurator.ADV2_IMG, 200, 100);
+        btnAdv2 = new ImageButton("Advanced Subtraction", FWCConfigurator.ADV2_IMG, 200, 100);
         btnAdv2.addActionListener(new AdvancedActionListener());
-        btnAdv3 = new ImageButton(FWCConfigurator.ADV3_IMG, 200, 100);
+        btnAdv3 = new ImageButton("Advanced Multiplication\nand Division", FWCConfigurator.ADV3_IMG, 200, 100);
         btnAdv3.addActionListener(new AdvancedActionListener());
 
         // Add buttons to center panel
@@ -93,34 +92,6 @@ public class TeacherHome extends JPanel {
         // Add north and center panel to TeacherHome
         this.add(pnNorth, BorderLayout.NORTH);
         this.add(pnButtons, BorderLayout.CENTER);
-    }
-
-    private void buildTitleLabel() {
-        boolean imgRead = true;
-
-        try {
-            URL imgURL = CommonHeaderPanel.class.getClassLoader().getResource("images/" + FWCConfigurator.TEACHER_HOME_IMG);
-            BufferedImage imgBuff = ImageIO.read(imgURL);
-
-            if (imgURL != null) {
-                lblTitle = new JLabel(new ImageIcon(imgBuff.getScaledInstance(250, 75, Image.SCALE_SMOOTH)));
-            }
-            else {
-                System.out.println("Could not load " + FWCConfigurator.TEACHER_HOME_IMG + ".");
-                imgRead = false;
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            imgRead = false;
-        }
-
-        // If error occurs in fetching title image, use text instead
-        if (!imgRead) {
-            lblTitle = new JLabel("Teacher Home");
-            lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
-            lblTitle.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 5, true));
-        }
     }
 
     private class BeginnerActionListener implements ActionListener {

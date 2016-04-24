@@ -1,8 +1,8 @@
 package com.elementaryengineers.fwc.db;
 
-import com.elementaryengineers.fwc.model.Admin;
-import com.elementaryengineers.fwc.model.Student;
-import com.elementaryengineers.fwc.model.Teacher;
+import com.elementaryengineers.fwc.model.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by sarahakk on 4/10/16.
@@ -10,16 +10,16 @@ import com.elementaryengineers.fwc.model.Teacher;
 public class FWCConfigurator {
 
     private static FWCDatabaseConnection dbConn;
-
+    private static ArrayList<Difficulty> difficulties;      // List of the standard difficulties
+    private static UserType userType;                       // Determines what kind of user is currently logged in
     private static Teacher teacher;
     private static Student student;
     private static Admin admin;
 
     //  Flags for fraction generation
-    public static final int GEN_UNIQUE5       = 1;         // Used for L->G worksheet
-    public static final int GEN_WHOLENUM_NO   = 2;         // Eliminate whole numbers
-    public static final int GEN_DENOM_MATCHED = 4;         // Match denominator pairs
-
+    public static final int GEN_UNIQUE5       = 1;          // Used for L->G worksheet
+    public static final int GEN_WHOLENUM_NO   = 2;          // Eliminate whole numbers
+    public static final int GEN_DENOM_MATCHED = 4;          // Match denominator pairs
 
     //  Flags for the answersheet generation
     public static final int WORKSHEET_ONLY = 1;
@@ -66,7 +66,6 @@ public class FWCConfigurator {
     public static final String DEL_STUDENT_IMG = "deletestudent.png";
     public static final String DEL_TEACHER_IMG = "deleteteacher.png";
     
-    
     public static final String FORGOT_PASSW_IMG = "forgotpassword.png";
     public static final String LOGIN_IMG = "login.png";
     public static final String PRINT_SELECTED_IMG = "printselected.png";
@@ -78,7 +77,6 @@ public class FWCConfigurator {
     public static final String SUBMIT_IMG = "submit.png";
     public static final String VIEW_ROSTER_IMG = "viewroster.png";
     public static final String WS_HISTORY_IMG = "worksheethistory.png";
-   
     
     public static final String ADMIN_PASSW_RESET_IMG = "adminpasswordreset.png";
     public static final String ADMIN_REG_IMG = "adminregistration.png";
@@ -91,7 +89,6 @@ public class FWCConfigurator {
     public static final String MY_ACCOUNT_TITLE_IMG = "myaccountTitle.png";
     public static final String REQ_PASSW_RESET_IMG = "requestpasswordreset.png";
     public static final String RESET_PASSW_TITLE_IMG = "resetpasswordTitle.png";
-    
     
     public static final String STUDENT_ADV_ADD_IMG = "studentAdvADD.png";
     public static final String STUDENT_ADV_MD_IMG = "studentAdvMD.png";
@@ -108,7 +105,6 @@ public class FWCConfigurator {
     public static final String STUDENT_INT_SUB_IMG = "studentIntSub.png";
     public static final String STUDENT_INT_IMG = "studentIntermediate.png";
     
-    
     public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
     public static final String STUDENT_REG_IMG = "studentregistration.png";
     public static final String STUDENT_WS_HISTORY_IMG = "studentworksheethistory.png";
@@ -119,20 +115,53 @@ public class FWCConfigurator {
     public static final String TUTORIALS_IMG = "tutorialsTitle.png";
     
     public static final String TEACHER_WS_HISTORY_IMG = "worksheethistoryTitle";
-    
-     public static final String WS_IMG = "worksheets.png";
- 
+    public static final String WS_IMG = "worksheets.png";
+
+    // Constants for different worksheet exercises to be compared to the Worksheet objects
+    // These should be used when creating a new Worksheet object to store in the database
+    // And also to figure out what kind of worksheet/answer sheet to generate for an existing
+    // Worksheet from a user's history.
+    public static final String WS_Beginner_Pie = "Pie Charts";
+    public static final String WS_Beginner_PieAdd = "Addition";
+    public static final String WS_Beginner_LG = "Least to Greatest";
+    public static final String WS_Intermediate_Add = "Addition";
+    public static final String WS_Intermediate_Sub = "Subtraction";
+    public static final String WS_Intermediate_MD = "Multiplication and Division";
+    public static final String WS_Advanced_Add = "Addition";
+    public static final String WS_Advanced_Sub = "Subtraction";
+    public static final String WS_Advanced_MD = "Multiplication and Division";
+
+    public static FWCDatabaseConnection connectToDatabase() {
+        dbConn = new FWCDatabaseConnection();
+        difficulties = dbConn.getDifficulties();
+        return dbConn;
+    }
+
+    public static FWCDatabaseConnection getDbConn() {
+        return dbConn;
+    }
+
+    public static ArrayList<Difficulty> getDifficulties() {
+        return difficulties;
+    }
 
     public static void setTeacher(Teacher teacher) {
         FWCConfigurator.teacher = teacher;
+        FWCConfigurator.userType = UserType.TEACHER;
     }
 
     public static void setStudent(Student student) {
         FWCConfigurator.student = student;
+        FWCConfigurator.userType = UserType.STUDENT;
     }
 
     public static void setAdmin(Admin admin) {
         FWCConfigurator.admin = admin;
+        FWCConfigurator.userType = UserType.ADMIN;
+    }
+
+    public static UserType getUserType() {
+        return userType;
     }
 
     public static Teacher getTeacher() {
@@ -145,5 +174,12 @@ public class FWCConfigurator {
 
     public static Admin getAdmin() {
         return admin;
+    }
+
+    public static void logout() {
+        setTeacher(null);
+        setStudent(null);
+        setAdmin(null);
+        FWCConfigurator.userType = UserType.NONE;
     }
 }
