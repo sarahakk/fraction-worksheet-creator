@@ -7,17 +7,16 @@ import java.util.ArrayList;
  */
 public class Student extends User {
 
-    private int studentID;
+    private int studentID, difficultyID;
     private Classroom classroom;
-    private Difficulty difficulty;
     private ArrayList<Worksheet> history;
 
     public Student(int studentID, String user, String first, String last, String salt, String hash,
-                   Classroom classroom, Difficulty difficulty) {
+                   Classroom classroom, int difficultyID) {
         super(user, first, last, salt, hash);
         this.studentID = studentID;
         this.classroom = classroom;
-        this.difficulty = difficulty;
+        this.difficultyID = difficultyID;
     }
 
     public int getStudentID() {
@@ -28,8 +27,8 @@ public class Student extends User {
         return classroom;
     }
 
-    public Difficulty getDifficulty() {
-        return difficulty;
+    public int getDifficultyID() {
+        return difficultyID;
     }
 
     public ArrayList<Worksheet> getHistory() {
@@ -40,7 +39,7 @@ public class Student extends User {
         this.classroom = classroom;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
+    public void setDifficultyID(int difficultyID) {
+        this.difficultyID = difficultyID;
     }
 }

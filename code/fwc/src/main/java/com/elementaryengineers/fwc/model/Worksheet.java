@@ -7,15 +7,14 @@ import java.time.LocalDate;
  */
 public class Worksheet {
 
-    private int worksheetID, seed;
+    private int worksheetID, seed, difficultyID;
     private String exercise;
-    private Difficulty difficulty;
     private LocalDate dateCreated;
 
-    public Worksheet(int seed, String exercise, Difficulty difficulty) {
+    public Worksheet(int seed, String exercise, int difficultyID) {
         this.seed = seed;
         this.exercise = exercise;
-        this.difficulty = difficulty;
+        this.difficultyID = difficultyID;
         // TODO: auto-set worksheet id in DB
         // TODO: auto-set date created
     }
@@ -34,6 +33,10 @@ public class Worksheet {
 
     public LocalDate getDateCreated() {
         return dateCreated;
+    }
+
+    public int getDifficultyID() {
+        return difficultyID;
     }
 
     public void print() {

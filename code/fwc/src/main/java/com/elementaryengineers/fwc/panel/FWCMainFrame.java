@@ -1,7 +1,10 @@
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Classroom;
 import com.elementaryengineers.fwc.model.Teacher;
+import com.elementaryengineers.fwc.model.User;
+import com.elementaryengineers.fwc.model.Worksheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +12,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * TODO
@@ -35,6 +39,10 @@ public class FWCMainFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        String name = "Test";
+        User user = new Teacher(0, name, name, name, name, name, 0, 0, 0, 0, new ArrayList<Classroom>(), new ArrayList<Worksheet>());
+        Teacher teacher = (Teacher) user;
+        System.out.println(teacher.getFirstName());
     }
 
     private void buildPanels() {
@@ -60,7 +68,7 @@ public class FWCMainFrame extends JFrame {
                         login.getPasswordText().equals("password")) {
                     login.clearFields();
                     FWCConfigurator.setTeacher(new Teacher(0, "shakkoum", "Sara", "Hakkoum", "salt", "hash",
-                            1, 10, 3, 10));
+                            1, 10, 3, 10, new ArrayList<Classroom>(), new ArrayList<Worksheet>()));
                             //1, 16, 2, 16));
                     buildTeacherPanels();
                     setSize(new Dimension(1000, 800));

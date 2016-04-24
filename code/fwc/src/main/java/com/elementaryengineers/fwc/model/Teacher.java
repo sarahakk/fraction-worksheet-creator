@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public class Teacher extends User {
 
     private int teacherID, minNumerator, maxNumerator, minDenominator, maxDenominator;
-    private ArrayList<Class> classes;
+    private ArrayList<Classroom> classes;
     private ArrayList<Worksheet> history;
 
     public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
                    int minNumerator, int maxNumerator, int minDenominator, int maxDenominator,
-                   ArrayList<Class> classes, ArrayList<Worksheet> history) {
+                   ArrayList<Classroom> classes, ArrayList<Worksheet> history) {
         super(user, first, last, salt, hash);
         this.teacherID = teacherID;
         this.minNumerator = minNumerator;
@@ -60,7 +60,7 @@ public class Teacher extends User {
         return maxDenominator;
     }
 
-    public ArrayList<Class> getClasses() {
+    public ArrayList<Classroom> getClasses() {
         return classes;
     }
 
