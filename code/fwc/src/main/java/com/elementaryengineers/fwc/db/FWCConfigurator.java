@@ -49,6 +49,9 @@ public class FWCConfigurator {
     public static final String ADV1_IMG = "advancedAdd.png";
     public static final String ADV2_IMG = "advancedSub.png";
     public static final String ADV3_IMG = "advancedMD.png";
+    public static final String PRINT_IMG = "print.png";
+    public static final String DELETE_IMG = "delete.png";
+    public static final String ANSWER_IMG = "answerKey.png";
 
 
     public static void setTeacher(Teacher teacher) {
