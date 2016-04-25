@@ -34,8 +34,6 @@ public class CommonHeader extends JPanel {
     }
 
     private void buildButtons() {
-        // TODO each image needs to be checked for existence before building the buttons
-
         // Create right-aligned top panel of buttons
         pnButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButton.setBackground(Color.WHITE);

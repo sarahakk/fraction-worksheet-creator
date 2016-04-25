@@ -57,6 +57,13 @@ public class Admin extends User {
         return teachers;
     }
 
+    public ArrayList<Teacher> getTeachersRequestedReset() {
+        List<Teacher> results = teachers.stream().filter(t ->
+                t.isResetPassRequested()).collect(Collectors.toList());
+
+        return new ArrayList<>(results);
+    }
+
     public ArrayList<Admin> getAdmins() {
         return admins;
     }

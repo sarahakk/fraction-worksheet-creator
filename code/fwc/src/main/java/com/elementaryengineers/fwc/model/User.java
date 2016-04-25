@@ -1,5 +1,8 @@
 package com.elementaryengineers.fwc.model;
 
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+import org.apache.commons.lang.RandomStringUtils;
+
 /**
  * Created by sarahakk on 4/10/16.
  */
@@ -76,7 +79,21 @@ public class User {
         return password.checkPassword(pass);
     }
 
-    public boolean resetPassword(String newPassword) {
-        return true;
+    /**
+     * User should be updated in the database by the caller.
+     * @param newPassword
+     */
+    public void resetPassword(String newPassword) {
+        password = new EncryptedPassword(newPassword);
+    }
+
+    /**
+     * User should be updated in the database by the caller.
+     * @return
+     */
+    public String setRandomPassword() {
+        String random = RandomStringUtils.randomAlphanumeric(8);
+        password = new EncryptedPassword(random);
+        return random;
     }
 }
