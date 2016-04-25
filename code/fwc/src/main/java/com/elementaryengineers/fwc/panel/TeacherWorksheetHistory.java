@@ -3,9 +3,6 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
-import com.elementaryengineers.fwc.random.WS_Beginner_Pie;
-import com.elementaryengineers.fwc.random.WS_Intermediate;
-import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,7 +51,7 @@ private JPanel pnNorth, pnButtons;
         btnAnswerKey.addActionListener(new AnswerKeyActionListener());
         
         // Make advanced buttons // Delete
-        btnDelete = new ImageButton("Delete", FWCConfigurator.DELETE_IMG, 200, 100);
+        btnDelete = new ImageButton("Delete", FWCConfigurator.DEL_SELECT_IMG, 200, 100);
         btnDelete.addActionListener(new DeleteActionListener());
         
 
@@ -69,7 +66,6 @@ private JPanel pnNorth, pnButtons;
         c.gridx = 2;
         pnButtons.add(btnDelete, c);
         c.gridy = 1;
-        
 
         // Add north and center panel to Teacher Worksheet History Home
         this.add(pnNorth, BorderLayout.NORTH);
@@ -80,7 +76,7 @@ private JPanel pnNorth, pnButtons;
         boolean imgRead = true;
 
         try {
-            URL imgURL = CommonHeaderPanel.class.getClassLoader().getResource
+            URL imgURL = CommonHeader.class.getClassLoader().getResource
         ("images/" + FWCConfigurator.HISTORY_IMG);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 

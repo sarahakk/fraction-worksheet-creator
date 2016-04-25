@@ -50,7 +50,6 @@ public class FWCConfigurator {
     //added another images by Olga
     
     public static final String PRINT_IMG = "print.png";
-    public static final String DELETE_IMG = "delete.png";
     public static final String ANSWER_IMG = "answerkey.png";
     public static final String ADDCLASS_IMG = "addclass.png";
     public static final String ADDSTUDENT_IMG = "addteacher.png";

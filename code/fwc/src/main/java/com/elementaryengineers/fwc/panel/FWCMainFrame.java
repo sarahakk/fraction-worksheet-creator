@@ -18,10 +18,10 @@ public class FWCMainFrame extends JFrame {
 
     private FWCDatabaseConnection dbConn;
     private CardLayout cardLayout;
-    private CommonHeaderPanel header;
-    private AdminRegistrationPanel adminReg;
-    private LoginPanel login;
-    private ForgotPasswordPanel forgotPass;
+    private CommonHeader header;
+    private AdminRegistration adminReg;
+    private Login login;
+    private ForgotPassword forgotPass;
     private AdminResetPassword adminResetPass;
     private AdminHome adminHome;
     private TeacherHome teacherHome;
@@ -47,7 +47,7 @@ public class FWCMainFrame extends JFrame {
     }
 
     private void buildPanels() {
-        header = new CommonHeaderPanel();
+        header = new CommonHeader();
         header.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
         header.setLogoutListener(new ActionListener() {
             @Override
@@ -68,7 +68,7 @@ public class FWCMainFrame extends JFrame {
                         break;
                 }
 
-                cardLayout.show(pnCard, "LoginPanel");
+                cardLayout.show(pnCard, "Login");
                 pack();
                 setLocationRelativeTo(null);
                 FWCConfigurator.logout();
@@ -84,7 +84,7 @@ public class FWCMainFrame extends JFrame {
                 new EmptyBorder(10, 0, 0, 0))
         );
 
-        login = new LoginPanel();
+        login = new Login();
         login.setLoginListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,11 +148,11 @@ public class FWCMainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Create forgot password panel if first time clicking it
                 if (forgotPass == null) {
-                    forgotPass = new ForgotPasswordPanel();
+                    forgotPass = new ForgotPassword();
                     forgotPass.setBackListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            cardLayout.show(pnCard, "LoginPanel");
+                            cardLayout.show(pnCard, "Login");
                             pnCard.remove(forgotPass);
                             pack();
                             setLocationRelativeTo(null);
@@ -196,7 +196,7 @@ public class FWCMainFrame extends JFrame {
                                         adminResetPass.setBackListener(new ActionListener() {
                                             @Override
                                             public void actionPerformed(ActionEvent e) {
-                                                cardLayout.show(pnCard, "LoginPanel");
+                                                cardLayout.show(pnCard, "Login");
                                                 pnCard.remove(adminResetPass);
                                                 pack();
                                                 setLocationRelativeTo(null);
@@ -208,7 +208,7 @@ public class FWCMainFrame extends JFrame {
                                             public void actionPerformed(ActionEvent e) {
                                                 // Go back to login panel if password reset was successful
                                                 if (adminResetPass.verifyAndPerformReset()) {
-                                                    cardLayout.show(pnCard, "LoginPanel");
+                                                    cardLayout.show(pnCard, "Login");
                                                     pnCard.remove(adminResetPass);
                                                     pack();
                                                     setLocationRelativeTo(null);
@@ -235,10 +235,10 @@ public class FWCMainFrame extends JFrame {
                     });
                 }
 
-                pnCard.add(forgotPass, "ForgotPasswordPanel");
+                pnCard.add(forgotPass, "ForgotPassword");
 
                 // Switch to forgot password panel
-                cardLayout.show(pnCard, "ForgotPasswordPanel");
+                cardLayout.show(pnCard, "ForgotPassword");
                 pack();
                 setLocationRelativeTo(null);
                 login.clearFields();
@@ -248,11 +248,13 @@ public class FWCMainFrame extends JFrame {
         // Add panels to card layout
 
         // TESTS
-        //pnCard.add(new AdminRegistrationPanel(), "AdminRegistrationPanel");
+        //pnCard.add(new AdminRegistration(), "AdminRegistration");
         //pnCard.add(new AdminResetPassword(new Admin(0, "testUsername", "", "", "", "")), "AdminResetPassword");
         //FWCConfigurator.setAdmin(new Admin("test", "test", "test", "test", "test", "test", "test"));
         //pnCard.add(new AdminHome(), "AdminHome");
-        pnCard.add(login, "LoginPanel");
+        //pnCard.add(new TeacherProfile(), "TeacherProfile");
+
+        pnCard.add(login, "Login");
 
         this.add(header, BorderLayout.NORTH); // Add common header panel to top of frame
         this.add(pnCard, BorderLayout.CENTER); // Add card panel to center of frame

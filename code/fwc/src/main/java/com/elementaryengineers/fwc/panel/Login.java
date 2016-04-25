@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * TODO
  **/
-public class LoginPanel extends JPanel {
+public class Login extends JPanel {
 
     private JPanel pnFields, pnSouth, pnWrapper;
     private JLabel lblUser, lblPass;
@@ -22,7 +22,7 @@ public class LoginPanel extends JPanel {
     private JPasswordField txtPass;
     private JButton btnLogin, btnForgotPass;
 
-    public LoginPanel() {
+    public Login() {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));

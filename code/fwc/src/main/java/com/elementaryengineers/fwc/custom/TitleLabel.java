@@ -1,6 +1,6 @@
 package com.elementaryengineers.fwc.custom;
 
-import com.elementaryengineers.fwc.panel.CommonHeaderPanel;
+import com.elementaryengineers.fwc.panel.CommonHeader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class TitleLabel extends JLabel {
 
     public TitleLabel(String text, String filename) {
         try {
-            URL imgURL = CommonHeaderPanel.class.getClassLoader().getResource("images/" + filename);
+            URL imgURL = CommonHeader.class.getClassLoader().getResource("images/" + filename);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {

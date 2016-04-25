@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by sarahakk on 4/24/16.
  */
-public class AdminRegistrationPanel extends JPanel {
+public class AdminRegistration extends JPanel {
 
     private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
     private TitleLabel lblTitle;
@@ -26,7 +26,7 @@ public class AdminRegistrationPanel extends JPanel {
     private JPasswordField txtPass, txtConfirm;
     private ImageButton btnSubmit;
 
-    public AdminRegistrationPanel() {
+    public AdminRegistration() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));

@@ -15,14 +15,14 @@ import java.net.URL;
 /**
  * TODO
  **/
-public class CommonHeaderPanel extends JPanel {
+public class CommonHeader extends JPanel {
 
     private JPanel pnButton;
     private JLabel lblTitle;
     private ImageButton btnHelp, btnAccount, btnLogout, btnExit;
     private UserMenu menu;
 
-    public CommonHeaderPanel() {
+    public CommonHeader() {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
@@ -65,7 +65,7 @@ public class CommonHeaderPanel extends JPanel {
         boolean imgRead = true;
 
         try {
-            URL imgURL = CommonHeaderPanel.class.getClassLoader().getResource("images/" + FWCConfigurator.TITLE_IMG);
+            URL imgURL = CommonHeader.class.getClassLoader().getResource("images/" + FWCConfigurator.TITLE_IMG);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {

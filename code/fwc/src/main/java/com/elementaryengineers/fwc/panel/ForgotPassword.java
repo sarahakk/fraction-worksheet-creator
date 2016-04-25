@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
 /**
  * Created by sarahakk on 4/24/16.
  */
-public class ForgotPasswordPanel extends JPanel {
+public class ForgotPassword extends JPanel {
 
     private JPanel pnNorth, pnFields, pnButtons;
     private ImageButton btnSubmit, btnBack;
     private JLabel lblTitle, lblUser;
     private JTextField txtUser;
 
-    public ForgotPasswordPanel() {
+    public ForgotPassword() {
         super(new BorderLayout());
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
