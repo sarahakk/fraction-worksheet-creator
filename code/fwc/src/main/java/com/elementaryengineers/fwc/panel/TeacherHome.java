@@ -4,7 +4,10 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
+import com.elementaryengineers.fwc.model.Worksheet;
+import com.elementaryengineers.fwc.random.WS_Beginner_LG;
 import com.elementaryengineers.fwc.random.WS_Beginner_Pie;
+import com.elementaryengineers.fwc.random.WS_Beginner_PieAdd;
 import com.elementaryengineers.fwc.random.WS_Intermediate;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
@@ -97,19 +100,63 @@ public class TeacherHome extends JPanel {
     private class BeginnerActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO: need a way to generalize worksheet, initialize here before checking source of event to reduce repetition
+            Teacher teacher = FWCConfigurator.getTeacher();
+
+            // Check type of exercise selection
             if (e.getSource() == btnBeg1)
             {
-                Teacher teacher = FWCConfigurator.getTeacher();
-                WS_Beginner_Pie worksheet = new WS_Beginner_Pie(0, 10,
-                        teacher.getMinNumerator(), teacher.getMaxNumerator(),
-                        teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                        FWCConfigurator.GEN_WHOLENUM_NO);
-
-                worksheet.getSeed();
+                WS_Beginner_Pie worksheet =
+                        new WS_Beginner_Pie (0, 10,
+                                1, 10, // Use default numerator and denominator limits
+                                2, 10,
+                                FWCConfigurator.GEN_WHOLENUM_NO);
 
                 try {
                     worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+
+                    // Create new worksheet object
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_Pie, 0);
+                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+                }
+                catch (IOException|COSVisitorException ex) {
+                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                            "Worksheet Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else if (e.getSource() == btnBeg2) {
+                WS_Beginner_PieAdd worksheet =
+                        new WS_Beginner_PieAdd (0, 20,
+                                1, 10, // Use default numerator and denominator limits
+                                2, 10,
+                                FWCConfigurator.GEN_DENOM_MATCHED + FWCConfigurator.GEN_WHOLENUM_NO);
+
+                try {
+                    worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+
+                    // Create new worksheet object
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_PieAdd, 0);
+                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+                }
+                catch (IOException|COSVisitorException ex) {
+                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                            "Worksheet Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else if (e.getSource() == btnBeg3) {
+                WS_Beginner_LG worksheet =
+                        new WS_Beginner_LG (0, 50,
+                                1, 10, // Use default numerator and denominator limits
+                                2, 10,
+                                FWCConfigurator.GEN_UNIQUE5);
+
+                try {
+                    worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+
+                    // Create new worksheet object
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_LG, 0);
+                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
                 }
                 catch (IOException|COSVisitorException ex) {
                     JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
@@ -124,17 +171,23 @@ public class TeacherHome extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             Teacher teacher = FWCConfigurator.getTeacher();
+
             WS_Intermediate worksheet = new WS_Intermediate(0, 40,
                     teacher.getMinNumerator(), teacher.getMaxNumerator(),
                     teacher.getMinDenominator(), teacher.getMaxDenominator(),
-                    FWCConfigurator.GEN_WHOLENUM_NO + FWCConfigurator.GEN_DENOM_MATCHED,
+                    FWCConfigurator.GEN_WHOLENUM_NO,
                     (e.getSource() == btnInt1) ? '+' :
                             (e.getSource() == btnInt2) ? '-' : '*');
 
-            worksheet.getSeed();
-
             try {
                 worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+
+                // Create new worksheet object
+                Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Intermediate_Add :
+                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Intermediate_Sub :
+                                        FWCConfigurator.WS_Intermediate_MD, 1);
+                teacher.addWorksheet(newWorksheet); // Add to Teacher's history
             }
             catch (IOException|COSVisitorException ex) {
                 JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +

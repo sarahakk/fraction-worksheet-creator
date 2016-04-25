@@ -12,13 +12,30 @@ public class Student extends User {
     private Classroom classroom;
     private ArrayList<Worksheet> history;
 
-    public Student(int studentID, String user, String first, String last, String salt, String hash,
-                   Classroom classroom, int difficultyID, boolean resetPassRequested) {
+    /**
+     * Constructor for creating a brand new Student.
+     */
+    public Student(String user, String first, String last, String password, int difficultyID, Classroom classroom) {
+        super(user, first, last, password);
+        setType(UserType.STUDENT);
+        this.studentID = -1; // To be set by database (autoincrement)
+        this.difficultyID = difficultyID;
+        this.classroom = classroom;
+        this.history = new ArrayList<>();
+        this.resetPassRequested = false;
+    }
+
+    /**
+     * Constructor for creating an existing Student from the database.
+     */
+    public Student(int studentID, int difficultyID, String user, String first, String last, String salt, String hash,
+                   Classroom classroom, ArrayList<Worksheet> history, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
         setType(UserType.STUDENT);
         this.studentID = studentID;
-        this.classroom = classroom;
         this.difficultyID = difficultyID;
+        this.classroom = classroom;
+        this.history = history;
         this.resetPassRequested = resetPassRequested;
     }
 

@@ -1,6 +1,12 @@
 package com.elementaryengineers.fwc.model;
 
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by sarahakk on 4/22/16.
@@ -34,27 +40,23 @@ public class Classroom {
     }
 
     public boolean addStudent(Student newStudent) {
-        // TODO: talk to DB
-        return true;
+        this.students.add(newStudent);
+        return FWCConfigurator.getDbConn().updateClassroom(this);
     }
 
     public boolean removeStudent(Student student) {
-        // TODO: talk to DB
-        return true;
+        this.students.remove(student);
+        return FWCConfigurator.getDbConn().deleteStudent(student);
     }
 
     public ArrayList<Student> search(String keyword) {
-        ArrayList<Student> results = null;
-        return results;
-    }
+        List<Student> results = students.stream().filter(stu ->
+                stu.getFirstName().contains(keyword) ||
+                stu.getLastName().contains(keyword) ||
+                FWCConfigurator.getDifficulties().get(stu.getDifficultyID()).getDescription().contains(keyword) ||
+                stu.getUsername().contains(keyword)
+                ).collect(Collectors.toList());
 
-    public boolean createClass() {
-        // TODO: talk to DB
-        return true;
-    }
-
-    public boolean deleteCLass() {
-        // TODO: talk to DB
-        return true;
+        return new ArrayList<>(results);
     }
 }

@@ -11,6 +11,28 @@ public class User {
     private EncryptedPassword password;
     private UserType type;
 
+    /**
+     * Constructor for creating a brand new User.
+     * @param user
+     * @param first
+     * @param last
+     * @param password
+     */
+    public User(String user, String first, String last, String password) {
+        this.username = user;
+        this.firstName = first;
+        this.lastName = last;
+        this.password = new EncryptedPassword(password);
+    }
+
+    /**
+     * Constructor for creating an existing User from the database.
+     * @param user
+     * @param first
+     * @param last
+     * @param salt
+     * @param hash
+     */
     public User(String user, String first, String last, String salt, String hash) {
         this.username = user;
         this.firstName = first;
