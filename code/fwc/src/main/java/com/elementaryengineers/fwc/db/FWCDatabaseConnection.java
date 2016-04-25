@@ -61,7 +61,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         return new Teacher(0, "shakkoum", "Sara", "Hakkoum",
                 "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC", // password salt
                 "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", // password hash
-                1, 10, 3, 10, new ArrayList<Classroom>(), new ArrayList<Worksheet>(), false);
+                new ArrayList<Classroom>(), new ArrayList<Worksheet>(), false);
     }
 
     /**

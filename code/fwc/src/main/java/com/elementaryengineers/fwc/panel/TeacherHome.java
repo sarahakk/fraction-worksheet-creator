@@ -173,8 +173,8 @@ public class TeacherHome extends JPanel {
             Teacher teacher = FWCConfigurator.getTeacher();
 
             WS_Intermediate worksheet = new WS_Intermediate(0, 40,
-                    teacher.getMinNumerator(), teacher.getMaxNumerator(),
-                    teacher.getMinDenominator(), teacher.getMaxDenominator(),
+                    1, 12, // Use default numerator and denominator limits
+                    2, 12,
                     FWCConfigurator.GEN_WHOLENUM_NO,
                     (e.getSource() == btnInt1) ? '+' :
                             (e.getSource() == btnInt2) ? '-' : '*');

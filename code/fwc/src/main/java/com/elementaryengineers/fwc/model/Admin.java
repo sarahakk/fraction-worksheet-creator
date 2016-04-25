@@ -1,6 +1,10 @@
 package com.elementaryengineers.fwc.model;
 
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sarahakk on 4/10/16.
@@ -25,6 +29,8 @@ public class Admin extends User {
         this.last4SSN = new EncryptedPassword(last4SSN);
         this.birthdate = new EncryptedPassword(birthdate);
         this.firstJob = new EncryptedPassword(firstJob);
+        this.teachers = new ArrayList<>();
+        this.admins = new ArrayList<>();
     }
 
     /**
@@ -39,6 +45,8 @@ public class Admin extends User {
         this.last4SSN = new EncryptedPassword(last4SSNHash, last4SSNSalt);
         this.birthdate = new EncryptedPassword(birthdateHash, birthdateSalt);
         this.firstJob = new EncryptedPassword(firstJobHash, firstJobSalt);
+        this.teachers = new ArrayList<>();
+        this.admins = new ArrayList<>();
     }
 
     public int getAdminID() {
@@ -56,5 +64,15 @@ public class Admin extends User {
     public boolean verifySecurityQuestions(String last4SSN, String birthdate, String firstJob) {
         return this.last4SSN.checkPassword(last4SSN) && this.birthdate.checkPassword(birthdate) &&
                 this.firstJob.checkPassword(firstJob);
+    }
+
+    public ArrayList<Teacher> searchTeachers(String keyword) {
+        List<Teacher> results = teachers.stream().filter(t ->
+                t.getFirstName().contains(keyword) ||
+                        t.getLastName().contains(keyword) ||
+                        t.getUsername().contains(keyword)
+        ).collect(Collectors.toList());
+
+        return new ArrayList<>(results);
     }
 }

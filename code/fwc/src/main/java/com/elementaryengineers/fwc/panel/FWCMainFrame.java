@@ -23,6 +23,7 @@ public class FWCMainFrame extends JFrame {
     private LoginPanel login;
     private ForgotPasswordPanel forgotPass;
     private AdminResetPassword adminResetPass;
+    private AdminHome adminHome;
     private TeacherHome teacherHome;
     private TeacherMenu teacherMenu;
     private JPanel pnCard;
@@ -245,8 +246,12 @@ public class FWCMainFrame extends JFrame {
         });
 
         // Add panels to card layout
+
+        // TESTS
         //pnCard.add(new AdminRegistrationPanel(), "AdminRegistrationPanel");
         //pnCard.add(new AdminResetPassword(new Admin(0, "testUsername", "", "", "", "")), "AdminResetPassword");
+        //FWCConfigurator.setAdmin(new Admin("test", "test", "test", "test", "test", "test", "test"));
+        //pnCard.add(new AdminHome(), "AdminHome");
         pnCard.add(login, "LoginPanel");
 
         this.add(header, BorderLayout.NORTH); // Add common header panel to top of frame
