@@ -1,7 +1,7 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //  Class       :  Fraction
 //  Author      :  Eric Holm
-//  Version     :  1.1.0 (FINAL)
+//  Version     :  1.2.0 (FINAL)
 //  Description :  Class to contain a fraction
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -95,6 +95,26 @@ public final class Fraction
             mixedNum = mixedNum - mixedDen;
             mixedWhole++;
         }
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    //  convertWord  //
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public String convertWord()
+    {
+        
+        String[] numText = {"zero", "one", "two", "three", "four", "five", 
+                            "six", "seven", "eight", "nine", "ten", "eleven",
+                            "twelve", "thirteen", "fourteen", "fifteen", 
+                            "sixteen", "seventeen", "eighteen", "nineteen",
+                            "twenty"};
+        String[] denText = {"zero", "one", "half", "third", "fourth",
+                            "fifth", "sixth", "seventh", "eighth", 
+                            "ninth", "tenth", "eleventh", "twelth", 
+                            "thirteenth", "fourteenth", "fifteenth", 
+                            "sixteenth", "seventeenth", "eighteenth", 
+                            "nineteenth", "twentith"};
+        return (String.format("%s-%s", numText[numerator], denText[denominator]));
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     

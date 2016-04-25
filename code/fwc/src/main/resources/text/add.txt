@@ -1,0 +1,27 @@
+%person1%'s class had a pizza party.  The students didn't eat %fraction1%s of one pizza and %fraction2%s of another.  How much pizza was left over all together?
+A bag of M&M's has a total of %common_den% candies.  %common_num1% are %color1% and %common_num2% of them are %color2%.  What fraction of all the M&M's are %color1% and %color2%?
+%person1% goes for a walk.  Walking %fraction1%s of a mile to the park then %fraction2%s of a mile to the store.  In total, how far did %person1% walk?
+It snowed %fraction1%s of a foot of snow yesterday and another %fraction2%s of a foot of snow fell today.  How much snow has fallen in the past two days?
+%person1% has a %subject1% textbook weighing %fraction1%s of a pound.  %person1% also has a %subject2% textbook weighing %fraction2%s of a pounds.  In total, how much does %person1%'s books weigh?
+This afternoon %person1% left school, rode the bus for %fraction1%s of a mile, then walked %fraction2%s of a mile to get home.  How far did %person1% travel?
+%person1% mailed a letter on Monday morning.  The letter travelled %fraction1%s of a mile on Tuesday.  It travelled another %fraction2%s of a mile on Wednesday.  How far did it travel?
+%person1% found two worms in the yard and measured them with a ruler.  One worm was %fraction1%s of an inch long.  The other worm was %fraction2%s of an inch long.  What was the combined length of the worms?
+A piece of iron weighs %fraction1%s of a pound.  A piece of aluminum weighs %fraction2%s of a pound.  How much metal is there total?
+There are %common_den% cars parked on %person1%'s street.  %common_num1% of the cars are %color1%, %common_num2% of the cars are %color2%.  What fraction of cars parked are %color1% or %color2%?
+There are %common_den% slices of pie.  %person1% eats %common_num1% slices, %person2% eats %common_num2% slices.  How much pie did %person1% and %person2% eat?
+There are %common_den% marbles to play with.  %person1% has %common_num1% marbles, %person2% has %common_num2% marbles.  What fraction of marbles are being played with?
+There are %common_den% boxes of paper.  The class used %common_num1% boxes yesterday and %common_num2% boxes today.  How much of the paper has been used?
+There are %common_den% easter eggs.  %person1% finds %common_num1% eggs.  %person2% finds %common_num2%.  What fraction of the eggs did they find?
+There are %common_den% candy bars for sale.  %person1% sells %common_num1% bars.  %person2% sells %common_num2% bars.  How many bars did %person1% and %person2% sell?
+A cookie recipe calls for %fraction1%s of a cup of white flour and %fraction2%s of a cup of wheat flour.  How much flour is needed?
+A cake recipe calls for %fraction1%s of a cup of sugar for frosting and another %fraction2%s of a cup of sugar for the cake.  How much sugar is needed?
+%person1% needs to drink %fraction1%s of a quart of milk and %fraction2%s of a quart of water everyday.  How much does %person1% have to drink?
+%person1% ate %fraction1%s of a bag of candy and %person2% ate %fraction2%s of another bag.  How much candy did they eat together?
+%person1% picked %fraction1%s of a bag of apples.  %person1%'s dad picked %fraction2%s of a bag of apples.  How many bags of apples did they pick?
+
+
+
+
+
+
+

@@ -15,16 +15,8 @@ There are %den_value% students eating lunch in the cafeteria.  %fraction% of the
 There are %den_value% students eating lunch in the cafeteria.  %fraction% of them brought their lunch from home.  How many had to buy lunch?
 The school choir has 10 members.  %fraction% of the members are %gender%.  How many %gender% are in the choir?
 There are %den_value% houses on %person%'s street.  %fraction% of them are painted %color%.  How many %color% houses are there on %person%'s street.
-%person% mailed a letter on %day% morning.  The letter traveled %fraction% of a mile on Monday.  It traveled %fraction% of a mile on Tuesday, reaching it's destination.  How far did %person%'s letter travel?
-This afternoon %person% left school, rode the bus %fraction% of a mile, and then walked %fraction% of a mile to get home.  How far did %person% travel?
-This afternoon %person% left school, rode the bus %fraction% of a mile, and then walked %fraction% of a mile to get home.  How much further did %person% ride then walk?
-%person% %subject% textbook weighs %fraction% of a pound and his/her %subject% textbook weighs %fraction% of a pound.  How much more does the %subject% textbook weigh then the %subject% textbook?
-%person% %subject% textbook weighs %fraction% of a pound and his/her %subject% textbook weighs %fraction% of a pound.  What is the total weight of %person%'s textbooks?
 %person% found two worms in the yard and measured them with a ruler.  One worm was %fraction% of an inch long.  The other worm was %fraction% of an inch long.  How much longer was the longer worm?
-%person% found two worms in the yard and measured them with a ruler.  One worm was %fraction% of an inch long.  The other worm was %fraction% of an inch long.  What was the combined length of the worms?
 Ruth ran 8/10 of a mile and walked 2/10 of a mile. How much farther did Ruth run than walk?
-At the Scott Ski Resort, it snowed 7/8 of a foot yesterday and 1/8 of a foot today. How much more did it snow yesterday than today?
-Professor Maxwell weighed two pieces of metal for an experiment. The piece of iron weighed 2/3 of a pound and the piece of aluminum weighed 1/3 of a pound. How much more did the piece of iron weigh than the piece of aluminum?
 There were 2 students in a swimming pool. 1 got out. What fraction of the students were left?
 There are 4 cars parked on Britney's street. 3 of the cars are red. What fraction of the cars are red?
 Albert saw 11 crabs in an aquarium. 6 of the crabs were orange. What fraction of the crabs were orange?
@@ -36,10 +28,7 @@ Devon collected 3/4 of a bin of glass bottles to recycle. Eddie collected 5 time
 Caspar uses 1/2 of a cup of vinegar in his salad dressing recipe. How much vinegar would Caspar use to make 5 recipes?
 You have 7 5/8 feet of yarn to make a bracelet. You only use 4 1/8 feet for the bracelet. How much yarn is left over?
 After a party, 5/8 of the cake is left over. That night, big brother eats 2/8 of the cake. How much is left over after that?
-You walk 3/10 of a mile to your friend’s house, and then 5/10 of a mile to school. How far did you walk altogether?
 A cake recipe requires 3/5 cup of sugar for the frosting and 1/5 cup of sugar for the cake. How much sugar is that altogether?
-Your class had a pizza party. 3/8 of one pizza was left over, and 4/8 of another pizza was left over. You put them both into one box. How much pizza do you have altogether?
-1/10 of the M&M’s in a bag are red and 3/10 are blue. What fraction of all the M&M’s are red and blue?
 You give 2/7 of a pan of brownies to Susan and 1/7 of the pan of brownies to Patrick. How much of the pan of brownies did you give away? How much do you have left?
 You go out for a long walk. You walk 3/4 mile and then sit down to take a rest. Then you walk 1/4 of a mile. How far did you walk altogether?
 Pam walks 7/8 of a mile to school. Paul walks 3/8 of a mile to school. How much farther does Pam walk than Paul?

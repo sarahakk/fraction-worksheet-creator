@@ -67,7 +67,7 @@ public class WorksheetTester
             System.out.printf(" 5)  Int_Add              \n");
             System.out.printf(" 6)  Int_Sub              \n");
             System.out.printf(" 7)  Int_MD               \n");
-//            System.out.printf(" 8)  Advanced_Add         \n");
+            System.out.printf(" 8)  Advanced_Add         \n");
 //            System.out.printf(" 9)  Advanced_Sub         \n");
 //            System.out.printf("10)  Advanced_Multi       \n");
             System.out.printf("                          \n");
@@ -229,6 +229,31 @@ public class WorksheetTester
                                            2, 12,
                                            GEN_WHOLENUM_NO,
                                            '*');
+                    worksheet.PrintEquations();
+                    System.out.println();
+                    System.out.println();
+                    
+                    if (seedValue == 0)
+                    {
+                        seedValue = worksheet.getSeed();
+                    }
+                    
+                    worksheet.CreateWorksheet(answerFlag);
+                }
+                break;
+                    
+                case 8:
+                {
+                    System.out.println();
+                    System.out.printf("--------------------------\n");
+                    System.out.printf("---    Adv_Add Test    ---\n");
+                    System.out.printf("--------------------------\n");
+                    WS_Advanced worksheet = 
+                                    new WS_Advanced (seedValue, 20, 
+                                           1, 12, 
+                                           2, 12,
+                                           GEN_WHOLENUM_NO,
+                                           '+');
                     worksheet.PrintEquations();
                     System.out.println();
                     System.out.println();
