@@ -22,6 +22,7 @@ public class FWCMainFrame extends JFrame {
     private AdminRegistrationPanel adminReg;
     private LoginPanel login;
     private ForgotPasswordPanel forgotPass;
+    private AdminResetPassword adminResetPass;
     private TeacherHome teacherHome;
     private TeacherMenu teacherMenu;
     private JPanel pnCard;
@@ -189,7 +190,38 @@ public class FWCMainFrame extends JFrame {
 
                                     case ADMIN: {
                                         Admin admin = (Admin) user;
-                                        // TODO: go to admin reset password panel
+
+                                        adminResetPass = new AdminResetPassword(admin);
+                                        adminResetPass.setBackListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                cardLayout.show(pnCard, "LoginPanel");
+                                                pnCard.remove(adminResetPass);
+                                                pack();
+                                                setLocationRelativeTo(null);
+                                            }
+                                        });
+
+                                        adminResetPass.setSubmitListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                // Go back to login panel if password reset was successful
+                                                if (adminResetPass.verifyAndPerformReset()) {
+                                                    cardLayout.show(pnCard, "LoginPanel");
+                                                    pnCard.remove(adminResetPass);
+                                                    pack();
+                                                    setLocationRelativeTo(null);
+                                                }
+                                            }
+                                        });
+
+                                        pnCard.add(adminResetPass, "AdminResetPassword");
+
+                                        // Switch to admin reset password panel
+                                        cardLayout.show(pnCard, "AdminResetPassword");
+                                        pack();
+                                        setLocationRelativeTo(null);
+                                        login.clearFields();
                                         break;
                                     }
                                 }
@@ -212,10 +244,9 @@ public class FWCMainFrame extends JFrame {
             }
         });
 
-        adminReg = new AdminRegistrationPanel();
-
         // Add panels to card layout
-        pnCard.add(adminReg, "AdminRegistrationPanel");
+        //pnCard.add(new AdminRegistrationPanel(), "AdminRegistrationPanel");
+        //pnCard.add(new AdminResetPassword(new Admin(0, "testUsername", "", "", "", "")), "AdminResetPassword");
         pnCard.add(login, "LoginPanel");
 
         this.add(header, BorderLayout.NORTH); // Add common header panel to top of frame

@@ -3,11 +3,11 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Admin;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,41 +16,39 @@ import java.util.Date;
 /**
  * Created by sarahakk on 4/24/16.
  */
-public class AdminRegistrationPanel extends JPanel {
+public class AdminResetPassword extends JPanel {
 
     private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
     private TitleLabel lblTitle;
-    private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm,
+    private JLabel lblUser, lblPass, lblConfirm,
             lblSecurity, lblSSN, lblBirthdate, lblJob;
-    private JTextField txtFirst, txtLast, txtUser, txtSSN, txtBirthdate, txtJob;
+    private JTextField txtUser, txtSSN, txtBirthdate, txtJob;
     private JPasswordField txtPass, txtConfirm;
-    private ImageButton btnSubmit;
+    private ImageButton btnSubmit, btnBack;
+    private Admin admin;
 
-    public AdminRegistrationPanel() {
+    public AdminResetPassword(Admin admin) {
         super(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        this.admin = admin;
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Administrator Registration", FWCConfigurator.ADMIN_REG_IMG);
+        lblTitle = new TitleLabel("Administrator Password Reset", FWCConfigurator.ADMIN_PASSW_RESET_IMG);
         pnNorth.add(lblTitle);
 
         // Build west panel and form
-        lblFirst = new JLabel("First name:", SwingConstants.RIGHT);
-        lblFirst.setFont(new Font("Calibri", Font.PLAIN, 18));
-        lblLast = new JLabel("Last name:", SwingConstants.RIGHT);
-        lblLast.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblUser = new JLabel("Username:", SwingConstants.RIGHT);
         lblUser.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblPass = new JLabel("Password:", SwingConstants.RIGHT);
         lblPass.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblConfirm = new JLabel("Confirm password:", SwingConstants.RIGHT);
         lblConfirm.setFont(new Font("Calibri", Font.PLAIN, 18));
-        txtFirst = new JTextField(24);
-        txtLast = new JTextField(24);
         txtUser = new JTextField(24);
+        txtUser.setText(admin.getUsername());
+        txtUser.setEnabled(false);
         txtPass = new JPasswordField(24);
         txtConfirm = new JPasswordField(24);
 
@@ -58,55 +56,23 @@ public class AdminRegistrationPanel extends JPanel {
         pnFieldsLeft = new JPanel(new GridBagLayout());
         pnFieldsLeft.setBackground(Color.WHITE);
         pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 0));
-        pnFieldsLeft.setPreferredSize(new Dimension(400, 200));
+        pnFieldsLeft.setPreferredSize(new Dimension(350, 150));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
 
-        // First name
+        // Username
         cLeft.anchor = GridBagConstraints.EAST;
-        pnFieldsLeft.add(lblFirst, cLeft);
+        pnFieldsLeft.add(lblUser, cLeft);
 
         cLeft.gridx = 1;
         cLeft.insets = new Insets(0, 10, 0, 0);
         cLeft.anchor = GridBagConstraints.CENTER;
         cLeft.weightx = 1;
         cLeft.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(txtFirst, cLeft);
-
-        // Last name
-        cLeft.gridy = 1;
-        cLeft.gridx = 0;
-        cLeft.insets.left = 0;
-        cLeft.anchor = GridBagConstraints.EAST;
-        cLeft.weightx = 0;
-        cLeft.fill = GridBagConstraints.NONE;
-        pnFieldsLeft.add(lblLast, cLeft);
-
-        cLeft.gridx = 1;
-        cLeft.insets.left = 10;
-        cLeft.anchor = GridBagConstraints.CENTER;
-        cLeft.weightx = 1;
-        cLeft.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(txtLast, cLeft);
-
-        // Username
-        cLeft.gridy = 2;
-        cLeft.gridx = 0;
-        cLeft.insets.left = 0;
-        cLeft.anchor = GridBagConstraints.EAST;
-        cLeft.weightx = 0;
-        cLeft.fill = GridBagConstraints.NONE;
-        pnFieldsLeft.add(lblUser, cLeft);
-
-        cLeft.gridx = 1;
-        cLeft.insets.left = 10;
-        cLeft.anchor = GridBagConstraints.CENTER;
-        cLeft.weightx = 1;
-        cLeft.fill = GridBagConstraints.HORIZONTAL;
         pnFieldsLeft.add(txtUser, cLeft);
 
         // Password
-        cLeft.gridy = 3;
+        cLeft.gridy = 1;
         cLeft.gridx = 0;
         cLeft.insets.left = 0;
         cLeft.anchor = GridBagConstraints.EAST;
@@ -122,7 +88,7 @@ public class AdminRegistrationPanel extends JPanel {
         pnFieldsLeft.add(txtPass, cLeft);
 
         // Confirm password
-        cLeft.gridy = 4;
+        cLeft.gridy = 2;
         cLeft.gridx = 0;
         cLeft.insets.left = 0;
         cLeft.anchor = GridBagConstraints.EAST;
@@ -154,7 +120,7 @@ public class AdminRegistrationPanel extends JPanel {
         pnFieldsRight = new JPanel(new GridBagLayout());
         pnFieldsRight.setBackground(Color.WHITE);
         pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10, 30));
-        pnFieldsRight.setPreferredSize(new Dimension(500, 200));
+        pnFieldsRight.setPreferredSize(new Dimension(500, 150));
         GridBagConstraints cRight = new GridBagConstraints();
         cRight.ipady = 5;
 
@@ -213,6 +179,8 @@ public class AdminRegistrationPanel extends JPanel {
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnBack = new ImageButton("Back", FWCConfigurator.BACK_IMG, 150, 50);
+        pnSouth.add(btnBack);
         pnSouth.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
@@ -221,12 +189,11 @@ public class AdminRegistrationPanel extends JPanel {
         add(pnSouth, BorderLayout.SOUTH);
     }
 
-    public boolean verifyRegistration() {
-        if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
-                txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
+    public boolean verifyAndPerformReset() {
+        if (String.valueOf(txtPass.getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("") || txtSSN.getText().equals("") ||
                 txtBirthdate.getText().equals("") || txtJob.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Please enter all required information.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Please enter all required information.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -234,20 +201,20 @@ public class AdminRegistrationPanel extends JPanel {
         // Check if passwords match
         if (!String.valueOf(txtPass.getPassword()).equals(
                 String.valueOf(txtConfirm.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "Passwords do not match.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Passwords do not match.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Check if SSN is only 4 numbers
         if (txtSSN.getText().length() != 4) {
-            JOptionPane.showMessageDialog(null, "Last 4 digits of SSN are invalid.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Last 4 digits of SSN are invalid.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         if (!StringUtils.isNumeric(txtSSN.getText())) {
-            JOptionPane.showMessageDialog(null, "Last 4 digits of SSN are invalid.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Last 4 digits of SSN are invalid.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -259,12 +226,28 @@ public class AdminRegistrationPanel extends JPanel {
             Date result = sdf.parse(birth);
             fixedBirth = sdf.format(result);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Please fix birthday format.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Please fix birthday format.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        return true;
+        // Verify security questions
+        if (admin.verifySecurityQuestions(txtSSN.getText(), txtBirthdate.getText(), txtJob.getText())) {
+            admin.resetPassword(String.valueOf(txtPass.getPassword()));
+            FWCConfigurator.getDbConn().updateAdmin(admin);
+            JOptionPane.showMessageDialog(null, "Your password has been successfully reset.", "Password Reset Successful",
+                    JOptionPane.PLAIN_MESSAGE);
+            return true;
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Answers to security questions are invalid.", "Password Reset Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    public void setBackListener(ActionListener backListener) {
+        btnBack.addActionListener(backListener);
     }
 
     public void setSubmitListener(ActionListener submitListener) {
