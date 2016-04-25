@@ -16,7 +16,7 @@ import java.util.Arrays;
  **/
 public class LoginPanel extends JPanel {
 
-    private JPanel pnFields, pnSouth, pnLogin, pnForgot, pnWrapper;
+    private JPanel pnFields, pnSouth, pnWrapper;
     private JLabel lblUser, lblPass;
     private JTextField txtUser;
     private JPasswordField txtPass;
@@ -74,19 +74,10 @@ public class LoginPanel extends JPanel {
 
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
-
-        pnLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnLogin.setBackground(Color.WHITE);
         btnLogin = new ImageButton("Login", FWCConfigurator.LOGIN_IMG, 150, 50);
-        pnLogin.add(btnLogin);
-
-        pnForgot = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnForgot.setBackground(Color.WHITE);
         btnForgotPass = new ImageButton("Forgot password?", FWCConfigurator.FORGOT_PASSW_IMG, 150, 50);
-        pnForgot.add(btnForgotPass);
-
-        pnSouth.add(pnLogin);
-        pnSouth.add(pnForgot);
+        pnSouth.add(btnLogin);
+        pnSouth.add(btnForgotPass);
 
         this.add(pnWrapper, BorderLayout.CENTER);
         this.add(pnSouth, BorderLayout.SOUTH);

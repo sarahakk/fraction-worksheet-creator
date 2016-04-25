@@ -19,6 +19,7 @@ public class FWCMainFrame extends JFrame {
     private FWCDatabaseConnection dbConn;
     private CardLayout cardLayout;
     private CommonHeaderPanel header;
+    private AdminRegistrationPanel adminReg;
     private LoginPanel login;
     private ForgotPasswordPanel forgotPass;
     private TeacherHome teacherHome;
@@ -211,7 +212,10 @@ public class FWCMainFrame extends JFrame {
             }
         });
 
+        adminReg = new AdminRegistrationPanel();
+
         // Add panels to card layout
+        pnCard.add(adminReg, "AdminRegistrationPanel");
         pnCard.add(login, "LoginPanel");
 
         this.add(header, BorderLayout.NORTH); // Add common header panel to top of frame
