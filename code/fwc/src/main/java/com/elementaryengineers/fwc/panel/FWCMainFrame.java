@@ -19,11 +19,18 @@ public class FWCMainFrame extends JFrame {
     private FWCDatabaseConnection dbConn;
     private CardLayout cardLayout;
     private CommonHeader header;
-    private AdminRegistration adminReg;
     private Login login;
     private ForgotPassword forgotPass;
     private AdminResetPassword adminResetPass;
+    private AdminRegistration adminReg;
+
+    // Admin panels
+    private AdminMenu adminMenu;
     private AdminHome adminHome;
+    private AdminManagePasswords adminPasswords;
+    private TeacherProfile adminTeacherProfile;
+    private TeacherRegistration adminTeacherReg;
+
     private TeacherHome teacherHome;
     private TeacherMenu teacherMenu;
     private JPanel pnCard;
@@ -253,6 +260,7 @@ public class FWCMainFrame extends JFrame {
         //FWCConfigurator.setAdmin(new Admin("test", "test", "test", "test", "test", "test", "test"));
         //pnCard.add(new AdminHome(), "AdminHome");
         //pnCard.add(new TeacherProfile(), "TeacherProfile");
+        //pnCard.add(new TeacherRegistration(), "TeacherRegistration");
 
         pnCard.add(login, "Login");
 
@@ -282,7 +290,24 @@ public class FWCMainFrame extends JFrame {
     }
 
     private void buildAdminPanels() {
+        adminMenu = new AdminMenu();
+        // TODO: add action listeners to buttons in menu
 
+        adminHome = new AdminHome();
+        // TODO: add action listener to profile button
+
+        adminPasswords = new AdminManagePasswords();
+        adminTeacherProfile = new TeacherProfile();
+        // TODO: add action listeners to buttons
+
+        adminTeacherReg = new TeacherRegistration();
+        // TODO: add submit button action listener
+
+        pnCard.add(adminHome, "AdminHome");
+        pnCard.add(adminPasswords, "AdminManagePasswords");
+        pnCard.add(adminTeacherProfile, "TeacherProfile");
+        pnCard.add(adminTeacherReg, "TeacherRegistration");
+        header.setMenu(adminMenu);
     }
 
     private void removeTeacherPanels() {
@@ -293,7 +318,15 @@ public class FWCMainFrame extends JFrame {
 
     }
 
+    /**
+     * Panels should be removed from the card layout panel in the center
+     * of the frame when the admin logs out so that the frame can return
+     * to the correct size for the login page.
+     */
     private void removeAdminPanels() {
-
+        pnCard.remove(adminHome);
+        pnCard.remove(adminPasswords);
+        pnCard.remove(adminTeacherProfile);
+        pnCard.remove(adminTeacherReg);
     }
 }

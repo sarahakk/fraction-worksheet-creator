@@ -1,11 +1,9 @@
 package com.elementaryengineers.fwc.model;
 
 import com.elementaryengineers.fwc.db.FWCConfigurator;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**

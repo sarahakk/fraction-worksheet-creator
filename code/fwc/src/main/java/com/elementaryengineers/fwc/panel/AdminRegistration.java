@@ -231,6 +231,13 @@ public class AdminRegistration extends JPanel {
             return false;
         }
 
+        // Check if username is available
+        if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
+            JOptionPane.showMessageDialog(null, "Username is not available.", "Registration Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         // Check if passwords match
         if (!String.valueOf(txtPass.getPassword()).equals(
                 String.valueOf(txtConfirm.getPassword()))) {
