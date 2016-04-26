@@ -21,6 +21,7 @@ public class FWCMainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel pnCard;
     private CommonHeader header;
+    private Account myAccount;
     private Login login;
     private ForgotPassword forgotPass;
     private AdminResetPassword adminResetPass;
@@ -75,6 +76,21 @@ public class FWCMainFrame extends JFrame {
                 setLocationRelativeTo(null);
                 FWCConfigurator.setCurrentPage(Page.LOGIN);
                 FWCConfigurator.logout();
+            }
+        });
+
+        header.setAccountListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (FWCConfigurator.getCurrentPage() != Page.MY_ACCOUNT) {
+                    if (myAccount == null) { // Create panel if first time
+                        myAccount = new Account();
+                        pnCard.add(myAccount, "Account");
+                    }
+
+                    cardLayout.show(pnCard, "Account");
+                    FWCConfigurator.setCurrentPage(Page.MY_ACCOUNT);
+                }
             }
         });
 

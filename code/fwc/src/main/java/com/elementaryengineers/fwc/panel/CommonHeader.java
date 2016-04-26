@@ -108,7 +108,18 @@ public class CommonHeader extends JPanel {
         btnExit.setVisible(true);
     }
 
+    public void setAccountListener(ActionListener listener) {
+        this.btnAccount.addActionListener(listener);
+    }
+
     public void setLogoutListener(ActionListener listener) {
         this.btnLogout.addActionListener(listener);
+    }
+
+    private class HelpListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO: create help frame!
+        }
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class FWCConfigurator {
 
     private static FWCDatabaseConnection dbConn;
-    private static ArrayList<Worksheet> difficulties;      // List of the standard difficulties
+    private static ArrayList<Difficulty> difficulties;      // List of the standard difficulties
     private static UserType userType;                       // Determines what kind of user is currently logged in
     private static Teacher teacher;
     private static Student student;

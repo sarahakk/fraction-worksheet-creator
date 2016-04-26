@@ -222,7 +222,7 @@ public interface DatabaseConnection {
      * they can be used by the GUI.
      * @return
      */
-    public ArrayList<Worksheet> getDifficulties();
+    public ArrayList<Difficulty> getDifficulties();
 
     /**
      * Check if the Administrator has ANY users. If not, the GUI needs to

@@ -78,9 +78,9 @@ public class FWCDatabaseConnection implements DatabaseConnection
                 "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
                 "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
                 "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4");
-        */
         return null;
     }
+    */
 
 	/**
 	 * Create the database from scratch. Do this before connecting,
@@ -1097,12 +1097,12 @@ public class FWCDatabaseConnection implements DatabaseConnection
      * @return
      */
     @Override
-    public ArrayList<Worksheet> getDifficulties(String difficulty) {
+    public ArrayList<Difficulty> getDifficulties(String difficulty) {
 
 		    String sql = "SELECT * Difficulties WHERE *;";
 		    PreparedStatement selectStmt = null;
 		    ResultSet rs = null;
-		    ArrayList<Worksheet> matches = new ArrayList<>();
+		    ArrayList<Difficulty> matches = new ArrayList<>();
 		    try {
 			    selectStmt = conn.prepareStatement(sql);
 			    selectStmt.setString(1," ");
