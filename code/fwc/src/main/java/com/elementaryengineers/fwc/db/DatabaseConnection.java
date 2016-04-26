@@ -2,7 +2,10 @@ package com.elementaryengineers.fwc.db;
 
 import com.elementaryengineers.fwc.model.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * This interface contains all the methods that will be needed
@@ -35,7 +38,7 @@ public interface DatabaseConnection {
      * so that queries we run later run on our database.
      * @return
      */
-    public boolean connect();
+    public boolean connect() throws ClassNotFoundException, SQLException;
 
     /**
      * This should also figure out if the user is a teacher/student/admin,
@@ -51,14 +54,14 @@ public interface DatabaseConnection {
      * which also includes their information from the User table.
      * @return
      */
-    public ArrayList<Teacher> getAllTeachers();
+    public List<String> getAllTeachers();
 
     /**
      * Get all admins, creating an Admin object for each,
      * which also includes their information from the User table.
      * @return
      */
-    public ArrayList<Admin> getAllAdmins();
+    public ArrayList<String> getAllAdmins();
 
     /**
      * Add this admin to the database, updating the
@@ -219,7 +222,7 @@ public interface DatabaseConnection {
      * they can be used by the GUI.
      * @return
      */
-    public ArrayList<Difficulty> getDifficulties();
+    public ArrayList<Worksheet> getDifficulties();
 
     /**
      * Check if the Administrator has ANY users. If not, the GUI needs to

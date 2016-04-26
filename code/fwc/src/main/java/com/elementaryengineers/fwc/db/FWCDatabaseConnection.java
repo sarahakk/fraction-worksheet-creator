@@ -14,49 +14,58 @@ import com.elementaryengineers.fwc.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
-public class FWCDatabaseConnection implements DatabaseConnection {
 
-    public void c() throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        //Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "root");
-        //return con;
-    }
 
-    /**
-     * Create the database from scratch. Do this before connecting,
-     * and if the database already exists, the "CREATE DATABASE" SQL
-     * statement, when executed, should throw an SQLException. If it
-     * does, then you know you can connect to the database.
-     * If it doesn't, the method should create all the tables we need
-     * in the database.
-     */
-    @Override
-    public void createDatabase() {
 
-    }
+public class FWCDatabaseConnection implements DatabaseConnection
+{
+	protected Connection conn;
+	protected Statement stmt;
+	final String USER = "root";
+	final String PASS = "ETHAN";
+	final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	final String DB_URL = "jdbc:mysql://localhost/";
 
-    /**
-     * Connect to the local MySQL server and execute "USE our_db_name"
-     * so that queries we run later run on our database.
-     *
-     * @return
-     */
-    @Override
-    public boolean connect() {
-        return false;
-    }
+	public FWCDatabaseConnection()  {
+		boolean Initialize = false;
+
+
+
+		try {
+			Initialize = connect();
+
+
+			//stmt = conn.createStatement();
+			//createDatabase();
+			//String sql = "Use FWC_Creator";
+			//stmt.execute(sql);
+		}catch(SQLException se){
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+
+		System.out.println( Initialize ? "new Database Initialized." : "Using preexisting database");
+	}
+
+
+
+
 
     /**
      * This should also figure out if the user is a teacher/student/admin,
      * and then return the Teacher/Student/Admin object, NOT a User object,
      * because that only has info that's common for all users.
      *
-     * @param username
+     * @param
      * @return
      */
     @Override
-    public User getUser(String username) {
+   /* public User getUser(String username) {
         // DUMMY DATA --- this is just a placeholder to be able to login to the FWC!
         /*
         return new Teacher(0, "shakkoum", "Sara", "Hakkoum",
@@ -73,39 +82,382 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         return null;
     }
 
-    /**
-     * Get all teachers, creating a Teacher object for each,
-     * which also includes their information from the User table.
-     *
-     * @return
-     */
-    @Override
-    public ArrayList<Teacher> getAllTeachers() {
-        return null;
-    }
+	/**
+	 * Create the database from scratch. Do this before connecting,
+	 * and if the database already exists, the "CREATE DATABASE" SQL
+	 * statement, when executed, should throw an SQLException. If it
+	 * does, then you know you can connect to the database.
+	 * If it doesn't, the method should create all the tables we need
+	 * in the database.
+	 */
 
-    /**
-     * Get all admins, creating an Admin object for each,
-     * which also includes their information from the User table.
-     *
-     * @return
-     */
-    @Override
-    public ArrayList<Admin> getAllAdmins() {
-        return null;
-    }
 
-    /**
-     * Add this admin to the database, updating the
-     * Administrator and User tables!
-     *
-     * @param admin
-     * @return
-     */
-    @Override
-    public boolean createAdmin(Admin admin) {
-        return false;
-    }
+	public void createDatabase() {
+		try {
+
+
+			String NewInput = null;
+
+			File filen = new File("/Users/Fiero/Documents/SoftwareEngineering/file");
+			Scanner File = new Scanner("filen");
+			while (File.hasNext()) {
+				String Input = File.nextLine();
+				if (Input.equals(" ")) {
+					stmt.execute(Input);
+				} else {
+					NewInput += (Input);
+				}
+				if (NewInput.equals(" ")) {
+					stmt.execute(NewInput);
+
+				}
+
+			}
+		} catch (SQLException se) {
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch (Exception e) {
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		} finally {
+			//finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			}// nothing we can do
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}//end finally try
+		}//end try
+	}//end main
+
+
+	/**
+	 * Connect to the local MySQL server and execute "USE our_db_name"
+	 * so that queries we run later run on our database.
+	 *
+	 * @return
+	 */
+	@Override
+	public boolean connect() throws ClassNotFoundException, SQLException {
+
+			boolean dintiliaze;
+
+			Class.forName("com.mysql.jdbc.Driver");
+
+			System.out.println("Connecting to database...");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			stmt = conn.createStatement();
+			try {
+				createDatabase();
+				dintiliaze = true;
+
+		} catch (Exception e) {
+				dintiliaze = false;
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+			//finally block used to close resources
+
+
+		return dintiliaze;
+	}
+	//finally block used to close resources
+
+
+	/**
+	 * This should also figure out if the user is a teacher/student/admin,
+	 * and then return the Teacher/Student/Admin object, NOT a User object,
+	 * because that only has info that's common for all users.
+	 *
+	 * @param username
+	 * @return
+	 */
+	@Override
+	public User getUser(String username) {
+		String un = null;
+		try
+
+		{
+
+			ResultSet rs;
+
+			System.out.println("Creating statement...");
+			stmt = conn.createStatement();
+			String sqlTeacher= (" Select * from Teacher Where Username = '" + username + "'");
+
+			String sqlStudent= (" Select * from Student Where Username = '" + username + "'");
+			String sqladmin= (" Select * from Administrator Where Username = '" + username + "'");
+			String sql = ("Select  * from  User Where username= '" + username + "'");
+			rs = stmt.executeQuery(sql);
+			stmt.execute(sqlTeacher);
+			String Username = rs.getString("Username");
+			String FirstName = rs.getString("FirstName");
+			String LastName = rs.getString("LastName");
+			String Salt = rs.getString("PasswordSalt");
+			String Hash = rs.getString("PasswordHalt");
+
+
+
+ 		     rs = stmt.executeQuery(sqlTeacher);// rs.next
+
+			if ( rs.next()){
+				rs.beforeFirst();
+			Teacher teacher = new Teacher( 	rs.getInt("TeacherID"), Username, FirstName,
+					LastName, Salt,Hash,rs.getString("ResetPassword"));
+			}
+			else {
+				ResultSet RS2 = stmt.executeQuery(sqlStudent);
+				if (RS2.next()) {
+					RS2.beforeFirst();
+					Student student = new Student(RS2.getInt("StudentID"), Username, FirstName, LastName,
+							Salt, Hash, rs.getString("Classroom"), RS2.getBoolean("resetPassRequest"));
+
+
+				} else {
+					ResultSet RS3 = stmt.executeQuery(sqladmin);
+					if(RS3.next()){
+						RS3.beforeFirst();
+						Admin admin = new Admin(RS3.getInt("AdminID"),Username,FirstName,LastName,Salt,Hash,
+								RS3.getString("last4SSNSalt"), RS3.getString("last4SSNHash"), RS3.getString("birthdateSalt"),
+								RS3.getString("birthdateHash"),RS3.getString("firstJobSalt"), RS3.getString("firstJobHash"));
+					}
+				}
+			}
+
+
+			while (rs.next()) {
+				//Retrieve by column name
+				un = rs.getString("username");
+			}
+
+
+			String sqlstudent = ("Select "  + username + " from students");
+
+		} catch (
+				SQLException se
+				)
+
+		{
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch (
+				Exception e
+				)
+
+		{
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		} finally
+
+		{
+			//finally block used to close resources
+			try {
+				if (stmt != null)
+					conn.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}//end finally try
+		}//end try
+
+		System.out.println("Goodbye!");
+
+		return null;
+	}
+
+
+	/**
+	 * Get all teachers, creating a Teacher object for each,
+	 * which also includes their information from the User table.
+	 *
+	 * @return
+	 */
+	@Override
+	public ArrayList<String> getAllTeachers() {
+
+
+		ArrayList<String> results = null;
+		try
+
+		{
+
+
+			String sql = ("Select * from Teacher");
+			ResultSet rs = stmt.executeQuery(sql);
+			results = new ArrayList<String>();
+			while (rs.next()) {
+				results.add(rs.getString(1));
+			}
+
+
+
+		} catch (
+				SQLException se
+				)
+
+		{
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch (
+				Exception e
+				)
+
+		{
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		} finally
+
+		{
+			//finally block used to close resources
+			try {
+				if (stmt != null)
+					conn.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}//end finally try
+		}//end try
+
+		return results;
+
+
+	}
+
+	/**
+	 * Get all admins, creating an Admin object for each,
+	 * which also includes their information from the User table.
+	 *
+	 * @return
+	 */
+	@Override
+	public ArrayList<String> getAllAdmins() {
+		ArrayList<String> results = null;
+		try
+
+		{
+
+			Class.forName("com.mysql.jdbc.Driver");
+
+
+			System.out.println("Connecting to a selected database...");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			System.out.println("Connected database successfully...");
+
+
+			System.out.println("Creating statement...");
+			stmt = conn.createStatement();
+
+			String sql = ("Select * from Admin");
+			ResultSet rs = stmt.executeQuery(sql);
+			results = new ArrayList<String>();
+			while (rs.next()) {
+				results.add(rs.getString(1));
+			}
+
+
+
+
+		} catch (
+				SQLException se
+				)
+
+		{
+			//Handle errors for JDBC
+			se.printStackTrace();
+		} catch (
+				Exception e
+				)
+
+		{
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		} finally
+
+		{
+			//finally block used to close resources
+			try {
+				if (stmt != null)
+					conn.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}//end finally try
+		}//end try
+
+		System.out.println("Goodbye!");
+		return results;
+
+
+	}
+
+
+	/**
+	 * Add this admin to the database, updating the
+	 * Administrator and User tables!
+	 *
+	 * @param admin
+	 * @return
+	 */
+	@Override
+	public boolean createAdmin(Admin admin) {
+		String sql = "INSERT INTO Admin VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );";
+		PreparedStatement regStmt = null;
+
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+			regStmt = conn.prepareStatement(sql);
+			regStmt.setString(1, String.valueOf(rs.getInt("AdminID")));
+			regStmt.setString(2, rs.getString("first"));
+			regStmt.setString(3, rs.getString("last"));
+			regStmt.setString(4, rs.getString("passSalt"));
+			regStmt.setString(5, rs.getString("passHash"));
+			regStmt.setString(6, rs.getString("last4SSNSalt"));
+			regStmt.setString(7, rs.getString("last4SSNHash"));
+			regStmt.setString(8, rs.getString("birthdateSalt"));
+			regStmt.setString(9, rs.getString("birthdateHash"));
+			regStmt.setString(10, rs.getString("firstJobSalt"));
+			regStmt.setString(11, rs.getString("firstJobHash"));
+
+
+			regStmt.execute();
+		} catch(SQLException se) {
+
+		} finally {
+			try {
+				if (regStmt != null) {
+					regStmt.close();
+				}
+			} catch (SQLException se2) {
+
+			}
+		}
+			return true;
+
+
+
+
+
+
+
+
+}
 
     /**
      * Update this admin by getting all their attributes
@@ -119,7 +471,42 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean updateAdmin(Admin admin) {
-        return false;
+
+	    String sql = "UPDATE Admin SET first=?, last=?, passSalt=?, passHash=?, last4SSNSalt=? , Last4SSNHash" +
+			    " birthdateSalt, birthdateHash, firstJobSalt, firstJobHash" +
+			    "WHERE username=?;";
+	    PreparedStatement regStmt = null;
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setString(1, String.valueOf(rs.getInt("AdminID")));
+		    regStmt.setString(2, rs.getString("first"));
+		    regStmt.setString(3, rs.getString("last"));
+		    regStmt.setString(4, rs.getString("passSalt"));
+		    regStmt.setString(5, rs.getString("passHash"));
+		    regStmt.setString(6, rs.getString("last4SSNSalt"));
+		    regStmt.setString(7, rs.getString("last4SSNHash"));
+		    regStmt.setString(8, rs.getString("birthdateSalt"));
+		    regStmt.setString(9, rs.getString("birthdateHash"));
+		    regStmt.setString(10, rs.getString("firstJobSalt"));
+		    regStmt.setString(11, rs.getString("firstJobHash"));
+
+
+		    regStmt.execute();
+	    }
+		    catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if(regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch(SQLException se2) {
+
+		    }
+	    }
+		    return true;
+
     }
 
     /**
@@ -131,8 +518,36 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean deleteAdmin(Admin admin) {
-        return false;
-    }
+
+	try
+
+	{
+
+
+		stmt = conn.createStatement();
+		String sql = ("Delete * From Admin Where AdminID =" + admin.getAdminID());
+		stmt.executeUpdate(sql);
+	} catch (
+	SQLException se
+	)
+
+	{
+		//Handle errors for JDBC
+		se.printStackTrace();
+	} catch (
+	Exception e
+	)
+
+	{
+		//Handle errors for Class.forName
+		e.printStackTrace();
+
+
+
+	}//end try
+
+	return false;
+}
 
     /**
      * Add this teacher to the database, updating the
@@ -144,9 +559,35 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean createTeacher(Teacher teacher) {
-        return false;
-    }
+	    String sql = "INSERT INTO Teacher VALUES(?, ?, ?, ?, ?, ?, ?);";
+	    PreparedStatement regStmt = null;
 
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, (rs.getInt("TeacherID")));
+		    regStmt.setString(2, rs.getString("first"));
+		    regStmt.setString(3, rs.getString("last"));
+		    regStmt.setString(4, rs.getString("passSalt"));
+		    regStmt.setString(5, rs.getString("passHash"));
+
+		    regStmt.setBoolean(7, rs.getBoolean("ResetPassRequested"));
+
+
+		    regStmt.execute();
+	    } catch (SQLException se) {
+
+	    } finally {
+		    try {
+			    if (regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch (SQLException se2) {
+
+		    }
+	    }
+	    return true;
+    }
     /**
      * Update this teacher by getting all their attributes
      * and updating them in the Teacher and User tables. No need
@@ -159,10 +600,40 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean updateTeacher(Teacher teacher) {
-        return false;
+
+	    String sql = "UPDATE Teacher SET first=?, last=?, passSalt=?, passHash=?" + "ResetPassRequested = "+
+			    "WHERE TeacherID=?;";
+	    PreparedStatement regStmt = null;
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, rs.getInt("TeacherID"));
+		    regStmt.setString(2, rs.getString("first"));
+		    regStmt.setString(3, rs.getString("last"));
+		    regStmt.setString(4, rs.getString("passSalt"));
+		    regStmt.setString(5, rs.getString("passHash"));
+		    regStmt.setBoolean(7, rs.getBoolean("ResetPassRequested"));
+
+
+		    regStmt.execute();
+	    }
+	    catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if(regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch(SQLException se2) {
+
+		    }
+	    }
+	    return true;
+
     }
 
-    /**
+
+	/**
      * Delete this teacher from the Teacher and User tables, as
      * well as all of this teacher's Worksheets, Classes, and Students,
      * in the Worksheet, Class, and Student tables, respectively.
@@ -176,9 +647,36 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean deleteTeacher(Teacher teacher) {
-        return false;
-    }
 
+	    try
+
+	    {
+
+
+		    stmt = conn.createStatement();
+		    String sql = ("Delete * From Teacher Where TeacherID =" + teacher.getTeacherID());
+		    stmt.executeUpdate(sql);
+	    } catch (
+			    SQLException se
+			    )
+
+	    {
+		    //Handle errors for JDBC
+		    se.printStackTrace();
+	    } catch (
+			    Exception e
+			    )
+
+	    {
+		    //Handle errors for Class.forName
+		    e.printStackTrace();
+
+
+
+	    }//end try
+
+	    return true;
+    }
     /**
      * Add this student to the database, updating the
      * Student and User tables! You don't need to worry about
@@ -189,7 +687,36 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean createStudent(Student student) {
-        return false;
+	    String sql = "INSERT INTO Teacher VALUES(?, ?, ?, ?, ?, , ?, ?,?);";
+	    PreparedStatement regStmt = null;
+
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, rs.getInt("StudentID"));
+		    regStmt.setInt(2, rs.getInt("difficultyID"));
+		    regStmt.setString(3, rs.getString("user"));
+		    regStmt.setString(4, rs.getString("first"));
+		    regStmt.setString(5, rs.getString("last"));
+		    regStmt.setString(6, rs.getString("salt"));
+		    regStmt.setString(6, rs.getString("hash"));
+		    regStmt.setString(7, rs.getString("classroom"));
+		    regStmt.setBoolean(8, rs.getBoolean("ResetPassRequested"));
+
+
+		    regStmt.execute();
+	    } catch (SQLException se) {
+
+	    } finally {
+		    try {
+			    if (regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch (SQLException se2) {
+
+		    }
+	    }
+	    return true;
     }
 
     /**
@@ -204,9 +731,43 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean updateStudent(Student student) {
-        return false;
-    }
 
+	    String sql = "UPDATE Teacher SET DifficultyID=?, user=?, first=?, " +
+			    "last=?, salt=?, hash =?, classroom=?" + "ResetPassRequested = "+
+			    "WHERE TeacherID=?;";
+	    PreparedStatement regStmt = null;
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, rs.getInt("StudentID"));
+		    regStmt.setInt(2, rs.getInt("difficultyID"));
+		    regStmt.setString(3, rs.getString("user"));
+		    regStmt.setString(4, rs.getString("first"));
+		    regStmt.setString(5, rs.getString("last"));
+		    regStmt.setString(6, rs.getString("salt"));
+		    regStmt.setString(6, rs.getString("hash"));
+		    regStmt.setString(7, rs.getString("classroom"));
+
+		    regStmt.setBoolean(9, rs.getBoolean("ResetPassRequested"));
+
+
+
+		    regStmt.execute();
+	    }
+	    catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if(regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch(SQLException se2) {
+
+		    }
+	    }
+	    return true;
+
+    }
     /**
      * Delete this student from the Student and User tables, as
      * well as all of this student's Worksheets
@@ -220,10 +781,37 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      * @return
      */
     @Override
-    public boolean deleteStudent(Student student) {
-        return false;
-    }
+    public boolean deleteStudent(Student student)   {
 
+	    try
+
+	    {
+
+
+		    stmt = conn.createStatement();
+		    String sql = ("Delete * From Student Where StudnetID =" + student.getStudentID());
+		    stmt.executeUpdate(sql);
+	    } catch (
+			    SQLException se
+			    )
+
+	    {
+		    //Handle errors for JDBC
+		    se.printStackTrace();
+	    } catch (
+			    Exception e
+			    )
+
+	    {
+		    //Handle errors for Class.forName
+		    e.printStackTrace();
+
+
+
+	    }//end try
+
+	    return true;
+    }
     /**
      * Add this class to the database, updating the Class table.
      *
@@ -232,10 +820,33 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean createClassroom(Classroom classroom) {
-        return false;
+	    String sql = "INSERT INTO Classroom VALUES(?, ?);";
+	    PreparedStatement regStmt = null;
+
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, rs.getInt("ClassID"));
+		    regStmt.setString(2, rs.getString("Name"));
+
+
+		    regStmt.execute();
+	    } catch (SQLException se) {
+
+	    } finally {
+		    try {
+			    if (regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch (SQLException se2) {
+
+		    }
+	    }
+	    return true;
     }
 
-    /**
+
+	/**
      * Update this class by getting its name
      * and updating it in the Class table. No need
      * to check if it's actually different from
@@ -247,7 +858,32 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean updateClassroom(Classroom classroom) {
-        return false;
+	    String sql = "UPDATE Classroom SET Name=? "+
+			    "WHERE ID=?;";
+	    PreparedStatement regStmt = null;
+	    try {
+		    ResultSet rs = stmt.executeQuery(sql);
+		    regStmt = conn.prepareStatement(sql);
+		    regStmt.setInt(1, rs.getInt("ClassID"));
+		    regStmt.setString(2, rs.getString("Name"));
+
+
+
+		    regStmt.execute();
+	    }
+	    catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if(regStmt != null) {
+				    regStmt.close();
+			    }
+		    } catch(SQLException se2) {
+
+		    }
+	    }
+	    return true;
+
     }
 
     /**
@@ -260,9 +896,35 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean deleteClassroom(int classID) {
-        return false;
-    }
+	    try
 
+	    {
+
+
+		    stmt = conn.createStatement();
+		    String sql = ("Delete * From Classroom Where ID =" + classID);
+		    stmt.executeUpdate(sql);
+	    } catch (
+			    SQLException se
+			    )
+
+	    {
+		    //Handle errors for JDBC
+		    se.printStackTrace();
+	    } catch (
+			    Exception e
+			    )
+
+	    {
+		    //Handle errors for Class.forName
+		    e.printStackTrace();
+
+
+
+	    }//end try
+
+	    return true;
+    }
     /**
      * Delete the worksheet record identified by the given
      * worksheet ID.
@@ -272,8 +934,36 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public boolean deleteWorksheet(int worksheetID) {
-        return false;
+	    try
+
+	    {
+
+
+		    stmt = conn.createStatement();
+		    String sql = ("Delete * From Worksheet Where WorksheetID =" + worksheetID);
+		    stmt.executeUpdate(sql);
+	    } catch (
+			    SQLException se
+			    )
+
+	    {
+		    //Handle errors for JDBC
+		    se.printStackTrace();
+	    } catch (
+			    Exception e
+			    )
+
+	    {
+		    //Handle errors for Class.forName
+		    e.printStackTrace();
+
+
+
+	    }//end try
+
+	    return true;
     }
+
 
     /**
      * Return a list of Classroom objects, each representing a class
@@ -284,19 +974,77 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public ArrayList<Classroom> getTeacherClasses(int teacherID) {
-        return null;
-    }
+		    String sql = "SELECT * FROM Classroom WHERE TeacherID?;";
+		    PreparedStatement selectStmt = null;
+		    ResultSet rs = null;
+		    ArrayList<Classroom> matches = new ArrayList<>();
+		    try {
+			    selectStmt = conn.prepareStatement(sql);
+			    selectStmt.setInt(1, teacherID);
+			 rs = selectStmt.executeQuery();
 
-    /**
-     * Return a list of Student objects, each representing a student
-     * from the Student table that is in a given class.
-     *
-     * @param classID
-     * @return
-     */
+			    while(rs.next()) {
+				    Classroom p = new Classroom(rs.getInt(1), rs.getString(2));
+
+				    matches.add(p);
+			    }
+		    } catch(SQLException se) {
+
+		    } finally {
+			    try {
+				    if(selectStmt != null) {
+					    selectStmt.close();
+				    }
+				    if(rs != null) {
+					    rs.close();
+				    }
+			    } catch(SQLException se2) {
+			    }
+		    }
+		    return matches;
+	    }
+
+
+	    /**
+		 * Return a list of Student objects, each representing a student
+		 * from the Student table that is in a given class.
+		 *
+		 * @param classID
+		 * @return
+		 */
     @Override
     public ArrayList<Student> getClassroomStudents(int classID) {
-        return null;
+	    String sql = "SELECT * FROM Student WHERE classID?;";
+	    PreparedStatement selectStmt = null;
+	    ResultSet rs = null;
+	    ArrayList<Student> matches = new ArrayList<>();
+	    try {
+		    selectStmt = conn.prepareStatement(sql);
+		    selectStmt.setInt(1, classID);
+		    rs = selectStmt.executeQuery();
+
+		    while(rs.next()) {
+			    Student p = new Student(rs.getInt("StudentID"), rs.getString("User"), rs.getString("First"), rs.getString("Last"),
+					    rs.getString("Salt"), rs.getString("Hash"),rs.getString("Classroom"), rs.getBoolean("resetPassRequest"));
+
+
+			    matches.add(p);
+		    }
+	    } catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if (selectStmt != null) {
+				    selectStmt.close();
+			    }
+			    if (rs != null) {
+				    rs.close();
+			    }
+		    } catch (SQLException se2) {
+		    }
+	    }
+	    return matches;
+
     }
 
     /**
@@ -308,8 +1056,37 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public ArrayList<Worksheet> getUserWorksheets(String username) {
-        return null;
+	    String sql = "SELECT * FROM Worksheet WHERE username?;";
+	    PreparedStatement selectStmt = null;
+	    ResultSet rs = null;
+	    ArrayList<Worksheet> matches = new ArrayList<>();
+	    try {
+		    selectStmt = conn.prepareStatement(sql);
+		    selectStmt.setString(1,username);
+		    rs = selectStmt.executeQuery();
+
+		    while(rs.next()) {
+
+				Worksheet p = new Worksheet(rs.getInt("seed"), rs.getString("exercise"), rs.getInt("difficultyID"));
+			    matches.add(p);
+		    }
+	    } catch(SQLException se) {
+
+	    } finally {
+		    try {
+			    if (selectStmt != null) {
+				    selectStmt.close();
+			    }
+			    if (rs != null) {
+				    rs.close();
+			    }
+		    } catch (SQLException se2) {
+		    }
+	    }
+	    return matches;
+
     }
+
 
     /**
      * Return a list of Difficulty objects, each representing a difficulty
@@ -320,9 +1097,38 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      * @return
      */
     @Override
-    public ArrayList<Difficulty> getDifficulties() {
-        return null;
-    }
+    public ArrayList<Worksheet> getDifficulties(String difficulty) {
+
+		    String sql = "SELECT * Difficulties WHERE *;";
+		    PreparedStatement selectStmt = null;
+		    ResultSet rs = null;
+		    ArrayList<Worksheet> matches = new ArrayList<>();
+		    try {
+			    selectStmt = conn.prepareStatement(sql);
+			    selectStmt.setString(1," ");
+			    rs = selectStmt.executeQuery();
+
+			    while(rs.next()) {
+
+				    Worksheet p = new Worksheet(rs.getInt("seed"), rs.getString("exercise") ,rs.getInt("difficultyID"));
+				    matches.add(p);
+			    }
+		    } catch(SQLException se) {
+
+		    } finally {
+			    try {
+				    if (selectStmt != null) {
+					    selectStmt.close();
+				    }
+				    if (rs != null) {
+					    rs.close();
+				    }
+			    } catch (SQLException se2) {
+			    }
+		    }
+		    return matches;
+
+	    }
 
     /**
      * Check if the Administrator has ANY users. If not, the GUI needs to
@@ -364,6 +1170,13 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      */
     @Override
     public void closeConnection() {
+		try{
+	    conn.close();
+
+		    stmt.close();
+	    } catch (SQLException e) {
+		    e.printStackTrace();
+	    }
 
     }
 }
