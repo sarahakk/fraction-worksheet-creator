@@ -85,35 +85,59 @@ public class AdminManagePasswords extends JPanel {
                 int index = teachersTable.getSelectedRow();
                 Teacher teacher = teachers.get(index);
                 String newPassword = teacher.setRandomPassword();
-                FWCConfigurator.getDbConn().updateTeacher(teacher);
-                // TODO: error-checking
 
-                // Popup with new password
-                JOptionPane.showMessageDialog(null, teacher.getUsername() + "'s password has been successfully " +
-                        "reset to:\n" + newPassword, "Password Reset Successful", JOptionPane.INFORMATION_MESSAGE);
+                // Check database update status
+                if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
+                    // Popup with new password
+                    JOptionPane.showMessageDialog(null, teacher.getUsername() + "'s password has been successfully " +
+                            "reset to:\n" + newPassword, "Password Reset Successful", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Teacher could not be updated in the database.",
+                            "Teacher Update Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
             else if (e.getSource() == btnResetAll) { // If reset all teachers' passwords
                 StringBuilder message = new StringBuilder("The following teachers' passwords have been reset.\n");
                 message.append("Please keep the new passwords in a safe place.\n\nUsername: Password");
                 String newPassword;
+                boolean error = false;
+                int count = 0;
 
                 for (Teacher teacher : teachers) {
                     newPassword = teacher.setRandomPassword();
-                    FWCConfigurator.getDbConn().updateTeacher(teacher);
-                    // TODO: error-checking
-                    message.append("\n")
-                            .append(teacher.getUsername())
-                            .append(": ")
-                            .append(newPassword);
+
+                    // Check database update status
+                    if (!FWCConfigurator.getDbConn().updateTeacher(teacher)) {
+                        JOptionPane.showMessageDialog(null, "Teacher could not be updated in the database.",
+                                "Teacher Update Failed",
+                                JOptionPane.ERROR_MESSAGE);
+                        error = true;
+                        break;
+                    }
+                    else {
+                        message.append("\n")
+                                .append(teacher.getUsername())
+                                .append(": ")
+                                .append(newPassword);
+                        count++;
+                    }
                 }
 
-                // Popup with new passwords
-                JOptionPane.showMessageDialog(null, message.toString(), "Password Reset Successful",
-                        JOptionPane.INFORMATION_MESSAGE);
+                if (!error || count > 0) {
+                    // Popup with new passwords
+                    JOptionPane.showMessageDialog(null, message.toString(), "Password Reset Successful",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
             }
 
-            teachers = FWCConfigurator.getAdmin().getTeachersRequestedReset();
-            populateTable();
+            refresh();
         }
+    }
+
+    public void refresh() {
+        teachers = FWCConfigurator.getAdmin().getTeachersRequestedReset();
+        populateTable();
     }
 }

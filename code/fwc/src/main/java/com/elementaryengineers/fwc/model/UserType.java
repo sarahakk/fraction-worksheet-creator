@@ -7,5 +7,5 @@ public enum UserType {
     TEACHER,
     STUDENT,
     ADMIN,
-    NONE;
+    NONE
 }

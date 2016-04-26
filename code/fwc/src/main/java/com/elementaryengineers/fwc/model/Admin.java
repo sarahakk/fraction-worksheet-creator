@@ -47,6 +47,8 @@ public class Admin extends User {
         this.firstJob = new EncryptedPassword(firstJobHash, firstJobSalt);
         this.teachers = new ArrayList<>();
         this.admins = new ArrayList<>();
+        //this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
+        //this.admins = FWCConfigurator.getDbConn().getAllAdmins();
     }
 
     public int getAdminID() {
@@ -54,6 +56,7 @@ public class Admin extends User {
     }
 
     public ArrayList<Teacher> getTeachers() {
+        //this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
         return teachers;
     }
 
@@ -65,6 +68,7 @@ public class Admin extends User {
     }
 
     public ArrayList<Admin> getAdmins() {
+        this.admins = FWCConfigurator.getDbConn().getAllAdmins();
         return admins;
     }
 

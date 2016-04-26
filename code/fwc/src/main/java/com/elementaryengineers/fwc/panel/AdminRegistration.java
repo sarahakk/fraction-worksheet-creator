@@ -3,6 +3,7 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Admin;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -261,10 +262,9 @@ public class AdminRegistration extends JPanel {
 
         // Check birthdate format
         try {
-            String birth = txtBirthdate.getText(), fixedBirth;
+            String birth = txtBirthdate.getText();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             Date result = sdf.parse(birth);
-            fixedBirth = sdf.format(result);
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Please fix birthday format.", "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
@@ -272,6 +272,12 @@ public class AdminRegistration extends JPanel {
         }
 
         return true;
+    }
+
+    public Admin getNewAdmin() {
+        return new Admin(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
+                String.valueOf(txtPass.getPassword()), txtSSN.getText(), txtBirthdate.getText(),
+                txtJob.getText());
     }
 
     public void setSubmitListener(ActionListener submitListener) {

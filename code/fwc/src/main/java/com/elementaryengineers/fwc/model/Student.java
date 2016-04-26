@@ -1,5 +1,7 @@
 package com.elementaryengineers.fwc.model;
 
+import com.elementaryengineers.fwc.db.FWCConfigurator;
+
 import java.util.ArrayList;
 
 /**
@@ -29,13 +31,13 @@ public class Student extends User {
      * Constructor for creating an existing Student from the database.
      */
     public Student(int studentID, int difficultyID, String user, String first, String last, String salt, String hash,
-                   Classroom classroom, ArrayList<Worksheet> history, boolean resetPassRequested) {
+                   Classroom classroom, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
         setType(UserType.STUDENT);
         this.studentID = studentID;
         this.difficultyID = difficultyID;
         this.classroom = classroom;
-        this.history = history;
+        this.history = FWCConfigurator.getDbConn().getUserWorksheets(user);
         this.resetPassRequested = resetPassRequested;
     }
 
@@ -67,7 +69,7 @@ public class Student extends User {
         this.difficultyID = difficultyID;
     }
 
-    public void setResetPassRequested() {
-        this.resetPassRequested = true;
+    public void setResetPassRequested(boolean option) {
+        this.resetPassRequested = option;
     }
 }

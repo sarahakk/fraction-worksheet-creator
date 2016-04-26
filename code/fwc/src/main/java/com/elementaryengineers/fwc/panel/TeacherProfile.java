@@ -19,6 +19,7 @@ public class TeacherProfile extends JPanel {
     private JLabel lblFirst, lblLast, lblUser;
     private JTextField txtFirst, txtLast, txtUser;
     private ImageButton btnSubmit, btnDelete, btnReset;
+    private int teacherIndex;
 
     public TeacherProfile() {
         super(new BorderLayout());
@@ -121,6 +122,10 @@ public class TeacherProfile extends JPanel {
         txtUser.setText(teacher.getUsername());
     }
 
+    public void setTeacherIndex(int teacherIndex) {
+        this.teacherIndex = teacherIndex;
+    }
+
     public String getFirstName() {
         return txtFirst.getText();
     }
@@ -131,6 +136,14 @@ public class TeacherProfile extends JPanel {
 
     public String getUsername() {
         return txtUser.getText();
+    }
+
+    /**
+     * To be used when submitting changes to get the teacher object from the admin's list to update the DB with.
+     * @return
+     */
+    public int getTeacherIndex() {
+        return teacherIndex;
     }
 
     public void setSubmitListener(ActionListener submitListener) {

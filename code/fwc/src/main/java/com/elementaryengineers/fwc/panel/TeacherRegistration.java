@@ -3,6 +3,7 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -170,5 +171,18 @@ public class TeacherRegistration extends JPanel {
 
     public void setSubmitListener(ActionListener submitListener) {
         btnSubmit.addActionListener(submitListener);
+    }
+
+    public Teacher getNewTeacher() {
+        return new Teacher(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
+                String.valueOf(txtPass.getPassword()));
+    }
+
+    public void clearFields() {
+        txtFirst.setText("");
+        txtLast.setText("");
+        txtUser.setText("");
+        txtPass.setText("");
+        txtConfirm.setText("");
     }
 }

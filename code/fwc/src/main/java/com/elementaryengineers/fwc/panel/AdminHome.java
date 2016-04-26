@@ -110,6 +110,10 @@ public class AdminHome extends JPanel {
         }
     }
 
+    public void refresh() {
+        populateTable(FWCConfigurator.getAdmin().getTeachers());
+    }
+
     public void setProfileListener(ActionListener profileListener) {
         btnProfile.addActionListener(profileListener);
     }

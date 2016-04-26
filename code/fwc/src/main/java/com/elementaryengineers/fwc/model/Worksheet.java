@@ -1,10 +1,7 @@
 package com.elementaryengineers.fwc.model;
 
 import com.elementaryengineers.fwc.db.FWCConfigurator;
-import com.elementaryengineers.fwc.random.WS_Beginner_LG;
-import com.elementaryengineers.fwc.random.WS_Beginner_Pie;
-import com.elementaryengineers.fwc.random.WS_Beginner_PieAdd;
-import com.elementaryengineers.fwc.random.WS_Intermediate;
+import com.elementaryengineers.fwc.random.*;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import javax.swing.*;
@@ -131,7 +128,8 @@ public class Worksheet {
                 try {
                     worksheet.CreateWorksheet((answerSheet) ? FWCConfigurator.ANSWER_ONLY :
                             FWCConfigurator.WORKSHEET_ONLY);
-                } catch (IOException | COSVisitorException ex) {
+                }
+                catch (IOException | COSVisitorException ex) {
                     JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
                                     "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
@@ -141,7 +139,23 @@ public class Worksheet {
             }
 
             case 2: { // Advanced
-                // TODO
+                try {
+                    WS_Advanced worksheet = new WS_Advanced(this.seed, 20,
+                            1, 8, // Use default numerator and denominator limits
+                            2, 8,
+                            FWCConfigurator.GEN_WHOLENUM_NO,
+                            (exercise.equals(FWCConfigurator.WS_Advanced_Add)) ? '+' :
+                                    (exercise.equals(FWCConfigurator.WS_Advanced_Sub)) ? '-' : '*');
+
+                    worksheet.CreateWorksheet((answerSheet) ? FWCConfigurator.ANSWER_ONLY :
+                            FWCConfigurator.WORKSHEET_ONLY);
+                }
+                catch (IOException|COSVisitorException ex) {
+                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                            "Worksheet Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
             }
         }

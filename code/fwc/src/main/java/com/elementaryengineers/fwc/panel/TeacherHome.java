@@ -5,10 +5,7 @@ import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
 import com.elementaryengineers.fwc.model.Worksheet;
-import com.elementaryengineers.fwc.random.WS_Beginner_LG;
-import com.elementaryengineers.fwc.random.WS_Beginner_Pie;
-import com.elementaryengineers.fwc.random.WS_Beginner_PieAdd;
-import com.elementaryengineers.fwc.random.WS_Intermediate;
+import com.elementaryengineers.fwc.random.*;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import javax.imageio.ImageIO;
@@ -200,7 +197,30 @@ public class TeacherHome extends JPanel {
     private class AdvancedActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            Teacher teacher = FWCConfigurator.getTeacher();
 
+            try {
+                WS_Advanced worksheet = new WS_Advanced(0, 20,
+                        1, 8, // Use default numerator and denominator limits
+                        2, 8,
+                        FWCConfigurator.GEN_WHOLENUM_NO,
+                        (e.getSource() == btnInt1) ? '+' :
+                                (e.getSource() == btnInt2) ? '-' : '*');
+
+                worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
+
+                // Create new worksheet object
+                Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Advanced_Add :
+                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Advanced_Sub :
+                                        FWCConfigurator.WS_Advanced_MD, 2);
+                teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+            }
+            catch (IOException|COSVisitorException ex) {
+                JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
+                                "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                        "Worksheet Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

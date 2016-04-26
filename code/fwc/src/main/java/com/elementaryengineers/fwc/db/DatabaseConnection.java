@@ -222,6 +222,13 @@ public interface DatabaseConnection {
     public ArrayList<Difficulty> getDifficulties();
 
     /**
+     * Check if the Administrator has ANY users. If not, the GUI needs to
+     * show the admin registration panel.
+     * @return
+     */
+    public boolean doesAdminExist();
+
+    /**
      * Check if a given username is available by getting the list of
      * existing usernames from the User table and checking if it exists.
      * @param username

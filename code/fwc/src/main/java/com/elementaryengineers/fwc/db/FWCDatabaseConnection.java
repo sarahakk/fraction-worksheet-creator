@@ -58,10 +58,19 @@ public class FWCDatabaseConnection implements DatabaseConnection {
     @Override
     public User getUser(String username) {
         // DUMMY DATA --- this is just a placeholder to be able to login to the FWC!
+        /*
         return new Teacher(0, "shakkoum", "Sara", "Hakkoum",
                 "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC", // password salt
                 "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", // password hash
                 new ArrayList<Classroom>(), new ArrayList<Worksheet>(), false);
+
+        return new Admin(0, "admin", "Sara", "Hakkoum", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
+                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
+                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
+                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
+                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4");
+        */
+        return null;
     }
 
     /**
@@ -313,6 +322,17 @@ public class FWCDatabaseConnection implements DatabaseConnection {
     @Override
     public ArrayList<Difficulty> getDifficulties() {
         return null;
+    }
+
+    /**
+     * Check if the Administrator has ANY users. If not, the GUI needs to
+     * show the admin registration panel.
+     *
+     * @return
+     */
+    @Override
+    public boolean doesAdminExist() {
+        return false;
     }
 
     /**

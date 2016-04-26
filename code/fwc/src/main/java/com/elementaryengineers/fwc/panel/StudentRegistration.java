@@ -143,10 +143,10 @@ public class StudentRegistration extends JPanel{
 
         // Build east panel and form: Class Name and Difficulty 
 
-        cbClassName = new JComboBox ("Class name:", SwingConstants.RIGHT);
+        //cbClassName = new JComboBox ("Class name:", SwingConstants.RIGHT);
         cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
         
-        cbDifficulty = new JComboBox ("Difficulty:", SwingConstants.RIGHT);
+        //cbDifficulty = new JComboBox ("Difficulty:", SwingConstants.RIGHT);
         cbDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
 
         // Use GridBagLayout

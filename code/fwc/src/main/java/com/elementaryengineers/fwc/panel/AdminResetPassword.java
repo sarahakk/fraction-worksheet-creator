@@ -27,11 +27,10 @@ public class AdminResetPassword extends JPanel {
     private ImageButton btnSubmit, btnBack;
     private Admin admin;
 
-    public AdminResetPassword(Admin admin) {
+    public AdminResetPassword() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-        this.admin = admin;
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -47,7 +46,6 @@ public class AdminResetPassword extends JPanel {
         lblConfirm = new JLabel("Confirm password:", SwingConstants.RIGHT);
         lblConfirm.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtUser = new JTextField(24);
-        txtUser.setText(admin.getUsername());
         txtUser.setEnabled(false);
         txtPass = new JPasswordField(24);
         txtConfirm = new JPasswordField(24);
@@ -189,6 +187,11 @@ public class AdminResetPassword extends JPanel {
         add(pnSouth, BorderLayout.SOUTH);
     }
 
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+        txtUser.setText(admin.getUsername());
+    }
+
     public boolean verifyAndPerformReset() {
         if (String.valueOf(txtPass.getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("") || txtSSN.getText().equals("") ||
@@ -221,10 +224,9 @@ public class AdminResetPassword extends JPanel {
 
         // Check birthdate format
         try {
-            String birth = txtBirthdate.getText(), fixedBirth;
+            String birth = txtBirthdate.getText();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             Date result = sdf.parse(birth);
-            fixedBirth = sdf.format(result);
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Please fix birthday format.", "Password Reset Failed",
                     JOptionPane.ERROR_MESSAGE);

@@ -30,13 +30,13 @@ public class Teacher extends User {
      * Constructor for creating an existing Teacher from the database.
      */
     public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
-                   ArrayList<Classroom> classes, ArrayList<Worksheet> history, boolean resetPassRequested) {
+                   boolean resetPassRequested) {
         super(user, first, last, salt, hash);
         setType(UserType.TEACHER);
         this.teacherID = teacherID;
-        this.classes = classes;
-        this.history = history;
         this.resetPassRequested = resetPassRequested;
+        this.classes = FWCConfigurator.getDbConn().getTeacherClasses(teacherID);
+        this.history = FWCConfigurator.getDbConn().getUserWorksheets(user);
     }
 
     public int getTeacherID() {
@@ -55,8 +55,8 @@ public class Teacher extends User {
         return history;
     }
 
-    public void setResetPassRequested() {
-        this.resetPassRequested = true;
+    public void setResetPassRequested(boolean option) {
+        this.resetPassRequested = option;
     }
 
     public void addWorksheet(Worksheet worksheet) {

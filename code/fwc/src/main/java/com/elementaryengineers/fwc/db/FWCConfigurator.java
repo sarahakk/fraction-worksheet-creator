@@ -15,6 +15,7 @@ public class FWCConfigurator {
     private static Teacher teacher;
     private static Student student;
     private static Admin admin;
+    private static Page currentPage;                        // Keeps track of the current page of the GUI (used by Help)
 
     //  Flags for fraction generation
     public static final int GEN_UNIQUE5       = 1;          // Used for L->G worksheet
@@ -159,6 +160,10 @@ public class FWCConfigurator {
         FWCConfigurator.userType = UserType.ADMIN;
     }
 
+    public static void setCurrentPage(Page currentPage) {
+        FWCConfigurator.currentPage = currentPage;
+    }
+
     public static UserType getUserType() {
         return userType;
     }
@@ -173,6 +178,10 @@ public class FWCConfigurator {
 
     public static Admin getAdmin() {
         return admin;
+    }
+
+    public static Page getCurrentPage() {
+        return currentPage;
     }
 
     public static void logout() {
