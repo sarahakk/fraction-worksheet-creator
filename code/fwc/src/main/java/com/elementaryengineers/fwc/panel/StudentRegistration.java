@@ -19,25 +19,26 @@ import java.util.Date;
  */
 
 
-public class StudentRegistration {
+public class StudentRegistration extends JPanel{
  
 
     private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
     private TitleLabel lblTitle;
     private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm;
-    //private J       ClassName, Difficulty;
+    private JComboBox cbClassName, cbDifficulty;
     private JTextField txtFirst, txtLast, txtUser;
     private JPasswordField txtPass, txtConfirm;
     private ImageButton btnSubmit;
 
     public StudentRegistration() {
-       // super(new BorderLayout());
-        setBackground(Color.WHITE);
+       super(new BorderLayout());
+       setBackground(Color.WHITE);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Student Registration", FWCConfigurator.STUDENT_REG_IMG);
+        lblTitle = new TitleLabel("Student Registration", 
+                FWCConfigurator.STUDENT_REG_IMG);
         pnNorth.add(lblTitle);
 
         // Build west panel and form
@@ -140,8 +141,13 @@ public class StudentRegistration {
         cLeft.fill = GridBagConstraints.HORIZONTAL;
         pnFieldsLeft.add(txtConfirm, cLeft);
 
-        // Build east panel and form: Class Name and Difficulty
+        // Build east panel and form: Class Name and Difficulty 
+
+        cbClassName = new JComboBox ("Class name:", SwingConstants.RIGHT);
+        cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
         
+        cbDifficulty = new JComboBox ("Difficulty:", SwingConstants.RIGHT);
+        cbDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
 
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
@@ -151,6 +157,25 @@ public class StudentRegistration {
         GridBagConstraints cRight = new GridBagConstraints();
         cRight.ipady = 5;
 
+         // Class Name
+        cRight.gridwidth = 2;
+        cRight.weightx = 0.5;
+        pnFieldsRight.add(cbClassName, cRight);
+
+        // Difficulty
+        cRight.gridwidth = 1;
+        cRight.gridy = 1;
+        cRight.anchor = GridBagConstraints.EAST;
+        cRight.weightx = 0;
+        pnFieldsRight.add(cbDifficulty, cRight);
+
+        cRight.gridx = 1;
+        cRight.insets = new Insets(0, 10, 0, 0);
+        cRight.anchor = GridBagConstraints.CENTER;
+        cRight.weightx = 1;
+        cRight.fill = GridBagConstraints.HORIZONTAL;
+        pnFieldsRight.add(cbDifficulty, cRight);
+        
    /*     
     public boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
@@ -179,11 +204,7 @@ public class StudentRegistration {
 
     public void setSubmitListener(ActionListener submitListener) {
         btnSubmit.addActionListener(submitListener);
-    }
+  }
 
-    private void setBackground(Color WHITE) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
-    
+} 
 

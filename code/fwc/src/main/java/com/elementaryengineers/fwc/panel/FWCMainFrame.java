@@ -32,6 +32,7 @@ public class FWCMainFrame extends JFrame {
     private TeacherRegistration adminTeacherReg;
 
     private TeacherHome teacherHome;
+    private StudentRegistration studentReg;
     private TeacherMenu teacherMenu;
     private JPanel pnCard;
 
@@ -257,8 +258,8 @@ public class FWCMainFrame extends JFrame {
         // TESTS
         //pnCard.add(new AdminRegistration(), "AdminRegistration");
         //pnCard.add(new AdminResetPassword(new Admin(0, "testUsername", "", "", "", "")), "AdminResetPassword");
-        //FWCConfigurator.setAdmin(new Admin("test", "test", "test", "test", "test", "test", "test"));
-        //pnCard.add(new AdminHome(), "AdminHome");
+        FWCConfigurator.setAdmin(new Admin("test", "test", "test", "test", "test", "test", "test"));
+        pnCard.add(new AdminHome(), "AdminHome");
         //pnCard.add(new TeacherProfile(), "TeacherProfile");
         //pnCard.add(new TeacherRegistration(), "TeacherRegistration");
 
@@ -287,6 +288,9 @@ public class FWCMainFrame extends JFrame {
 
     private void buildStudentPanels() {
 
+        
+       studentReg = new StudentRegistration();
+      // pnCard.add (studentReg, "StudentRegistration");
     }
 
     private void buildAdminPanels() {

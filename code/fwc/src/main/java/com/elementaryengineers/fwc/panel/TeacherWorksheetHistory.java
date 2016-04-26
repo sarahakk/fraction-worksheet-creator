@@ -70,8 +70,35 @@ private JPanel pnNorth, pnButtons;
         // Add north and center panel to Teacher Worksheet History Home
         this.add(pnNorth, BorderLayout.NORTH);
         this.add(pnButtons, BorderLayout.CENTER);
-    }
+        
+        // Create a new table instance
+        // ****** Add the table****** Still working
+  
+        Object rowData[][] = { { "Date1", "Dif1", "Exersice1"},
+                       { "Date2", "Diff2", "Exercise2"} };
+        Object columnNames[] = { "Date", "Difficulty", "Exercise"};
+        
+        JTable TeacherWSHistoryTable = new JTable(rowData, columnNames);
+        TeacherWSHistoryTable.setPreferredScrollableViewportSize(new Dimension(100, 50));
+        this.add (TeacherWSHistoryTable, BorderLayout.CENTER);
+        //TeacherWSHistoryTable.setSize(300, 200);
+        TeacherWSHistoryTable.setVisible(true);
+               
+  // Add the table to a scrolling pane
+       /* 
+       scrollPane = new JScrollPane( TeacherWSHistoryTable );
+       this.add( scrollPane, BorderLayout.CENTER );  
+            //or?
+       //scrollPane.setViewportView(TeacherWSHistoryTable); 
+        
+           */
+           //************************* ???
+        //Table selection Mode
+        //http://www.java2s.com/Code/Java/Swing-JFC/TableSelectionmode.htm
 
+
+    }
+   
     private void buildTitleLabel() {
         boolean imgRead = true;
 

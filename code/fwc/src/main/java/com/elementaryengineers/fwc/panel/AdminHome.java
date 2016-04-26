@@ -75,7 +75,8 @@ public class AdminHome extends JPanel {
 
         // Build table of teachers
         tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(new String[]{"First Name", "Last Name", "Username"});
+        tableModel.setColumnIdentifiers(new String[]{"First Name", "Last Name",
+            "Username"});
 
         teachersTable = new JTable(tableModel);
         teachersTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -83,7 +84,8 @@ public class AdminHome extends JPanel {
         teachersTable.getTableHeader().setFont(new Font("Calibri", Font.PLAIN, 18));
         populateTable(FWCConfigurator.getAdmin().getTeachers());
 
-        tableScroll = new JScrollPane(teachersTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        tableScroll = new JScrollPane(teachersTable, 
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         pnCenter.add(pnSearch, BorderLayout.NORTH);
@@ -92,7 +94,8 @@ public class AdminHome extends JPanel {
         // Build south panel
         pnProfile = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnProfile.setBackground(Color.WHITE);
-        btnProfile = new ImageButton("View Profile", FWCConfigurator.PROFILE_IMG, 150, 50);
+        btnProfile = new ImageButton("View Profile", 
+                FWCConfigurator.PROFILE_IMG, 150, 50);
         pnProfile.add(btnProfile);
 
         this.add(pnNorth, BorderLayout.NORTH);
