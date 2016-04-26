@@ -29,9 +29,10 @@ public class FractionGenerator
     private final int min_den;              //  Parameters for the denominator
     private final int max_den;
     
-    private int genMatchDen = 0;            //  Parameters for generation
-    private int genWholeNum = 0;
-    private int genUnique5  = 0;
+    private int genMatchDen   = 0;          //  Parameters for generation
+    private int genNoWholeNum = 0;
+    private int genWholeNum   = 0;
+    private int genUnique5    = 0;
     
     private final Random fracRNG;           //  RNG for fractions
     
@@ -79,13 +80,19 @@ public class FractionGenerator
         //  If whole numbers are restricted...
         if (gen_masterFlag == 2)
         {
+            genNoWholeNum = 1;
+        }
+        
+        //  If whole numbers are neccessary...
+        if (gen_masterFlag == 0)
+        {
             genWholeNum = 1;
         }
         
         //  If matching denominators are needed and whole numbers are restricted
         if (gen_masterFlag == 6)
         {
-            genWholeNum = 1;
+            genNoWholeNum = 1;
             genMatchDen = 1;
         }
         
@@ -184,7 +191,7 @@ public class FractionGenerator
             }
             
             //  Ensures fractions generated are less than 1
-            else if (genWholeNum == 1)
+            else if (genNoWholeNum == 1)
             {
                 int notWholeDen = -1;
                 

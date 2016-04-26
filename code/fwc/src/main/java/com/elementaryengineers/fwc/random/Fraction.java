@@ -90,6 +90,8 @@ public final class Fraction
     {
         //  Reduce the numerator by the value of the denominator.
         //  Each loop adds a whole value to the fraction.
+        mixedWhole = 0;
+        
         while (mixedNum >= mixedDen)
         {
             mixedNum = mixedNum - mixedDen;

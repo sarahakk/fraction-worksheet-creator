@@ -1,0 +1,30 @@
+A single box of nails weighs %fraction1%s of a pound.  %person1% has %fraction2% of a box.  How much does it weigh?
+A large shake requires %fraction1%s of a pint of milk.  A medium requires %fraction2% of a large.  How much milk is needed for the medium shake?
+After a pizza party %person1% has %fraction1%s of a pizza leftover.  %person2% takes %fraction2%s of the leftovers.  How much pizza does %person2% have?
+A pitcher holds %fraction1%s of a gallon of water.  If %person1% fills %fraction2% of the pitcher how much water would they have?
+%fraction1%s of the cupcakes have lemon icing.  Of those %fraction2%s of them have a cherry on top.  How many cupcakes have lemon icing with a cherry on top?
+%person1% spend %fraction1%s of an hour on the beach.  She spent %fraction2%s of that time in the ocean.  How long was she in the ocean?
+%person1% cut off %fraction1%s of their hair.  Then donated %fraction2%s of it to charity.  What fraction of the hair was donated?
+%fraction1%s of the students in %person1%s class have dogs.  Of those students %fraction2%s of them also have cats.  What fraction have both dogs and cats?
+%person1% sold %fraction1%s of a case of cookies.  %person2% sold %fraction2%s as many cases as %person1%.  How many cases did %person2% sell?
+Cattle are fed %fraction1%s of a bale of hay each day.  Horses are fed %fraction2%s as much hay as cattle.  How many bales of hay are horses fed per day?
+The monkeys represent %fraction1%s of the total zoo population.  Male monkeys make up %fraction2%s of all monkeys.  What fraction of the zoo population are male monkeys?
+%person1% picked %fraction1%s of a pound of strawberries.  %person1%'s sister ate %fraction2%s of them.  How many pounds did %person1%'s sister eat?
+%person1% has %fraction1%s of a cup of powdered sugar.  Sprinkling %fraction2%s of the sugar onto some lemon cookies.  How much sugar did %person1% use?
+A highschool fundraiser plans to use %fraction1%s of the money collected to build a new library.  Of that money %fraction2%s will be spend on books.  What fraction will be spent on books?
+Of the students in the band, %fraction1%s of them play a brass instrument.  Of those %fraction2%s of them play the trumpet.  What fraction of students play trumpet?
+%person1% had %fraction1%s of an apple pie.  Giving %fraction2%s of the pie to %person2%.  What fraction of the whole pie did %person2% get?
+%person1% has a lemonade stand.  On Monday they used %fraction1%s of a bag of lemons.  The next day %person1% used %fraction2%s as many lemons.  How many bags did %person1% use on Tuesday?
+%person1% took %fraction1%s of a cake and %person2% took %fraction2%s of that.  What fraction of the cake did %person2% get?
+The 4th grade class is %fraction1%s boys.  Of those boys %fraction2%s of them play baseball.  What fraction of the class are boys who play baseball?
+A pile of balls has %fraction1%s of them being %color1%.  Of those %fraction2%s of them are big.  What fraction of the balls are big %color1% ones?
+
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,7 @@ public class Equation
     private final Fraction fraction1;           //  First Fraction
     private final Fraction fraction2;           //  Second Fraction
     char operator;                              //  Operand
-    private final Fraction answer;              //  Answer Fraction
+    private Fraction answer;              //  Answer Fraction
     //==========================================================================
     
     //  Constructor  //

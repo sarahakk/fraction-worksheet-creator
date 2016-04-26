@@ -14,6 +14,7 @@ package com.elementaryengineers.fwc.random;
 //------------------------------------------------------------------------------
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,10 +25,11 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -69,13 +71,6 @@ public class WS_Advanced extends WS_Master
         //  Create the equations and set up the operator to be used
         for (int count = 0; count < num_fractions; )
         {
-            //  Mulitplication and Division share a worksheet
-            //  This ensures 5 of each type.
-            if (count == 10 & worksheetType == '*')
-            {
-                worksheetType = '/';
-            }
-            
             //  Create the equations using two fractions at a time
             Equation newEq = new Equation(fractions.get(count), 
                                           fractions.get(count+1), 
@@ -118,26 +113,26 @@ public class WS_Advanced extends WS_Master
         
         if (worksheetType == '+')
         {
-//            filename = 
-//            String.format("src/main/resources/images/AdvancedExample1.jpg"); 
+            filename = 
+            String.format("src/main/resources/images/AdvancedExample1.jpg"); 
         }
         
         if (worksheetType == '-')
         {
-//            filename = 
-//            String.format("src/main/resources/images/AdvancedExample2.jpg"); 
+            filename = 
+            String.format("src/main/resources/images/AdvancedExample2.jpg"); 
         }
         
         if ((worksheetType == '*') || (worksheetType == '/'))
         {
-//            filename = 
-//            String.format("src/main/resources/images/AdvancedExample3.jpg"); 
+            filename = 
+            String.format("src/main/resources/images/AdvancedExample3.jpg"); 
         }
             
         //  Add the example image to the document
-//        PDXObjectImage image = new PDJpeg(document, 
-//                                          new FileInputStream(filename));
-//        contentStream.drawXObject(image, imageX, imageY, 600, 120);
+        PDXObjectImage image = new PDJpeg(document, 
+                                          new FileInputStream(filename));
+        contentStream.drawXObject(image, imageX, imageY, 600, 120);
     }
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     
@@ -390,6 +385,14 @@ public class WS_Advanced extends WS_Master
         {
             problemFile = new File("src/main/resources/text/add.txt");
         }
+        if (worksheetType == '-')
+        {
+            problemFile = new File("src/main/resources/text/sub.txt");
+        }
+        if (worksheetType == '*' || worksheetType == '/')
+        {
+            problemFile = new File("src/main/resources/text/multi.txt");
+        }
         
         //  Grab all the text in the problem file
         try (BufferedReader read = 
@@ -398,6 +401,7 @@ public class WS_Advanced extends WS_Master
             for (int count = 0; count < 20; count++)
             {
                 masterText[count] = read.readLine();
+                
             }
         }
         
@@ -460,15 +464,20 @@ public class WS_Advanced extends WS_Master
             Fraction answer = problem.getFraction(ANSWER);
             int commonDenModifier = 1;
             
+            double greaterCheck = 
+                (double)frac1.getNumerator() / (double)frac1.getDenominator() +
+                (double)frac2.getNumerator() / (double)frac2.getDenominator();
+            
+            
             //  Since some questions assume a total of "1"...
             //  We modify those equations to make sense in a word problem.
             if ((problemText[problemNum].contains("%common_den%")) &&
-               (answer.getMixedWhole() >= 1))
+                (greaterCheck >= 1.0))
+               
             {
                 answer.setFraction(answer.getNumerator(), 
                                    answer.getDenominator() * 2);
                 commonDenModifier = 2;
-                
             }
             
             //  Convert fractions into word form
@@ -493,8 +502,10 @@ public class WS_Advanced extends WS_Master
                 commonDen = String.format("%d", frac1.getDenominator() * 
                                                 frac2.getDenominator() *
                                                 commonDenModifier);
-                commonNum1 = String.format("%d", frac1.getNumerator() * frac2.getDenominator());
-                commonNum2 = String.format("%d", frac2.getNumerator() * frac1.getDenominator());
+                commonNum1 = String.format("%d", frac1.getNumerator() * 
+                                                 frac2.getDenominator());
+                commonNum2 = String.format("%d", frac2.getNumerator() * 
+                                                 frac1.getDenominator());
             }
                                     
             //  Grab special text for each problem
@@ -588,4 +599,4 @@ public class WS_Advanced extends WS_Master
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
 //------------------------------------------------------------------------------
-//  End class WS_Intermediate
+//  End class WS_Advanced
