@@ -144,16 +144,19 @@ public class TeacherRegistration extends JPanel {
 
     public boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
-                txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
+                txtUser.getText().equals("") || String.valueOf(txtPass.
+                        getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("")) {
-            JOptionPane.showMessageDialog(null, "Please enter all required information.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, 
+                    "Please enter all required information.", "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Check if username is available
         if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
-            JOptionPane.showMessageDialog(null, "Username is not available.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Username is not available.",
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -161,7 +164,8 @@ public class TeacherRegistration extends JPanel {
         // Check if passwords match
         if (!String.valueOf(txtPass.getPassword()).equals(
                 String.valueOf(txtConfirm.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "Passwords do not match.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Passwords do not match.", 
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
