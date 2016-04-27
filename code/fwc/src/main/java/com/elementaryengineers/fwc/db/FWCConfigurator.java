@@ -134,7 +134,7 @@ public class FWCConfigurator {
 
     public static FWCDatabaseConnection connectToDatabase() {
         dbConn = new FWCDatabaseConnection();
-        difficulties = dbConn.getDifficulties();
+        //difficulties = dbConn.getDifficulties();
         return dbConn;
     }
 

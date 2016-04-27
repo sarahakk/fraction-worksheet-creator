@@ -113,7 +113,9 @@ public class FWCMainFrame extends JFrame {
                         passwordText = login.getPasswordText();
 
                 if (usernameText.equals("") || passwordText.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Please check your username or password.", "Login Error",
+                    JOptionPane.showMessageDialog(null, 
+                            "Please check your username or password.",
+                            "Login Error",
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -122,7 +124,7 @@ public class FWCMainFrame extends JFrame {
 
                 if (user != null) { // If user exists
                     if (user.verifyLogin(passwordText)) {
-                        // Build panels specific to the type of user that logged in
+                    // Build panels specific to the type of user that logged in
                         switch (user.getType()) {
                             case TEACHER: {
                                 FWCConfigurator.setTeacher((Teacher) user);
@@ -156,12 +158,16 @@ public class FWCMainFrame extends JFrame {
                         login.clearFields();
                     }
                     else {
-                        JOptionPane.showMessageDialog(null, "Please check your password and try again.", "Login Error",
+                        JOptionPane.showMessageDialog(null, 
+                                "Please check your password and try again.", 
+                                "Login Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Please check your username and try again.", "Login Error",
+                    JOptionPane.showMessageDialog(null, 
+                            "Please check your username and try again.", 
+                            "Login Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -188,7 +194,9 @@ public class FWCMainFrame extends JFrame {
                             String usernameText = forgotPass.getUsernameText();
 
                             if (usernameText.equals("")) {
-                                JOptionPane.showMessageDialog(null, "Please check your username.", "Username Error",
+                                JOptionPane.showMessageDialog(null, 
+                                        "Please check your username.", 
+                                        "Username Error",
                                         JOptionPane.ERROR_MESSAGE);
                                 return;
                             }

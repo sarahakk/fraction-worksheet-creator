@@ -62,6 +62,7 @@ public class StudentHistory extends JPanel {
         pnButtons.setBackground(Color.WHITE);
         btnPrint = new ImageButton("Print Selected", FWCConfigurator.PRINT_SELECTED_IMG, 150, 50);
         btnPrint.addActionListener(new PrintListener());
+        
         btnDelete = new ImageButton("Delete Selected", FWCConfigurator.DEL_SELECT_IMG, 150, 50);
         btnDelete.addActionListener(new DeleteListener());
         pnButtons.add(btnPrint);
