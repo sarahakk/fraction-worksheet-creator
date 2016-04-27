@@ -502,84 +502,6 @@ public class FWCMainFrame extends JFrame {
 
             adminPasswords = new AdminManagePasswords();
             adminTeacherProfile = new TeacherProfile();
-            adminTeacherProfile.setSubmitListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String newFirst = adminTeacherProfile.getFirstName(),
-                    newLast = adminTeacherProfile.getLastName(),
-                    newUser = adminTeacherProfile.getUsername();
-
-                    if (newFirst.equals("") || newLast.equals("") || newUser.equals("")) {
-                        JOptionPane.showMessageDialog(null,
-                        "Please enter all required information.",
-                        "Teacher Update Failed",
-                        JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    // Check if username is available
-                    if (!dbConn.isUsernameAvailable(newUser)) {
-                        JOptionPane.showMessageDialog(null, "Username is not available.",
-                        "Teacher Update Failed",
-                        JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    // Update teacher with information from profile
-                    int index = adminTeacherProfile.getTeacherIndex();
-                    Teacher modifiedTeacher = FWCConfigurator.getAdmin().
-                    getTeachers().get(index);
-                    modifiedTeacher.setFirstName(newFirst);
-                    modifiedTeacher.setLastName(newLast);
-                    modifiedTeacher.setUsername(newUser);
-
-                    // Check database update status
-                    if (dbConn.updateTeacher(modifiedTeacher)) {
-                        JOptionPane.showMessageDialog(null,
-                        "Teacher was successfully updated.",
-                        "Teacher Update Successful",
-                        JOptionPane.PLAIN_MESSAGE);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null,
-                        "Teacher could not be updated in the database.",
-                        "Teacher Update Failed",
-                        JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            });
-
-            adminTeacherProfile.setResetListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int index = adminTeacherProfile.getTeacherIndex();
-                    Teacher teacher = FWCConfigurator.getAdmin().
-                    getTeachers().get(index);
-                    String newPassword = teacher.setRandomPassword();
-
-                    // Check database update status
-                    if (dbConn.updateTeacher(teacher)) {
-                        JOptionPane.showMessageDialog(null,
-                        "Teacher was successfully updated.",
-                        "Teacher Update Successful",
-                        JOptionPane.PLAIN_MESSAGE);
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null,
-                        "Teacher could not be updated in the database.",
-                        "Teacher Update Failed",
-                        JOptionPane.ERROR_MESSAGE);
-                    }
-
-                    // Popup with new password
-                    JOptionPane.showMessageDialog(null, teacher.getUsername() +
-                    "'s password has been successfully " +
-                    "reset to:\n" + newPassword,
-                    "Password Reset Successful",
-                    JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
-
             adminTeacherProfile.setDeleteListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -605,7 +527,6 @@ public class FWCMainFrame extends JFrame {
                         }
                         else {
                             JOptionPane.showMessageDialog(null,
-
                             "Teacher could not be deleted from the database.",
                             "Teacher Delete Failed",
                             JOptionPane.ERROR_MESSAGE);

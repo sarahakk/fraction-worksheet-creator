@@ -7,6 +7,7 @@ import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -94,7 +95,83 @@ public class TeacherProfile extends JPanel {
 
         // Build buttons
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String newFirst = txtFirst.getText(),
+                        newLast = txtLast.getText(),
+                        newUser = txtUser.getText();
+
+                if (newFirst.equals("") || newLast.equals("") || newUser.equals("")) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please enter all required information.",
+                            "Teacher Update Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Check if username is available
+                if (!FWCConfigurator.getDbConn().isUsernameAvailable(newUser)) {
+                    JOptionPane.showMessageDialog(null, "Username is not available.",
+                            "Teacher Update Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Update teacher with information from profile
+                Teacher modifiedTeacher = FWCConfigurator.getAdmin().
+                        getTeachers().get(teacherIndex);
+                modifiedTeacher.setFirstName(newFirst);
+                modifiedTeacher.setLastName(newLast);
+                modifiedTeacher.setUsername(newUser);
+
+                // Check database update status
+                if (FWCConfigurator.getDbConn().updateTeacher(modifiedTeacher)) {
+                    JOptionPane.showMessageDialog(null,
+                            "Teacher was successfully updated.",
+                            "Teacher Update Successful",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,
+                            "Teacher could not be updated in the database.",
+                            "Teacher Update Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         btnReset = new ImageButton("Submit", FWCConfigurator.RESET_PASSW_IMG, 150, 50);
+        btnReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Teacher teacher = FWCConfigurator.getAdmin().
+                        getTeachers().get(teacherIndex);
+                String newPassword = teacher.setRandomPassword();
+
+                // Check database update status
+                if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
+                    JOptionPane.showMessageDialog(null,
+                            "Teacher was successfully updated.",
+                            "Teacher Update Successful",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,
+                            "Teacher could not be updated in the database.",
+                            "Teacher Update Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+                // Popup with new password
+                JOptionPane.showMessageDialog(null, teacher.getUsername() +
+                                "'s password has been successfully " +
+                                "reset to:\n" + newPassword,
+                        "Password Reset Successful",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
         btnDelete = new ImageButton("Submit", FWCConfigurator.DEL_TEACHER_IMG, 150, 50);
 
         c.gridwidth = 2;
@@ -126,18 +203,6 @@ public class TeacherProfile extends JPanel {
         this.teacherIndex = teacherIndex;
     }
 
-    public String getFirstName() {
-        return txtFirst.getText();
-    }
-
-    public String getLastName() {
-        return txtLast.getText();
-    }
-
-    public String getUsername() {
-        return txtUser.getText();
-    }
-
     /**
      * To be used when submitting changes to get the teacher object from the admin's list to update the DB with.
      * @return
@@ -146,15 +211,7 @@ public class TeacherProfile extends JPanel {
         return teacherIndex;
     }
 
-    public void setSubmitListener(ActionListener submitListener) {
-        btnSubmit.addActionListener(submitListener);
-    }
-
     public void setDeleteListener(ActionListener deleteListener) {
         btnDelete.addActionListener(deleteListener);
-    }
-
-    public void setResetListener(ActionListener resetListener) {
-        btnReset.addActionListener(resetListener);
     }
 }
