@@ -1,70 +1,99 @@
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Classroom;
+import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  *
  * @author olgasheehan
  */
-public class ClassNew extends JPanel{
+public class ClassNew extends JPanel {
     
-    private JPanel pnNorth,pnSouth,pnButtons, pnFields;
+    private JPanel pnNorth,pnSouth, pnFields;
     private TitleLabel lblTitle;
     private JLabel lblClassName;
     private JTextField txtClassName;
-    private ImageButton btnBack, btnSubmit;
+    private ImageButton btnSubmit;
+    // No need for a back button, can simply click Classes in menu to go back
           
-     public ClassNew () {
+    public ClassNew() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
-        
+
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
         lblTitle = new TitleLabel("New Class", FWCConfigurator.NEW_CLASS_IMG);
         pnNorth.add(lblTitle);
 
-        // Build buttons and center panel
-        pnButtons = new JPanel(new GridBagLayout());
-        pnButtons.setBackground(Color.WHITE);
-        pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 15, 0));
-        GridBagConstraints c = new GridBagConstraints();
-        
-        
-        lblClassName = new JLabel("New Class:", SwingConstants.RIGHT);
+        // Build center panel
+        lblClassName = new JLabel("New class name:");
         lblClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtClassName = new JTextField(24);
-        
-        
-        // Use GridBagLayout
-        pnFields = new JPanel(new GridBagLayout());
+
+        pnFields = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnFields.setBackground(Color.WHITE);
-        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
-    
+        pnFields.add(lblClassName);
+        pnFields.add(txtClassName);
+
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Check if class name is empty
+                if (txtClassName.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please enter a class name.",
+                            "Create Class Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Classroom newClass = new Classroom(txtClassName.getText());
+
+                // If adding new teacher to database works
+                if (FWCConfigurator.getDbConn().createClassroom(newClass)) {
+
+                    // Add class to teacher's list of classes
+                    FWCConfigurator.getTeacher().getClasses().add(newClass);
+
+                    // Clear fields in teacher registration form
+                    clearFields();
+
+                    JOptionPane.showMessageDialog(null,
+                            "Class was successfully created.",
+                            "Class Created",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,
+                            "Class could not be created "
+                            + "in the database. Please try again.",
+                            "Create Class Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         pnSouth.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
         add(pnFields, BorderLayout.CENTER);
         add(pnSouth, BorderLayout.SOUTH);
-        
-     }
-     
-      public void setSubmitListener(ActionListener submitListener) {
-        btnSubmit.addActionListener(submitListener);
     }
-    
-        
-       
 
+    private void clearFields() {
+        txtClassName.setText("");
+    }
 }

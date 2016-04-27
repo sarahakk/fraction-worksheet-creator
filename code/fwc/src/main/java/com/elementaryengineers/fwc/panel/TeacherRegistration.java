@@ -7,6 +7,7 @@ import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -135,6 +136,36 @@ public class TeacherRegistration extends JPanel {
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (verifyRegistration()) {
+                    Teacher newTeacher = getNewTeacher();
+
+                    // If adding new teacher to database works
+                    if (FWCConfigurator.getDbConn().createTeacher(newTeacher)) {
+
+                        // Add teacher to admin's list of teachers
+                        FWCConfigurator.getAdmin().getTeachers().add(newTeacher);
+
+                        // Clear fields in teacher registration form
+                        clearFields();
+
+                        JOptionPane.showMessageDialog(null,
+                                "Teacher was successfully registered.",
+                                "Teacher Registration Successful",
+                                JOptionPane.PLAIN_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,
+                                "Teacher could not be registered "
+                                        + "in the database. Please try again.",
+                                "Teacher Registration Failed",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
         pnSouth.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
@@ -142,7 +173,7 @@ public class TeacherRegistration extends JPanel {
         add(pnSouth, BorderLayout.SOUTH);
     }
 
-    public boolean verifyRegistration() {
+    private boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
                 txtUser.getText().equals("") || String.valueOf(txtPass.
                         getPassword()).equals("") ||
@@ -173,16 +204,12 @@ public class TeacherRegistration extends JPanel {
         return true;
     }
 
-    public void setSubmitListener(ActionListener submitListener) {
-        btnSubmit.addActionListener(submitListener);
-    }
-
-    public Teacher getNewTeacher() {
+    private Teacher getNewTeacher() {
         return new Teacher(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
                 String.valueOf(txtPass.getPassword()));
     }
 
-    public void clearFields() {
+    private void clearFields() {
         txtFirst.setText("");
         txtLast.setText("");
         txtUser.setText("");

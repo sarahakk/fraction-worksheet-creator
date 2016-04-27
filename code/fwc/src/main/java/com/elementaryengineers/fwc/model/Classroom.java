@@ -15,6 +15,16 @@ public class Classroom {
     private String className;
     private ArrayList<Student> students;
 
+    /**
+     * Constructor for new class, unknown ID.
+     * @param name
+     */
+    public Classroom(String name) {
+        this.classID = -1;
+        this.className = name;
+        this.students = new ArrayList<>();
+    }
+
     public Classroom(int id, String name) {
         this.classID = id;
         this.className = name;

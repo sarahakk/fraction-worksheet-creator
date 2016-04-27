@@ -615,36 +615,6 @@ public class FWCMainFrame extends JFrame {
             });
 
             adminTeacherReg = new TeacherRegistration();
-            adminTeacherReg.setSubmitListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (adminTeacherReg.verifyRegistration()) {
-                        Teacher newTeacher = adminTeacherReg.getNewTeacher();
-
-                        // If adding new teacher to database works
-                        if (dbConn.createTeacher(newTeacher)) {
-
-                            // Add teacher to admin's list of teachers
-                            FWCConfigurator.getAdmin().getTeachers().add(newTeacher);
-
-                            // Clear fields in teacher registration form
-                            adminTeacherReg.clearFields();
-
-                            JOptionPane.showMessageDialog(null,
-                            "Teacher was successfully registered.",
-                            "Teacher Registration Successful",
-                            JOptionPane.PLAIN_MESSAGE);
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null,
-                            "Teacher could not be registered "
-                            + "in the database. Please try again.",
-                            "Teacher Registration Failed",
-                            JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                }
-            });
 
             pnCard.add(adminHome, "AdminHome");
             pnCard.add(adminPasswords, "AdminManagePasswords");
