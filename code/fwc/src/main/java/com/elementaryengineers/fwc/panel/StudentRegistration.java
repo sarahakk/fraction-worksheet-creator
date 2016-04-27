@@ -1,39 +1,42 @@
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Student;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author olgasheehan
  */
-
-
 public class StudentRegistration extends JPanel{
- 
 
     private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
     private TitleLabel lblTitle;
-    private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm;
+    private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm, lblClass, lblDifficulty;
     private JComboBox cbClassName, cbDifficulty;
     private JTextField txtFirst, txtLast, txtUser;
     private JPasswordField txtPass, txtConfirm;
     private ImageButton btnSubmit;
 
     public StudentRegistration() {
-       super(new BorderLayout());
-       setBackground(Color.WHITE);
+        super(new BorderLayout());
+        setBackground(Color.WHITE);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Student Registration", 
-                FWCConfigurator.STUDENT_REG_IMG);
+        lblTitle = new TitleLabel("Student Registration",
+        FWCConfigurator.STUDENT_REG_IMG);
         pnNorth.add(lblTitle);
 
         // Build west panel and form
@@ -57,7 +60,6 @@ public class StudentRegistration extends JPanel{
         pnFieldsLeft = new JPanel(new GridBagLayout());
         pnFieldsLeft.setBackground(Color.WHITE);
         pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 0));
-        pnFieldsLeft.setPreferredSize(new Dimension(400, 200));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
 
@@ -136,49 +138,84 @@ public class StudentRegistration extends JPanel{
         cLeft.fill = GridBagConstraints.HORIZONTAL;
         pnFieldsLeft.add(txtConfirm, cLeft);
 
-        // Build east panel and form: Class Name and Difficulty 
+        // Build east panel and form: Class Name and Difficulty
+        lblClass = new JLabel("Class:", SwingConstants.RIGHT);
+        lblClass.setFont(new Font("Calibri", Font.PLAIN, 18));
+        lblDifficulty = new JLabel("Difficulty:", SwingConstants.RIGHT);
+        lblDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
+        ArrayList<String> classNames = new ArrayList<>(),
+        difficulties = new ArrayList<>();
 
-        //cbClassName = new JComboBox ("Class name:", SwingConstants.RIGHT);
+        FWCConfigurator.getTeacher().getClasses().stream()
+                .forEach(classroom -> classNames.add(classroom.getClassName()));
+
+        FWCConfigurator.getDifficulties().stream()
+                .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
+
+        cbClassName = new JComboBox(classNames.toArray());
         cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
-        
-        //cbDifficulty = new JComboBox ("Difficulty:", SwingConstants.RIGHT);
+
+        cbDifficulty = new JComboBox(difficulties.toArray());
         cbDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
 
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
         pnFieldsRight.setBackground(Color.WHITE);
         pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10, 30));
-        pnFieldsRight.setPreferredSize(new Dimension(500, 200));
         GridBagConstraints cRight = new GridBagConstraints();
         cRight.ipady = 5;
 
-         // Class Name
-        cRight.gridwidth = 2;
-        cRight.weightx = 0.5;
-        pnFieldsRight.add(cbClassName, cRight);
-
-        // Difficulty
-        cRight.gridwidth = 1;
-        cRight.gridy = 1;
+        // Class
         cRight.anchor = GridBagConstraints.EAST;
-        cRight.weightx = 0;
-        pnFieldsRight.add(cbDifficulty, cRight);
+        pnFieldsLeft.add(lblClass, cRight);
 
         cRight.gridx = 1;
         cRight.insets = new Insets(0, 10, 0, 0);
         cRight.anchor = GridBagConstraints.CENTER;
         cRight.weightx = 1;
         cRight.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsRight.add(cbDifficulty, cRight);
-        
-   /*     
+        pnFieldsLeft.add(cbClassName, cRight);
+
+        // Difficulty
+        cRight.gridy = 1;
+        cRight.gridx = 0;
+        cRight.insets.left = 0;
+        cRight.anchor = GridBagConstraints.EAST;
+        cRight.weightx = 0;
+        cRight.fill = GridBagConstraints.NONE;
+        pnFieldsLeft.add(lblDifficulty, cRight);
+
+        cRight.gridx = 1;
+        cRight.insets.left = 10;
+        cRight.anchor = GridBagConstraints.CENTER;
+        cRight.weightx = 1;
+        cRight.fill = GridBagConstraints.HORIZONTAL;
+        pnFieldsLeft.add(cbDifficulty, cRight);
+
+        // Build south panel and submit button
+        pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnSouth.setBackground(Color.WHITE);
+        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        pnSouth.add(btnSubmit);
+
+        add(pnNorth, BorderLayout.NORTH);
+        add(pnFieldsLeft, BorderLayout.WEST);
+        add(pnFieldsRight, BorderLayout.EAST);
+        add(pnSouth, BorderLayout.SOUTH);
+    }
+
     public boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
-            txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
-            String.valueOf(txtConfirm.getPassword()).equals("") || txtSSN.getText().equals("") ||
-            txtBirthdate.getText().equals("") || txtJob.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Please enter all required "
-                    + "information.", "Registration Failed",
+                txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
+                String.valueOf(txtConfirm.getPassword()).equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter all required information.", "Registration Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Check if username is available
+        if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
+            JOptionPane.showMessageDialog(null, "Username is not available.", "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -186,20 +223,22 @@ public class StudentRegistration extends JPanel{
         // Check if passwords match
         if (!String.valueOf(txtPass.getPassword()).equals(
                 String.valueOf(txtConfirm.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "Passwords do not match.", 
+            JOptionPane.showMessageDialog(null, "Passwords do not match.",
                     "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        
-*/
-      
+        return true;
+    }
+
+    public Student getNewStudent() {
+        return new Student(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
+                String.valueOf(txtPass.getPassword()), cbDifficulty.getSelectedIndex(),
+                FWCConfigurator.getTeacher().getClasses().get(cbClassName.getSelectedIndex()));
     }
 
     public void setSubmitListener(ActionListener submitListener) {
         btnSubmit.addActionListener(submitListener);
   }
-
-} 
-
+}

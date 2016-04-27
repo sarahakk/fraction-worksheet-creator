@@ -166,6 +166,7 @@ public class TeacherRegistration extends JPanel {
                 }
             }
         });
+
         pnSouth.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
