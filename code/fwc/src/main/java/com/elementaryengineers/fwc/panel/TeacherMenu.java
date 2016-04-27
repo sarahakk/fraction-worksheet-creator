@@ -4,7 +4,6 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**

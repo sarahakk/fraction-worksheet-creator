@@ -10,7 +10,6 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 /**
  * TODO
@@ -38,6 +37,9 @@ public class FWCMainFrame extends JFrame {
     private TeacherMenu teacherMenu;
     private TeacherHome teacherHome;
     private StudentRegistration studentReg;
+
+    // Student panels
+    private StudentHome studentHome;
 
     // Dimensions of different panels to be used when switching between them
     private static final int loginW = 534, loginH = 487,
@@ -297,11 +299,7 @@ public class FWCMainFrame extends JFrame {
             }
         });
 
-        // Add panels to card layout
-
-        // TESTS
-        //pnCard.add(new AdminResetPassword(new Admin(0, "testUsername", "", "", "", "")), "AdminResetPassword");
-
+        // Add login panel to card layout
         pnCard.add(login, "Login"); // Add login panel
         setSize(new Dimension(loginW, loginH));
 
@@ -416,6 +414,7 @@ public class FWCMainFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     int index = adminHome.getSelectedTeacher();
 
+                    // Check if selected a teacher
                     if (index > 0) {
                         adminTeacherProfile.populateFields(FWCConfigurator.getAdmin().getTeachers().get(index));
                         adminTeacherProfile.setTeacherIndex(index);

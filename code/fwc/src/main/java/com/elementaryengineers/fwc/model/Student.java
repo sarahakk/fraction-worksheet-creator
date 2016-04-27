@@ -72,4 +72,9 @@ public class Student extends User {
     public void setResetPassRequested(boolean option) {
         this.resetPassRequested = option;
     }
+
+    public void addWorksheet(Worksheet worksheet) {
+        this.history.add(worksheet);
+        FWCConfigurator.getDbConn().updateStudent(this);
+    }
 }

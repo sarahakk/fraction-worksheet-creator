@@ -73,6 +73,11 @@ public class AdminManagePasswords extends JPanel {
     }
 
     private void populateTable() {
+        // Remove all rows first
+        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+            tableModel.removeRow(i);
+        }
+
         for (Teacher teacher : teachers) {
             tableModel.addRow(new String[]{teacher.getUsername()});
         }
@@ -83,19 +88,27 @@ public class AdminManagePasswords extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == btnReset) { // If reset selected teacher's password
                 int index = teachersTable.getSelectedRow();
-                Teacher teacher = teachers.get(index);
-                String newPassword = teacher.setRandomPassword();
 
-                // Check database update status
-                if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
-                    // Popup with new password
-                    JOptionPane.showMessageDialog(null, teacher.getUsername() + "'s password has been successfully " +
-                            "reset to:\n" + newPassword, "Password Reset Successful", JOptionPane.INFORMATION_MESSAGE);
+                // Check if selected a teacher
+                if (index > 0) {
+                    Teacher teacher = teachers.get(index);
+                    String newPassword = teacher.setRandomPassword();
+
+                    // Check database update status
+                    if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
+                        // Popup with new password
+                        JOptionPane.showMessageDialog(null, teacher.getUsername() + "'s password has been successfully " +
+                                "reset to:\n" + newPassword, "Password Reset Successful", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Teacher could not be updated in the database.",
+                                "Teacher Update Failed",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                else {
-                    JOptionPane.showMessageDialog(null, "Teacher could not be updated in the database.",
-                            "Teacher Update Failed",
-                            JOptionPane.ERROR_MESSAGE);
+                else { // No teacher is selected from the table
+                    JOptionPane.showMessageDialog(null, "Please select a teacher from the table first.",
+                            "Reset Password Error", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             else if (e.getSource() == btnResetAll) { // If reset all teachers' passwords

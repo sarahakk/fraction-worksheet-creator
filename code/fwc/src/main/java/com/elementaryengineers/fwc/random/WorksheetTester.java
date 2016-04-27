@@ -12,9 +12,11 @@ package com.elementaryengineers.fwc.random;
 
 //  Imports  //
 //------------------------------------------------------------------------------
+
+import org.apache.pdfbox.exceptions.COSVisitorException;
+
 import java.io.IOException;
 import java.util.Scanner;
-import org.apache.pdfbox.exceptions.COSVisitorException;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------

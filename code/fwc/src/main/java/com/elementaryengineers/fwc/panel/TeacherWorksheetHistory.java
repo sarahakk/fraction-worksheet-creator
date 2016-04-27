@@ -18,9 +18,8 @@ import java.net.URL;
  * @author olgasheehan
  */
 public class TeacherWorksheetHistory extends JPanel{
-    
 
-private JPanel pnNorth, pnButtons;
+    private JPanel pnNorth, pnButtons;
     private JLabel lblTitle;
     private ImageButton btnTeacherWorksheetHistory;
     private JButton btnPrint, btnAnswerKey,btnDelete;

@@ -10,12 +10,13 @@ package com.elementaryengineers.fwc.db;
  *
  * @author olgasheehan
  */
+
 import com.elementaryengineers.fwc.model.*;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
 
 
 
@@ -207,15 +208,15 @@ public class FWCDatabaseConnection implements DatabaseConnection
 
 			if ( rs.next()){
 				rs.beforeFirst();
-			Teacher teacher = new Teacher( 	rs.getInt("TeacherID"), Username, FirstName,
-					LastName, Salt,Hash,rs.getString("ResetPassword"));
+			//Teacher teacher = new Teacher( 	rs.getInt("TeacherID"), Username, FirstName,
+					//LastName, Salt,Hash,rs.getString("ResetPassword"));
 			}
 			else {
 				ResultSet RS2 = stmt.executeQuery(sqlStudent);
 				if (RS2.next()) {
 					RS2.beforeFirst();
-					Student student = new Student(RS2.getInt("StudentID"), Username, FirstName, LastName,
-							Salt, Hash, rs.getString("Classroom"), RS2.getBoolean("resetPassRequest"));
+					//Student student = new Student(RS2.getInt("StudentID"), Username, FirstName, LastName,
+							//Salt, Hash, rs.getString("Classroom"), RS2.getBoolean("resetPassRequest"));
 
 
 				} else {
@@ -282,10 +283,10 @@ public class FWCDatabaseConnection implements DatabaseConnection
 	 * @return
 	 */
 	@Override
-	public ArrayList<String> getAllTeachers() {
+	public ArrayList<Teacher> getAllTeachers() {
 
 
-		ArrayList<String> results = null;
+		ArrayList<Teacher> results = null;
 		try
 
 		{
@@ -293,9 +294,9 @@ public class FWCDatabaseConnection implements DatabaseConnection
 
 			String sql = ("Select * from Teacher");
 			ResultSet rs = stmt.executeQuery(sql);
-			results = new ArrayList<String>();
+			results = new ArrayList<>();
 			while (rs.next()) {
-				results.add(rs.getString(1));
+				//results.add(rs.getString(1));
 			}
 
 
@@ -343,8 +344,8 @@ public class FWCDatabaseConnection implements DatabaseConnection
 	 * @return
 	 */
 	@Override
-	public ArrayList<String> getAllAdmins() {
-		ArrayList<String> results = null;
+	public ArrayList<Admin> getAllAdmins() {
+		ArrayList<Admin> results = null;
 		try
 
 		{
@@ -362,9 +363,9 @@ public class FWCDatabaseConnection implements DatabaseConnection
 
 			String sql = ("Select * from Admin");
 			ResultSet rs = stmt.executeQuery(sql);
-			results = new ArrayList<String>();
+			results = new ArrayList<>();
 			while (rs.next()) {
-				results.add(rs.getString(1));
+				//results.add(rs.getString(1));
 			}
 
 
@@ -1024,11 +1025,11 @@ public class FWCDatabaseConnection implements DatabaseConnection
 		    rs = selectStmt.executeQuery();
 
 		    while(rs.next()) {
-			    Student p = new Student(rs.getInt("StudentID"), rs.getString("User"), rs.getString("First"), rs.getString("Last"),
-					    rs.getString("Salt"), rs.getString("Hash"),rs.getString("Classroom"), rs.getBoolean("resetPassRequest"));
+			    //Student p = new Student(rs.getInt("StudentID"), rs.getString("User"), rs.getString("First"), rs.getString("Last"),
+				//	    rs.getString("Salt"), rs.getString("Hash"),rs.getString("Classroom"), rs.getBoolean("resetPassRequest"));
 
 
-			    matches.add(p);
+			    //matches.add(p);
 		    }
 	    } catch(SQLException se) {
 
@@ -1088,7 +1089,7 @@ public class FWCDatabaseConnection implements DatabaseConnection
     }
 
 
-    /**
+	/**
      * Return a list of Difficulty objects, each representing a difficulty
      * level in the Difficulty table. The 3 standard difficulties should
      * already exist in that table. We just need them in an ArrayList so
@@ -1097,7 +1098,7 @@ public class FWCDatabaseConnection implements DatabaseConnection
      * @return
      */
     @Override
-    public ArrayList<Difficulty> getDifficulties(String difficulty) {
+    public ArrayList<Difficulty> getDifficulties() {
 
 		    String sql = "SELECT * Difficulties WHERE *;";
 		    PreparedStatement selectStmt = null;
@@ -1111,7 +1112,7 @@ public class FWCDatabaseConnection implements DatabaseConnection
 			    while(rs.next()) {
 
 				    Worksheet p = new Worksheet(rs.getInt("seed"), rs.getString("exercise") ,rs.getInt("difficultyID"));
-				    matches.add(p);
+				    //matches.add(p);
 			    }
 		    } catch(SQLException se) {
 

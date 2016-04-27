@@ -8,14 +8,11 @@ import com.elementaryengineers.fwc.model.Worksheet;
 import com.elementaryengineers.fwc.random.*;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by sarahakk on 4/10/16.
@@ -35,7 +32,7 @@ public class TeacherHome extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Teacher Home", FWCConfigurator.TEACHER_HOME_IMG);
+        lblTitle = new TitleLabel("Worksheets", FWCConfigurator.WS_IMG);
         pnNorth.add(lblTitle);
 
         // Build buttons and center panel
@@ -65,7 +62,7 @@ public class TeacherHome extends JPanel {
         btnAdv1.addActionListener(new AdvancedActionListener());
         btnAdv2 = new ImageButton("Advanced Subtraction", FWCConfigurator.ADV2_IMG, 200, 100);
         btnAdv2.addActionListener(new AdvancedActionListener());
-        btnAdv3 = new ImageButton("Advanced Multiplication\nand Division", FWCConfigurator.ADV3_IMG, 200, 100);
+        btnAdv3 = new ImageButton("Advanced Multiplication", FWCConfigurator.ADV3_IMG, 200, 100);
         btnAdv3.addActionListener(new AdvancedActionListener());
 
         // Add buttons to center panel

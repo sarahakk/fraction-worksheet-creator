@@ -2,7 +2,6 @@ package com.elementaryengineers.fwc.db;
 
 import com.elementaryengineers.fwc.model.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -50,8 +49,7 @@ public class FWCConfigurator {
     public static final String ADV3_IMG = "advancedMD.png";
     
     //added another images by Olga
-    
-    public static final String PRINT_IMG = "print.png";
+
     public static final String ANSWER_IMG = "answerkey.png";
     public static final String ADDCLASS_IMG = "addclass.png";
     public static final String ADDSTUDENT_IMG = "addteacher.png";
@@ -81,7 +79,6 @@ public class FWCConfigurator {
     
     public static final String ADMIN_PASSW_RESET_IMG = "adminpasswordreset.png";
     public static final String ADMIN_REG_IMG = "adminregistration.png";
-    public static final String ADV_ADD_IMG = "advancedAdd.png";
     public static final String CLASSES_TITLE_IMG = "classesTitle.png";
     public static final String CLASS_ROSTER_IMG = "classroster.png";
     public static final String CREATE_NEW_PASSW_IMG = "createnewpassword.png";
@@ -95,16 +92,19 @@ public class FWCConfigurator {
     public static final String STUDENT_ADV_MD_IMG = "studentAdvMD.png";
     public static final String STUDENT_ADV_SUB_IMG = "studentAdvSub.png";
     public static final String STUDENT_ADV_IMG = "studentAdvanced.png";
+    public static final String STUDENT_ADV_G_IMG = "studentAdvancedGray.png";
     
     public static final String STUDENT_BEG_ADD_IMG = "studentBegAddition.png";
     public static final String STUDENT_BEG_LG_IMG = "studentBegLG.png";
     public static final String STUDENT_BEG_PIE_IMG = "studentBegPieCharts.png";
     public static final String STUDENT_BEG_IMG = "studentBeginner.png";
+    public static final String STUDENT_BEG_G_IMG = "studentBeginnerGray.png";
     
     public static final String STUDENT_INT_ADD_IMG = "studentIntAdd.png";
     public static final String STUDENT_INT_MD_IMG = "studentIntMD.png";
     public static final String STUDENT_INT_SUB_IMG = "studentIntSub.png";
     public static final String STUDENT_INT_IMG = "studentIntermediate.png";
+    public static final String STUDENT_INT_G_IMG = "studentIntermediateGray.png";
     
     public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
     public static final String STUDENT_REG_IMG = "studentregistration.png";
@@ -115,7 +115,7 @@ public class FWCConfigurator {
     public static final String TUTORIAL_TITLE_IMG = "tutorialTitle.png";
     public static final String TUTORIALS_IMG = "tutorialsTitle.png";
     
-    public static final String TEACHER_WS_HISTORY_IMG = "worksheethistoryTitle";
+    public static final String TEACHER_WS_HISTORY_IMG = "worksheethistoryTitle.png";
     public static final String WS_IMG = "worksheets.png";
 
     // Constants for different worksheet exercises to be compared to the Worksheet objects

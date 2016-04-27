@@ -4,7 +4,6 @@ import com.elementaryengineers.fwc.model.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -54,14 +53,14 @@ public interface DatabaseConnection {
      * which also includes their information from the User table.
      * @return
      */
-    public List<String> getAllTeachers();
+    public ArrayList<Teacher> getAllTeachers();
 
     /**
      * Get all admins, creating an Admin object for each,
      * which also includes their information from the User table.
      * @return
      */
-    public ArrayList<String> getAllAdmins();
+    public ArrayList<Admin> getAllAdmins();
 
     /**
      * Add this admin to the database, updating the

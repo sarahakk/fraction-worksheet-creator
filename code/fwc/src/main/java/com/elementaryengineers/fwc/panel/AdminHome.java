@@ -104,6 +104,11 @@ public class AdminHome extends JPanel {
     }
 
     private void populateTable(ArrayList<Teacher> teachers) {
+        // Remove all rows first
+        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+            tableModel.removeRow(i);
+        }
+
         for (Teacher teacher : teachers) {
                 tableModel.addRow(new String[]{teacher.getFirstName(),
                         teacher.getLastName(), teacher.getUsername()});

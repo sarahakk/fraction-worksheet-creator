@@ -1,6 +1,6 @@
 package com.elementaryengineers.fwc;
 
-import com.elementaryengineers.fwc.panel.*;
+import com.elementaryengineers.fwc.panel.FWCMainFrame;
 
 /**
  * TODO

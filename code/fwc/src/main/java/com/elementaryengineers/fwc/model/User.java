@@ -1,6 +1,5 @@
 package com.elementaryengineers.fwc.model;
 
-import com.elementaryengineers.fwc.db.FWCConfigurator;
 import org.apache.commons.lang.RandomStringUtils;
 
 /**
