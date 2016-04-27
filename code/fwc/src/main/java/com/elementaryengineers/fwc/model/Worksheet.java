@@ -69,7 +69,7 @@ public class Worksheet {
                         }
                         catch (IOException |COSVisitorException ex) {
                             JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                            "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
                                     "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -88,7 +88,7 @@ public class Worksheet {
                         }
                         catch (IOException |COSVisitorException ex) {
                             JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                            "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
                                     "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -107,7 +107,7 @@ public class Worksheet {
                         }
                         catch (IOException |COSVisitorException ex) {
                             JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                            "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
                                     "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -131,7 +131,7 @@ public class Worksheet {
                 }
                 catch (IOException | COSVisitorException ex) {
                     JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                            "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
 

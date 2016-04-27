@@ -1,5 +1,6 @@
 
 package com.elementaryengineers.fwc.panel;
+
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
@@ -9,17 +10,13 @@ import com.elementaryengineers.fwc.model.Worksheet;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
 /**
  *
  * @author olgasheehan
  */
-public class ClassRoster extends JPanel{
-    
+public class ClassRoster extends JPanel {
 
     private JPanel pnNorth, pnCenter, pnButtons;
     private TitleLabel lblTitle;
@@ -135,9 +132,3 @@ public class ClassRoster extends JPanel{
         populateTable();
     }
 }
-    
-        
-    
-        
-
-    

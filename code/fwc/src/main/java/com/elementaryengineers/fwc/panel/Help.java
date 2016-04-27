@@ -7,4 +7,6 @@ import javax.swing.*;
  */
 public class Help extends JFrame {
 
+    private JTextArea helpText;
+
 }
