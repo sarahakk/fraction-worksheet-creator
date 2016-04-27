@@ -39,6 +39,13 @@ public class CommonHeader extends JPanel {
         pnButton.setBackground(Color.WHITE);
 
         btnHelp = new ImageButton("Help", FWCConfigurator.HELP_IMG, 150, 50);
+        btnHelp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Help();
+            }
+        });
+
         btnAccount = new ImageButton("My Account", FWCConfigurator.ACCOUNT_IMG, 150, 50);
         btnLogout = new ImageButton("Logout", FWCConfigurator.LOGOUT_IMG, 150, 50);
         btnExit = new ImageButton("Exit", FWCConfigurator.EXIT_IMG, 150, 50);
@@ -114,12 +121,5 @@ public class CommonHeader extends JPanel {
 
     public void setLogoutListener(ActionListener listener) {
         this.btnLogout.addActionListener(listener);
-    }
-
-    private class HelpListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // TODO: create help frame!
-        }
     }
 }

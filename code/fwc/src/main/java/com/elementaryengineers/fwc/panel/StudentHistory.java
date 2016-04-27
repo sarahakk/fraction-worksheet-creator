@@ -73,7 +73,7 @@ public class StudentHistory extends JPanel {
         this.add(pnButtons, BorderLayout.SOUTH);
     }
 
-    public void populateTable() {
+    private void populateTable() {
         // Remove all rows first
         for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
             tableModel.removeRow(i);

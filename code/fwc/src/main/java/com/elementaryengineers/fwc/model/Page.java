@@ -15,7 +15,6 @@ public enum Page {
     TEACHER_REGISTRATION,
     TEACHER_HOME,
     TUTORIALS,
-    TUTORIAL,
     TEACHER_HISTORY,
     CLASSES,
     NEW_CLASS,

@@ -25,6 +25,7 @@ public class FWCMainFrame extends JFrame {
     private ForgotPassword forgotPass;
     private AdminResetPassword adminResetPass;
     private AdminRegistration adminReg;
+    private AllTutorials tutorials; // Shared by teachers and students
 
     // Admin panels
     private AdminMenu adminMenu;
@@ -40,7 +41,9 @@ public class FWCMainFrame extends JFrame {
     private StudentRegistration studentReg;
 
     // Student panels
+    private StudentMenu studentMenu;
     private StudentHome studentHome;
+    private StudentHistory studentHistory;
 
     // Dimensions of different panels to be used when switching between them
     private static final int loginW = 534, loginH = 487,
@@ -386,7 +389,57 @@ public class FWCMainFrame extends JFrame {
     }
 
     private void buildStudentPanels() {
-        
+        if (studentMenu == null) { // Create panels if first time
+            studentMenu = new StudentMenu();
+            studentMenu.setHomeListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on home page
+                    if (FWCConfigurator.getCurrentPage() != Page.STUDENT_HOME) {
+                        cardLayout.show(pnCard, "StudentHome");
+                        FWCConfigurator.setCurrentPage(Page.STUDENT_HOME);
+                    }
+                }
+            });
+
+            studentMenu.setTutorialsListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on tutorials page
+                    if (FWCConfigurator.getCurrentPage() != Page.TUTORIALS) {
+                        cardLayout.show(pnCard, "AllTutorials");
+                        FWCConfigurator.setCurrentPage(Page.TUTORIALS);
+                    }
+                }
+            });
+
+            studentMenu.setHistoryListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on history page
+                    if (FWCConfigurator.getCurrentPage() != Page.STUDENT_HISTORY) {
+                        cardLayout.show(pnCard, "StudentHistory");
+                        FWCConfigurator.setCurrentPage(Page.STUDENT_HISTORY);
+                    }
+                }
+            });
+
+            studentHome = new StudentHome();
+            studentHistory = new StudentHistory();
+
+            if (tutorials == null) { // Tutorials panel needs to be created
+                tutorials = new AllTutorials();
+            }
+
+            pnCard.add(studentHome, "StudentHome");
+            pnCard.add(studentHistory, "StudentHistory");
+            pnCard.add(tutorials, "AllTutorials");
+        }
+        else { // Refresh/reset panels for new student session
+            studentHistory.refresh();
+        }
+
+        header.setMenu(studentMenu); // Needs to be set each time a student logs in
     }
 
     private void buildAdminPanels() {
