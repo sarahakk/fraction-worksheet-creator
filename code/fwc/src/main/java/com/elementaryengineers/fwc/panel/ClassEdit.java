@@ -21,9 +21,11 @@ import java.net.URL;
  */
 public class ClassEdit extends JPanel{
     
-    private JPanel pnNorth, pnCenter,pnButtons;
-    private JLabel lblTitle;
-    private JButton btnClassName, btnBack, btnSubmit;
+    private JPanel pnNorth, pnCenter,pnSouth, pnFields, pnButtons;
+    private TitleLabel lblTitle;
+    private JLabel lblClassName;
+    private JTextField txtClassName;
+    private ImageButton btnBack, btnSubmit,btnDeleteClass;
            
 
     public ClassEdit () {
