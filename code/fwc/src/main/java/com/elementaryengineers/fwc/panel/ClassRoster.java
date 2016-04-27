@@ -109,7 +109,8 @@ public class ClassRoster extends JPanel {
             // Check if selected a student
         if (index > 0) {
                 // Check database update status
-        if (FWCConfigurator.getDbConn().getHistory(students.getStudentID())) {; // Remove from student history
+        if (FWCConfigurator.getDbConn().getHistory(students.getStudentID())) {; 
+// Remove from student history
             populateTable(); // Refresh table of students
             JOptionPane.showMessageDialog(null, 
                     "History has been created successfully!",
