@@ -21,12 +21,15 @@ import java.net.URL;
  */
 public class ClassEdit extends JPanel{
     
-    private JPanel pnNorth, pnCenter,pnSouth, pnFields, pnButtons;
+    private JPanel pnNorth, pnSouth, pnFields, pnButtons;
     private TitleLabel lblTitle;
     private JLabel lblClassName;
     private JTextField txtClassName;
     private ImageButton btnBack, btnSubmit,btnDeleteClass;
-           
+      /******
+       * Should we use button Back?
+       * *****************
+       */     
 
     public ClassEdit () {
         super(new BorderLayout());
@@ -43,19 +46,69 @@ public class ClassEdit extends JPanel{
         pnButtons.setBackground(Color.WHITE);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 15, 0));
         GridBagConstraints c = new GridBagConstraints();
-
-        // Make Back button
-        btnBack = new ImageButton("Back", FWCConfigurator.BACK_IMG, 200, 100);
-        //btnBack.addActionListener(new BackListener());
         
-        // Add buttons to center panel
-        pnButtons.add(btnBack, c);
+        
+        lblClassName = new JLabel("New Class:", SwingConstants.RIGHT);
+        lblClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
+        txtClassName = new JTextField(24);
+        
+        
+        // Use GridBagLayout
+        pnFields = new JPanel(new GridBagLayout());
+        pnFields.setBackground(Color.WHITE);
+        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
+       
+        
+        // Class Name
         c.gridy = 1;
+        c.gridx = 0;
+        c.insets.left = 0;
+        c.anchor = GridBagConstraints.EAST;
+        c.weightx = 0;
+        c.fill = GridBagConstraints.NONE;
+        pnFields.add(lblClassName, c);
+
+        c.gridx = 1;
+        c.insets.left = 10;
+        c.anchor = GridBagConstraints.CENTER;
+        c.weightx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        pnFields.add(txtClassName, c);
         
+    
+        // Build south panel and submit button
+        pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnSouth.setBackground(Color.WHITE);
+        btnSubmit = new ImageButton("Submit", 
+                FWCConfigurator.SUBMIT_IMG, 150, 50);
+        
+        btnDeleteClass = new ImageButton("Delete Class", 
+                FWCConfigurator.DEL_CLASS_IMG, 150, 50); 
+        pnSouth.add(btnSubmit);
+        pnSouth.add (btnDeleteClass);
 
-        // Add north and center panel to TeacherHome
-        this.add(pnNorth, BorderLayout.NORTH);
-        this.add(pnButtons, BorderLayout.CENTER);
+        add(pnNorth, BorderLayout.NORTH);
+        add(pnFields,BorderLayout.CENTER);
+        add(pnSouth, BorderLayout.SOUTH);
+   
     }
+    
+        public void setSubmitListener(ActionListener submitListener) {
+            btnSubmit.addActionListener(submitListener);
+        }
 
+        public void setDeleteClassListener(ActionListener deleteClassListener){
+            btnSubmit.addActionListener(deleteClassListener);
+        }
+     /****** How the edited class updated in DB?Do we need this method?
+        public void getClassName() {
+        return ClassName (txtClassName.getText());
+        }
+    ********************************************/
+        
+        public void clearFields() {
+        txtClassName.setText("");
+        
+    }
+        
 }
