@@ -241,7 +241,8 @@ public class AdminRegistration extends JPanel {
         // Check if passwords match
         if (!String.valueOf(txtPass.getPassword()).equals(
                 String.valueOf(txtConfirm.getPassword()))) {
-            JOptionPane.showMessageDialog(null, "Passwords do not match.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Passwords do not match.", 
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -254,7 +255,7 @@ public class AdminRegistration extends JPanel {
         }
 
         if (!StringUtils.isNumeric(txtSSN.getText())) {
-            JOptionPane.showMessageDialog(null, "Last 4 digits of SSN are invalid.", "Registration Failed",
+            JOptionPane.showMessageDialog(null,"Last 4 digits of SSN are invalid.", "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -265,7 +266,8 @@ public class AdminRegistration extends JPanel {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             Date result = sdf.parse(birth);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Please fix birthday format.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Please fix birthday format.", 
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

@@ -34,7 +34,8 @@ public class TeacherWorksheetHistory extends JPanel{
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Worksheet History", FWCConfigurator.WS_HISTORY_IMG);
+        lblTitle = new TitleLabel("Worksheet History", 
+                       FWCConfigurator.WS_HISTORY_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel
@@ -74,8 +75,8 @@ public class TeacherWorksheetHistory extends JPanel{
         
         
         btnAnswerKey = new ImageButton("Answer Key", 
-                FWCConfigurator.DEL_SELECT_IMG, 150, 50);
-       btnAnswerKey.addActionListener(new DeleteListener());
+                FWCConfigurator.ANSWER_IMG, 150, 50);
+        btnAnswerKey.addActionListener(new AnswerKeyListener());
        
         pnButtons.add(btnPrint);
         pnButtons.add(btnDelete);
@@ -118,6 +119,25 @@ public class TeacherWorksheetHistory extends JPanel{
         }
     }
 
+    
+    private class AnswerKeyListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = sheetsTable.getSelectedRow();
+
+            // Check if selected an answer key worksheet
+            if (index > 0) {
+                sheets.get(index).print(false);
+            }
+            else { // No an answer key worksheet is selected from the table
+                JOptionPane.showMessageDialog(null,
+                 "Please select an Answer Key worksheet from the table first.",
+                 "Print Answer Key Worksheet Failed", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+    
     private class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -151,8 +151,10 @@ public class Worksheet {
                             FWCConfigurator.WORKSHEET_ONLY);
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                    JOptionPane.showMessageDialog(null,
+                            "An error occurred while creating your worksheet!\n" +
+                            "If the problem persists, please restart "
+                            + "the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
 
