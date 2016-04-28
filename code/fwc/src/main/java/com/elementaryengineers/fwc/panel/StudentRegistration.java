@@ -240,5 +240,5 @@ public class StudentRegistration extends JPanel{
 
     public void setSubmitListener(ActionListener submitListener) {
         btnSubmit.addActionListener(submitListener);
-  }
+    }
 }

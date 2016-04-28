@@ -3,6 +3,8 @@ package com.elementaryengineers.fwc.model;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by sarahakk on 4/10/16.
@@ -53,6 +55,16 @@ public class Teacher extends User {
 
     public ArrayList<Worksheet> getHistory() {
         return history;
+    }
+
+    public ArrayList<Student> getStudentsRequestedReset() {
+        ArrayList<Student> results = new ArrayList<>();
+
+        classes.stream().forEach(classroom -> classroom.getStudents()
+                .stream().filter(s -> s.isResetPassRequested())
+                .forEach(student -> results.add(student)));
+
+        return results;
     }
 
     public void setResetPassRequested(boolean option) {

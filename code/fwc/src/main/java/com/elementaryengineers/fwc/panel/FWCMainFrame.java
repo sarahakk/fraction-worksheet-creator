@@ -37,7 +37,7 @@ public class FWCMainFrame extends JFrame {
     // Teacher panels
     private TeacherMenu teacherMenu;
     private TeacherHome teacherHome;
-    private TeacherWorksheetHistory teacherWorksheetHistory;
+    private TeacherHistory teacherHistory;
     private StudentRegistration studentReg;
 
     // Student panels
@@ -332,13 +332,6 @@ public class FWCMainFrame extends JFrame {
                 login.clearFields();
             }
         });
-
-       /* Testing Worksheet History:
-        
-        teacherWorksheetHistory = new TeacherWorksheetHistory();
-        pnCard.add (teacherWorksheetHistory,"TeacherWorksheetHistory");
-        
-        */
         
         // Add login panel to card layout
         pnCard.add(login, "Login");
@@ -377,12 +370,10 @@ public class FWCMainFrame extends JFrame {
                     }
                 }
             });
-          
-            /* TODO: ENABLE AFTER TESTING
+
             pnCard.add(adminReg, "AdminRegistration");
             cardLayout.show(pnCard, "AdminRegistration");
             setSize(new Dimension(adminRegW, adminRegH));
-            */
         }
 
         // Add common header panel to top of frame

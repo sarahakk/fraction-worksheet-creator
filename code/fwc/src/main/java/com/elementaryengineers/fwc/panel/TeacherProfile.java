@@ -94,7 +94,8 @@ public class TeacherProfile extends JPanel {
         pnFields.add(txtUser, c);
 
         // Build buttons
-        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit = new ImageButton("Submit Changes", FWCConfigurator
+                .SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,7 +142,8 @@ public class TeacherProfile extends JPanel {
             }
         });
 
-        btnReset = new ImageButton("Submit", FWCConfigurator.RESET_PASSW_IMG, 150, 50);
+        btnReset = new ImageButton("Reset Password", FWCConfigurator
+                .RESET_PASSW_IMG, 150, 50);
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -172,7 +174,9 @@ public class TeacherProfile extends JPanel {
             }
         });
 
-        btnDelete = new ImageButton("Submit", FWCConfigurator.DEL_TEACHER_IMG, 150, 50);
+        btnDelete = new ImageButton("Delete Teacher", FWCConfigurator
+                .DEL_TEACHER_IMG,
+                150, 50);
 
         c.gridwidth = 2;
         c.weightx = 0.5;

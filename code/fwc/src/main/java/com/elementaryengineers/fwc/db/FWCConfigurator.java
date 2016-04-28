@@ -115,19 +115,20 @@ public class FWCConfigurator {
     public static final String TUTORIAL_TITLE_IMG = "tutorialTitle.png";
     public static final String TUTORIALS_IMG = "tutorialsTitle.png";
     
-    public static final String TEACHER_WS_HISTORY_IMG = "worksheethistoryTitle.png";
+    public static final String WS_HISTORY_TITLE_IMG = "worksheethistoryTitle" +
+            ".png";
     public static final String WS_IMG = "worksheets.png";
 
     // Tutorial videos in resource folder
-    public static final String BEG1_VID = "beginnerPC.png";
-    public static final String BEG2_VID = "beginnerAdd.png";
-    public static final String BEG3_VID = "beginnerLG.png";
-    public static final String INT1_VID = "intermediateAdd.png";
-    public static final String INT2_VID = "intermediateSub.png";
-    public static final String INT3_VID = "intermediateMD.png";
-    public static final String ADV1_VID = "advancedAdd.png";
-    public static final String ADV2_VID = "advancedSub.png";
-    public static final String ADV3_VID = "advancedMD.png";
+    public static final String BEG1_VID = "";
+    public static final String BEG2_VID = "";
+    public static final String BEG3_VID = "";
+    public static final String INT1_VID = "";
+    public static final String INT2_VID = "";
+    public static final String INT3_VID = "";
+    public static final String ADV1_VID = "";
+    public static final String ADV2_VID = "";
+    public static final String ADV3_VID = "";
 
     // Constants for different worksheet exercises to be compared to the Worksheet objects
     // These should be used when creating a new Worksheet object to store in the database
