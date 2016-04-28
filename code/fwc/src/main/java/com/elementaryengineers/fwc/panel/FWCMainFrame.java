@@ -343,6 +343,7 @@ public class FWCMainFrame extends JFrame {
         
         // Add login panel to card layout
         pnCard.add(login, "Login");
+        FWCConfigurator.setCurrentPage(Page.LOGIN);
         setSize(new Dimension(loginW, loginH));
 
         // If not admin exists in the system, show admin registration panel
@@ -381,6 +382,7 @@ public class FWCMainFrame extends JFrame {
 
             pnCard.add(adminReg, "AdminRegistration");
             cardLayout.show(pnCard, "AdminRegistration");
+            FWCConfigurator.setCurrentPage(Page.ADMIN_REGISTRATION);
             setSize(new Dimension(adminRegW, adminRegH));
         }
 

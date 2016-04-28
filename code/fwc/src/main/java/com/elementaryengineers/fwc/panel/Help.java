@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
  */
 public class Help extends JFrame {
 
-    private JPanel pnClose;
+    private JPanel pnTitle, pnClose;
     private JLabel lblTitle;
     private JTextArea helpText;
     private ImageButton btnClose;
-    private static final int width = 250, height = 300;
+    private static final int width = 350, height = 300;
 
-    public Help() {
+    public Help () {
         super("Help");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -31,6 +31,7 @@ public class Help extends JFrame {
         pnClose = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnClose.setBackground(Color.WHITE);
         btnClose = new ImageButton("Close", FWCConfigurator.CLOSE_IMG, 150, 50);
+        btnClose.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +40,7 @@ public class Help extends JFrame {
         });
         pnClose.add(btnClose);
 
-        this.add(lblTitle, BorderLayout.NORTH);
+        this.add(pnTitle, BorderLayout.NORTH);
         this.add(helpText, BorderLayout.CENTER);
         this.add(pnClose, BorderLayout.SOUTH);
 
@@ -49,8 +50,14 @@ public class Help extends JFrame {
     }
 
     private void makeHelpText() {
+        pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnTitle.setBackground(Color.WHITE);
+
         helpText = new JTextArea();
         helpText.setEnabled(false);
+        helpText.setLineWrap(true);
+        helpText.setWrapStyleWord(true);
+        helpText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         switch (FWCConfigurator.getCurrentPage()) {
             case ADMIN_REGISTRATION:
@@ -211,5 +218,11 @@ public class Help extends JFrame {
                         "or delete them from your history if you don't need them anymore.");
                 break;
         }
+
+        lblTitle.setBackground(Color.WHITE);
+        lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+
+        pnTitle.add(lblTitle);
     }
 }

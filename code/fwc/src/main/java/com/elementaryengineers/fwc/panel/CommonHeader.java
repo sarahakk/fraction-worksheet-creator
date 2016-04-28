@@ -104,6 +104,7 @@ public class CommonHeader extends JPanel {
     }
 
     public void showButtonsLoggedIn() {
+        this.menu.setVisible(true);
         btnAccount.setVisible(true);
         btnLogout.setVisible(true);
         btnExit.setVisible(false);
