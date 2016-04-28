@@ -98,7 +98,7 @@ public class AdminManagePasswords extends JPanel {
                 int index = teachersTable.getSelectedRow();
 
                 // Check if selected a teacher
-                if (index > 0) {
+                if (index >= 0) {
                     Teacher teacher = teachers.get(index);
                     String newPassword = teacher.setRandomPassword();
 

@@ -118,6 +118,7 @@ public class FWCConfigurator {
     public static final String WS_HISTORY_TITLE_IMG = "worksheethistoryTitle" +
             ".png";
     public static final String WS_IMG = "worksheets.png";
+    public static final String CUTE_HELP_IMG = "cutehelp.png";
 
     // Tutorial videos in resource folder
     public static final String BEG1_VID = "";

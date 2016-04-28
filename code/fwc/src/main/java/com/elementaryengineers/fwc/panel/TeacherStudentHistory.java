@@ -120,7 +120,7 @@ public class TeacherStudentHistory extends JPanel {
             int index = sheetsTable.getSelectedRow();
 
             // Check if selected a worksheet
-            if (index > 0) {
+            if (index >= 0) {
                 sheets.get(index).print(false);
             }
             else { // No worksheet is selected from the table
@@ -138,7 +138,7 @@ public class TeacherStudentHistory extends JPanel {
             int index = sheetsTable.getSelectedRow();
 
             // Check if selected a worksheet
-            if (index > 0) {
+            if (index >= 0) {
                 sheets.get(index).print(true);
             }
             else { // No worksheet is selected from the table

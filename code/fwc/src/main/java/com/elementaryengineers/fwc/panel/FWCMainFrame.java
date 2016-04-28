@@ -486,7 +486,7 @@ public class FWCMainFrame extends JFrame {
                     int index = teacherClasses.getSelectedClass();
 
                     // Check if selected a class
-                    if (index > 0) {
+                    if (index >= 0) {
                         teacherEditClass.populateFields(FWCConfigurator.
                                 getTeacher().getClasses().get(index));
                         teacherEditClass.setClassIndex(index);
@@ -508,7 +508,7 @@ public class FWCMainFrame extends JFrame {
                     int index = teacherClasses.getSelectedClass();
 
                     // Check if selected a class
-                    if (index > 0) {
+                    if (index >= 0) {
                         teacherClassRoster.setClassIndex(index);
                         cardLayout.show(pnCard, "ClassRoster");
                         FWCConfigurator.setCurrentPage(Page.CLASS_ROSTER);
@@ -581,7 +581,7 @@ public class FWCMainFrame extends JFrame {
                         cIndex = teacherClassRoster.getClassIndex();
 
                     // Check if selected a student
-                    if (sIndex > 0) {
+                    if (sIndex >= 0) {
                         studentProfile.populateFields(FWCConfigurator.
                                 getTeacher().getClasses().get(cIndex).
                                 getStudents().get(sIndex));
@@ -604,7 +604,7 @@ public class FWCMainFrame extends JFrame {
                             cIndex = teacherClassRoster.getClassIndex();
 
                     // Check if selected a student
-                    if (sIndex > 0) {
+                    if (sIndex >= 0) {
                         teacherStudentHistory.setStudent(
                                 FWCConfigurator.getTeacher().getClasses().
                                         get(cIndex).
@@ -815,7 +815,7 @@ public class FWCMainFrame extends JFrame {
                     int index = adminHome.getSelectedTeacher();
 
                     // Check if selected a teacher
-                    if (index > 0) {
+                    if (index >= 0) {
                         adminTeacherProfile.populateFields(FWCConfigurator.
                         getAdmin().getTeachers().get(index));
                         adminTeacherProfile.setTeacherIndex(index);
@@ -851,9 +851,6 @@ public class FWCMainFrame extends JFrame {
                             "Teacher Delete Successful",
                             JOptionPane.PLAIN_MESSAGE);
 
-                            // Remove from list of teachers
-                            FWCConfigurator.getAdmin().getTeachers()
-                                    .remove(index);
                             // Refresh list of teachers on home page
                             adminHome.refresh();
                             // Go back to home page

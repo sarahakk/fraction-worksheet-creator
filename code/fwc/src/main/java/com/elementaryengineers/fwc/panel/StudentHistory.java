@@ -104,7 +104,7 @@ public class StudentHistory extends JPanel {
             int index = sheetsTable.getSelectedRow();
 
             // Check if selected a worksheet
-            if (index > 0) {
+            if (index >= 0) {
                 sheets.get(index).print(false);
             }
             else { // No worksheet is selected from the table
@@ -120,7 +120,7 @@ public class StudentHistory extends JPanel {
             int index = sheetsTable.getSelectedRow();
 
             // Check if selected a worksheet
-            if (index > 0) {
+            if (index >= 0) {
                 int confirm = JOptionPane.showConfirmDialog(null,
                         "Are you sure you want to delete this worksheet?",
                         "Delete Confirmation", JOptionPane.YES_NO_OPTION);

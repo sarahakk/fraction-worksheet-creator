@@ -102,7 +102,7 @@ public class TeacherManagePasswords extends JPanel {
                 int index = studentsTable.getSelectedRow();
 
                 // Check if selected a student
-                if (index > 0) {
+                if (index >= 0) {
                     Student student = students.get(index);
                     String newPassword = student.setRandomPassword();
 
