@@ -57,7 +57,7 @@ public class Classroom {
         return FWCConfigurator.getDbConn().deleteStudent(student);
     }
 
-    public ArrayList<Student> search(String keyword) {
+    public ArrayList<Student> searchStudents(String keyword) {
         List<Student> results = students.stream().filter(stu ->
                 stu.getFirstName().contains(keyword) ||
                 stu.getLastName().contains(keyword) ||

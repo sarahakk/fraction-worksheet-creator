@@ -87,7 +87,7 @@ public class Classes extends JPanel {
         btnEdit = new ImageButton("Edit Class",
                 FWCConfigurator.EDIT_IMG, 150, 50);
         btnRoster = new ImageButton("View Roster",
-                FWCConfigurator.ROSTER_IMG, 150, 50);
+                FWCConfigurator.VIEW_ROSTER_IMG, 150, 50);
         btnNewClass = new ImageButton("Add Class",
                 FWCConfigurator.ADDCLASS_IMG, 150, 50);
         btnNewStudent = new ImageButton("Add Student",
