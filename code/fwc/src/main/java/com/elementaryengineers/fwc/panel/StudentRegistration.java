@@ -29,7 +29,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- *
+   StudentRegistration displays the page which allows 
+ * teachers to create a new student and add him/her to an existing class, 
+ * setting all the required information.
+ * 
  * @author olgasheehan
  */
 public class StudentRegistration extends JPanel{

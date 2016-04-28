@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.DisabledTableModel;
@@ -33,8 +32,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- *
+ *Class ClassRoster displays a roster for that class, a list of students 
+ * that have been assigned to that class.From here, teachers can search 
+ * for students and view their profiles and worksheet history.
+ * 
  * @author olgasheehan
+
  */
 public class ClassRoster extends JPanel {
 

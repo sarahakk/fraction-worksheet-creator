@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
@@ -26,7 +25,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
+/** Class ClassNew allows the Teacher to easily create a new class 
+ * to add students to.
  *
  * @author olgasheehan
  */
