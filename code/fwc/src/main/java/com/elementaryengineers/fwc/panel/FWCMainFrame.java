@@ -128,13 +128,14 @@ public class FWCMainFrame extends JFrame {
 
                 if (user != null) { // If user exists
                     if (user.verifyLogin(passwordText)) {
-                        // Build panels specific to the type of user that logged in
+                        // Build panels specific to the user that logged in
                         switch (user.getType()) {
                             case TEACHER: {
                                 FWCConfigurator.setTeacher((Teacher) user);
                                 buildTeacherPanels();
                                 cardLayout.show(pnCard, "TeacherHome");
-                                FWCConfigurator.setCurrentPage(Page.TEACHER_HOME);
+                                FWCConfigurator
+                                        .setCurrentPage(Page.TEACHER_HOME);
                                 break;
                             }
 
@@ -142,7 +143,8 @@ public class FWCMainFrame extends JFrame {
                                 FWCConfigurator.setStudent((Student) user);
                                 buildStudentPanels();
                                 cardLayout.show(pnCard, "StudentHome");
-                                FWCConfigurator.setCurrentPage(Page.STUDENT_HOME);
+                                FWCConfigurator
+                                        .setCurrentPage(Page.STUDENT_HOME);
                                 break;
                             }
 
@@ -209,20 +211,26 @@ public class FWCMainFrame extends JFrame {
 
                             if (user != null) { // If user exists
                                 switch (user.getType()) {
-                                    case TEACHER: { // Set reset password is requested to true
+                                    case TEACHER: {
+                                        // Set reset password requested to true
                                         Teacher teacher = (Teacher) user;
                                         teacher.setResetPassRequested(true);
 
                                         // Check database update status
                                         if (dbConn.updateTeacher(teacher)) {
                                             JOptionPane.showMessageDialog(null,
-                                                    "Password reset request was sent to the administrator.",
+                                                    "Password reset request " +
+                                                            "was sent to the" +
+                                                            " administrator.",
                                                     "Request Sent",
                                                     JOptionPane.PLAIN_MESSAGE);
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null,
-                                                    "Password reset request could not be sent to the administrator.",
+                                                    "Password reset request " +
+                                                            "could not be " +
+                                                            "sent to the " +
+                                                            "administrator.",
                                                     "Request Failed",
                                                     JOptionPane.ERROR_MESSAGE);
                                         }
@@ -230,20 +238,26 @@ public class FWCMainFrame extends JFrame {
                                         break;
                                     }
 
-                                    case STUDENT: { // Set reset password is requested to true
+                                    case STUDENT: {
+                                        // Set reset password requested to true
                                         Student student = (Student) user;
                                         student.setResetPassRequested(true);
 
                                         // Check database update status
                                         if (dbConn.updateStudent(student)) {
                                             JOptionPane.showMessageDialog(null,
-                                                     "Password reset request was sent to your teacher.",
+                                                     "Password reset request " +
+                                                             "was sent to " +
+                                                             "your teacher.",
                                                      "Request Sent",
                                                     JOptionPane.PLAIN_MESSAGE);
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null,
-                                                    "Password reset request could not be sent to your teacher.",
+                                                    "Password reset request " +
+                                                            "could not be " +
+                                                            "sent to your " +
+                                                            "teacher.",
                                                     "Request Failed",
                                                     JOptionPane.ERROR_MESSAGE);
                                         }
@@ -254,7 +268,8 @@ public class FWCMainFrame extends JFrame {
                                     case ADMIN: {
                                         Admin admin = (Admin) user;
 
-                                        if (adminResetPass == null) { // Create panel if first time
+                                        // Create panel if first time
+                                        if (adminResetPass == null) {
                                             adminResetPass = new AdminResetPassword();
                                             adminResetPass.setBackListener(new ActionListener() {
                                                 @Override
@@ -279,24 +294,31 @@ public class FWCMainFrame extends JFrame {
                                                 }
                                             });
 
-                                            pnCard.add(adminResetPass, "AdminResetPassword");
+                                            pnCard.add(adminResetPass,
+                                                    "AdminResetPassword");
                                         }
 
                                         adminResetPass.setAdmin(admin);
 
                                         // Switch to admin reset password panel
-                                        cardLayout.show(pnCard, "AdminResetPassword");
-                                        setSize(new Dimension(adminForgotW, adminForgotH));
+                                        cardLayout.show(pnCard,
+                                                "AdminResetPassword");
+                                        setSize(new Dimension(adminForgotW,
+                                                adminForgotH));
                                         setLocationRelativeTo(null);
-                                        FWCConfigurator.setCurrentPage(Page.ADMIN_RESET_PASSWORD);
-                                        forgotPass.clearFields(); // Reset forgot password username field
+                                        FWCConfigurator.setCurrentPage(
+                                                Page.ADMIN_RESET_PASSWORD);
+                                        // Reset forgot password username field
+                                        forgotPass.clearFields();
                                         break;
                                     }
                                 }
                             }
                             else {
-                                JOptionPane.showMessageDialog(null, "Username does not exist.",
-                                        "Login Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null,
+                                        "Username does not exist.",
+                                        "Login Error",
+                                        JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     });
@@ -363,8 +385,10 @@ public class FWCMainFrame extends JFrame {
             */
         }
 
-        this.add(header, BorderLayout.NORTH); // Add common header panel to top of frame
-        this.add(pnCard, BorderLayout.CENTER); // Add card panel to center of frame
+        // Add common header panel to top of frame
+        this.add(header, BorderLayout.NORTH);
+        // Add card panel to center of frame
+        this.add(pnCard, BorderLayout.CENTER);
     }
 
     private void buildTeacherPanels() {
@@ -385,7 +409,8 @@ public class FWCMainFrame extends JFrame {
             // Add other teacher panels
         }
 
-        header.setMenu(teacherMenu); // Needs to be set each time a teacher logs in
+        // Needs to be set each time a teacher logs in
+        header.setMenu(teacherMenu);
     }
 
     private void buildStudentPanels() {
@@ -417,7 +442,8 @@ public class FWCMainFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // If not already on history page
-                    if (FWCConfigurator.getCurrentPage() != Page.STUDENT_HISTORY) {
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.STUDENT_HISTORY) {
                         cardLayout.show(pnCard, "StudentHistory");
                         FWCConfigurator.setCurrentPage(Page.STUDENT_HISTORY);
                     }
@@ -439,7 +465,8 @@ public class FWCMainFrame extends JFrame {
             studentHistory.refresh();
         }
 
-        header.setMenu(studentMenu); // Needs to be set each time a student logs in
+        // Needs to be set each time a student logs in
+        header.setMenu(studentMenu);
     }
 
     private void buildAdminPanels() {
@@ -460,9 +487,11 @@ public class FWCMainFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // If not already on the page
-                    if (FWCConfigurator.getCurrentPage() != Page.ADMIN_MANAGE_PASSWORDS) {
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.ADMIN_MANAGE_PASSWORDS) {
                         cardLayout.show(pnCard, "AdminManagePasswords");
-                        FWCConfigurator.setCurrentPage(Page.ADMIN_MANAGE_PASSWORDS);
+                        FWCConfigurator
+                                .setCurrentPage(Page.ADMIN_MANAGE_PASSWORDS);
                     }
                 }
             });
@@ -471,9 +500,11 @@ public class FWCMainFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // If not already on the page
-                    if (FWCConfigurator.getCurrentPage() != Page.TEACHER_REGISTRATION) {
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.TEACHER_REGISTRATION) {
                         cardLayout.show(pnCard, "TeacherRegistration");
-                        FWCConfigurator.setCurrentPage(Page.TEACHER_REGISTRATION);
+                        FWCConfigurator
+                                .setCurrentPage(Page.TEACHER_REGISTRATION);
                     }
                 }
             });
@@ -511,7 +542,8 @@ public class FWCMainFrame extends JFrame {
 
                     if (confirm == JOptionPane.YES_OPTION) {
                         int index = adminTeacherProfile.getTeacherIndex();
-                        Teacher teacher = FWCConfigurator.getAdmin().getTeachers().get(index);
+                        Teacher teacher = FWCConfigurator.getAdmin()
+                                .getTeachers().get(index);
 
                         // Check database update status
                         if (dbConn.deleteTeacher(teacher)) {
@@ -520,9 +552,13 @@ public class FWCMainFrame extends JFrame {
                             "Teacher Delete Successful",
                             JOptionPane.PLAIN_MESSAGE);
 
-                            FWCConfigurator.getAdmin().getTeachers().remove(index); // Remove from list of teachers
-                            adminHome.refresh(); // Refresh list of teachers on home page
-                            cardLayout.show(pnCard, "AdminHome"); // Go back to home page
+                            // Remove from list of teachers
+                            FWCConfigurator.getAdmin().getTeachers()
+                                    .remove(index);
+                            // Refresh list of teachers on home page
+                            adminHome.refresh();
+                            // Go back to home page
+                            cardLayout.show(pnCard, "AdminHome");
                             FWCConfigurator.setCurrentPage(Page.ADMIN_HOME);
                         }
                         else {
@@ -547,6 +583,7 @@ public class FWCMainFrame extends JFrame {
             adminPasswords.refresh();
         }
 
-        header.setMenu(adminMenu); // Needs to be set each time an admin logs in
+        // Needs to be set each time an admin logs in
+        header.setMenu(adminMenu);
     }
 }

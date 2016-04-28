@@ -54,17 +54,18 @@ public class StudentHistory extends JPanel {
 
         tableScroll = new JScrollPane(sheetsTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
         pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnButtons.setBackground(Color.WHITE);
+
         btnPrint = new ImageButton("Print Selected", FWCConfigurator.PRINT_SELECTED_IMG, 150, 50);
         btnPrint.addActionListener(new PrintListener());
-        
+
         btnDelete = new ImageButton("Delete Selected", FWCConfigurator.DEL_SELECT_IMG, 150, 50);
         btnDelete.addActionListener(new DeleteListener());
+
         pnButtons.add(btnPrint);
         pnButtons.add(btnDelete);
 
