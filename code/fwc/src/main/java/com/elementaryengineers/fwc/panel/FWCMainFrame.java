@@ -427,6 +427,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on history page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.TEACHER_HISTORY) {
+                        teacherHistory.refresh();
                         cardLayout.show(pnCard, "TeacherHistory");
                         FWCConfigurator.setCurrentPage(Page.TEACHER_HISTORY);
                     }
@@ -546,9 +547,6 @@ public class FWCMainFrame extends JFrame {
                                     "Class Delete Successful",
                                     JOptionPane.PLAIN_MESSAGE);
 
-                            // Remove from list of classes
-                            FWCConfigurator.getTeacher().getClasses()
-                                    .remove(index);
                             // Refresh list of classes on classes page
                             teacherClasses.refresh();
                             // Go back to classes page
@@ -586,6 +584,7 @@ public class FWCMainFrame extends JFrame {
                                 getTeacher().getClasses().get(cIndex).
                                 getStudents().get(sIndex));
                         studentProfile.setStudentIndexes(cIndex, sIndex);
+
                         cardLayout.show(pnCard, "StudentProfile");
                         FWCConfigurator.setCurrentPage(Page.STUDENT_PROFILE);
                     }
@@ -611,6 +610,7 @@ public class FWCMainFrame extends JFrame {
                                         getStudents().
                                         get(sIndex)
                         ); // Reset page
+
                         cardLayout.show(pnCard, "TeacherStudentHistory");
                         FWCConfigurator.setCurrentPage(
                                 Page.TEACHER_STUDENT_HISTORY);
@@ -663,10 +663,6 @@ public class FWCMainFrame extends JFrame {
                                     "Student Delete Successful",
                                     JOptionPane.PLAIN_MESSAGE);
 
-                            // Remove from list of students
-                            FWCConfigurator.getTeacher()
-                                    .getClasses().get(cIndex).getStudents().
-                                    remove(sIndex);
                             // Refresh list of students on class roster page
                             teacherClassRoster.setClassIndex(cIndex);
                             // Go back to class roster page

@@ -76,7 +76,7 @@ public class Student extends User {
 
     public void addWorksheet(Worksheet worksheet) {
         this.history.add(worksheet);
-        FWCConfigurator.getDbConn().updateStudent(this);
+        FWCConfigurator.getDbConn().createWorksheet(worksheet);
     }
 
    

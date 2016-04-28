@@ -75,7 +75,7 @@ public class Teacher extends User {
 
     public void addWorksheet(Worksheet worksheet) {
         this.history.add(worksheet);
-        FWCConfigurator.getDbConn().updateTeacher(this);
+        FWCConfigurator.getDbConn().createWorksheet(worksheet);
     }
 
     public ArrayList<Classroom> searchClasses(String keyword) {

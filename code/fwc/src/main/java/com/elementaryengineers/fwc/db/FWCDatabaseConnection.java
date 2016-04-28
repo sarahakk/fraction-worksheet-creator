@@ -58,6 +58,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             dintiliaze = true;
         }
         catch (SQLException e) {
+            //e.printStackTrace();
             dintiliaze = false;
             String sql = "USE FWC_Creator";
             stmt.execute(sql);
@@ -122,7 +123,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         stmt.execute(sql);
 
         sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Difficulty` (" +
-                "`DifficultyID` INT NOT NULL AUTO_INCREMENT," +
+                "`DifficultyID` INT NOT NULL," +
                 "`Description` VARCHAR(50) NOT NULL," +
                 "PRIMARY KEY (`DifficultyID`));";
         stmt.execute(sql);
@@ -176,7 +177,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 "`WorksheetID` INT NOT NULL AUTO_INCREMENT," +
                 "`Username` VARCHAR(50) NOT NULL," +
                 "`Seed` INT NOT NULL," +
-                "`DateCreated` DATE NOT NULL," +
+                "`DateCreated` VARCHAR(50) NOT NULL," +
                 "`DifficultyID` INT NULL," +
                 "`Exercise` VARCHAR(50) NOT NULL," +
                 "PRIMARY KEY (`WorksheetID`)," +
@@ -194,8 +195,14 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 "ON UPDATE CASCADE);";
         stmt.execute(sql);
 
-        DatabasePopulator populator = new DatabasePopulator(this);
-        populator.populateDatabase();
+        sql = "INSERT INTO Difficulty VALUES(0, \"Beginner\");";
+        stmt.execute(sql);
+
+        sql = "INSERT INTO Difficulty VALUES(1, \"Intermediate\");";
+        stmt.execute(sql);
+
+        sql = "INSERT INTO Difficulty VALUES(2, \"Advanced\");";
+        stmt.execute(sql);
 	}
 
 	/**
@@ -973,6 +980,50 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         finally {
             try {
                 if(regStmt != null) {
+                    regStmt.close();
+                }
+            }
+            catch (SQLException se2) {
+                se2.printStackTrace();
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Add this worksheet to the database, updating the Worksheet table.
+     *
+     * @param ws
+     * @return
+     */
+    public boolean createWorksheet(Worksheet ws) {
+        String sql = "INSERT INTO Worksheet VALUES(NULL, ?, ?, ?, ?, ?);";
+        PreparedStatement regStmt = null;
+        boolean result = true;
+
+        // Get user that is creating this worksheet
+        String user = FWCConfigurator.getUserType() == UserType.TEACHER ?
+                FWCConfigurator.getTeacher().getUsername() :
+                FWCConfigurator.getStudent().getUsername();
+
+        try {
+            regStmt = conn.prepareStatement(sql);
+            regStmt.setString(1, user);
+            regStmt.setInt(2, ws.getSeed());
+            regStmt.setString(3, ws.getDateCreated());
+            regStmt.setInt(4, ws.getDifficultyID());
+            regStmt.setString(5, ws.getExercise());
+            regStmt.execute();
+        }
+        catch(SQLException se) {
+            se.printStackTrace();
+            result = false;
+        }
+        finally {
+            try {
+                if (regStmt != null) {
                     regStmt.close();
                 }
             }

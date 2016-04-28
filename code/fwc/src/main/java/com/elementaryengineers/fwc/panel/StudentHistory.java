@@ -128,7 +128,6 @@ public class StudentHistory extends JPanel {
                 if (confirm == JOptionPane.YES_OPTION) {
                     // Check database update status
                     if (FWCConfigurator.getDbConn().deleteWorksheet(sheets.get(index).getWorksheetID())) {
-                        sheets.remove(index); // Remove from student history
                         populateTable(); // Refresh table of worksheets
                         JOptionPane.showMessageDialog(null, "Worksheet has been deleted successfully!",
                                 "Delete Worksheet Successful", JOptionPane.INFORMATION_MESSAGE);

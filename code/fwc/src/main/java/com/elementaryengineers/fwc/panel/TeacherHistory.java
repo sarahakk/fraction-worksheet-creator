@@ -162,7 +162,7 @@ public class TeacherHistory extends JPanel {
                     // Check database update status
                     if (FWCConfigurator.getDbConn().deleteWorksheet
                             (sheets.get(index).getWorksheetID())) {
-                        sheets.remove(index); // Remove from student history
+                        sheets.remove(index); // Remove from teacher history
                         populateTable(); // Refresh table of worksheets
                         JOptionPane.showMessageDialog(null,
                                 "Worksheet has been deleted successfully!",

@@ -28,7 +28,7 @@ public class AllTutorials extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(Color.WHITE);
-        lblTitle = new TitleLabel("Tutorials", FWCConfigurator.TUTORIAL_TITLE_IMG);
+        lblTitle = new TitleLabel("Tutorials", FWCConfigurator.TUTORIALS_IMG);
         pnNorth.add(lblTitle);
 
         // Build buttons and center panel
@@ -125,7 +125,7 @@ public class AllTutorials extends JPanel {
             try { // This is done because files packaged in the jar cannot be accessed directly by path
                 InputStream input = AllTutorials.class.getClassLoader()
                         .getResourceAsStream(filename);
-                File file = File.createTempFile("FWCtempVideo", ".wmv");
+                File file = File.createTempFile("FWCtempVideo", ".m4v");
                 OutputStream out = new FileOutputStream(file);
 
                 int read;

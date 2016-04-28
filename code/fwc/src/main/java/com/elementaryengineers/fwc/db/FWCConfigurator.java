@@ -121,15 +121,15 @@ public class FWCConfigurator {
     public static final String CUTE_HELP_IMG = "cutehelp.png";
 
     // Tutorial videos in resource folder
-    public static final String BEG1_VID = "";
-    public static final String BEG2_VID = "";
-    public static final String BEG3_VID = "";
-    public static final String INT1_VID = "";
-    public static final String INT2_VID = "";
-    public static final String INT3_VID = "";
-    public static final String ADV1_VID = "";
-    public static final String ADV2_VID = "";
-    public static final String ADV3_VID = "";
+    public static final String BEG1_VID = "video - 1.m4v";
+    public static final String BEG2_VID = "video - 2.m4v";
+    public static final String BEG3_VID = "video - 3.m4v";
+    public static final String INT1_VID = "video - 4.m4v";
+    public static final String INT2_VID = "video - 5.m4v";
+    public static final String INT3_VID = "video - 6.m4v";
+    public static final String ADV1_VID = "video - 7.m4v";
+    public static final String ADV2_VID = "video - 8.m4v";
+    public static final String ADV3_VID = "video - 9.m4v";
 
     // Constants for different worksheet exercises to be compared to the Worksheet objects
     // These should be used when creating a new Worksheet object to store in the database
