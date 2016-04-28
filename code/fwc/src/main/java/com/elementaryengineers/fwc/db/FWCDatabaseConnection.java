@@ -253,13 +253,15 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                         selectStmt.setInt(1, rs.getInt("Class"));
                         ResultSet rs2 = selectStmt.executeQuery();
 
-                        Classroom classroom = new Classroom(rs2.getInt
-                                ("ClassID"), rs2.getString("ClassName"));
+                        if (rs2.next()) {
+                            Classroom classroom = new Classroom(rs2.getInt
+                                    ("ClassID"), rs2.getString("ClassName"));
 
-                        result = new Student(rs.getInt("StudentID"), rs
-                                .getInt("DifficultyLevel"), user, first,
-                                last, passSalt, passHash, classroom,
-                                rs.getBoolean("ResetPassword"));
+                            result = new Student(rs.getInt("StudentID"), rs
+                                    .getInt("DifficultyLevel"), user, first,
+                                    last, passSalt, passHash, classroom,
+                                    rs.getBoolean("ResetPassword"));
+                        }
 
                         try {
                             rs2.close();
@@ -337,14 +339,16 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 selectStmt.setString(1, user);
                 rs2 = selectStmt.executeQuery();
 
-                first = rs2.getString("FirstName");
-                last = rs2.getString("LastName");
-                passSalt = rs2.getString("PasswordSalt");
-                passHash = rs2.getString("PasswordHash");
+                if (rs2.next()) {
+                    first = rs2.getString("FirstName");
+                    last = rs2.getString("LastName");
+                    passSalt = rs2.getString("PasswordSalt");
+                    passHash = rs2.getString("PasswordHash");
 
-                results.add(new Teacher(rs.getInt("TeacherID"), user, first,
-                        last, passSalt, passHash, rs.getBoolean
-                        ("ResetPassword")));
+                    results.add(new Teacher(rs.getInt("TeacherID"), user, first,
+                            last, passSalt, passHash, rs.getBoolean
+                            ("ResetPassword")));
+                }
             }
 		} catch (SQLException se)
         {
@@ -379,7 +383,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 	 */
 	@Override
 	public ArrayList<Admin> getAllAdmins() {
-        String sql = "SELECT * FROM Admin;";
+        String sql = "SELECT * FROM Administrator;";
         String sql2 = "SELECT * FROM User WHERE Username=?;";
         PreparedStatement selectStmt = null;
         ResultSet rs = null, rs2 = null;
@@ -398,19 +402,21 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 selectStmt.setString(1, user);
                 rs2 = selectStmt.executeQuery();
 
-                first = rs2.getString("FirstName");
-                last = rs2.getString("LastName");
-                passSalt = rs2.getString("PasswordSalt");
-                passHash = rs2.getString("PasswordHash");
+                if (rs2.next()) {
+                    first = rs2.getString("FirstName");
+                    last = rs2.getString("LastName");
+                    passSalt = rs2.getString("PasswordSalt");
+                    passHash = rs2.getString("PasswordHash");
 
-                results.add(new Admin(rs.getInt("AdminID"), user,
-                        first, last, passSalt, passHash, rs
-                        .getString("SQ_SSNSalt"), rs.getString
-                        ("SQ_SSNHash"), rs.getString
-                        ("SQ_BirthdateSalt"), rs.getString
-                        ("SQ_BirthdateHash"), rs.getString
-                        ("SQ_FirstJobSalt"), rs.getString
-                        ("SQ_FirstJobHash")));
+                    results.add(new Admin(rs.getInt("AdminID"), user,
+                            first, last, passSalt, passHash, rs
+                            .getString("SQ_SSNSalt"), rs.getString
+                            ("SQ_SSNHash"), rs.getString
+                            ("SQ_BirthdateSalt"), rs.getString
+                            ("SQ_BirthdateHash"), rs.getString
+                            ("SQ_FirstJobSalt"), rs.getString
+                            ("SQ_FirstJobHash")));
+                }
             }
         } catch (SQLException se)
         {
@@ -552,12 +558,14 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
-                if(regStmt != null) {
+                if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch(SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -594,15 +602,18 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt = conn.prepareStatement(sql2);
             regStmt.setString(1, teacher.getUsername());
             regStmt.execute();
-        } catch(SQLException se) {
+        }
+        catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -652,7 +663,8 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -691,12 +703,14 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if(regStmt != null) {
                     regStmt.close();
                 }
-            } catch(SQLException se2) {
+            }
+            catch(SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -734,15 +748,18 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.setString(2, student.getUsername());
             regStmt.setInt(3, student.getDifficultyID());
             regStmt.execute();
-        } catch(SQLException se) {
+        }
+        catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -795,7 +812,8 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -830,12 +848,14 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if(regStmt != null) {
                     regStmt.close();
                 }
-            } catch(SQLException se2) {
+            }
+            catch(SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -861,15 +881,18 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.setInt(1, FWCConfigurator.getTeacher().getTeacherID());
             regStmt.setString(2, classroom.getClassName());
             regStmt.execute();
-        } catch(SQLException se) {
+        }
+        catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -900,15 +923,18 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.setString(1, classroom.getClassName());
             regStmt.setInt(1, classroom.getClassID());
             regStmt.execute();
-        } catch(SQLException se) {
+        }
+        catch(SQLException se) {
             se.printStackTrace();
             result = false;
-        } finally {
+        }
+        finally {
             try {
                 if (regStmt != null) {
                     regStmt.close();
                 }
-            } catch (SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -949,7 +975,8 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 if(regStmt != null) {
                     regStmt.close();
                 }
-            } catch(SQLException se2) {
+            }
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -976,7 +1003,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.setInt(1, worksheetID);
             regStmt.execute();
         }
-        catch(SQLException se) {
+        catch (SQLException se) {
             se.printStackTrace();
             result = false;
         }
@@ -986,7 +1013,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                     regStmt.close();
                 }
             }
-            catch(SQLException se2) {
+            catch (SQLException se2) {
                 se2.printStackTrace();
                 result = false;
             }
@@ -1069,27 +1096,31 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                 selectStmt.setString(1, user);
                 rs2 = selectStmt.executeQuery();
 
-                first = rs2.getString("FirstName");
-                last = rs2.getString("LastName");
-                passSalt = rs2.getString("PasswordSalt");
-                passHash = rs2.getString("PasswordHash");
+                if (rs2.next()) {
+                    first = rs2.getString("FirstName");
+                    last = rs2.getString("LastName");
+                    passSalt = rs2.getString("PasswordSalt");
+                    passHash = rs2.getString("PasswordHash");
 
-                selectStmt = conn.prepareStatement(sql3);
-                selectStmt.setInt(1, rs.getInt("Class"));
-                ResultSet rs3 = selectStmt.executeQuery();
+                    selectStmt = conn.prepareStatement(sql3);
+                    selectStmt.setInt(1, rs.getInt("Class"));
+                    ResultSet rs3 = selectStmt.executeQuery();
 
-                Classroom classroom = new Classroom(rs3.getInt
-                        ("ClassID"), rs3.getString("ClassName"));
+                    if (rs3.next()) {
+                        Classroom classroom = new Classroom(rs3.getInt
+                                ("ClassID"), rs3.getString("ClassName"));
 
-                results.add(new Student(rs.getInt("StudentID"), rs
-                        .getInt("DifficultyLevel"), user, first,
-                        last, passSalt, passHash, classroom,
-                        rs.getBoolean("ResetPassword")));
+                        results.add(new Student(rs.getInt("StudentID"), rs
+                                .getInt("DifficultyLevel"), user, first,
+                                last, passSalt, passHash, classroom,
+                                rs.getBoolean("ResetPassword")));
+                    }
 
-                try {
-                    rs3.close();
-                } catch(SQLException se2) {
-                    se2.printStackTrace();
+                    try {
+                        rs3.close();
+                    } catch(SQLException se2) {
+                        se2.printStackTrace();
+                    }
                 }
             }
         } catch (SQLException se)

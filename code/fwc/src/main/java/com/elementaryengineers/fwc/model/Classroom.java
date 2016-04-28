@@ -59,11 +59,14 @@ public class Classroom {
     }
 
     public ArrayList<Student> searchStudents(String keyword) {
+        keyword.toLowerCase();
+
         List<Student> results = students.stream().filter(stu ->
-                stu.getFirstName().contains(keyword) ||
-                stu.getLastName().contains(keyword) ||
-                FWCConfigurator.getDifficulties().get(stu.getDifficultyID()).getDescription().contains(keyword) ||
-                stu.getUsername().contains(keyword)
+                stu.getFirstName().toLowerCase().contains(keyword) ||
+                stu.getLastName().toLowerCase().contains(keyword) ||
+                FWCConfigurator.getDifficulties().get(stu.getDifficultyID())
+                        .getDescription().toLowerCase().contains(keyword) ||
+                stu.getUsername().toLowerCase().contains(keyword)
                 ).collect(Collectors.toList());
 
         return new ArrayList<>(results);

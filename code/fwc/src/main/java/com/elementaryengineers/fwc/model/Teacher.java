@@ -79,8 +79,10 @@ public class Teacher extends User {
     }
 
     public ArrayList<Classroom> searchClasses(String keyword) {
+        keyword.toLowerCase();
+
         List<Classroom> results = classes.stream().filter(c ->
-                c.getClassName().contains(keyword)
+                c.getClassName().toLowerCase().contains(keyword)
         ).collect(Collectors.toList());
 
         return new ArrayList<>(results);

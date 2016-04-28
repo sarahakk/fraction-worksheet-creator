@@ -158,6 +158,7 @@ public class FWCMainFrame extends JFrame {
                             case ADMIN: {
                                 FWCConfigurator.setAdmin((Admin) user);
                                 buildAdminPanels();
+                                adminHome.refresh();
                                 cardLayout.show(pnCard, "AdminHome");
                                 FWCConfigurator.setCurrentPage(Page.ADMIN_HOME);
                                 break;

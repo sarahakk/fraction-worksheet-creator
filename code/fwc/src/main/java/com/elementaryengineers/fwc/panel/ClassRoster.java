@@ -114,7 +114,6 @@ public class ClassRoster extends JPanel {
         studentsTable.setFillsViewportHeight(true);
         studentsTable.getTableHeader().setFont(new Font("Calibri",
                 Font.PLAIN, 18));
-        populateTable(classroom.getStudents());
 
         tableScroll = new JScrollPane(studentsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,

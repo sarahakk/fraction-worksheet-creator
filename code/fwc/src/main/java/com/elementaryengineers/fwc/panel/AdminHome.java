@@ -3,11 +3,14 @@
  */
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.DisabledTableModel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +24,7 @@ public class AdminHome extends JPanel {
     private JLabel lblTitle, lblSearch;
     private JTextField txtSearch;
     private ImageButton btnProfile;
-    private DefaultTableModel tableModel;
+    private DisabledTableModel tableModel;
     private JTable teachersTable;
     private JScrollPane tableScroll;
 
@@ -43,9 +46,12 @@ public class AdminHome extends JPanel {
         // Build search
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnSearch.setBackground(Color.WHITE);
+        pnSearch.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
+
         lblSearch = new JLabel("Search: ");
         lblSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtSearch = new JTextField(24);
+        txtSearch.setColumns(10);
 
         // Add listener to show search results as soon as user starts typing
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -59,11 +65,11 @@ public class AdminHome extends JPanel {
                 search();
             }
 
-            public void search() {
+            private void search() {
                 String keyword = txtSearch.getText();
 
                 // Populate with search results, or all teachers if search is empty
-                populateTable(keyword.equals("") ?
+                populateTable(!keyword.equals("") ?
                         FWCConfigurator.getAdmin().searchTeachers(keyword) :
                         FWCConfigurator.getAdmin().getTeachers()
                 );
@@ -74,19 +80,26 @@ public class AdminHome extends JPanel {
         pnSearch.add(txtSearch);
 
         // Build table of teachers
-        tableModel = new DefaultTableModel();
+        tableModel = new DisabledTableModel();
         tableModel.setColumnIdentifiers(new String[]{"First Name", "Last Name",
             "Username"});
 
         teachersTable = new JTable(tableModel);
         teachersTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         teachersTable.setFillsViewportHeight(true);
-        teachersTable.getTableHeader().setFont(new Font("Calibri", Font.PLAIN, 18));
+        teachersTable.getTableHeader().setFont(new Font("Calibri", Font
+                .PLAIN, 20));
+        teachersTable.setFont(new Font("Calibri", Font.PLAIN, 18));
+        teachersTable.setRowHeight(teachersTable.getRowHeight() + 12);
+
         populateTable(FWCConfigurator.getAdmin().getTeachers());
 
         tableScroll = new JScrollPane(teachersTable, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 100,
+                10,
+                100), new LineBorder(Color.black, 1)));
 
         pnCenter.add(pnSearch, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
@@ -105,7 +118,7 @@ public class AdminHome extends JPanel {
 
     private void populateTable(ArrayList<Teacher> teachers) {
         // Remove all rows first
-        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 

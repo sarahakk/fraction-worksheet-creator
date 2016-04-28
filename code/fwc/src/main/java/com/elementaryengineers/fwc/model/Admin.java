@@ -13,7 +13,6 @@ public class Admin extends User {
 
     private int adminID;
     private ArrayList<Teacher> teachers;
-    private ArrayList<Admin> admins;
     private EncryptedPassword last4SSN, birthdate, firstJob;
 
     /**
@@ -30,7 +29,6 @@ public class Admin extends User {
         this.birthdate = new EncryptedPassword(birthdate);
         this.firstJob = new EncryptedPassword(firstJob);
         this.teachers = new ArrayList<>();
-        this.admins = new ArrayList<>();
     }
 
     /**
@@ -46,9 +44,7 @@ public class Admin extends User {
         this.birthdate = new EncryptedPassword(birthdateHash, birthdateSalt);
         this.firstJob = new EncryptedPassword(firstJobHash, firstJobSalt);
         this.teachers = new ArrayList<>();
-        this.admins = new ArrayList<>();
-        //this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
-        //this.admins = FWCConfigurator.getDbConn().getAllAdmins();
+        this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
     }
 
     public int getAdminID() {
@@ -56,7 +52,7 @@ public class Admin extends User {
     }
 
     public ArrayList<Teacher> getTeachers() {
-        //this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
+        this.teachers = FWCConfigurator.getDbConn().getAllTeachers();
         return teachers;
     }
 
@@ -67,21 +63,18 @@ public class Admin extends User {
         return new ArrayList<>(results);
     }
 
-    public ArrayList<Admin> getAdmins() {
-        this.admins = FWCConfigurator.getDbConn().getAllAdmins();
-        return admins;
-    }
-
     public boolean verifySecurityQuestions(String last4SSN, String birthdate, String firstJob) {
         return this.last4SSN.checkPassword(last4SSN) && this.birthdate.checkPassword(birthdate) &&
                 this.firstJob.checkPassword(firstJob);
     }
 
     public ArrayList<Teacher> searchTeachers(String keyword) {
+        keyword.toLowerCase();
+
         List<Teacher> results = teachers.stream().filter(t ->
-                t.getFirstName().contains(keyword) ||
-                        t.getLastName().contains(keyword) ||
-                        t.getUsername().contains(keyword)
+                t.getFirstName().toLowerCase().contains(keyword) ||
+                        t.getLastName().toLowerCase().contains(keyword) ||
+                        t.getUsername().toLowerCase().contains(keyword)
         ).collect(Collectors.toList());
 
         return new ArrayList<>(results);
