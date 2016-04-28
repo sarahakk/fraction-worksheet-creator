@@ -42,6 +42,7 @@ public class TeacherProfile extends JPanel {
         txtFirst = new JTextField(24);
         txtLast = new JTextField(24);
         txtUser = new JTextField(24);
+        txtUser.setEnabled(false);
 
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
@@ -100,20 +101,11 @@ public class TeacherProfile extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String newFirst = txtFirst.getText(),
-                        newLast = txtLast.getText(),
-                        newUser = txtUser.getText();
+                        newLast = txtLast.getText();
 
-                if (newFirst.equals("") || newLast.equals("") || newUser.equals("")) {
+                if (newFirst.equals("") || newLast.equals("")) {
                     JOptionPane.showMessageDialog(null,
                             "Please enter all required information.",
-                            "Teacher Update Failed",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Check if username is available
-                if (!FWCConfigurator.getDbConn().isUsernameAvailable(newUser)) {
-                    JOptionPane.showMessageDialog(null, "Username is not available.",
                             "Teacher Update Failed",
                             JOptionPane.ERROR_MESSAGE);
                     return;
@@ -124,7 +116,6 @@ public class TeacherProfile extends JPanel {
                         getTeachers().get(teacherIndex);
                 modifiedTeacher.setFirstName(newFirst);
                 modifiedTeacher.setLastName(newLast);
-                modifiedTeacher.setUsername(newUser);
 
                 // Check database update status
                 if (FWCConfigurator.getDbConn().updateTeacher(modifiedTeacher)) {

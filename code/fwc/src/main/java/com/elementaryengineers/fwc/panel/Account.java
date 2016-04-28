@@ -47,7 +47,7 @@ public class Account extends JPanel {
         lblLast = new JLabel("Last name:", SwingConstants.RIGHT);
         lblLast.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtUser = new JTextField(24);
-        txtUser.setEnabled((userType == UserType.ADMIN)); // Only admin can edit username
+        txtUser.setEnabled(false);
         txtFirst = new JTextField(24);
         txtLast = new JTextField(24);
 
@@ -150,7 +150,7 @@ public class Account extends JPanel {
         }
 
         // Build east panel and form
-        lblCurrent = new JLabel("Current assword:", SwingConstants.RIGHT);
+        lblCurrent = new JLabel("Current password:", SwingConstants.RIGHT);
         lblCurrent.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblPass = new JLabel("Password:", SwingConstants.RIGHT);
         lblPass.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -354,21 +354,6 @@ public class Account extends JPanel {
 
                 case ADMIN: {
                     Admin admin = FWCConfigurator.getAdmin();
-                    String user = txtUser.getText();
-
-                    // Check if username is empty
-                    if (user.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Please enter all required information.", "Update Failed",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    // Check if username is available
-                    if (!FWCConfigurator.getDbConn().isUsernameAvailable(user)) {
-                        JOptionPane.showMessageDialog(null, "Username is not available.", "Update Failed",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
 
                     // Reset password if not empty
                     if (!password.equals("")) {
@@ -390,7 +375,6 @@ public class Account extends JPanel {
                         admin.resetPassword(password);
                     }
 
-                    admin.setUsername(user);
                     admin.setFirstName(first);
                     admin.setLastName(last);
 

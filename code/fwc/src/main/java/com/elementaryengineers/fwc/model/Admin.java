@@ -86,4 +86,16 @@ public class Admin extends User {
 
         return new ArrayList<>(results);
     }
+
+    public EncryptedPassword getLast4SSN() {
+        return last4SSN;
+    }
+
+    public EncryptedPassword getBirthdate() {
+        return birthdate;
+    }
+
+    public EncryptedPassword getFirstJob() {
+        return firstJob;
+    }
 }

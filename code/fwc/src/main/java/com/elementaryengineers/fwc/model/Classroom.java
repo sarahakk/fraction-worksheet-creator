@@ -28,7 +28,7 @@ public class Classroom {
     public Classroom(int id, String name) {
         this.classID = id;
         this.className = name;
-        this.students = new ArrayList<>();
+        this.students = FWCConfigurator.getDbConn().getClassroomStudents(id);
     }
 
     public int getClassID() {
@@ -40,6 +40,7 @@ public class Classroom {
     }
 
     public ArrayList<Student> getStudents() {
+        students = FWCConfigurator.getDbConn().getClassroomStudents(classID);
         return students;
     }
 

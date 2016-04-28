@@ -38,6 +38,7 @@ public class Teacher extends User {
         this.teacherID = teacherID;
         this.resetPassRequested = resetPassRequested;
         getClasses();
+        getHistory();
     }
 
     public int getTeacherID() {

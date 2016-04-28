@@ -58,6 +58,7 @@ public class Student extends User {
     }
 
     public ArrayList<Worksheet> getHistory() {
+        history = FWCConfigurator.getDbConn().getUserWorksheets(getUsername());
         return history;
     }
 

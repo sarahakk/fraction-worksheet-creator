@@ -177,10 +177,10 @@ public interface DatabaseConnection {
      * Delete all students that are in the class, too!
      * If database is set up to cascade the deletion of a class
      * to students in the class, you won't need to do it manually.
-     * @param classID
+     * @param classroom
      * @return
      */
-    public boolean deleteClassroom(int classID);
+    public boolean deleteClassroom(Classroom classroom);
 
     /**
      * Delete the worksheet record identified by the given

@@ -48,6 +48,7 @@ public class StudentProfile extends JPanel {
         txtFirst = new JTextField(24);
         txtLast = new JTextField(24);
         txtUser = new JTextField(24);
+        txtUser.setEnabled(false);
 
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
@@ -164,20 +165,11 @@ public class StudentProfile extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String newFirst = txtFirst.getText(),
-                        newLast = txtLast.getText(),
-                        newUser = txtUser.getText();
+                        newLast = txtLast.getText();
 
-                if (newFirst.equals("") || newLast.equals("") || newUser.equals("")) {
+                if (newFirst.equals("") || newLast.equals("")) {
                     JOptionPane.showMessageDialog(null,
                             "Please enter all required information.",
-                            "Student Update Failed",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Check if username is available
-                if (!FWCConfigurator.getDbConn().isUsernameAvailable(newUser)) {
-                    JOptionPane.showMessageDialog(null, "Username is not available.",
                             "Student Update Failed",
                             JOptionPane.ERROR_MESSAGE);
                     return;
@@ -190,7 +182,6 @@ public class StudentProfile extends JPanel {
                         get(studentIndex);
                 modifiedStudent.setFirstName(newFirst);
                 modifiedStudent.setLastName(newLast);
-                modifiedStudent.setUsername(newUser);
                 modifiedStudent.setClassroom(classroom);
                 modifiedStudent.setDifficultyID(
                         cbDifficulty.getSelectedIndex());
@@ -217,7 +208,7 @@ public class StudentProfile extends JPanel {
 
         btnReset = new ImageButton("Reset Password", FWCConfigurator
                 .RESET_PASSW_IMG, 150, 50);
-        btnReset.addActionListener(new ActionListener() { // TODO
+        btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Teacher teacher = FWCConfigurator.getAdmin().

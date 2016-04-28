@@ -58,6 +58,10 @@ public class User {
         return type;
     }
 
+    public EncryptedPassword getPassword() {
+        return password;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

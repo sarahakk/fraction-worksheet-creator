@@ -537,7 +537,7 @@ public class FWCMainFrame extends JFrame {
                                 .getClasses().get(index);
 
                         // Check database update status
-                        if (dbConn.deleteClassroom(classroom.getClassID())) {
+                        if (dbConn.deleteClassroom(classroom)) {
                             JOptionPane.showMessageDialog(null,
                                     "Class was successfully deleted.",
                                     "Class Delete Successful",
@@ -772,6 +772,7 @@ public class FWCMainFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // If not already on admin home page
                     if (FWCConfigurator.getCurrentPage() != Page.ADMIN_HOME) {
+                        adminHome.refresh();
                         cardLayout.show(pnCard, "AdminHome");
                         FWCConfigurator.setCurrentPage(Page.ADMIN_HOME);
                     }
