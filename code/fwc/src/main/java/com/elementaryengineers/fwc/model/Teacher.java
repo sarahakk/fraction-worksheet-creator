@@ -37,8 +37,7 @@ public class Teacher extends User {
         setType(UserType.TEACHER);
         this.teacherID = teacherID;
         this.resetPassRequested = resetPassRequested;
-        this.classes = FWCConfigurator.getDbConn().getTeacherClasses(teacherID);
-        this.history = FWCConfigurator.getDbConn().getUserWorksheets(user);
+        getClasses();
     }
 
     public int getTeacherID() {
@@ -50,10 +49,12 @@ public class Teacher extends User {
     }
 
     public ArrayList<Classroom> getClasses() {
+        classes = FWCConfigurator.getDbConn().getTeacherClasses(teacherID);
         return classes;
     }
 
     public ArrayList<Worksheet> getHistory() {
+        history = FWCConfigurator.getDbConn().getUserWorksheets(getUsername());
         return history;
     }
 
