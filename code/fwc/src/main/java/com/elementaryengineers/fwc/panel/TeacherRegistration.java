@@ -210,7 +210,7 @@ public class TeacherRegistration extends JPanel {
                 String.valueOf(txtPass.getPassword()));
     }
 
-    private void clearFields() {
+    public void clearFields() {
         txtFirst.setText("");
         txtLast.setText("");
         txtUser.setText("");

@@ -38,7 +38,14 @@ public class FWCMainFrame extends JFrame {
     private TeacherMenu teacherMenu;
     private TeacherHome teacherHome;
     private TeacherHistory teacherHistory;
+    private Classes teacherClasses;
+    private ClassNew teacherNewClass;
     private StudentRegistration studentReg;
+    private ClassEdit teacherEditClass;
+    private ClassRoster teacherClassRoster;
+    private StudentProfile studentProfile;
+    private TeacherStudentHistory teacherStudentHistory;
+    private TeacherManagePasswords teacherPasswords;
 
     // Student panels
     private StudentMenu studentMenu;
@@ -382,22 +389,319 @@ public class FWCMainFrame extends JFrame {
         this.add(pnCard, BorderLayout.CENTER);
     }
 
+    /*
+     * Build user-specific panels
+     */
+
     private void buildTeacherPanels() {
         if (teacherMenu == null) { // Create panels if first time
             teacherMenu = new TeacherMenu();
+            teacherMenu.setHomeListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on home page
+                    if (FWCConfigurator.getCurrentPage() != Page.TEACHER_HOME) {
+                        cardLayout.show(pnCard, "TeacherHome");
+                        FWCConfigurator.setCurrentPage(Page.TEACHER_HOME);
+                    }
+                }
+            });
+
+            teacherMenu.setTutorialsListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on tutorials page
+                    if (FWCConfigurator.getCurrentPage() != Page.TUTORIALS) {
+                        cardLayout.show(pnCard, "AllTutorials");
+                        FWCConfigurator.setCurrentPage(Page.TUTORIALS);
+                    }
+                }
+            });
+
             teacherMenu.setHistoryListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    // If not already on history page
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.TEACHER_HISTORY) {
+                        cardLayout.show(pnCard, "TeacherHistory");
+                        FWCConfigurator.setCurrentPage(Page.TEACHER_HISTORY);
+                    }
                 }
             });
-            // Add other action listeners
 
-          
+            teacherMenu.setClassesListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on the page
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.CLASSES) {
+                        cardLayout.show(pnCard, "Classes");
+                        FWCConfigurator
+                                .setCurrentPage(Page.CLASSES);
+                    }
+                }
+            });
+
+            teacherMenu.setPasswordsListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // If not already on the page
+                    if (FWCConfigurator.getCurrentPage() !=
+                            Page.TEACHER_MANAGE_PASSWORDS) {
+                        cardLayout.show(pnCard, "TeacherManagePasswords");
+                        FWCConfigurator
+                                .setCurrentPage(Page.TEACHER_MANAGE_PASSWORDS);
+                    }
+                }
+            });
+
             teacherHome = new TeacherHome();
-            pnCard.add(teacherHome, "TeacherHome");
+            teacherHistory = new TeacherHistory();
+            teacherClasses = new Classes();
+            teacherClasses.setNewClassListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    teacherNewClass.clearFields(); // Reset page
+                    cardLayout.show(pnCard, "ClassNew");
+                    FWCConfigurator.setCurrentPage(Page.NEW_CLASS);
+                }
+            });
 
-            // Add other teacher panels
+            teacherClasses.setNewStudentListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    studentReg.clearFields(); // Reset page
+                    cardLayout.show(pnCard, "StudentRegistration");
+                    FWCConfigurator.setCurrentPage(Page.STUDENT_REGISTRATION);
+                }
+            });
+
+            teacherClasses.setEditListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int index = teacherClasses.getSelectedClass();
+
+                    // Check if selected a class
+                    if (index > 0) {
+                        teacherEditClass.populateFields(FWCConfigurator.
+                                getTeacher().getClasses().get(index));
+                        teacherEditClass.setClassIndex(index);
+                        cardLayout.show(pnCard, "ClassEdit");
+                        FWCConfigurator.setCurrentPage(Page.EDIT_CLASS);
+                    }
+                    else { // No class is selected from the table
+                        JOptionPane.showMessageDialog(null,
+                                "Please select a class from the table first.",
+                                "Edit Class", JOptionPane
+                                        .INFORMATION_MESSAGE);
+                    }
+                }
+            });
+
+            teacherClasses.setRosterListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int index = teacherClasses.getSelectedClass();
+
+                    // Check if selected a class
+                    if (index > 0) {
+                        teacherClassRoster.setClassIndex(index);
+                        cardLayout.show(pnCard, "ClassRoster");
+                        FWCConfigurator.setCurrentPage(Page.CLASS_ROSTER);
+                    }
+                    else { // No class is selected from the table
+                        JOptionPane.showMessageDialog(null,
+                                "Please select a class from the table first.",
+                                "View Roster", JOptionPane
+                                        .INFORMATION_MESSAGE);
+                    }
+                }
+            });
+
+            teacherNewClass = new ClassNew();
+            studentReg = new StudentRegistration();
+            teacherEditClass = new ClassEdit();
+            teacherEditClass.setDeleteClassListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int confirm = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to delete this class? " +
+                            "This will also delete all the students assigned" +
+                            " to this class!",
+                            "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        int index = teacherEditClass.getClassIndex();
+                        Classroom classroom = FWCConfigurator.getTeacher()
+                                .getClasses().get(index);
+
+                        // Check database update status
+                        if (dbConn.deleteClassroom(classroom.getClassID())) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Class was successfully deleted.",
+                                    "Class Delete Successful",
+                                    JOptionPane.PLAIN_MESSAGE);
+
+                            // Remove from list of classes
+                            FWCConfigurator.getTeacher().getClasses()
+                                    .remove(index);
+                            // Refresh list of classes on classes page
+                            teacherClasses.refresh();
+                            // Go back to classes page
+                            cardLayout.show(pnCard, "Classes");
+                            FWCConfigurator.setCurrentPage(Page.CLASSES);
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Class could not be deleted from the database.",
+                                    "Class Delete Failed",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            });
+
+            teacherClassRoster = new ClassRoster();
+            teacherClassRoster.setBackListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cardLayout.show(pnCard, "Classes");
+                    FWCConfigurator.setCurrentPage(Page.CLASSES);
+                }
+            });
+
+            teacherClassRoster.setProfileListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int sIndex = teacherClassRoster.getSelectedStudent(),
+                        cIndex = teacherClassRoster.getClassIndex();
+
+                    // Check if selected a student
+                    if (sIndex > 0) {
+                        studentProfile.populateFields(FWCConfigurator.
+                                getTeacher().getClasses().get(cIndex).
+                                getStudents().get(sIndex));
+                        studentProfile.setStudentIndexes(cIndex, sIndex);
+                        cardLayout.show(pnCard, "StudentProfile");
+                        FWCConfigurator.setCurrentPage(Page.STUDENT_PROFILE);
+                    }
+                    else { // No student is selected from the table
+                        JOptionPane.showMessageDialog(null,
+                                "Please select a student from the table first.",
+                                "View Profile", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
+
+            teacherClassRoster.setHistoryListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int sIndex = teacherClassRoster.getSelectedStudent(),
+                            cIndex = teacherClassRoster.getClassIndex();
+
+                    // Check if selected a student
+                    if (sIndex > 0) {
+                        teacherStudentHistory.setStudent(
+                                FWCConfigurator.getTeacher().getClasses().
+                                        get(cIndex).
+                                        getStudents().
+                                        get(sIndex)
+                        ); // Reset page
+                        cardLayout.show(pnCard, "TeacherStudentHistory");
+                        FWCConfigurator.setCurrentPage(
+                                Page.TEACHER_STUDENT_HISTORY);
+                    }
+                    else { // No student is selected from the table
+                        JOptionPane.showMessageDialog(null,
+                                "Please select a student from the table first.",
+                                "View Profile", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
+
+            studentProfile = new StudentProfile();
+            studentProfile.setHistoryListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    teacherStudentHistory.setStudent(
+                            FWCConfigurator.getTeacher().getClasses().
+                                    get(studentProfile.getClassIndex()).
+                                    getStudents().
+                                    get(studentProfile.getStudentIndex())
+                    ); // Reset page
+
+                    cardLayout.show(pnCard, "TeacherStudentHistory");
+                    FWCConfigurator
+                            .setCurrentPage(Page.TEACHER_STUDENT_HISTORY);
+                }
+            });
+
+            studentProfile.setDeleteListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int confirm = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to delete this student? " +
+                            "This will also delete all the student's " +
+                            "worksheets!",
+                            "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        int cIndex = studentProfile.getClassIndex(),
+                                sIndex = studentProfile.getStudentIndex();
+                        Student student = FWCConfigurator.getTeacher()
+                                .getClasses().get(cIndex).getStudents().
+                                get(sIndex);
+
+                        // Check database update status
+                        if (dbConn.deleteStudent(student)) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Student was successfully deleted.",
+                                    "Student Delete Successful",
+                                    JOptionPane.PLAIN_MESSAGE);
+
+                            // Remove from list of students
+                            FWCConfigurator.getTeacher()
+                                    .getClasses().get(cIndex).getStudents().
+                                    remove(sIndex);
+                            // Refresh list of students on class roster page
+                            teacherClassRoster.setClassIndex(cIndex);
+                            // Go back to class roster page
+                            cardLayout.show(pnCard, "Class Roster");
+                            FWCConfigurator.setCurrentPage(Page.CLASS_ROSTER);
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Student could not be deleted from the database.",
+                                    "Student Delete Failed",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            });
+
+            teacherStudentHistory = new TeacherStudentHistory();
+            teacherPasswords = new TeacherManagePasswords();
+
+            if (tutorials == null) { // Tutorials panel needs to be created
+                tutorials = new AllTutorials();
+                pnCard.add(tutorials, "AllTutorials");
+            }
+
+            pnCard.add(teacherHome, "TeacherHome");
+            pnCard.add(teacherHistory, "TeacherHistory");
+            pnCard.add(teacherClasses, "Classes");
+            pnCard.add(teacherNewClass, "ClassNew");
+            pnCard.add(studentReg, "StudentRegistration");
+            pnCard.add(teacherEditClass, "ClassEdit");
+            pnCard.add(teacherClassRoster, "ClassRoster");
+            pnCard.add(studentProfile, "StudentProfile");
+            pnCard.add(teacherStudentHistory, "TeacherStudentHistory");
+            pnCard.add(teacherPasswords, "TeacherManagePasswords");
+        }
+        else { // Refresh/reset panels for new teacher session
+            teacherHistory.refresh();
+            teacherClasses.refresh();
         }
 
         // Needs to be set each time a teacher logs in
@@ -446,11 +750,11 @@ public class FWCMainFrame extends JFrame {
 
             if (tutorials == null) { // Tutorials panel needs to be created
                 tutorials = new AllTutorials();
+                pnCard.add(tutorials, "AllTutorials");
             }
 
             pnCard.add(studentHome, "StudentHome");
             pnCard.add(studentHistory, "StudentHistory");
-            pnCard.add(tutorials, "AllTutorials");
         }
         else { // Refresh/reset panels for new student session
             studentHistory.refresh();

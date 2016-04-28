@@ -114,8 +114,8 @@ public class ClassEdit extends JPanel{
         add(pnFields,BorderLayout.CENTER);
     }
 
-    public void populateFields(Teacher teacher) {
-        txtClassName.setText(teacher.getClasses().get(classIndex).getClassName());
+    public void populateFields(Classroom classroom) {
+        txtClassName.setText(classroom.getClassName());
     }
 
     public void setClassIndex(int classIndex) {

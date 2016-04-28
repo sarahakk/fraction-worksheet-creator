@@ -28,13 +28,9 @@ public class TeacherStudentHistory extends JPanel {
     private ArrayList<Worksheet> sheets;
     private Student student;
 
-    public TeacherStudentHistory(Student student) {
+    public TeacherStudentHistory() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
-        this.student = student;
-        this.lblName = new JLabel(student.getFirstName() + " " + student
-                .getLastName(),
-                SwingConstants.RIGHT);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -47,6 +43,8 @@ public class TeacherStudentHistory extends JPanel {
         pnCenter = new JPanel(new BorderLayout());
         pnCenter.setBackground(Color.WHITE);
 
+        lblName = new JLabel("", SwingConstants.RIGHT);
+
         // Build table of worksheets
         tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Date", "Difficulty",
@@ -57,10 +55,6 @@ public class TeacherStudentHistory extends JPanel {
         sheetsTable.setFillsViewportHeight(true);
         sheetsTable.getTableHeader().setFont(new Font("Calibri",Font.PLAIN,
                 18));
-
-        // Populate the table with the student's worksheets
-        sheets = student.getHistory();
-        populateTable();
 
         tableScroll = new JScrollPane(sheetsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -89,7 +83,7 @@ public class TeacherStudentHistory extends JPanel {
         this.add(pnButtons, BorderLayout.SOUTH);
     }
 
-    public void populateTable() {
+    private void populateTable() {
         // Remove all rows first
         for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
             tableModel.removeRow(i);
@@ -108,6 +102,8 @@ public class TeacherStudentHistory extends JPanel {
         this.student = student;
         this.lblName.setText(student.getFirstName() + " " + student
                 .getLastName());
+        this.sheets = student.getHistory();
+        populateTable();
     }
 
     private class PrintListener implements ActionListener {

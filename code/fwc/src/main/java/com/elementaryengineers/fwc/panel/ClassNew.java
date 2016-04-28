@@ -61,13 +61,11 @@ public class ClassNew extends JPanel {
 
                 Classroom newClass = new Classroom(txtClassName.getText());
 
-                // If adding new teacher to database works
+                // If adding new class to database works
                 if (FWCConfigurator.getDbConn().createClassroom(newClass)) {
 
                     // Add class to teacher's list of classes
                     FWCConfigurator.getTeacher().getClasses().add(newClass);
-
-                    // Clear fields in teacher registration form
                     clearFields();
 
                     JOptionPane.showMessageDialog(null,
@@ -92,7 +90,7 @@ public class ClassNew extends JPanel {
         add(pnSouth, BorderLayout.SOUTH);
     }
 
-    private void clearFields() {
+    public void clearFields() {
         txtClassName.setText("");
     }
 }

@@ -4,11 +4,14 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Student;
+import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -191,7 +194,44 @@ public class StudentRegistration extends JPanel{
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
+
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (verifyRegistration()) {
+                    Student newStudent = getNewStudent();
+
+                    // If adding new student to database works
+                    if (FWCConfigurator.getDbConn().createStudent(newStudent)) {
+
+                        // Add student to teacher's list of students
+                        FWCConfigurator.getTeacher().getClasses()
+                                .stream().filter(classroom ->
+                                classroom.getClassID() == newStudent
+                                        .getClassroom().getClassID()).collect
+                                (Collectors.toList()).get(0).getStudents().add
+                                (newStudent);
+
+                        // Clear fields in student registration form
+                        clearFields();
+
+                        JOptionPane.showMessageDialog(null,
+                                "Teacher was successfully registered.",
+                                "Teacher Registration Successful",
+                                JOptionPane.PLAIN_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,
+                                "Teacher could not be registered "
+                                        + "in the database. Please try again.",
+                                "Teacher Registration Failed",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
         pnSouth.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
@@ -200,7 +240,7 @@ public class StudentRegistration extends JPanel{
         add(pnSouth, BorderLayout.SOUTH);
     }
 
-    public boolean verifyRegistration() {
+    private boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
                 txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("")) {
@@ -228,13 +268,19 @@ public class StudentRegistration extends JPanel{
         return true;
     }
 
-    public Student getNewStudent() {
+    private Student getNewStudent() {
         return new Student(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
                 String.valueOf(txtPass.getPassword()), cbDifficulty.getSelectedIndex(),
                 FWCConfigurator.getTeacher().getClasses().get(cbClassName.getSelectedIndex()));
     }
 
-    public void setSubmitListener(ActionListener submitListener) {
-        btnSubmit.addActionListener(submitListener);
+    public void clearFields() {
+        txtFirst.setText("");
+        txtLast.setText("");
+        txtUser.setText("");
+        txtPass.setText("");
+        txtConfirm.setText("");
+        cbClassName.setSelectedIndex(0);
+        cbDifficulty.setSelectedIndex(0);
     }
 }

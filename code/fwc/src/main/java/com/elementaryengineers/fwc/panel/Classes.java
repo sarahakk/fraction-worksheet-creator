@@ -136,6 +136,10 @@ public class Classes extends JPanel {
         }
     }
 
+    public int getSelectedClass() {
+        return classesTable.getSelectedRow();
+    }
+
     public void refresh() {
         populateTable(FWCConfigurator.getTeacher().getClasses());
     }
@@ -154,9 +158,5 @@ public class Classes extends JPanel {
 
     public void setNewStudentListener(ActionListener newStudentListener) {
         btnNewStudent.addActionListener(newStudentListener);
-    }
-
-    public int getSelectedClass() {
-        return classesTable.getSelectedRow();
     }
 }

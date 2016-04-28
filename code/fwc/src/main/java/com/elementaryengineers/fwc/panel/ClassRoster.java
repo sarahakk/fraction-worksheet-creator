@@ -29,11 +29,11 @@ public class ClassRoster extends JPanel {
     private JTable studentsTable;
     private JScrollPane tableScroll;
     private Classroom classroom;
+    private int classIndex;
 
-    public ClassRoster(Classroom classroom) {
+    public ClassRoster() {
         super(new BorderLayout());
         setBackground(Color.WHITE);
-        this.classroom  = classroom;
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -98,8 +98,7 @@ public class ClassRoster extends JPanel {
         pnButtons.add(btnHistory);
 
         // Create class name label
-        lblName = new JLabel("Class: " + classroom.getClassName(),
-                SwingConstants.CENTER);
+        lblName = new JLabel("", SwingConstants.CENTER);
 
         pnTools.add(pnButtons, BorderLayout.WEST);
         pnTools.add(lblName, BorderLayout.CENTER);
@@ -128,7 +127,7 @@ public class ClassRoster extends JPanel {
         this.add(pnCenter, BorderLayout.CENTER);
     }
 
-    public void populateTable(ArrayList<Student> students) {
+    private void populateTable(ArrayList<Student> students) {
         // Remove all rows first
         for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
             tableModel.removeRow(i);
@@ -142,10 +141,20 @@ public class ClassRoster extends JPanel {
         }
     }
 
-    public void refresh(Classroom classroom) {
-        this.classroom  = classroom;
-        this.lblName.setText("Class: " + classroom.getClassName());
+    public void setClassIndex(int classIndex) {
+        this.classIndex = classIndex;
+        this.classroom = FWCConfigurator.getTeacher().getClasses()
+                .get(classIndex);
+        lblName.setText("Class: " + classroom.getClassName());
         populateTable(classroom.getStudents());
+    }
+
+    public int getClassIndex() {
+        return classIndex;
+    }
+
+    public int getSelectedStudent() {
+        return studentsTable.getSelectedRow();
     }
 
     public void setBackListener(ActionListener backListener) {
@@ -158,9 +167,5 @@ public class ClassRoster extends JPanel {
 
     public void setHistoryListener(ActionListener historyListener) {
         btnHistory.addActionListener(historyListener);
-    }
-
-    public int getSelectedStudent() {
-        return studentsTable.getSelectedRow();
     }
 }
