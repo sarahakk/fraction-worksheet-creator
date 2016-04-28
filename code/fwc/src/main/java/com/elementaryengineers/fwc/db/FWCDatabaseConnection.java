@@ -19,13 +19,12 @@ package com.elementaryengineers.fwc.db;
  * to quite advanced fraction equations. 
  * ****************************************************************************
  */
+
 import com.elementaryengineers.fwc.model.*;
 
 import javax.swing.*;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FWCDatabaseConnection implements DatabaseConnection {
 

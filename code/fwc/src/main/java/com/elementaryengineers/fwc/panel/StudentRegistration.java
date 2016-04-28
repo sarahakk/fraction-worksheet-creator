@@ -21,14 +21,12 @@ import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Classroom;
 import com.elementaryengineers.fwc.model.Student;
-import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -232,7 +230,7 @@ public class StudentRegistration extends JPanel{
                         JOptionPane.showMessageDialog(null,
                                 "Student was successfully registered.",
                                 "Student Registration Successful",
-                                JOptionPane.PLAIN_MESSAGE);
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     else {
                         JOptionPane.showMessageDialog(null,

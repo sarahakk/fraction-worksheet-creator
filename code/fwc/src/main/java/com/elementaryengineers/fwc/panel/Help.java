@@ -17,7 +17,6 @@
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
-import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 
 import javax.imageio.ImageIO;

@@ -31,8 +31,9 @@ import java.net.URL;
  **/
 public class CommonHeader extends JPanel {
 
-    private JPanel pnButton;
+    private JPanel pnButton, pnTitle;
     private JLabel lblTitle;
+    private JLabel img1, img2;
     private ImageButton btnHelp, btnAccount, btnLogout, btnExit;
     private UserMenu menu;
 
@@ -41,10 +42,45 @@ public class CommonHeader extends JPanel {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         buildButtons();
+
+        pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnTitle.setBackground(Color.WHITE);
+
         buildTitleLabel();
 
+        img1 = new JLabel();
+        img1.setVisible(false);
+        img2 = new JLabel();
+        img2.setVisible(false);
+
+        try {
+            URL imgURL = CommonHeader.class.getClassLoader().getResource("images/" + FWCConfigurator.RAINBOW1_IMG);
+            BufferedImage imgBuff = ImageIO.read(imgURL);
+
+            if (imgURL != null) {
+                img1.setIcon(new ImageIcon(imgBuff.getScaledInstance(150, 135,
+                        Image.SCALE_SMOOTH)));
+            }
+
+            imgURL = CommonHeader.class.getClassLoader().getResource
+                    ("images/" + FWCConfigurator.RAINBOW2_IMG);
+            imgBuff = ImageIO.read(imgURL);
+
+            if (imgURL != null) {
+                img2.setIcon(new ImageIcon(imgBuff.getScaledInstance(150, 135,
+                        Image.SCALE_SMOOTH)));
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pnTitle.add(img1);
+        pnTitle.add(lblTitle);
+        pnTitle.add(img2);
+
         add(pnButton, BorderLayout.NORTH);
-        add(lblTitle, BorderLayout.CENTER);
+        add(pnTitle, BorderLayout.CENTER);
     }
 
     private void buildButtons() {
@@ -122,12 +158,16 @@ public class CommonHeader extends JPanel {
         btnAccount.setVisible(true);
         btnLogout.setVisible(true);
         btnExit.setVisible(false);
+        img1.setVisible(true);
+        img2.setVisible(true);
     }
 
     public void showButtonsLoggedOut() {
         btnAccount.setVisible(false);
         btnLogout.setVisible(false);
         btnExit.setVisible(true);
+        img1.setVisible(false);
+        img2.setVisible(false);
     }
 
     public void setAccountListener(ActionListener listener) {

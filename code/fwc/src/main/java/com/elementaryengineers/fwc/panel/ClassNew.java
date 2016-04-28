@@ -88,7 +88,7 @@ public class ClassNew extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Class was successfully created.",
                             "Class Created",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,

@@ -138,7 +138,7 @@ public class TeacherProfile extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Teacher was successfully updated.",
                             "Teacher Update Successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
@@ -163,7 +163,7 @@ public class TeacherProfile extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Teacher was successfully updated.",
                             "Teacher Update Successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,

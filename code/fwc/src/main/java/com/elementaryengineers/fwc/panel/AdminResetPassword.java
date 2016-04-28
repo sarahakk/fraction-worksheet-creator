@@ -254,7 +254,7 @@ public class AdminResetPassword extends JPanel {
             admin.resetPassword(String.valueOf(txtPass.getPassword()));
             FWCConfigurator.getDbConn().updateAdmin(admin);
             JOptionPane.showMessageDialog(null, "Your password has been successfully reset.", "Password Reset Successful",
-                    JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
             return true;
         }
         else {

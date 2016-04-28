@@ -323,7 +323,7 @@ public class Account extends JPanel {
                     }
                     else {
                         JOptionPane.showMessageDialog(null, "Your account information has been updated.",
-                                "Update Successful", JOptionPane.PLAIN_MESSAGE);
+                                "Update Successful", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     break;
@@ -361,7 +361,7 @@ public class Account extends JPanel {
                     }
                     else {
                         JOptionPane.showMessageDialog(null, "Your account information has been updated.",
-                                "Update Successful", JOptionPane.PLAIN_MESSAGE);
+                                "Update Successful", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     break;
@@ -399,7 +399,7 @@ public class Account extends JPanel {
                     }
                     else {
                         JOptionPane.showMessageDialog(null, "Your account information has been updated.",
-                                "Update Successful", JOptionPane.PLAIN_MESSAGE);
+                                "Update Successful", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     break;

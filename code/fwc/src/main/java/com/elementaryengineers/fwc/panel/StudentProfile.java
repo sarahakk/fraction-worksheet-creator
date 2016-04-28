@@ -21,7 +21,6 @@ import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Classroom;
 import com.elementaryengineers.fwc.model.Student;
-import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -214,7 +213,7 @@ public class StudentProfile extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Student was successfully updated.",
                             "Student Update Successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
@@ -243,7 +242,7 @@ public class StudentProfile extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Student was successfully updated.",
                             "Student Update Successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,

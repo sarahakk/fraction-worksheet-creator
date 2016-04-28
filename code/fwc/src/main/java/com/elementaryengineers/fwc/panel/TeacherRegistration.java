@@ -171,7 +171,7 @@ public class TeacherRegistration extends JPanel {
                         JOptionPane.showMessageDialog(null,
                                 "Teacher was successfully registered.",
                                 "Teacher Registration Successful",
-                                JOptionPane.PLAIN_MESSAGE);
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     else {
                         JOptionPane.showMessageDialog(null,

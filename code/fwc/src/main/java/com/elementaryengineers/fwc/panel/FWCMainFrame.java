@@ -16,22 +16,16 @@
 
 package com.elementaryengineers.fwc.panel;
 
-import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.db.FWCDatabaseConnection;
 import com.elementaryengineers.fwc.model.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * TODO
@@ -253,7 +247,7 @@ public class FWCMainFrame extends JFrame {
                                                             "was sent to the" +
                                                             " administrator.",
                                                     "Request Sent",
-                                                    JOptionPane.PLAIN_MESSAGE);
+                                                    JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null,
@@ -284,7 +278,7 @@ public class FWCMainFrame extends JFrame {
                                                              "was sent to " +
                                                              "your teacher.",
                                                      "Request Sent",
-                                                    JOptionPane.PLAIN_MESSAGE);
+                                                    JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null,
@@ -391,7 +385,7 @@ public class FWCMainFrame extends JFrame {
                                     
                                    "Administrator was successfully registered.",
                                    "Administrator Registration Successful",
-                                    JOptionPane.PLAIN_MESSAGE);
+                                    JOptionPane.INFORMATION_MESSAGE);
 
                             // Switch to login page
                             cardLayout.show(pnCard, "Login");
@@ -577,7 +571,7 @@ public class FWCMainFrame extends JFrame {
                             JOptionPane.showMessageDialog(null,
                                     "Class was successfully deleted.",
                                     "Class Delete Successful",
-                                    JOptionPane.PLAIN_MESSAGE);
+                                    JOptionPane.INFORMATION_MESSAGE);
 
                             // Refresh list of classes on classes page
                             teacherClasses.refresh();
@@ -693,7 +687,7 @@ public class FWCMainFrame extends JFrame {
                             JOptionPane.showMessageDialog(null,
                                     "Student was successfully deleted.",
                                     "Student Delete Successful",
-                                    JOptionPane.PLAIN_MESSAGE);
+                                    JOptionPane.INFORMATION_MESSAGE);
 
                             // Refresh list of students on class roster page
                             teacherClassRoster.setClassIndex(cIndex);
@@ -880,7 +874,7 @@ public class FWCMainFrame extends JFrame {
                             JOptionPane.showMessageDialog(null,
                             "Teacher was successfully deleted.",
                             "Teacher Delete Successful",
-                            JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE);
 
                             // Refresh list of teachers on home page
                             adminHome.refresh();
