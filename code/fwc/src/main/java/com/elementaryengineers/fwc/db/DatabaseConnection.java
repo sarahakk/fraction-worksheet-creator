@@ -23,6 +23,13 @@ import java.util.ArrayList;
 public interface DatabaseConnection {
 
     /**
+     * Connect to the local MySQL server and execute "USE our_db_name"
+     * so that queries we run later run on our database.
+     * @return
+     */
+    public boolean connect() throws ClassNotFoundException, SQLException;
+
+    /**
      * Create the database from scratch. Do this before connecting,
      * and if the database already exists, the "CREATE DATABASE" SQL
      * statement, when executed, should throw an SQLException. If it
@@ -30,14 +37,7 @@ public interface DatabaseConnection {
      * If it doesn't, the method should create all the tables we need
      * in the database.
      */
-    public void createDatabase();
-
-    /**
-     * Connect to the local MySQL server and execute "USE our_db_name"
-     * so that queries we run later run on our database.
-     * @return
-     */
-    public boolean connect() throws ClassNotFoundException, SQLException;
+    public void createDatabase() throws SQLException;
 
     /**
      * This should also figure out if the user is a teacher/student/admin,

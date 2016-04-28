@@ -7,6 +7,7 @@ package com.elementaryengineers.fwc.db;
 
 import com.elementaryengineers.fwc.model.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,44 +18,53 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 	protected Connection conn;
 	protected Statement stmt;
 	final String USER = "root";
-	final String PASS = "ETHAN";
-	final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	final String PASS = "localMYSQLpassw0rd"; //"ETHAN";
 	final String DB_URL = "jdbc:mysql://localhost/";
 
 	public FWCDatabaseConnection()  {
-		boolean Initialize = false;
+		boolean initialize = false;
 
         try {
-			Initialize = connect();
-
-			//stmt = conn.createStatement();
-			//createDatabase();
-			//String sql = "Use FWC_Creator";
-			//stmt.execute(sql);
+			initialize = connect();
 		}
-        catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-		}
+        catch(SQLException se) {
+            displayErrorPopup("Could not connect to the database at " + DB_URL);
+        }
+        catch(ClassNotFoundException cnfe) {
+            displayErrorPopup("Could not register the JDBC driver.");
+        }
 
-        System.out.println( Initialize ? "new Database Initialized." : "Using preexisting database");
+        System.out.println(initialize ? "New database initialized." : "Using" +
+				" preexisting database.");
 	}
 
-   	/* public User getUser(String username) {
-        // DUMMY DATA --- this is just a placeholder to be able to login to the FWC!
-        /*
-        return new Teacher(0, "shakkoum", "Sara", "Hakkoum",
-                "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC", // password salt
-                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", // password hash
-                new ArrayList<Classroom>(), new ArrayList<Worksheet>(), false);
+    /**
+     * Connect to the local MySQL server and execute "USE our_db_name"
+     * so that queries we run later run on our database.
+     *
+     * @return
+     */
+    @Override
+    public boolean connect() throws ClassNotFoundException, SQLException {
+        boolean dintiliaze;
 
-        return new Admin(0, "admin", "Sara", "Hakkoum", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
-                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
-                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
-                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4", "C004EE0C55A1E4548FB211DC142BCC8A5C68E94D7FF615AC",
-                "3F9073CF53B93A066DE125757A647BE7F2DDABCA05B12CF4");
-        return null;
+        Class.forName("com.mysql.jdbc.Driver");
+        System.out.println("Connecting to database...");
+        conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        stmt = conn.createStatement();
+
+        try {
+            createDatabase();
+            dintiliaze = true;
+        }
+        catch (SQLException e) {
+            dintiliaze = false;
+            String sql = "USE FWC_Creator";
+            stmt.execute(sql);
+        }
+
+        return dintiliaze;
     }
-    */
 
 	/**
 	 * Create the database from scratch. Do this before connecting,
@@ -65,71 +75,143 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 	 * in the database.
 	 */
 	@Override
-	public void createDatabase() {
-		try {
-			String NewInput = null;
+	public void createDatabase() throws SQLException {
+        String sql = "CREATE DATABASE FWC_Creator";
+        stmt.execute(sql);
 
-			File filen = new File("/Users/Fiero/Documents/SoftwareEngineering/file");
-			Scanner File = new Scanner("filen");
-			while (File.hasNext()) {
-				String Input = File.nextLine();
-				if (Input.equals(" ")) {
-					stmt.execute(Input);
-				} else {
-					NewInput += (Input);
-				}
-				if (NewInput.equals(" ")) {
-					stmt.execute(NewInput);
-				}
+        sql = "USE FWC_Creator";
+        stmt.execute(sql);
 
-			}
-		} catch (SQLException se) {
-			//Handle errors for JDBC
-			se.printStackTrace();
-		} catch (Exception e) {
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			//finally block used to close resources
-			try {
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException se2) {
-			}// nothing we can do
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}//end finally try
-		}//end try
-	}//end main
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`User` (" +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`FirstName` VARCHAR(50) NOT NULL," +
+                "`LastName` VARCHAR(50) NOT NULL," +
+                "`PasswordSalt` VARCHAR(50) NOT NULL," +
+                "`PasswordHash` VARCHAR(50) NOT NULL," +
+                "PRIMARY KEY (`Username`));";
+        stmt.execute(sql);
 
-	/**
-	 * Connect to the local MySQL server and execute "USE our_db_name"
-	 * so that queries we run later run on our database.
-	 *
-	 * @return
-	 */
-	@Override
-	public boolean connect() throws ClassNotFoundException, SQLException {
-			boolean dintiliaze;
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Teacher` (" +
+                "`TeacherID` INT NOT NULL AUTO_INCREMENT," +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`MinNumerator` INT NULL," +
+                "`MaxNumerator` INT NULL," +
+                "`MinDenominator` INT NULL," +
+                "`MaxDenominator` INT NULL," +
+                "`ResetPassword` TINYINT(1) NOT NULL," +
+                "PRIMARY KEY (`TeacherID`)," +
+                "INDEX `TeacherUsername_idx` (`Username` ASC)," +
+                "CONSTRAINT `TeacherUsername`" +
+                "FOREIGN KEY (`Username`)" +
+                "REFERENCES `FWC_Creator`.`User` (`Username`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION);";
+        stmt.execute(sql);
 
-			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			stmt = conn.createStatement();
-			try {
-				createDatabase();
-				dintiliaze = true;
-			} catch (Exception e) {
-				dintiliaze = false;
-				//Handle errors for Class.forName
-				e.printStackTrace();
-			}
-			//finally block used to close resources
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Class` (" +
+                "`ClassID` INT NOT NULL AUTO_INCREMENT," +
+                "`TeacherID` INT NOT NULL," +
+                "`ClassName` VARCHAR(50) NOT NULL," +
+                "PRIMARY KEY (`ClassID`)," +
+                "INDEX `Teacher_idx` (`TeacherID` ASC)," +
+                "CONSTRAINT `Teacher`" +
+                "FOREIGN KEY (`TeacherID`)" +
+                "REFERENCES `FWC_Creator`.`Teacher` (`TeacherID`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION);";
+        stmt.execute(sql);
 
-		return dintiliaze;
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Student` (" +
+                "`StudentID` INT NOT NULL AUTO_INCREMENT," +
+                "`Class` INT NOT NULL," +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`DifficultyLevel` INT NULL," +
+                "`ResetPassword` TINYINT(1) NOT NULL," +
+                "PRIMARY KEY (`StudentID`)," +
+                "INDEX `StudentUsername_idx` (`Username` ASC)," +
+                "INDEX `DifficultyID_idx` (`DifficultyLevel` ASC)," +
+                "INDEX `ClassID_idx` (`Class` ASC)," +
+                "CONSTRAINT `StudentUsername`" +
+                "FOREIGN KEY (`Username`)" +
+                "REFERENCES `FWC_Creator`.`User` (`Username`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION," +
+                "CONSTRAINT `DifficultyID`" +
+                "FOREIGN KEY (`DifficultyLevel`)" +
+                "REFERENCES `FWC_Creator`.`Difficulty` (`DifficultyID`)" +
+                "ON DELETE SET NULL" +
+                "ON UPDATE CASCADE," +
+                "CONSTRAINT `ClassID`" +
+                "FOREIGN KEY (`Class`)" +
+                "REFERENCES `FWC_Creator`.`Class` (`ClassID`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION);";
+        stmt.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Administrator` (" +
+                "`AdminID` INT NOT NULL AUTO_INCREMENT," +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`SQ_SSNSalt` VARCHAR(50) NOT NULL," +
+                "`SQ_BirthdateSalt` VARCHAR(50) NOT NULL," +
+                "`SQ_FirstJobSalt` VARCHAR(50) NOT NULL," +
+                "`SQ_SSNHash` VARCHAR(50) NOT NULL," +
+                "`SQ_BirthdateHash` VARCHAR(50) NOT NULL," +
+                "`SQ_FirstJobHash` VARCHAR(50) NOT NULL," +
+                "PRIMARY KEY (`AdminID`)," +
+                "INDEX `Username_idx` (`Username` ASC)," +
+                "CONSTRAINT `Username`" +
+                "FOREIGN KEY (`Username`)" +
+                "REFERENCES `FWC_Creator`.`User` (`Username`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE CASCADE);";
+        stmt.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Worksheet` (" +
+                "`WorksheetID` INT NOT NULL AUTO_INCREMENT," +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`Seed` INT NOT NULL," +
+                "`DateCreated` DATE NOT NULL," +
+                "`DifficultyID` INT NULL," +
+                "`Exercise` VARCHAR(50) NOT NULL," +
+                "PRIMARY KEY (`WorksheetID`)," +
+                "INDEX `Creator_idx` (`Username` ASC)," +
+                "INDEX `DifficultyID_idx` (`DifficultyID` ASC)," +
+                "CONSTRAINT `Creator`" +
+                "FOREIGN KEY (`Username`)" +
+                "REFERENCES `FWC_Creator`.`User` (`Username`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION," +
+                "CONSTRAINT `DifficultyID`" +
+                "FOREIGN KEY (`DifficultyID`)" +
+                "REFERENCES `FWC_Creator`.`Difficulty` (`DifficultyID`)" +
+                "ON DELETE SET NULL" +
+                "ON UPDATE CASCADE);";
+        stmt.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS `FWC_Creator`.`Worksheet` (" +
+                "`WorksheetID` INT NOT NULL AUTO_INCREMENT," +
+                "`Username` VARCHAR(50) NOT NULL," +
+                "`Seed` INT NOT NULL," +
+                "`DateCreated` DATE NOT NULL," +
+                "`DifficultyID` INT NULL," +
+                "`Exercise` VARCHAR(50) NOT NULL," +
+                "PRIMARY KEY (`WorksheetID`)," +
+                "INDEX `Creator_idx` (`Username` ASC)," +
+                "INDEX `DifficultyID_idx` (`DifficultyID` ASC)," +
+                "CONSTRAINT `Creator`" +
+                "FOREIGN KEY (`Username`)" +
+                "REFERENCES `FWC_Creator`.`User` (`Username`)" +
+                "ON DELETE CASCADE" +
+                "ON UPDATE NO ACTION," +
+                "CONSTRAINT `DifficultyID`" +
+                "FOREIGN KEY (`DifficultyID`)" +
+                "REFERENCES `FWC_Creator`.`Difficulty` (`DifficultyID`)" +
+                "ON DELETE SET NULL" +
+                "ON UPDATE CASCADE);";
+        stmt.execute(sql);
+
+        DatabasePopulator populator = new DatabasePopulator(this);
+        populator.populateDatabase();
 	}
 
 	/**
@@ -962,22 +1044,24 @@ public class FWCDatabaseConnection implements DatabaseConnection {
      * This method should display a GUI pop-up when a database-specific error
      * occurs, because the rest of the GUI won't know about it.
      * Use javax.swing.JOptionPane! That's Java's GUI pop-up class.
-     * Example: JOptionPane.showMessageDialog(null, "Please check your username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
      * @param message
      */
     @Override
     public void displayErrorPopup(String message) {
-
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+        System.exit(0);
     }
 
     /**
-     * This method should close the database connection.
+     * This closes the database connection.
      */
     @Override
     public void closeConnection() {
 		try {
-	    	conn.close();
-		    stmt.close();
+            if(stmt != null)
+                stmt.close();
+            if(conn != null)
+                conn.close();
 	    } catch (SQLException e) {
 		    e.printStackTrace();
 	    }

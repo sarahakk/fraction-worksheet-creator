@@ -3,6 +3,8 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Classroom;
+import com.elementaryengineers.fwc.model.Page;
 import com.elementaryengineers.fwc.model.Worksheet;
 
 import javax.swing.*;
@@ -144,27 +146,33 @@ public class TeacherHistory extends JPanel {
 
             // Check if selected a worksheet
             if (index > 0) {
-                // Check database update status
-                if (FWCConfigurator.getDbConn().deleteWorksheet
-                (sheets.get(index).getWorksheetID())) {
-                    sheets.remove(index); // Remove from student history
-                    populateTable(); // Refresh table of worksheets
-                    JOptionPane.showMessageDialog(null,
-                            "Worksheet has been deleted successfully!",
-                            "Delete Worksheet Successful", 
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, 
-                    "Worksheet could not be deleted! Please try again later.",
-                    "Delete Worksheet Failed", 
-                            JOptionPane.INFORMATION_MESSAGE);
+                int confirm = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to delete this worksheet?",
+                        "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    // Check database update status
+                    if (FWCConfigurator.getDbConn().deleteWorksheet
+                            (sheets.get(index).getWorksheetID())) {
+                        sheets.remove(index); // Remove from student history
+                        populateTable(); // Refresh table of worksheets
+                        JOptionPane.showMessageDialog(null,
+                                "Worksheet has been deleted successfully!",
+                                "Delete Worksheet Successful",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,
+                                "Worksheet could not be deleted! Please try again later.",
+                                "Delete Worksheet Failed",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
             else { // No worksheet is selected from the table
-                JOptionPane.showMessageDialog(null, 
+                JOptionPane.showMessageDialog(null,
                         "Please select a worksheet from the table first.",
-                        "Delete Worksheet Error", 
+                        "Delete Worksheet Error",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
