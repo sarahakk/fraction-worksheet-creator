@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class Classes extends JPanel {
 
-    private JPanel pnNorth, pnCenter, pnTools, pnSearch, pnButtons;
+    private JPanel pnNorth, pnCenter, pnSearch, pnButtons;
     private TitleLabel lblTitle;
     private JLabel lblSearch;
     private JTextField txtSearch;
@@ -47,11 +47,9 @@ public class Classes extends JPanel {
         pnCenter.setBackground(Color.WHITE);
 
         // Build buttons and search
-        pnTools = new JPanel(new BorderLayout());
-        pnTools.setBackground(Color.WHITE);
-
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnSearch.setBackground(Color.WHITE);
+        pnSearch.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
 
         lblSearch = new JLabel("Search: ");
         lblSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -84,8 +82,9 @@ public class Classes extends JPanel {
         pnSearch.add(lblSearch);
         pnSearch.add(txtSearch);
 
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
 
         // Create buttons
         btnEdit = new ImageButton("Edit Class",
@@ -101,9 +100,6 @@ public class Classes extends JPanel {
         pnButtons.add(btnRoster);
         pnButtons.add(btnNewClass);
         pnButtons.add(btnNewStudent);
-
-        pnTools.add(pnButtons, BorderLayout.WEST);
-        pnTools.add(pnSearch, BorderLayout.EAST);
 
         // Build table of classes
         tableModel = new DisabledTableModel();
@@ -127,8 +123,9 @@ public class Classes extends JPanel {
                 new EmptyBorder(10, 100, 10, 100),
                 new LineBorder(Color.black, 1)));
 
-        pnCenter.add(pnTools, BorderLayout.NORTH);
+        pnCenter.add(pnSearch, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
+        pnCenter.add(pnButtons, BorderLayout.SOUTH);
 
         this.add(pnNorth, BorderLayout.NORTH);
         this.add(pnCenter, BorderLayout.CENTER);

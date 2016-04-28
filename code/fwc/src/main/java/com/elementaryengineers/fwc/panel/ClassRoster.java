@@ -52,6 +52,7 @@ public class ClassRoster extends JPanel {
         // Build buttons and search
         pnTools = new JPanel(new BorderLayout());
         pnTools.setBackground(Color.WHITE);
+        pnTools.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
 
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnSearch.setBackground(Color.WHITE);
@@ -86,8 +87,9 @@ public class ClassRoster extends JPanel {
         pnSearch.add(lblSearch);
         pnSearch.add(txtSearch);
 
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
 
         // Create buttons
         btnBack = new ImageButton("Back",
@@ -103,9 +105,9 @@ public class ClassRoster extends JPanel {
 
         // Create class name label
         lblName = new JLabel("", SwingConstants.CENTER);
+        lblName.setFont(new Font("Calibri", Font.PLAIN, 18));
 
-        pnTools.add(pnButtons, BorderLayout.WEST);
-        pnTools.add(lblName, BorderLayout.CENTER);
+        pnTools.add(lblName, BorderLayout.WEST);
         pnTools.add(pnSearch, BorderLayout.EAST);
 
         // Build table of classes
@@ -133,6 +135,7 @@ public class ClassRoster extends JPanel {
 
         this.add(pnNorth, BorderLayout.NORTH);
         this.add(pnCenter, BorderLayout.CENTER);
+        this.add(pnButtons, BorderLayout.SOUTH);
     }
 
     private void populateTable(ArrayList<Student> students) {

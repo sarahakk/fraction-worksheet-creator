@@ -54,7 +54,7 @@ public class StudentProfile extends JPanel {
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
         pnFieldsLeft.setBackground(Color.WHITE);
-        pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 0));
+        pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 0));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
 
@@ -124,7 +124,8 @@ public class StudentProfile extends JPanel {
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
         pnFieldsRight.setBackground(Color.WHITE);
-        pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10, 30));
+        pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10,
+                150));
         GridBagConstraints cRight = new GridBagConstraints();
         cRight.ipady = 5;
 
@@ -158,6 +159,7 @@ public class StudentProfile extends JPanel {
         // Build buttons and south panel
         pnSouth = new JPanel(new BorderLayout());
         pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 
         btnSubmit = new ImageButton("Submit Changes", FWCConfigurator
                 .SUBMIT_IMG,

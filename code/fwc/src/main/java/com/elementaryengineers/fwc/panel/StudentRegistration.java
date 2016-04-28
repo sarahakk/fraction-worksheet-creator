@@ -59,7 +59,7 @@ public class StudentRegistration extends JPanel{
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
         pnFieldsLeft.setBackground(Color.WHITE);
-        pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 0));
+        pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 0));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
 
@@ -161,7 +161,8 @@ public class StudentRegistration extends JPanel{
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
         pnFieldsRight.setBackground(Color.WHITE);
-        pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10, 30));
+        pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10,
+                150));
         GridBagConstraints cRight = new GridBagConstraints();
         cRight.ipady = 5;
 
@@ -195,6 +196,7 @@ public class StudentRegistration extends JPanel{
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {

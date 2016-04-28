@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class ClassNew extends JPanel {
     
-    private JPanel pnNorth,pnSouth, pnFields;
+    private JPanel pnNorth, pnSouth, pnFields;
     private TitleLabel lblTitle;
     private JLabel lblClassName;
     private JTextField txtClassName;
@@ -37,6 +37,7 @@ public class ClassNew extends JPanel {
         lblClassName = new JLabel("New class name:");
         lblClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtClassName = new JTextField(24);
+        txtClassName.setColumns(10);
 
         pnFields = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnFields.setBackground(Color.WHITE);
@@ -83,11 +84,10 @@ public class ClassNew extends JPanel {
             }
         });
 
-        pnSouth.add(btnSubmit);
+        pnFields.add(btnSubmit);
 
         add(pnNorth, BorderLayout.NORTH);
         add(pnFields, BorderLayout.CENTER);
-        add(pnSouth, BorderLayout.SOUTH);
     }
 
     public void clearFields() {

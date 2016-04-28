@@ -61,14 +61,15 @@ public class AdminManagePasswords extends JPanel {
         tableScroll = new JScrollPane(teachersTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScroll.setBorder(BorderFactory.createCompoundBorder(
-                new EmptyBorder(10, 100, 10, 100),
+                new EmptyBorder(10, 200, 10, 200),
                 new LineBorder(Color.black, 1)));
 
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         btnReset = new ImageButton("Reset Selected", FWCConfigurator.RESET_SELECTED_IMG, 150, 50);
         btnReset.addActionListener(new ResetListener());
         btnResetAll = new ImageButton("Reset All", FWCConfigurator.RESET_ALL_IMG, 150, 50);

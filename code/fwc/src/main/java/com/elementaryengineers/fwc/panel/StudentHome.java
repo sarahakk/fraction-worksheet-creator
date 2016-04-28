@@ -20,7 +20,7 @@ import java.io.IOException;
 public class StudentHome extends JPanel {
 
     private CardLayout cardLayout;
-    private JPanel pnNorth, pnDiff, pnBeg, pnInt, pnAdv, pnBegButtons, pnIntButtons, pnAdvButtons, pnCard;
+    private JPanel pnNorth, pnDiff, pnBeg, pnInt, pnAdv, pnCard;
     private JLabel lblTitle;
     private ImageButton btnBeg, btnInt, btnAdv, // Difficulty buttons
             btnBeg1, btnBeg2, btnBeg3, // Worksheet buttons
@@ -147,6 +147,9 @@ public class StudentHome extends JPanel {
                 cardLayout.show(pnCard, "Advanced");
             }
         }
+
+        pnDiff.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        pnCard.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 
         // Add north and center panel to TeacherHome
         this.add(pnNorth, BorderLayout.NORTH);

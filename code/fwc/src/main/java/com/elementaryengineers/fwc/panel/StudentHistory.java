@@ -70,6 +70,7 @@ public class StudentHistory extends JPanel {
         // Build south panel
         pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
 
         btnPrint = new ImageButton("Print Selected", FWCConfigurator.PRINT_SELECTED_IMG, 150, 50);
         btnPrint.addActionListener(new PrintListener());

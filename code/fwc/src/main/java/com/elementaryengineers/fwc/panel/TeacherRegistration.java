@@ -53,7 +53,7 @@ public class TeacherRegistration extends JPanel {
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
         pnFields.setBackground(Color.WHITE);
-        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
+        pnFields.setBorder(BorderFactory.createEmptyBorder(10, 200, 20, 200));
         GridBagConstraints c = new GridBagConstraints();
         c.ipady = 5;
 
@@ -135,6 +135,7 @@ public class TeacherRegistration extends JPanel {
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {
             @Override

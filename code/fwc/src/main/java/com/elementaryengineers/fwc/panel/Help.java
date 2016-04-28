@@ -21,6 +21,7 @@ public class Help extends JFrame {
     private JPanel pnTitle, pnClose;
     private JLabel lblTitle, lblHelp;
     private JTextArea helpText;
+    private JScrollPane scrollPane;
     private ImageButton btnClose;
     private static final int width = 400, height = 350;
 
@@ -70,10 +71,11 @@ public class Help extends JFrame {
                 dispose();
             }
         });
+
         pnClose.add(btnClose);
 
         this.add(pnTitle, BorderLayout.NORTH);
-        this.add(helpText, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
         this.add(pnClose, BorderLayout.SOUTH);
 
         setSize(width, height);
@@ -250,6 +252,10 @@ public class Help extends JFrame {
                         "or delete them from your history if you don't need them anymore.");
                 break;
         }
+
+        scrollPane = new JScrollPane(helpText, JScrollPane
+                .VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         lblTitle.setBackground(Color.WHITE);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));

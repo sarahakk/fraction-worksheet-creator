@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  */
 public class ClassEdit extends JPanel{
     
-    private JPanel pnNorth, pnFields;
+    private JPanel pnNorth, pnFields, pnTxt;
     private TitleLabel lblTitle;
     private JLabel lblClassName;
     private JTextField txtClassName;
@@ -39,25 +39,27 @@ public class ClassEdit extends JPanel{
         lblClassName = new JLabel("Class name:", SwingConstants.RIGHT);
         lblClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtClassName = new JTextField(24);
+        txtClassName.setColumns(10);
 
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
         pnFields.setBackground(Color.WHITE);
         pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
+
+        pnTxt = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnTxt.setBackground(Color.WHITE);
+        pnTxt.add(lblClassName);
+        pnTxt.add(txtClassName);
+
         GridBagConstraints c = new GridBagConstraints();
         c.ipady = 5;
 
         // Class Name
-        c.anchor = GridBagConstraints.EAST;
-        pnFields.add(lblClassName, c);
-
-        c.gridx = 1;
-        c.insets = new Insets(0, 10, 0, 0);
-        c.anchor = GridBagConstraints.CENTER;
         c.weightx = 1;
+        c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
-        pnFields.add(txtClassName, c);
-    
+        pnFields.add(pnTxt, c);
+
         // Build buttons
         btnSubmit = new ImageButton("Submit", 
                 FWCConfigurator.SUBMIT_IMG, 150, 50);

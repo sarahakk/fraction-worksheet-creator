@@ -46,8 +46,11 @@ public class TeacherStudentHistory extends JPanel {
         // Build center panel
         pnCenter = new JPanel(new BorderLayout());
         pnCenter.setBackground(Color.WHITE);
+        pnCenter.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
 
         lblName = new JLabel("", SwingConstants.RIGHT);
+        lblName.setFont(new Font("Calibri", Font.BOLD, 20));
+        lblName.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         // Build table of worksheets
         tableModel = new DisabledTableModel();
@@ -65,16 +68,14 @@ public class TeacherStudentHistory extends JPanel {
         tableScroll = new JScrollPane(sheetsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        tableScroll.setBorder(BorderFactory.createCompoundBorder(
-                new EmptyBorder(10, 100, 10, 100),
-                new LineBorder(Color.black, 1)));
 
         pnCenter.add(lblName, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         btnPrint = new ImageButton("Print Selected",
                 FWCConfigurator.PRINT_SELECTED_IMG, 150, 50);

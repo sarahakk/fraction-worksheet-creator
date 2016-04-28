@@ -102,8 +102,9 @@ public class AdminHome extends JPanel {
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
-        pnProfile = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnProfile = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnProfile.setBackground(Color.WHITE);
+        pnProfile.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         btnProfile = new ImageButton("View Profile", 
                 FWCConfigurator.PROFILE_IMG, 150, 50);
         pnProfile.add(btnProfile);

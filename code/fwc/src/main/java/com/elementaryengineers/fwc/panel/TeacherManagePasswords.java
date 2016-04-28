@@ -68,8 +68,9 @@ public class TeacherManagePasswords extends JPanel {
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
         btnReset = new ImageButton("Reset Selected", FWCConfigurator.RESET_SELECTED_IMG, 150, 50);
         btnReset.addActionListener(new ResetListener());
         btnResetAll = new ImageButton("Reset All", FWCConfigurator.RESET_ALL_IMG, 150, 50);

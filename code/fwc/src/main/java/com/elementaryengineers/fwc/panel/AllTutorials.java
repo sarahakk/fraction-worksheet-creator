@@ -34,7 +34,7 @@ public class AllTutorials extends JPanel {
         // Build buttons and center panel
         pnButtons = new JPanel(new GridBagLayout());
         pnButtons.setBackground(Color.WHITE);
-        pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 15, 0));
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 25, 0));
         GridBagConstraints c = new GridBagConstraints();
 
         // Make beginner buttons

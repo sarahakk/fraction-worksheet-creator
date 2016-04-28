@@ -73,8 +73,9 @@ public class TeacherHistory extends JPanel {
                 new LineBorder(Color.black, 1)));
 
         // Build south panel
-        pnButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
 
         btnPrint = new ImageButton("Print Selected", 
                 FWCConfigurator.PRINT_SELECTED_IMG, 150, 50);
