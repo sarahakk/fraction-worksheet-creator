@@ -297,7 +297,20 @@ public class StudentRegistration extends JPanel{
         txtUser.setText("");
         txtPass.setText("");
         txtConfirm.setText("");
-        cbClassName.setSelectedIndex(0);
-        cbDifficulty.setSelectedIndex(0);
+
+        ArrayList<String> classNames = new ArrayList<>(),
+                difficulties = new ArrayList<>();
+
+        FWCConfigurator.getTeacher().getClasses().stream()
+                .forEach(classroom -> classNames.add(classroom.getClassName()));
+
+        FWCConfigurator.getDifficulties().stream()
+                .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
+
+        cbClassName = new JComboBox(classNames.toArray());
+        cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
+
+        cbDifficulty = new JComboBox(difficulties.toArray());
+        cbDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
     }
 }

@@ -82,7 +82,7 @@ public class ClassNew extends JPanel {
                 if (FWCConfigurator.getDbConn().createClassroom(newClass)) {
 
                     // Add class to teacher's list of classes
-                    FWCConfigurator.getTeacher().getClasses().add(newClass);
+                    FWCConfigurator.getTeacher().getClasses();
                     clearFields();
 
                     JOptionPane.showMessageDialog(null,
