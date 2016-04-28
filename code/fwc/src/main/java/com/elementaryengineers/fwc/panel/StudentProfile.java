@@ -269,8 +269,8 @@ public class StudentProfile extends JPanel {
         txtFirst.setText(student.getFirstName());
         txtLast.setText(student.getLastName());
         txtUser.setText(student.getUsername());
-        cbClassName.setSelectedIndex(classIndex);
-        cbDifficulty.setSelectedIndex(student.getDifficultyID());
+        cbClassName.setSelectedIndex(classIndex + 1);
+        cbDifficulty.setSelectedIndex(student.getDifficultyID() + 1);
     }
 
     /**

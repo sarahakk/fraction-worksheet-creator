@@ -16,19 +16,40 @@ public class Worksheet {
     private int worksheetID, seed, difficultyID;
     private String exercise, dateCreated;
 
+    /**
+     * For new worksheets
+     * @param seed
+     * @param exercise
+     * @param difficultyID
+     */
     public Worksheet(int seed, String exercise, int difficultyID) {
         this.seed = seed;
         this.exercise = exercise;
         this.difficultyID = difficultyID;
         this.worksheetID = -1; // Should be auto-incremented in database
 
-        // Construct MySQL-friendly date
+        // Construct date
         LocalDateTime date = LocalDateTime.now();
-        dateCreated = Integer.toString(date.getYear()) + "-";
         String temp = Integer.toString(date.getMonthValue());
-        dateCreated += ((temp.length() < 2) ? "0" + temp : temp) + "-";
+        dateCreated = ((temp.length() < 2) ? "0" + temp : temp) + "/";
         temp = Integer.toString(date.getDayOfMonth());
-        dateCreated += ((temp.length() < 2) ? "0" + temp : temp);
+        dateCreated += ((temp.length() < 2) ? "0" + temp : temp) + "/";
+        dateCreated += Integer.toString(date.getYear());
+    }
+
+    /**
+     * For existing worksheets
+     * @param seed
+     * @param exercise
+     * @param difficultyID
+     */
+    public Worksheet(int id, int seed, String exercise, int difficultyID,
+                     String dateCreated) {
+        this.seed = seed;
+        this.exercise = exercise;
+        this.difficultyID = difficultyID;
+        this.worksheetID = id;
+        this.dateCreated = dateCreated;
     }
 
     public int getSeed() {

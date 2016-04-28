@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -97,10 +98,14 @@ public class TeacherHistory extends JPanel {
     }
 
     public void populateTable() {
+        sheets = FWCConfigurator.getTeacher().getHistory();
+
         // Remove all rows first
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
+
+        Collections.reverse(sheets);
 
         for (Worksheet sheet : sheets) {
             tableModel.addRow(new String[]{sheet.getDateCreated(),
@@ -161,8 +166,8 @@ public class TeacherHistory extends JPanel {
                 if (confirm == JOptionPane.YES_OPTION) {
                     // Check database update status
                     if (FWCConfigurator.getDbConn().deleteWorksheet
-                            (sheets.get(index).getWorksheetID())) {
-                        sheets.remove(index); // Remove from teacher history
+                            (sheets.get(index)
+                                    .getWorksheetID())) {
                         populateTable(); // Refresh table of worksheets
                         JOptionPane.showMessageDialog(null,
                                 "Worksheet has been deleted successfully!",
@@ -184,10 +189,5 @@ public class TeacherHistory extends JPanel {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
-
-    public void refresh() { // Reload worksheets table for new teacher login
-        sheets = FWCConfigurator.getTeacher().getHistory();
-        populateTable();
     }
 }

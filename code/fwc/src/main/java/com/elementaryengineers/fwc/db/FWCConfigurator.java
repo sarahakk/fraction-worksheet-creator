@@ -52,7 +52,7 @@ public class FWCConfigurator {
 
     public static final String ANSWER_IMG = "answerkey.png";
     public static final String ADDCLASS_IMG = "addclass.png";
-    public static final String ADDSTUDENT_IMG = "addteacher.png";
+    public static final String ADDSTUDENT_IMG = "addstudent.png";
     public static final String ADDTEACHER_IMG = "addteacher.png";
     
     public static final String BACK_IMG = "back.png";

@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by sarahakk on 4/27/16.
@@ -96,6 +97,8 @@ public class TeacherStudentHistory extends JPanel {
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
+
+        Collections.reverse(sheets);
 
         for (Worksheet sheet : sheets) {
             tableModel.addRow(new String[]{sheet.getDateCreated(),

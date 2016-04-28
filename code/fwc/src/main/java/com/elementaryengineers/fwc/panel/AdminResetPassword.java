@@ -106,7 +106,7 @@ public class AdminResetPassword extends JPanel {
         lblSecurity.setFont(new Font("Calibri", Font.BOLD, 24));
         lblSSN = new JLabel("Last 4 digits of SSN:", SwingConstants.RIGHT);
         lblSSN.setFont(new Font("Calibri", Font.PLAIN, 18));
-        lblBirthdate = new JLabel("Date of birth (yyyy-mm-dd):", SwingConstants.RIGHT);
+        lblBirthdate = new JLabel("Date of birth (mm/dd/yyyy):", SwingConstants.RIGHT);
         lblBirthdate.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblJob = new JLabel("First Job:", SwingConstants.RIGHT);
         lblJob.setFont(new Font("Calibri", Font.PLAIN, 18));

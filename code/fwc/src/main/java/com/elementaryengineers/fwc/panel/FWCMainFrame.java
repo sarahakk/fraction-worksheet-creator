@@ -427,7 +427,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on history page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.TEACHER_HISTORY) {
-                        teacherHistory.refresh();
+                        teacherHistory.populateTable();
                         cardLayout.show(pnCard, "TeacherHistory");
                         FWCConfigurator.setCurrentPage(Page.TEACHER_HISTORY);
                     }
@@ -699,7 +699,7 @@ public class FWCMainFrame extends JFrame {
             pnCard.add(teacherPasswords, "TeacherManagePasswords");
         }
         else { // Refresh/reset panels for new teacher session
-            teacherHistory.refresh();
+            teacherHistory.populateTable();
             teacherClasses.refresh();
         }
 
@@ -784,6 +784,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on the page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.ADMIN_MANAGE_PASSWORDS) {
+                        adminPasswords.refresh();
                         cardLayout.show(pnCard, "AdminManagePasswords");
                         FWCConfigurator
                                 .setCurrentPage(Page.ADMIN_MANAGE_PASSWORDS);
@@ -797,6 +798,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on the page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.TEACHER_REGISTRATION) {
+                        adminTeacherReg.clearFields();
                         cardLayout.show(pnCard, "TeacherRegistration");
                         FWCConfigurator
                                 .setCurrentPage(Page.TEACHER_REGISTRATION);

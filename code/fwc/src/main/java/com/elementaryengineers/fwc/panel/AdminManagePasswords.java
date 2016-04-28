@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by sarahakk on 4/25/16.
@@ -86,6 +87,8 @@ public class AdminManagePasswords extends JPanel {
             tableModel.removeRow(i);
         }
 
+        Collections.reverse(teachers);
+
         for (Teacher teacher : teachers) {
             tableModel.addRow(new String[]{teacher.getUsername()});
         }
@@ -101,6 +104,7 @@ public class AdminManagePasswords extends JPanel {
                 if (index >= 0) {
                     Teacher teacher = teachers.get(index);
                     String newPassword = teacher.setRandomPassword();
+                    teacher.setResetPassRequested(false);
 
                     // Check database update status
                     if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
@@ -121,13 +125,15 @@ public class AdminManagePasswords extends JPanel {
             }
             else if (e.getSource() == btnResetAll) { // If reset all teachers' passwords
                 StringBuilder message = new StringBuilder("The following teachers' passwords have been reset.\n");
-                message.append("Please keep the new passwords in a safe place.\n\nUsername: Password");
+                message.append("Please keep the new passwords in a safe place" +
+                        ".\n\nUsername Password\n-------- --------");
                 String newPassword;
                 boolean error = false;
                 int count = 0;
 
                 for (Teacher teacher : teachers) {
                     newPassword = teacher.setRandomPassword();
+                    teacher.setResetPassRequested(false);
 
                     // Check database update status
                     if (!FWCConfigurator.getDbConn().updateTeacher(teacher)) {

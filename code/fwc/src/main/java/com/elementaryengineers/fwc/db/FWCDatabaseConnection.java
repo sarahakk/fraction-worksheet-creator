@@ -1004,7 +1004,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         boolean result = true;
 
         // Get user that is creating this worksheet
-        String user = FWCConfigurator.getUserType() == UserType.TEACHER ?
+        String user = (FWCConfigurator.getUserType() == UserType.TEACHER) ?
                 FWCConfigurator.getTeacher().getUsername() :
                 FWCConfigurator.getStudent().getUsername();
 
@@ -1126,7 +1126,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 	 */
     @Override
     public ArrayList<Student> getClassroomStudents(int classID) {
-        String sql = "SELECT * FROM Student WHERE ClassID=?;";
+        String sql = "SELECT * FROM Student WHERE Class=?;";
         String sql2 = "SELECT * FROM User WHERE Username=?;";
         String sql3 = "SELECT * FROM Class WHERE ClassID=?;";
         PreparedStatement selectStmt = null;
@@ -1219,8 +1219,10 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 		    rs = selectStmt.executeQuery();
 
 		    while (rs.next()) {
-				Worksheet p = new Worksheet(rs.getInt("Seed"), rs.getString
-                        ("Exercise"), rs.getInt("DifficultyID"));
+				Worksheet p = new Worksheet(rs.getInt("WorksheetID"), rs.getInt
+                        ("Seed"), rs.getString
+                        ("Exercise"), rs.getInt("DifficultyID"), rs.getString
+                        ("DateCreated"));
 			    matches.add(p);
 		    }
 	    }

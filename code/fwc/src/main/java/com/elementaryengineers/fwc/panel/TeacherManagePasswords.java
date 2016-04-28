@@ -129,7 +129,8 @@ public class TeacherManagePasswords extends JPanel {
             // If reset all students' passwords
             else if (e.getSource() == btnResetAll) {
                 StringBuilder message = new StringBuilder("The following students' passwords have been reset.\n");
-                message.append("Please keep the new passwords in a safe place.\n\nUsername: Password");
+                message.append("Please keep the new passwords in a safe place.\n\nUsername Password\n" +
+                        "-------- --------");
                 String newPassword;
                 boolean error = false;
                 int count = 0;

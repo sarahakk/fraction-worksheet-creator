@@ -280,7 +280,7 @@ public class StudentRegistration extends JPanel{
         txtUser.setText("");
         txtPass.setText("");
         txtConfirm.setText("");
-        cbClassName.setSelectedIndex(0);
-        cbDifficulty.setSelectedIndex(0);
+        cbClassName.setSelectedIndex(1);
+        cbDifficulty.setSelectedIndex(1);
     }
 }

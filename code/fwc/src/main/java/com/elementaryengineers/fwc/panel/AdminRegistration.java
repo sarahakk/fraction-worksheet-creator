@@ -142,7 +142,7 @@ public class AdminRegistration extends JPanel {
         lblSecurity.setFont(new Font("Calibri", Font.BOLD, 24));
         lblSSN = new JLabel("Last 4 digits of SSN:", SwingConstants.RIGHT);
         lblSSN.setFont(new Font("Calibri", Font.PLAIN, 18));
-        lblBirthdate = new JLabel("Date of birth (yyyy-mm-dd):", SwingConstants.RIGHT);
+        lblBirthdate = new JLabel("Date of birth (mm/dd/yyyy):", SwingConstants.RIGHT);
         lblBirthdate.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblJob = new JLabel("First Job:", SwingConstants.RIGHT);
         lblJob.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -263,7 +263,7 @@ public class AdminRegistration extends JPanel {
         // Check birthdate format
         try {
             String birth = txtBirthdate.getText();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
             Date result = sdf.parse(birth);
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Please fix birthday format.", 
