@@ -76,4 +76,12 @@ public class Teacher extends User {
         this.history.add(worksheet);
         FWCConfigurator.getDbConn().updateTeacher(this);
     }
+
+    public ArrayList<Classroom> searchClasses(String keyword) {
+        List<Classroom> results = classes.stream().filter(c ->
+                c.getClassName().contains(keyword)
+        ).collect(Collectors.toList());
+
+        return new ArrayList<>(results);
+    }
 }

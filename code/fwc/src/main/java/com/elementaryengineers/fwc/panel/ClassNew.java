@@ -4,7 +4,6 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Classroom;
-import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;

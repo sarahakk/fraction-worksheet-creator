@@ -20,7 +20,7 @@ public class TeacherStudentHistory extends JPanel {
 
     private JPanel pnNorth,pnCenter, pnButtons;
     private TitleLabel lblTitle;
-    private JLabel stuName;
+    private JLabel lblName;
     private JButton btnPrint, btnAnswerKey;
     private DefaultTableModel tableModel;
     private JTable sheetsTable;
@@ -32,7 +32,7 @@ public class TeacherStudentHistory extends JPanel {
         super(new BorderLayout());
         setBackground(Color.WHITE);
         this.student = student;
-        this.stuName = new JLabel(student.getFirstName() + " " + student
+        this.lblName = new JLabel(student.getFirstName() + " " + student
                 .getLastName(),
                 SwingConstants.RIGHT);
 
@@ -65,6 +65,8 @@ public class TeacherStudentHistory extends JPanel {
         tableScroll = new JScrollPane(sheetsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        pnCenter.add(lblName, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
@@ -104,7 +106,7 @@ public class TeacherStudentHistory extends JPanel {
 
     public void setStudent(Student student) {
         this.student = student;
-        this.stuName.setText(student.getFirstName() + " " + student
+        this.lblName.setText(student.getFirstName() + " " + student
                 .getLastName());
     }
 
