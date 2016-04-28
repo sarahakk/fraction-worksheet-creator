@@ -1,11 +1,14 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.DisabledTableModel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +23,7 @@ public class AdminManagePasswords extends JPanel {
     private JPanel pnNorth, pnCenter, pnButtons;
     private TitleLabel lblTitle;
     private ImageButton btnReset, btnResetAll;
-    private DefaultTableModel tableModel;
+    private DisabledTableModel tableModel;
     private JTable teachersTable;
     private JScrollPane tableScroll;
     private ArrayList<Teacher> teachers;
@@ -40,13 +43,15 @@ public class AdminManagePasswords extends JPanel {
         pnCenter.setBackground(Color.WHITE);
 
         // Build table of teachers
-        tableModel = new DefaultTableModel();
+        tableModel = new DisabledTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Username"});
 
         teachersTable = new JTable(tableModel);
         teachersTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         teachersTable.setFillsViewportHeight(true);
         teachersTable.getTableHeader().setFont(new Font("Calibri", Font.PLAIN, 18));
+        teachersTable.setFont(new Font("Calibri", Font.PLAIN, 18));
+        teachersTable.setRowHeight(teachersTable.getRowHeight() + 12);
 
         // Populate the table only with teachers that need a password reset
         teachers = FWCConfigurator.getAdmin().getTeachersRequestedReset();
@@ -54,6 +59,9 @@ public class AdminManagePasswords extends JPanel {
 
         tableScroll = new JScrollPane(teachersTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(10, 100, 10, 100),
+                new LineBorder(Color.black, 1)));
 
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
@@ -74,7 +82,7 @@ public class AdminManagePasswords extends JPanel {
 
     private void populateTable() {
         // Remove all rows first
-        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 

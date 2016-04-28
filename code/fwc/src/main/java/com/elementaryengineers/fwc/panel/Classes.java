@@ -1,11 +1,14 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.DisabledTableModel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Classroom;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +27,7 @@ public class Classes extends JPanel {
     private JLabel lblSearch;
     private JTextField txtSearch;
     private ImageButton btnEdit, btnRoster, btnNewClass, btnNewStudent;
-    private DefaultTableModel tableModel;
+    private DisabledTableModel tableModel;
     private JTable classesTable;
     private JScrollPane tableScroll;
 
@@ -53,6 +56,7 @@ public class Classes extends JPanel {
         lblSearch = new JLabel("Search: ");
         lblSearch.setFont(new Font("Calibri", Font.PLAIN, 18));
         txtSearch = new JTextField(24);
+        txtSearch.setColumns(10);
 
         // Add listener to show search results as soon as user starts typing
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -102,7 +106,7 @@ public class Classes extends JPanel {
         pnTools.add(pnSearch, BorderLayout.EAST);
 
         // Build table of classes
-        tableModel = new DefaultTableModel();
+        tableModel = new DisabledTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Class Name",
                 "Number of Students"});
 
@@ -111,11 +115,17 @@ public class Classes extends JPanel {
         classesTable.setFillsViewportHeight(true);
         classesTable.getTableHeader().setFont(new Font("Calibri",
                 Font.PLAIN, 18));
+        classesTable.setFont(new Font("Calibri", Font.PLAIN, 18));
+        classesTable.setRowHeight(classesTable.getRowHeight() + 12);
+
         populateTable(FWCConfigurator.getTeacher().getClasses());
 
         tableScroll = new JScrollPane(classesTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(10, 100, 10, 100),
+                new LineBorder(Color.black, 1)));
 
         pnCenter.add(pnTools, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
@@ -126,7 +136,7 @@ public class Classes extends JPanel {
 
     private void populateTable(ArrayList<Classroom> classes) {
         // Remove all rows first
-        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 

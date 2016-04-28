@@ -1,11 +1,14 @@
 package com.elementaryengineers.fwc.panel;
 
+import com.elementaryengineers.fwc.custom.DisabledTableModel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Worksheet;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +23,7 @@ public class StudentHistory extends JPanel {
     private JPanel pnNorth, pnCenter, pnButtons;
     private TitleLabel lblTitle;
     private ImageButton btnPrint, btnDelete;
-    private DefaultTableModel tableModel;
+    private DisabledTableModel tableModel;
     private JTable sheetsTable;
     private JScrollPane tableScroll;
     private ArrayList<Worksheet> sheets;
@@ -41,13 +44,15 @@ public class StudentHistory extends JPanel {
         pnCenter.setBackground(Color.WHITE);
 
         // Build table of worksheets
-        tableModel = new DefaultTableModel();
+        tableModel = new DisabledTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Date", "Difficulty", "Exercise"});
 
         sheetsTable = new JTable(tableModel);
         sheetsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         sheetsTable.setFillsViewportHeight(true);
         sheetsTable.getTableHeader().setFont(new Font("Calibri", Font.PLAIN, 18));
+        sheetsTable.setFont(new Font("Calibri", Font.PLAIN, 18));
+        sheetsTable.setRowHeight(sheetsTable.getRowHeight() + 12);
 
         // Populate the table with the student's worksheets
         sheets = FWCConfigurator.getStudent().getHistory();
@@ -55,6 +60,10 @@ public class StudentHistory extends JPanel {
 
         tableScroll = new JScrollPane(sheetsTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(10, 100, 10, 100),
+                new LineBorder(Color.black, 1)));
+
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
@@ -77,7 +86,7 @@ public class StudentHistory extends JPanel {
 
     private void populateTable() {
         // Remove all rows first
-        for (int i = 0, len = tableModel.getRowCount(); i < len; i++) {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 

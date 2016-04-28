@@ -1,6 +1,3 @@
-/*
- * In the AdminHome.java file everythingis defined for the authentication.
- */
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.DisabledTableModel;
@@ -97,9 +94,9 @@ public class AdminHome extends JPanel {
         tableScroll = new JScrollPane(teachersTable, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        tableScroll.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 100,
-                10,
-                100), new LineBorder(Color.black, 1)));
+        tableScroll.setBorder(BorderFactory.createCompoundBorder(
+                new EmptyBorder(10, 100, 10, 100),
+                new LineBorder(Color.black, 1)));
 
         pnCenter.add(pnSearch, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
