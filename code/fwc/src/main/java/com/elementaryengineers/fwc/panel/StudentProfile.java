@@ -19,7 +19,8 @@ import java.util.ArrayList;
  */
 public class StudentProfile extends JPanel {
 
-    private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
+    private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth, pnUpBtns,
+            pnDownBtns;
     private TitleLabel lblTitle;
     private JLabel lblFirst, lblLast, lblUser, lblClass, lblDifficulty;
     private JTextField txtFirst, txtLast, txtUser;
@@ -129,14 +130,14 @@ public class StudentProfile extends JPanel {
 
         // Class
         cRight.anchor = GridBagConstraints.EAST;
-        pnFieldsLeft.add(lblClass, cRight);
+        pnFieldsRight.add(lblClass, cRight);
 
         cRight.gridx = 1;
         cRight.insets = new Insets(0, 10, 0, 0);
         cRight.anchor = GridBagConstraints.CENTER;
         cRight.weightx = 1;
         cRight.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(cbClassName, cRight);
+        pnFieldsRight.add(cbClassName, cRight);
 
         // Difficulty
         cRight.gridy = 1;
@@ -145,17 +146,17 @@ public class StudentProfile extends JPanel {
         cRight.anchor = GridBagConstraints.EAST;
         cRight.weightx = 0;
         cRight.fill = GridBagConstraints.NONE;
-        pnFieldsLeft.add(lblDifficulty, cRight);
+        pnFieldsRight.add(lblDifficulty, cRight);
 
         cRight.gridx = 1;
         cRight.insets.left = 10;
         cRight.anchor = GridBagConstraints.CENTER;
         cRight.weightx = 1;
         cRight.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(cbDifficulty, cRight);
+        pnFieldsRight.add(cbDifficulty, cRight);
 
         // Build buttons and south panel
-        pnSouth = new JPanel(new GridBagLayout());
+        pnSouth = new JPanel(new BorderLayout());
         pnSouth.setBackground(Color.WHITE);
 
         btnSubmit = new ImageButton("Submit Changes", FWCConfigurator
@@ -175,6 +176,9 @@ public class StudentProfile extends JPanel {
                     return;
                 }
 
+                Classroom newClass = FWCConfigurator.getTeacher().
+                        getClasses().get(cbClassName.getSelectedIndex());
+
                 // Update student with information from profile
                 Classroom classroom = FWCConfigurator.getTeacher().
                         getClasses().get(classIndex);
@@ -182,7 +186,7 @@ public class StudentProfile extends JPanel {
                         get(studentIndex);
                 modifiedStudent.setFirstName(newFirst);
                 modifiedStudent.setLastName(newLast);
-                modifiedStudent.setClassroom(classroom);
+                modifiedStudent.setClassroom(newClass);
                 modifiedStudent.setDifficultyID(
                         cbDifficulty.getSelectedIndex());
 
@@ -211,26 +215,27 @@ public class StudentProfile extends JPanel {
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Teacher teacher = FWCConfigurator.getAdmin().
-                        getTeachers().get(studentIndex);
-                String newPassword = teacher.setRandomPassword();
+                Student student = FWCConfigurator.getTeacher().
+                        getClasses().get(classIndex).getStudents()
+                        .get(studentIndex);
+                String newPassword = student.setRandomPassword();
 
                 // Check database update status
-                if (FWCConfigurator.getDbConn().updateTeacher(teacher)) {
+                if (FWCConfigurator.getDbConn().updateStudent(student)) {
                     JOptionPane.showMessageDialog(null,
-                            "Teacher was successfully updated.",
-                            "Teacher Update Successful",
+                            "Student was successfully updated.",
+                            "Student Update Successful",
                             JOptionPane.PLAIN_MESSAGE);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
-                            "Teacher could not be updated in the database.",
-                            "Teacher Update Failed",
+                            "Student could not be updated in the database.",
+                            "Student Update Failed",
                             JOptionPane.ERROR_MESSAGE);
                 }
 
                 // Popup with new password
-                JOptionPane.showMessageDialog(null, teacher.getUsername() +
+                JOptionPane.showMessageDialog(null, student.getUsername() +
                                 "'s password has been successfully " +
                                 "reset to:\n" + newPassword,
                         "Password Reset Successful",
@@ -244,20 +249,18 @@ public class StudentProfile extends JPanel {
         btnDelete = new ImageButton("Delete Student", FWCConfigurator
                 .DEL_STUDENT_IMG, 150, 50);
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.ipady = 5;
-        c.anchor = GridBagConstraints.CENTER;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        pnSouth.add(btnSubmit, c);
+        pnUpBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnUpBtns.setBackground(Color.WHITE);
+        pnUpBtns.add(btnSubmit);
 
-        c.gridy = 1;
-        pnSouth.add(btnHistory, c);
+        pnDownBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnDownBtns.setBackground(Color.WHITE);
+        pnDownBtns.add(btnHistory);
+        pnDownBtns.add(btnReset);
+        pnDownBtns.add(btnDelete);
 
-        c.gridy = 2;
-        pnSouth.add(btnReset, c);
-
-        c.gridy = 3;
-        pnSouth.add(btnDelete, c);
+        pnSouth.add(pnUpBtns, BorderLayout.CENTER);
+        pnSouth.add(pnDownBtns, BorderLayout.SOUTH);
 
         add(pnNorth, BorderLayout.NORTH);
         add(pnFieldsLeft, BorderLayout.WEST);
@@ -269,8 +272,8 @@ public class StudentProfile extends JPanel {
         txtFirst.setText(student.getFirstName());
         txtLast.setText(student.getLastName());
         txtUser.setText(student.getUsername());
-        cbClassName.setSelectedIndex(classIndex + 1);
-        cbDifficulty.setSelectedIndex(student.getDifficultyID() + 1);
+        cbClassName.setSelectedIndex(classIndex);
+        cbDifficulty.setSelectedIndex(student.getDifficultyID());
     }
 
     /**

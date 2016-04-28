@@ -261,12 +261,10 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                         ResultSet rs2 = selectStmt.executeQuery();
 
                         if (rs2.next()) {
-                            Classroom classroom = new Classroom(rs2.getInt
-                                    ("ClassID"), rs2.getString("ClassName"));
-
                             result = new Student(rs.getInt("StudentID"), rs
                                     .getInt("DifficultyLevel"), user, first,
-                                    last, passSalt, passHash, classroom,
+                                    last, passSalt, passHash, rs2.getInt
+                                    ("ClassID"), rs2.getString("ClassName"),
                                     rs.getBoolean("ResetPassword"));
                         }
 
@@ -751,7 +749,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.execute();
 
             regStmt = conn.prepareStatement(sql2);
-            regStmt.setInt(1, student.getClassroom().getClassID());
+            regStmt.setInt(1, student.getClassID());
             regStmt.setString(2, student.getUsername());
             regStmt.setInt(3, student.getDifficultyID());
             regStmt.execute();
@@ -804,7 +802,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             regStmt.execute();
 
             regStmt = conn.prepareStatement(sql2);
-            regStmt.setInt(1, student.getClassroom().getClassID());
+            regStmt.setInt(1, student.getClassID());
             regStmt.setInt(2, student.getDifficultyID());
             regStmt.setBoolean(3, student.isResetPassRequested());
             regStmt.setInt(4, student.getStudentID());
@@ -928,7 +926,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         try {
             regStmt = conn.prepareStatement(sql);
             regStmt.setString(1, classroom.getClassName());
-            regStmt.setInt(1, classroom.getClassID());
+            regStmt.setInt(2, classroom.getClassID());
             regStmt.execute();
         }
         catch(SQLException se) {
@@ -1130,7 +1128,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         String sql2 = "SELECT * FROM User WHERE Username=?;";
         String sql3 = "SELECT * FROM Class WHERE ClassID=?;";
         PreparedStatement selectStmt = null;
-        ResultSet rs = null, rs2 = null;
+        ResultSet rs = null, rs2 = null, rs3 = null;
         String user, first, last, passSalt, passHash;
         ArrayList<Student> results = new ArrayList<>();
 
@@ -1154,23 +1152,15 @@ public class FWCDatabaseConnection implements DatabaseConnection {
                     passHash = rs2.getString("PasswordHash");
 
                     selectStmt = conn.prepareStatement(sql3);
-                    selectStmt.setInt(1, rs.getInt("Class"));
-                    ResultSet rs3 = selectStmt.executeQuery();
+                    selectStmt.setInt(1, classID);
+                    rs3 = selectStmt.executeQuery();
 
                     if (rs3.next()) {
-                        Classroom classroom = new Classroom(rs3.getInt
-                                ("ClassID"), rs3.getString("ClassName"));
-
                         results.add(new Student(rs.getInt("StudentID"), rs
                                 .getInt("DifficultyLevel"), user, first,
-                                last, passSalt, passHash, classroom,
+                                last, passSalt, passHash, rs3.getInt
+                                ("ClassID"), rs3.getString("ClassName"),
                                 rs.getBoolean("ResetPassword")));
-                    }
-
-                    try {
-                        rs3.close();
-                    } catch(SQLException se2) {
-                        se2.printStackTrace();
                     }
                 }
             }
@@ -1190,6 +1180,10 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 
                 if (rs2 != null) {
                     rs2.close();
+                }
+
+                if (rs3 != null) {
+                    rs3.close();
                 }
             } catch(SQLException se2) {
                 se2.printStackTrace();

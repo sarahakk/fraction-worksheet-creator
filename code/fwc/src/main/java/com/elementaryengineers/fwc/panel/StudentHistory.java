@@ -85,7 +85,9 @@ public class StudentHistory extends JPanel {
         this.add(pnButtons, BorderLayout.SOUTH);
     }
 
-    private void populateTable() {
+    public void populateTable() {
+        sheets = FWCConfigurator.getStudent().getHistory();
+
         // Remove all rows first
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
@@ -146,10 +148,5 @@ public class StudentHistory extends JPanel {
                         "Delete Worksheet Error", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
-
-    public void refresh() { // Reload worksheets table for new student login
-        sheets = FWCConfigurator.getStudent().getHistory();
-        populateTable();
     }
 }

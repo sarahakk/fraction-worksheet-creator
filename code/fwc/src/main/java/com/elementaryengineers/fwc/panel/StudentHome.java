@@ -43,7 +43,7 @@ public class StudentHome extends JPanel {
         pnDiff.setBackground(Color.WHITE);
 
         // Make difficulty buttons
-        btnBeg = new ImageButton("Beginner", FWCConfigurator.STUDENT_BEG_IMG, 350, 175);
+        btnBeg = new ImageButton("Beginner", FWCConfigurator.STUDENT_BEG_IMG, 250, 125);
         btnBeg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,6 +60,7 @@ public class StudentHome extends JPanel {
                 }
             }
         });
+
         pnDiff.add(btnBeg); // Add to difficulties panel
 
         // Make card panel for different difficulty worksheet buttons
@@ -70,11 +71,11 @@ public class StudentHome extends JPanel {
         // Make beginner buttons and panel
         pnBeg = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnBeg.setBackground(Color.WHITE);
-        btnBeg1 = new ImageButton("Pie Charts", FWCConfigurator.STUDENT_BEG_PIE_IMG, 350, 175);
+        btnBeg1 = new ImageButton("Pie Charts", FWCConfigurator.STUDENT_BEG_PIE_IMG, 250, 125);
         btnBeg1.addActionListener(new StudentHome.BeginnerActionListener());
-        btnBeg2 = new ImageButton("Addition", FWCConfigurator.STUDENT_BEG_ADD_IMG, 350, 175);
+        btnBeg2 = new ImageButton("Addition", FWCConfigurator.STUDENT_BEG_ADD_IMG, 250, 125);
         btnBeg2.addActionListener(new StudentHome.BeginnerActionListener());
-        btnBeg3 = new ImageButton("Least to Greatest", FWCConfigurator.STUDENT_BEG_LG_IMG, 350, 175);
+        btnBeg3 = new ImageButton("Least to Greatest", FWCConfigurator.STUDENT_BEG_LG_IMG, 250, 125);
         btnBeg3.addActionListener(new StudentHome.BeginnerActionListener());
         pnBeg.add(btnBeg1);
         pnBeg.add(btnBeg2);
@@ -82,7 +83,7 @@ public class StudentHome extends JPanel {
         pnCard.add(pnBeg, "Beginner"); // Add worksheet buttons to card panel
 
         if (stu.getDifficultyID() > 0) {
-            btnInt = new ImageButton("Intermediate", FWCConfigurator.STUDENT_INT_IMG, 350, 175);
+            btnInt = new ImageButton("Intermediate", FWCConfigurator.STUDENT_INT_IMG, 250, 125);
             btnInt.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -102,12 +103,12 @@ public class StudentHome extends JPanel {
             // Make intermediate buttons and panel
             pnInt = new JPanel(new FlowLayout(FlowLayout.CENTER));
             pnInt.setBackground(Color.WHITE);
-            btnInt1 = new ImageButton("Addition", FWCConfigurator.STUDENT_INT_ADD_IMG, 350, 175);
+            btnInt1 = new ImageButton("Addition", FWCConfigurator.STUDENT_INT_ADD_IMG, 250, 125);
             btnInt1.addActionListener(new StudentHome.IntermediateActionListener());
-            btnInt2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_INT_SUB_IMG, 350, 175);
+            btnInt2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_INT_SUB_IMG, 250, 125);
             btnInt2.addActionListener(new StudentHome.IntermediateActionListener());
             btnInt3 = new ImageButton("Multiplication and Division",
-                    FWCConfigurator.STUDENT_INT_MD_IMG, 350, 175);
+                    FWCConfigurator.STUDENT_INT_MD_IMG, 250, 125);
             btnInt3.addActionListener(new StudentHome.IntermediateActionListener());
             pnInt.add(btnInt1);
             pnInt.add(btnInt2);
@@ -116,7 +117,7 @@ public class StudentHome extends JPanel {
             cardLayout.show(pnCard, "Intermediate");
 
             if (stu.getDifficultyID() > 1) {
-                btnAdv = new ImageButton("Advanced", FWCConfigurator.STUDENT_ADV_IMG, 350, 175);
+                btnAdv = new ImageButton("Advanced", FWCConfigurator.STUDENT_ADV_IMG, 250, 125);
                 btnAdv.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -133,11 +134,11 @@ public class StudentHome extends JPanel {
                 // Make advanced buttons and panel
                 pnAdv = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 pnAdv.setBackground(Color.WHITE);
-                btnAdv1 = new ImageButton("Addition", FWCConfigurator.STUDENT_ADV_ADD_IMG, 350, 175);
+                btnAdv1 = new ImageButton("Addition", FWCConfigurator.STUDENT_ADV_ADD_IMG, 250, 125);
                 btnAdv1.addActionListener(new StudentHome.AdvancedActionListener());
-                btnAdv2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_ADV_SUB_IMG, 350, 175);
+                btnAdv2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_ADV_SUB_IMG, 250, 125);
                 btnAdv2.addActionListener(new StudentHome.AdvancedActionListener());
-                btnAdv3 = new ImageButton("Multiplication", FWCConfigurator.STUDENT_ADV_MD_IMG, 350, 175);
+                btnAdv3 = new ImageButton("Multiplication", FWCConfigurator.STUDENT_ADV_MD_IMG, 250, 125);
                 btnAdv3.addActionListener(new StudentHome.AdvancedActionListener());
                 pnAdv.add(btnAdv1);
                 pnAdv.add(btnAdv2);

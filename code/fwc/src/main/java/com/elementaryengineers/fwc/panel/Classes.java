@@ -74,7 +74,7 @@ public class Classes extends JPanel {
                 String keyword = txtSearch.getText();
 
                 // Populate with search results, or all classes if empty
-                populateTable(keyword.equals("") ?
+                populateTable(!keyword.equals("") ?
                         FWCConfigurator.getTeacher().searchClasses(keyword) :
                         FWCConfigurator.getTeacher().getClasses()
                 );

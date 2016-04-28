@@ -131,6 +131,6 @@ public class ClassEdit extends JPanel{
     }
 
     public void setDeleteClassListener(ActionListener deleteClassListener){
-        btnSubmit.addActionListener(deleteClassListener);
+        btnDeleteClass.addActionListener(deleteClassListener);
     }
 }

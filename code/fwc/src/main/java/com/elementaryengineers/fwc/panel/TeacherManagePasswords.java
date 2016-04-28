@@ -91,7 +91,7 @@ public class TeacherManagePasswords extends JPanel {
         for (Student student : students) {
             tableModel.addRow(new String[]{student.getFirstName(),
                     student.getLastName(), student.getUsername(),
-                    student.getClassroom().getClassName()});
+                    student.getClassName()});
         }
     }
 
@@ -105,6 +105,7 @@ public class TeacherManagePasswords extends JPanel {
                 if (index >= 0) {
                     Student student = students.get(index);
                     String newPassword = student.setRandomPassword();
+                    student.setResetPassRequested(false);
 
                     // Check database update status
                     if (FWCConfigurator.getDbConn().updateStudent(student)) {
@@ -137,6 +138,7 @@ public class TeacherManagePasswords extends JPanel {
 
                 for (Student student : students) {
                     newPassword = student.setRandomPassword();
+                    student.setResetPassRequested(false);
 
                     // Check database update status
                     if (!FWCConfigurator.getDbConn().updateStudent(student)) {

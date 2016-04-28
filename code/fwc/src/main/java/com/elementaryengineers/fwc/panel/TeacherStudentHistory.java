@@ -111,7 +111,8 @@ public class TeacherStudentHistory extends JPanel {
 
     public void setStudent(Student student) {
         this.student = student;
-        this.lblName.setText(student.getFirstName() + " " + student
+        this.lblName.setText("Student: " + student.getFirstName() + " " +
+                student
                 .getLastName());
         this.sheets = student.getHistory();
         populateTable();

@@ -245,7 +245,7 @@ public class Account extends JPanel {
                 txtLast.setText(student.getLastName());
                 txtDifficulty.setText(FWCConfigurator.getDifficulties()
                         .get(student.getDifficultyID()).getDescription());
-                txtClass.setText(student.getClassroom().getClassName());
+                txtClass.setText(student.getClassName());
                 break;
             }
 

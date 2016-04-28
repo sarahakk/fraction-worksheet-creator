@@ -3,6 +3,7 @@ package com.elementaryengineers.fwc.panel;
 import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
+import com.elementaryengineers.fwc.model.Classroom;
 import com.elementaryengineers.fwc.model.Student;
 import com.elementaryengineers.fwc.model.Teacher;
 
@@ -166,14 +167,14 @@ public class StudentRegistration extends JPanel{
 
         // Class
         cRight.anchor = GridBagConstraints.EAST;
-        pnFieldsLeft.add(lblClass, cRight);
+        pnFieldsRight.add(lblClass, cRight);
 
         cRight.gridx = 1;
         cRight.insets = new Insets(0, 10, 0, 0);
         cRight.anchor = GridBagConstraints.CENTER;
         cRight.weightx = 1;
         cRight.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(cbClassName, cRight);
+        pnFieldsRight.add(cbClassName, cRight);
 
         // Difficulty
         cRight.gridy = 1;
@@ -182,14 +183,14 @@ public class StudentRegistration extends JPanel{
         cRight.anchor = GridBagConstraints.EAST;
         cRight.weightx = 0;
         cRight.fill = GridBagConstraints.NONE;
-        pnFieldsLeft.add(lblDifficulty, cRight);
+        pnFieldsRight.add(lblDifficulty, cRight);
 
         cRight.gridx = 1;
         cRight.insets.left = 10;
         cRight.anchor = GridBagConstraints.CENTER;
         cRight.weightx = 1;
         cRight.fill = GridBagConstraints.HORIZONTAL;
-        pnFieldsLeft.add(cbDifficulty, cRight);
+        pnFieldsRight.add(cbDifficulty, cRight);
 
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -204,28 +205,22 @@ public class StudentRegistration extends JPanel{
 
                     // If adding new student to database works
                     if (FWCConfigurator.getDbConn().createStudent(newStudent)) {
-
                         // Add student to teacher's list of students
-                        FWCConfigurator.getTeacher().getClasses()
-                                .stream().filter(classroom ->
-                                classroom.getClassID() == newStudent
-                                        .getClassroom().getClassID()).collect
-                                (Collectors.toList()).get(0).getStudents().add
-                                (newStudent);
+                        FWCConfigurator.getTeacher().getClasses();
 
                         // Clear fields in student registration form
                         clearFields();
 
                         JOptionPane.showMessageDialog(null,
-                                "Teacher was successfully registered.",
-                                "Teacher Registration Successful",
+                                "Student was successfully registered.",
+                                "Student Registration Successful",
                                 JOptionPane.PLAIN_MESSAGE);
                     }
                     else {
                         JOptionPane.showMessageDialog(null,
-                                "Teacher could not be registered "
+                                "Student could not be registered "
                                         + "in the database. Please try again.",
-                                "Teacher Registration Failed",
+                                "Student Registration Failed",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -269,9 +264,12 @@ public class StudentRegistration extends JPanel{
     }
 
     private Student getNewStudent() {
+        Classroom classroom = FWCConfigurator.getTeacher().getClasses().get(cbClassName
+                .getSelectedIndex());
+
         return new Student(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
                 String.valueOf(txtPass.getPassword()), cbDifficulty.getSelectedIndex(),
-                FWCConfigurator.getTeacher().getClasses().get(cbClassName.getSelectedIndex()));
+                classroom.getClassID(), classroom.getClassName());
     }
 
     public void clearFields() {
@@ -280,7 +278,7 @@ public class StudentRegistration extends JPanel{
         txtUser.setText("");
         txtPass.setText("");
         txtConfirm.setText("");
-        cbClassName.setSelectedIndex(1);
-        cbDifficulty.setSelectedIndex(1);
+        cbClassName.setSelectedIndex(0);
+        cbDifficulty.setSelectedIndex(0);
     }
 }

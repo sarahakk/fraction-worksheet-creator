@@ -77,7 +77,7 @@ public class ClassRoster extends JPanel {
                 String keyword = txtSearch.getText();
 
                 // Populate with search results, or all students if empty
-                populateTable(keyword.equals("") ?
+                populateTable(!keyword.equals("") ?
                         classroom.searchStudents(keyword):
                         classroom.getStudents());
             }
@@ -95,7 +95,7 @@ public class ClassRoster extends JPanel {
         btnProfile = new ImageButton("Profile",
                 FWCConfigurator.PROFILE_IMG, 150, 50);
         btnHistory = new ImageButton("Worksheet History",
-                FWCConfigurator.ROSTER_IMG, 150, 50);
+                FWCConfigurator.WS_HISTORY_IMG, 150, 50);
 
         pnButtons.add(btnBack);
         pnButtons.add(btnProfile);

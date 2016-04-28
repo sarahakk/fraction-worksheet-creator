@@ -243,6 +243,10 @@ public class FWCMainFrame extends JFrame {
                                                     JOptionPane.ERROR_MESSAGE);
                                         }
 
+                                        cardLayout.show(pnCard, "Login");
+                                        FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                        forgotPass.clearFields();
+
                                         break;
                                     }
 
@@ -269,6 +273,10 @@ public class FWCMainFrame extends JFrame {
                                                     "Request Failed",
                                                     JOptionPane.ERROR_MESSAGE);
                                         }
+
+                                        cardLayout.show(pnCard, "Login");
+                                        FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                        forgotPass.clearFields();
 
                                         break;
                                     }
@@ -440,6 +448,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on the page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.CLASSES) {
+                        teacherClasses.refresh();
                         cardLayout.show(pnCard, "Classes");
                         FWCConfigurator
                                 .setCurrentPage(Page.CLASSES);
@@ -453,6 +462,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on the page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.TEACHER_MANAGE_PASSWORDS) {
+                        teacherPasswords.refresh();
                         cardLayout.show(pnCard, "TeacherManagePasswords");
                         FWCConfigurator
                                 .setCurrentPage(Page.TEACHER_MANAGE_PASSWORDS);
@@ -738,6 +748,7 @@ public class FWCMainFrame extends JFrame {
                     // If not already on history page
                     if (FWCConfigurator.getCurrentPage() !=
                             Page.STUDENT_HISTORY) {
+                        studentHistory.populateTable();
                         cardLayout.show(pnCard, "StudentHistory");
                         FWCConfigurator.setCurrentPage(Page.STUDENT_HISTORY);
                     }
@@ -756,7 +767,7 @@ public class FWCMainFrame extends JFrame {
             pnCard.add(studentHistory, "StudentHistory");
         }
         else { // Refresh/reset panels for new student session
-            studentHistory.refresh();
+            studentHistory.populateTable();
         }
 
         // Needs to be set each time a student logs in

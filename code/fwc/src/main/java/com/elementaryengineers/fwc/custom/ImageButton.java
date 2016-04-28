@@ -25,9 +25,9 @@ public class ImageButton extends JButton {
         // Get icon of image pointed to by filename
         try {
             URL imgURL = ImageButton.class.getClassLoader().getResource("images/" + filename);
-            BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
+                BufferedImage imgBuff = ImageIO.read(imgURL);
                 this.setText(null);
                 this.setBorderPainted(false); // Remove default JButton border
                 this.setFocusPainted(false);
@@ -56,9 +56,9 @@ public class ImageButton extends JButton {
         // Get icon of image pointed to by filename
         try {
             URL imgURL = ImageButton.class.getClassLoader().getResource("images/" + filename);
-            BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
+                BufferedImage imgBuff = ImageIO.read(imgURL);
                 this.setText(null);
                 this.setBorderPainted(false); // Remove default JButton border
                 this.setFocusPainted(false);
