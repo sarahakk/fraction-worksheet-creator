@@ -32,6 +32,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * Class Student History are used for students to view their own worksheet 
+ * history by clicking the History button in their menu. 
+ * They can print and delete worksheets they previously generated,
+ * but cannot view answer sheets.
+ * 
  * Created by sarahakk on 4/26/16.
  */
 public class StudentHistory extends JPanel {
