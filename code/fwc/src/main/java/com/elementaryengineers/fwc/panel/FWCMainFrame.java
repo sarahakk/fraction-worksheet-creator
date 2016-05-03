@@ -501,9 +501,19 @@ public class FWCMainFrame extends JFrame {
             teacherClasses.setNewStudentListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    studentReg.clearFields(); // Reset page
-                    cardLayout.show(pnCard, "StudentRegistration");
-                    FWCConfigurator.setCurrentPage(Page.STUDENT_REGISTRATION);
+
+                    // Check if the teacher has created any classes
+                    if (FWCConfigurator.getTeacher().getClasses().size() > 0) {
+                        studentReg.clearFields(); // Reset page
+                        cardLayout.show(pnCard, "StudentRegistration");
+                        FWCConfigurator.setCurrentPage(Page.STUDENT_REGISTRATION);
+                    }
+                    else { // Teacher hasn't created any classes to assign a student to
+                        JOptionPane.showMessageDialog(null,
+                                "Please create a class first before creating students.",
+                                "Student Registration", JOptionPane
+                                        .INFORMATION_MESSAGE);
+                    }
                 }
             });
 

@@ -160,6 +160,7 @@ public class StudentRegistration extends JPanel{
         lblClass.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblDifficulty = new JLabel("Difficulty:", SwingConstants.RIGHT);
         lblDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
+
         ArrayList<String> classNames = new ArrayList<>(),
         difficulties = new ArrayList<>();
 
@@ -307,10 +308,12 @@ public class StudentRegistration extends JPanel{
         FWCConfigurator.getDifficulties().stream()
                 .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
 
-        cbClassName = new JComboBox(classNames.toArray());
-        cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
+        DefaultComboBoxModel model = new DefaultComboBoxModel(classNames.toArray());
 
-        cbDifficulty = new JComboBox(difficulties.toArray());
-        cbDifficulty.setFont(new Font("Calibri", Font.PLAIN, 18));
+        cbClassName.setModel(model);
+
+        model = new DefaultComboBoxModel(difficulties.toArray());
+
+        cbDifficulty.setModel(model);
     }
 }
