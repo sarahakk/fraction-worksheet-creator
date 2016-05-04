@@ -24,7 +24,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-/**
+/** The Titlelabel Class Sets font and borders for title labels
+ * 
  * Created by sarahakk on 4/24/16.
  */
 public class TitleLabel extends JLabel {

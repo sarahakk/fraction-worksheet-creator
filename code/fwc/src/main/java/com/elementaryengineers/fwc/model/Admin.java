@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
+/**Admin page is used to register the Administrator as the first user of 
+ * the software right after installation and asks for security questions
+ * to check for in the event that the Administrator forgets the master 
+ * password and needs to reset it.
  * Created by sarahakk on 4/10/16.
  */
 public class Admin extends User {
@@ -33,8 +36,8 @@ public class Admin extends User {
     /**
      * Constructor for creating a brand new Student.
      */
-    public Admin(String user, String first, String last, String password, String last4SSN,
-                 String birthdate, String firstJob) {
+    public Admin(String user, String first, String last, String password, 
+            String last4SSN, String birthdate, String firstJob) {
         super(user, first, last, password);
         setType(UserType.ADMIN);
         this.adminID = -1; // To be set by database (autoincrement)
@@ -49,8 +52,10 @@ public class Admin extends User {
     /**
      * Constructor for creating an existing Student from the database.
      */
-    public Admin(int adminID, String user, String first, String last, String passSalt, String passHash,
-                 String last4SSNSalt, String last4SSNHash, String birthdateSalt, String birthdateHash,
+    public Admin(int adminID, String user, String first, String last, 
+                 String passSalt, String passHash,
+                 String last4SSNSalt, String last4SSNHash, String birthdateSalt,
+                 String birthdateHash,
                  String firstJobSalt, String firstJobHash) {
         super(user, first, last, passSalt, passHash);
         setType(UserType.ADMIN);
@@ -78,8 +83,10 @@ public class Admin extends User {
         return new ArrayList<>(results);
     }
 
-    public boolean verifySecurityQuestions(String last4SSN, String birthdate, String firstJob) {
-        return this.last4SSN.checkPassword(last4SSN) && this.birthdate.checkPassword(birthdate) &&
+    public boolean verifySecurityQuestions(String last4SSN, String birthdate, 
+            String firstJob) {
+        return this.last4SSN.checkPassword(last4SSN) && 
+                this.birthdate.checkPassword(birthdate) &&
                 this.firstJob.checkPassword(firstJob);
     }
 

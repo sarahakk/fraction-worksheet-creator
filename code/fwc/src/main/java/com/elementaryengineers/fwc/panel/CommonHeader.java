@@ -27,7 +27,8 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * TODO
+ * Class CommonHeader contains all main buttons and images for Home pages 
+ * for all users
  **/
 public class CommonHeader extends JPanel {
 
@@ -54,7 +55,8 @@ public class CommonHeader extends JPanel {
         img2.setVisible(false);
 
         try {
-            URL imgURL = CommonHeader.class.getClassLoader().getResource("images/" + FWCConfigurator.RAINBOW1_IMG);
+            URL imgURL = CommonHeader.class.getClassLoader().getResource
+                        ("images/" + FWCConfigurator.RAINBOW1_IMG);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
@@ -95,10 +97,12 @@ public class CommonHeader extends JPanel {
                 new Help();
             }
         });
-
-        btnAccount = new ImageButton("My Account", FWCConfigurator.ACCOUNT_IMG, 150, 50);
-        btnLogout = new ImageButton("Logout", FWCConfigurator.LOGOUT_IMG, 150, 50);
-        btnExit = new ImageButton("Exit", FWCConfigurator.EXIT_IMG, 150, 50);
+        btnAccount = new ImageButton("My Account", 
+                                    FWCConfigurator.ACCOUNT_IMG, 150, 50);
+        btnLogout = new ImageButton("Logout", 
+                                    FWCConfigurator.LOGOUT_IMG, 150, 50);
+        btnExit = new ImageButton("Exit", 
+                                    FWCConfigurator.EXIT_IMG, 150, 50);
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,14 +124,17 @@ public class CommonHeader extends JPanel {
         boolean imgRead = true;
 
         try {
-            URL imgURL = CommonHeader.class.getClassLoader().getResource("images/" + FWCConfigurator.TITLE_IMG);
+            URL imgURL = CommonHeader.class.getClassLoader().getResource
+        ("images/" + FWCConfigurator.TITLE_IMG);
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
-                lblTitle = new JLabel(new ImageIcon(imgBuff.getScaledInstance(500, 150, Image.SCALE_SMOOTH)));
+                lblTitle = new JLabel(new ImageIcon(imgBuff.getScaledInstance
+        (500, 150, Image.SCALE_SMOOTH)));
             }
             else {
-                System.out.println("Could not load " + FWCConfigurator.TITLE_IMG + ".");
+                System.out.println("Could not load " + 
+                        FWCConfigurator.TITLE_IMG + ".");
                 imgRead = false;
             }
         }
@@ -140,7 +147,8 @@ public class CommonHeader extends JPanel {
         if (!imgRead) {
             lblTitle = new JLabel("Fraction Worksheet Creator");
             lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
-            lblTitle.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 5, true));
+            lblTitle.setBorder(BorderFactory.createLineBorder(Color.ORANGE,
+                    5, true));
         }
     }
 

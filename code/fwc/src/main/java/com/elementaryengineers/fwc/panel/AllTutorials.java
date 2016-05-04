@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.ImageButton;
@@ -26,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-/**
+/** Shows all available tutorial videos
  * Created by sarahakk on 4/26/16.
  */
 public class AllTutorials extends JPanel {

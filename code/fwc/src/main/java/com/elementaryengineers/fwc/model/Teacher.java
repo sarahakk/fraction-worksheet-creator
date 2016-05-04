@@ -46,8 +46,8 @@ public class Teacher extends User {
     /**
      * Constructor for creating an existing Teacher from the database.
      */
-    public Teacher(int teacherID, String user, String first, String last, String salt, String hash,
-                   boolean resetPassRequested) {
+    public Teacher(int teacherID, String user, String first, String last, 
+                   String salt, String hash, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
         setType(UserType.TEACHER);
         this.teacherID = teacherID;

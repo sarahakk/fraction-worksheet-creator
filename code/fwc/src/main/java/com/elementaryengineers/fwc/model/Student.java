@@ -47,8 +47,9 @@ public class Student extends User {
     /**
      * Constructor for creating an existing Student from the database.
      */
-    public Student(int studentID, int difficultyID, String user, String first, String last, String salt, String hash,
-                   int classID, String className, boolean resetPassRequested) {
+    public Student(int studentID, int difficultyID, String user, String first,
+            String last, String salt, String hash,
+            int classID, String className, boolean resetPassRequested) {
         super(user, first, last, salt, hash);
         setType(UserType.STUDENT);
         this.studentID = studentID;

@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *ClassEditd - this page which allows teachers to rename a class or delete 
+ *ClassEdit - this page which allows teachers to rename a class or delete 
  * the class, which also deletes all the students in that class.
  * A warning message will be displayed.
  * 

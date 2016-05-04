@@ -26,18 +26,25 @@ import java.util.ArrayList;
 public class FWCConfigurator {
 
     private static FWCDatabaseConnection dbConn;
-    private static ArrayList<Difficulty> difficulties;      // List of the standard difficulties
-    private static UserType userType;                       // Determines what kind of user is currently logged in
+    private static ArrayList<Difficulty> difficulties;      
+// List of the standard difficulties
+    private static UserType userType;                       
+// Determines what kind of user is currently logged in
     private static Teacher teacher;
     private static Student student;
     private static Admin admin;
-    private static Page currentPage;                        // Keeps track of the current page of the GUI (used by Help)
-    public static final Color bgColor = new Color(255, 253, 208);  // Background color of all panels
+    private static Page currentPage;                        
+// Keeps track of the current page of the GUI (used by Help)
+    public static final Color bgColor = new Color(255, 253, 208);  
+// Background color of all panels
 
     //  Flags for fraction generation
-    public static final int GEN_UNIQUE5       = 1;          // Used for L->G worksheet
-    public static final int GEN_WHOLENUM_NO   = 2;          // Eliminate whole numbers
-    public static final int GEN_DENOM_MATCHED = 4;          // Match denominator pairs
+    public static final int GEN_UNIQUE5       = 1;          
+// Used for L->G worksheet
+    public static final int GEN_WHOLENUM_NO   = 2;          
+// Eliminate whole numbers
+    public static final int GEN_DENOM_MATCHED = 4;          
+// Match denominator pairs
 
     //  Flags for the answersheet generation
     public static final int WORKSHEET_ONLY = 1;
@@ -123,10 +130,10 @@ public class FWCConfigurator {
     public static final String STUDENT_INT_IMG = "studentIntermediate.png";
     public static final String STUDENT_INT_G_IMG = "studentIntermediateGray.png";
     
-    public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
-    public static final String STUDENT_REG_IMG = "studentregistration.png";
-    public static final String STUDENT_WS_HISTORY_IMG = "studentworksheethistory.png";
-    public static final String TEACHER_PROFILE_IMG = "teacherprofile.png";
+public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
+public static final String STUDENT_REG_IMG = "studentregistration.png";
+public static final String STUDENT_WS_HISTORY_IMG = "studentworksheethistory.png";
+public static final String TEACHER_PROFILE_IMG = "teacherprofile.png";
     
     public static final String TEACHER_REG_IMG = "teacherregistration.png";
     public static final String TUTORIAL_TITLE_IMG = "tutorialTitle.png";

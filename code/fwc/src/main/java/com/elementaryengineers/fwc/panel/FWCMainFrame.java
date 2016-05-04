@@ -252,7 +252,7 @@ public class FWCMainFrame extends JFrame {
                                                             "was sent to the" +
                                                             " administrator.",
                                                     "Request Sent",
-                                                    JOptionPane.INFORMATION_MESSAGE);
+                                              JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         else {
                                             JOptionPane.showMessageDialog(null,
@@ -295,9 +295,9 @@ public class FWCMainFrame extends JFrame {
                                                     JOptionPane.ERROR_MESSAGE);
                                         }
 
-                                        cardLayout.show(pnCard, "Login");
-                                        FWCConfigurator.setCurrentPage(Page.LOGIN);
-                                        forgotPass.clearFields();
+                                    cardLayout.show(pnCard, "Login");
+                                    FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                    forgotPass.clearFields();
 
                                         break;
                                     }
@@ -306,27 +306,27 @@ public class FWCMainFrame extends JFrame {
                                         Admin admin = (Admin) user;
 
                                         // Create panel if first time
-                                        if (adminResetPass == null) {
-                                            adminResetPass = new AdminResetPassword();
-                                            adminResetPass.setBackListener(new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    cardLayout.show(pnCard, "Login");
-                                                    setSize(new Dimension(loginW, loginH));
-                                                    setLocationRelativeTo(null);
-                                                    FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                   if (adminResetPass == null) {
+                          adminResetPass = new AdminResetPassword();
+                          adminResetPass.setBackListener(new ActionListener() {
+                             @Override
+                          public void actionPerformed(ActionEvent e) {
+                                cardLayout.show(pnCard, "Login");
+                                setSize(new Dimension(loginW, loginH));
+                                setLocationRelativeTo(null);
+                                FWCConfigurator.setCurrentPage(Page.LOGIN);
                                                 }
                                             });
 
-                                            adminResetPass.setSubmitListener(new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    // Go back to login panel if password reset was successful
-                                                    if (adminResetPass.verifyAndPerformReset()) {
-                                                        cardLayout.show(pnCard, "Login");
-                                                        setSize(new Dimension(loginW, loginH));
-                                                        setLocationRelativeTo(null);
-                                                        FWCConfigurator.setCurrentPage(Page.LOGIN);
+                        adminResetPass.setSubmitListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                     // Go back to login panel if password reset was successful
+                        if (adminResetPass.verifyAndPerformReset()) {
+                                cardLayout.show(pnCard, "Login");
+                                setSize(new Dimension(loginW, loginH));
+                                setLocationRelativeTo(null);
+                                FWCConfigurator.setCurrentPage(Page.LOGIN);
                                                     }
                                                 }
                                             });
@@ -511,11 +511,11 @@ public class FWCMainFrame extends JFrame {
                     if (FWCConfigurator.getTeacher().getClasses().size() > 0) {
                         studentReg.clearFields(); // Reset page
                         cardLayout.show(pnCard, "StudentRegistration");
-                        FWCConfigurator.setCurrentPage(Page.STUDENT_REGISTRATION);
+                      FWCConfigurator.setCurrentPage(Page.STUDENT_REGISTRATION);
                     }
-                    else { // Teacher hasn't created any classes to assign a student to
-                        JOptionPane.showMessageDialog(null,
-                                "Please create a class first before creating students.",
+            else { // Teacher hasn't created any classes to assign a student to
+                JOptionPane.showMessageDialog(null,
+                    "Please create a class first before creating students.",
                                 "Student Registration", JOptionPane
                                         .INFORMATION_MESSAGE);
                     }
@@ -631,8 +631,8 @@ public class FWCMainFrame extends JFrame {
                     }
                     else { // No student is selected from the table
                         JOptionPane.showMessageDialog(null,
-                                "Please select a student from the table first.",
-                                "View Profile", JOptionPane.INFORMATION_MESSAGE);
+                              "Please select a student from the table first.",
+                              "View Profile", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             });
@@ -712,7 +712,7 @@ public class FWCMainFrame extends JFrame {
                         }
                         else {
                             JOptionPane.showMessageDialog(null,
-                                    "Student could not be deleted from the database.",
+                              "Student could not be deleted from the database.",
                                     "Student Delete Failed",
                                     JOptionPane.ERROR_MESSAGE);
                         }

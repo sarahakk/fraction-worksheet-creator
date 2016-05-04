@@ -32,7 +32,6 @@ import java.util.Date;
  * user of the software right after installation and asks for security 
  * questions to check for in the event that the Administrator forgets 
  * the master password and needs to reset it.
- * 
  * Created by sarahakk on 4/24/16.
  */
 public class AdminRegistration extends JPanel {

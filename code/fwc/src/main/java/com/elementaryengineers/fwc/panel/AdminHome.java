@@ -29,6 +29,13 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/*
+* A list of registered teachers is displayed on the Admin homepage. A profile 
+button next to each teacher allows the Admin to view a teacher’s profile 
+to make changes.
+*/
+
+
 public class AdminHome extends JPanel {
 
     private JPanel pnNorth, pnCenter, pnSearch, pnProfile;

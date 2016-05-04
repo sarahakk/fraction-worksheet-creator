@@ -26,7 +26,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- * TODO
+ * The class Login implements for all users use the same login screen to login 
+ * to the FWC. If a user forgets his/her password, clicking forgot password 
+ * displays the next page "Password Reset".
+ * *
  **/
 public class Login extends JPanel {
 

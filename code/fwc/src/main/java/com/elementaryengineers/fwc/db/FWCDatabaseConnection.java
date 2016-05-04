@@ -31,7 +31,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
 	protected Connection conn;
 	protected Statement stmt;
 	final String USER = "root";
-	final String PASS = "localMYSQLpassw0rd"; //"ETHAN";
+	final String PASS = "boston2013"; //"ETHAN";
 	final String DB_URL = "jdbc:mysql://localhost/";
 
 	public FWCDatabaseConnection()  {

@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *dTeacherHistory displays teacher's worksheet history, allowing the Teacher 
+ * Page TeacherHistory displays teacher's worksheet history, allowing the Teacher 
  * to print old worksheets, view their answer sheets, and delete them 
  * from the history.
  * 

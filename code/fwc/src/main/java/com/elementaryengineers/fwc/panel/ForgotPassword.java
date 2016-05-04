@@ -25,6 +25,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
+ * Based on the username, this page determines whether the user is a teacher/
+ * student/admin and handles the forgot password request accordingly. 
+ * Teachers have the request sent to the admin, and students have the 
+ * request sent to their teacher. Admins that forget their password will be 
+ * taken to the next page.
+ * 
  * Created by sarahakk on 4/24/16.
  */
 public class ForgotPassword extends JPanel {
@@ -42,7 +48,8 @@ public class ForgotPassword extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(FWCConfigurator.bgColor);
-        lblTitle = new TitleLabel("Request Password Reset", FWCConfigurator.REQ_PASSW_RESET_IMG);
+        lblTitle = new TitleLabel("Request Password Reset", 
+                FWCConfigurator.REQ_PASSW_RESET_IMG);
         pnNorth.add(lblTitle);
 
         // Build form and center panel
@@ -68,8 +75,10 @@ public class ForgotPassword extends JPanel {
         // Build buttons (south)
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(FWCConfigurator.bgColor);
-        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
-        btnBack = new ImageButton("Back", FWCConfigurator.BACK_IMG, 150, 50);
+        btnSubmit = new ImageButton("Submit", 
+                FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnBack = new ImageButton("Back", 
+                FWCConfigurator.BACK_IMG, 150, 50);
         pnButtons.add(btnBack);
         pnButtons.add(btnSubmit);
 

@@ -30,7 +30,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
+/**The Password Reset button displays this page, where the Admin sees a list of 
+ * teachers that have requested a password reset through the forgot password 
+ * page. The Admin can reset the password of particular teachers or all teachers that 
+ * requested it at once.
  * Created by sarahakk on 4/25/16.
  */
 public class AdminManagePasswords extends JPanel {
