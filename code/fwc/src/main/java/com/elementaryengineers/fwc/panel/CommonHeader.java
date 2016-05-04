@@ -39,12 +39,12 @@ public class CommonHeader extends JPanel {
 
     public CommonHeader() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(new Color(255, 253, 208));
         setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         buildButtons();
 
         pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnTitle.setBackground(Color.WHITE);
+        pnTitle.setBackground(FWCConfigurator.bgColor);
 
         buildTitleLabel();
 
@@ -86,7 +86,7 @@ public class CommonHeader extends JPanel {
     private void buildButtons() {
         // Create right-aligned top panel of buttons
         pnButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnButton.setBackground(Color.WHITE);
+        pnButton.setBackground(FWCConfigurator.bgColor);
 
         btnHelp = new ImageButton("Help", FWCConfigurator.HELP_IMG, 150, 50);
         btnHelp.addActionListener(new ActionListener() {

@@ -47,11 +47,11 @@ public class StudentRegistration extends JPanel{
 
     public StudentRegistration() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Student Registration",
         FWCConfigurator.STUDENT_REG_IMG);
         pnNorth.add(lblTitle);
@@ -75,7 +75,7 @@ public class StudentRegistration extends JPanel{
 
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
-        pnFieldsLeft.setBackground(Color.WHITE);
+        pnFieldsLeft.setBackground(FWCConfigurator.bgColor);
         pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 0));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
@@ -178,7 +178,7 @@ public class StudentRegistration extends JPanel{
 
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
-        pnFieldsRight.setBackground(Color.WHITE);
+        pnFieldsRight.setBackground(FWCConfigurator.bgColor);
         pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10,
                 150));
         GridBagConstraints cRight = new GridBagConstraints();
@@ -213,7 +213,7 @@ public class StudentRegistration extends JPanel{
 
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);

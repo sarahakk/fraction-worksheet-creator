@@ -41,22 +41,22 @@ public class AdminHome extends JPanel {
 
     public AdminHome() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new JLabel("All Teachers", SwingConstants.CENTER);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 32));
         pnNorth.add(lblTitle);
 
         // Build center panel
         pnCenter = new JPanel(new BorderLayout());
-        pnCenter.setBackground(Color.WHITE);
+        pnCenter.setBackground(FWCConfigurator.bgColor);
 
         // Build search
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        pnSearch.setBackground(Color.WHITE);
+        pnSearch.setBackground(FWCConfigurator.bgColor);
         pnSearch.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
 
         lblSearch = new JLabel("Search: ");
@@ -108,6 +108,7 @@ public class AdminHome extends JPanel {
         tableScroll = new JScrollPane(teachersTable, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBackground(FWCConfigurator.bgColor);
         tableScroll.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(10, 100, 10, 100),
                 new LineBorder(Color.black, 1)));
@@ -117,7 +118,7 @@ public class AdminHome extends JPanel {
 
         // Build south panel
         pnProfile = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnProfile.setBackground(Color.WHITE);
+        pnProfile.setBackground(FWCConfigurator.bgColor);
         pnProfile.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         btnProfile = new ImageButton("View Profile", 
                 FWCConfigurator.PROFILE_IMG, 150, 50);

@@ -44,11 +44,11 @@ public class ClassEdit extends JPanel{
 
     public ClassEdit() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Edit Class", FWCConfigurator.EDIT_CLASS_IMG);
         pnNorth.add(lblTitle);
 
@@ -60,11 +60,11 @@ public class ClassEdit extends JPanel{
 
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
 
         pnTxt = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnTxt.setBackground(Color.WHITE);
+        pnTxt.setBackground(FWCConfigurator.bgColor);
         pnTxt.add(lblClassName);
         pnTxt.add(txtClassName);
 

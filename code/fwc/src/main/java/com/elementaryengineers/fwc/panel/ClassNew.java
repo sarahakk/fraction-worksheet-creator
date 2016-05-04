@@ -41,11 +41,11 @@ public class ClassNew extends JPanel {
           
     public ClassNew() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("New Class", FWCConfigurator.NEW_CLASS_IMG);
         pnNorth.add(lblTitle);
 
@@ -56,13 +56,13 @@ public class ClassNew extends JPanel {
         txtClassName.setColumns(10);
 
         pnFields = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.add(lblClassName);
         pnFields.add(txtClassName);
 
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {
             @Override

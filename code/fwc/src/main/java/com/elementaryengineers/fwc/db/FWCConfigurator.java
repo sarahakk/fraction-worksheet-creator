@@ -17,6 +17,7 @@ package com.elementaryengineers.fwc.db;
 
 import com.elementaryengineers.fwc.model.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,7 @@ public class FWCConfigurator {
     private static Student student;
     private static Admin admin;
     private static Page currentPage;                        // Keeps track of the current page of the GUI (used by Help)
+    public static final Color bgColor = new Color(255, 253, 208);  // Background color of all panels
 
     //  Flags for fraction generation
     public static final int GEN_UNIQUE5       = 1;          // Used for L->G worksheet

@@ -40,12 +40,12 @@ public class TeacherRegistration extends JPanel {
 
     public TeacherRegistration() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Teacher Registration", FWCConfigurator.TEACHER_REG_IMG);
         pnNorth.add(lblTitle);
 
@@ -68,7 +68,7 @@ public class TeacherRegistration extends JPanel {
 
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.setBorder(BorderFactory.createEmptyBorder(10, 200, 20, 200));
         GridBagConstraints c = new GridBagConstraints();
         c.ipady = 5;
@@ -150,7 +150,7 @@ public class TeacherRegistration extends JPanel {
 
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {

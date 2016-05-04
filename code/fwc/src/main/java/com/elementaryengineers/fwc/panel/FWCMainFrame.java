@@ -85,7 +85,7 @@ public class FWCMainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
         buildPanels();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -126,7 +126,7 @@ public class FWCMainFrame extends JFrame {
         // Use card layout for central area of frame
         cardLayout = new CardLayout();
         pnCard = new JPanel(cardLayout); // Set card layout for card panel
-        pnCard.setBackground(Color.WHITE);
+        pnCard.setBackground(FWCConfigurator.bgColor);
         pnCard.setBorder(BorderFactory.createCompoundBorder(
                 new MatteBorder(5, 0, 0, 0, Color.BLACK),
                 new EmptyBorder(10, 0, 0, 0))

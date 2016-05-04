@@ -40,11 +40,11 @@ public class TeacherProfile extends JPanel {
 
     public TeacherProfile() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Teacher Profile", FWCConfigurator.TEACHER_PROFILE_IMG);
         pnNorth.add(lblTitle);
 
@@ -62,7 +62,7 @@ public class TeacherProfile extends JPanel {
 
         // Use GridBagLayout
         pnFields = new JPanel(new GridBagLayout());
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.setBorder(BorderFactory.createEmptyBorder(10, 150, 20, 150));
         GridBagConstraints c = new GridBagConstraints();
         c.ipady = 5;

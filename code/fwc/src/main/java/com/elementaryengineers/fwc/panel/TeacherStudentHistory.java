@@ -48,18 +48,18 @@ public class TeacherStudentHistory extends JPanel {
 
     public TeacherStudentHistory() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Student Worksheet History",
                 FWCConfigurator.STUDENT_WS_HISTORY_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel
         pnCenter = new JPanel(new BorderLayout());
-        pnCenter.setBackground(Color.WHITE);
+        pnCenter.setBackground(FWCConfigurator.bgColor);
         pnCenter.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
 
         lblName = new JLabel("", SwingConstants.RIGHT);
@@ -82,13 +82,14 @@ public class TeacherStudentHistory extends JPanel {
         tableScroll = new JScrollPane(sheetsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBackground(FWCConfigurator.bgColor);
 
         pnCenter.add(lblName, BorderLayout.NORTH);
         pnCenter.add(tableScroll, BorderLayout.CENTER);
 
         // Build south panel
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBackground(FWCConfigurator.bgColor);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         btnPrint = new ImageButton("Print Selected",

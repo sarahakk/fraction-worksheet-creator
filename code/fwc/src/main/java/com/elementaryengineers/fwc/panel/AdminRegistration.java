@@ -47,12 +47,12 @@ public class AdminRegistration extends JPanel {
 
     public AdminRegistration() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
         setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Administrator Registration", FWCConfigurator.ADMIN_REG_IMG);
         pnNorth.add(lblTitle);
 
@@ -75,7 +75,7 @@ public class AdminRegistration extends JPanel {
 
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
-        pnFieldsLeft.setBackground(Color.WHITE);
+        pnFieldsLeft.setBackground(FWCConfigurator.bgColor);
         pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 0));
         pnFieldsLeft.setPreferredSize(new Dimension(400, 200));
         GridBagConstraints cLeft = new GridBagConstraints();
@@ -171,7 +171,7 @@ public class AdminRegistration extends JPanel {
 
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
-        pnFieldsRight.setBackground(Color.WHITE);
+        pnFieldsRight.setBackground(FWCConfigurator.bgColor);
         pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10, 30));
         pnFieldsRight.setPreferredSize(new Dimension(500, 200));
         GridBagConstraints cRight = new GridBagConstraints();
@@ -230,7 +230,7 @@ public class AdminRegistration extends JPanel {
 
         // Build south panel and submit button
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         pnSouth.add(btnSubmit);
 

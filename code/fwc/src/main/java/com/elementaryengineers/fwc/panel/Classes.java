@@ -49,22 +49,22 @@ public class Classes extends JPanel {
 
     public Classes() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("All Classes",
                 FWCConfigurator.CLASSES_TITLE_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel
         pnCenter = new JPanel(new BorderLayout());
-        pnCenter.setBackground(Color.WHITE);
+        pnCenter.setBackground(FWCConfigurator.bgColor);
 
         // Build buttons and search
         pnSearch = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        pnSearch.setBackground(Color.WHITE);
+        pnSearch.setBackground(FWCConfigurator.bgColor);
         pnSearch.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
 
         lblSearch = new JLabel("Search: ");
@@ -99,7 +99,7 @@ public class Classes extends JPanel {
         pnSearch.add(txtSearch);
 
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBackground(FWCConfigurator.bgColor);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
 
         // Create buttons
@@ -135,6 +135,7 @@ public class Classes extends JPanel {
         tableScroll = new JScrollPane(classesTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBackground(FWCConfigurator.bgColor);
         tableScroll.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(10, 100, 10, 100),
                 new LineBorder(Color.black, 1)));

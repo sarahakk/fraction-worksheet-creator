@@ -38,7 +38,7 @@ public class Login extends JPanel {
 
     public Login() {
         super(new BorderLayout());
-        this.setBackground(Color.WHITE);
+        this.setBackground(FWCConfigurator.bgColor);
         this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 
         lblUser = new JLabel("Username:", SwingConstants.RIGHT);
@@ -49,7 +49,7 @@ public class Login extends JPanel {
         txtPass = new JPasswordField(24);
 
         pnFields = new JPanel(new GridBagLayout());
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.setBorder(BorderFactory.createCompoundBorder(
                 new TitledBorder("Welcome to the Fraction Worksheet Creator!"),
                 new EmptyBorder(10, 10, 10, 10)));
@@ -83,11 +83,11 @@ public class Login extends JPanel {
         pnFields.add(txtPass, c);
 
         pnWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnWrapper.setBackground(Color.WHITE);
+        pnWrapper.setBackground(FWCConfigurator.bgColor);
         pnWrapper.add(pnFields);
 
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         btnLogin = new ImageButton("Login", FWCConfigurator.LOGIN_IMG, 150, 50);
         btnForgotPass = new ImageButton("Forgot password?", FWCConfigurator.FORGOT_PASSW_IMG, 150, 50);
         pnSouth.add(btnLogin);

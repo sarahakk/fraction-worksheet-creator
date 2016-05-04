@@ -43,17 +43,17 @@ public class TeacherHome extends JPanel {
 
     public TeacherHome() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Worksheets", FWCConfigurator.WS_IMG);
         pnNorth.add(lblTitle);
 
         // Build buttons and center panel
         pnButtons = new JPanel(new GridBagLayout());
-        pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBackground(FWCConfigurator.bgColor);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(10, 0, 25, 0));
         GridBagConstraints c = new GridBagConstraints();
 

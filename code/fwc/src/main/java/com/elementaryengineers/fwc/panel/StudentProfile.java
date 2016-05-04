@@ -45,11 +45,11 @@ public class StudentProfile extends JPanel {
 
     public StudentProfile() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Student Profile",
                 FWCConfigurator.STUDENT_PROFILE_IMG);
         pnNorth.add(lblTitle);
@@ -68,7 +68,7 @@ public class StudentProfile extends JPanel {
 
         // Use GridBagLayout
         pnFieldsLeft = new JPanel(new GridBagLayout());
-        pnFieldsLeft.setBackground(Color.WHITE);
+        pnFieldsLeft.setBackground(FWCConfigurator.bgColor);
         pnFieldsLeft.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 0));
         GridBagConstraints cLeft = new GridBagConstraints();
         cLeft.ipady = 5;
@@ -138,7 +138,7 @@ public class StudentProfile extends JPanel {
 
         // Use GridBagLayout
         pnFieldsRight = new JPanel(new GridBagLayout());
-        pnFieldsRight.setBackground(Color.WHITE);
+        pnFieldsRight.setBackground(FWCConfigurator.bgColor);
         pnFieldsRight.setBorder(BorderFactory.createEmptyBorder(0, 60, 10,
                 150));
         GridBagConstraints cRight = new GridBagConstraints();
@@ -173,7 +173,7 @@ public class StudentProfile extends JPanel {
 
         // Build buttons and south panel
         pnSouth = new JPanel(new BorderLayout());
-        pnSouth.setBackground(Color.WHITE);
+        pnSouth.setBackground(FWCConfigurator.bgColor);
         pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 
         btnSubmit = new ImageButton("Submit Changes", FWCConfigurator
@@ -267,11 +267,11 @@ public class StudentProfile extends JPanel {
                 .DEL_STUDENT_IMG, 150, 50);
 
         pnUpBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnUpBtns.setBackground(Color.WHITE);
+        pnUpBtns.setBackground(FWCConfigurator.bgColor);
         pnUpBtns.add(btnSubmit);
 
         pnDownBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnDownBtns.setBackground(Color.WHITE);
+        pnDownBtns.setBackground(FWCConfigurator.bgColor);
         pnDownBtns.add(btnHistory);
         pnDownBtns.add(btnReset);
         pnDownBtns.add(btnDelete);

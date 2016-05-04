@@ -36,12 +36,12 @@ public class ForgotPassword extends JPanel {
 
     public ForgotPassword() {
         super(new BorderLayout());
-        this.setBackground(Color.WHITE);
+        this.setBackground(FWCConfigurator.bgColor);
         this.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Request Password Reset", FWCConfigurator.REQ_PASSW_RESET_IMG);
         pnNorth.add(lblTitle);
 
@@ -51,7 +51,7 @@ public class ForgotPassword extends JPanel {
         txtUser = new JTextField(24);
 
         pnFields = new JPanel(new GridBagLayout());
-        pnFields.setBackground(Color.WHITE);
+        pnFields.setBackground(FWCConfigurator.bgColor);
         pnFields.setBorder(BorderFactory.createEmptyBorder(10, 60, 10, 60));
         GridBagConstraints c = new GridBagConstraints();
         c.ipady = 5;
@@ -67,7 +67,7 @@ public class ForgotPassword extends JPanel {
 
         // Build buttons (south)
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBackground(FWCConfigurator.bgColor);
         btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnBack = new ImageButton("Back", FWCConfigurator.BACK_IMG, 150, 50);
         pnButtons.add(btnBack);

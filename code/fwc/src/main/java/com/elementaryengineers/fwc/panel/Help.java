@@ -45,7 +45,7 @@ public class Help extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         lblHelp = new JLabel();
 
@@ -77,7 +77,7 @@ public class Help extends JFrame {
         makeHelpText();
 
         pnClose = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnClose.setBackground(Color.WHITE);
+        pnClose.setBackground(FWCConfigurator.bgColor);
         btnClose = new ImageButton("Close", FWCConfigurator.CLOSE_IMG, 150, 50);
         btnClose.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         btnClose.addActionListener(new ActionListener() {
@@ -100,7 +100,7 @@ public class Help extends JFrame {
 
     private void makeHelpText() {
         pnTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnTitle.setBackground(Color.WHITE);
+        pnTitle.setBackground(FWCConfigurator.bgColor);
 
         helpText = new JTextArea();
         helpText.setEnabled(false);
@@ -271,8 +271,9 @@ public class Help extends JFrame {
         scrollPane = new JScrollPane(helpText, JScrollPane
                 .VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBackground(FWCConfigurator.bgColor);
 
-        lblTitle.setBackground(Color.WHITE);
+        lblTitle.setBackground(FWCConfigurator.bgColor);
         lblTitle.setFont(new Font("Calibri", Font.BOLD, 20));
         lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 

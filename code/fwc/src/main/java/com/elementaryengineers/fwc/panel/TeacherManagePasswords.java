@@ -45,17 +45,17 @@ public class TeacherManagePasswords extends JPanel {
 
     public TeacherManagePasswords() {
         super(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(FWCConfigurator.bgColor);
 
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnNorth.setBackground(Color.WHITE);
+        pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Reset Passwords", FWCConfigurator.RESET_PASSW_TITLE_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel
         pnCenter = new JPanel(new BorderLayout());
-        pnCenter.setBackground(Color.WHITE);
+        pnCenter.setBackground(FWCConfigurator.bgColor);
 
         // Build table of students
         tableModel = new DisabledTableModel();
@@ -76,6 +76,7 @@ public class TeacherManagePasswords extends JPanel {
         tableScroll = new JScrollPane(studentsTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScroll.setBackground(FWCConfigurator.bgColor);
         tableScroll.setBorder(BorderFactory.createCompoundBorder(
                 new EmptyBorder(10, 100, 10, 100),
                 new LineBorder(Color.black, 1)));
@@ -84,7 +85,7 @@ public class TeacherManagePasswords extends JPanel {
 
         // Build south panel
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pnButtons.setBackground(Color.WHITE);
+        pnButtons.setBackground(FWCConfigurator.bgColor);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
         btnReset = new ImageButton("Reset Selected", FWCConfigurator.RESET_SELECTED_IMG, 150, 50);
         btnReset.addActionListener(new ResetListener());
