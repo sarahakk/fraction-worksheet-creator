@@ -112,8 +112,13 @@ public class FWCMainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (FWCConfigurator.getCurrentPage() != Page.MY_ACCOUNT) {
-                    if (myAccount == null) { // Create panel if first time
-                        myAccount = new Account();
+                    if (myAccount == null) { // Add panel if first time
+                        myAccount = new Account(); // Create my account page
+                        pnCard.add(myAccount, "Account");
+                    }
+                    else {
+                        pnCard.remove(myAccount);
+                        myAccount = new Account(); // Re-create my account page
                         pnCard.add(myAccount, "Account");
                     }
 
