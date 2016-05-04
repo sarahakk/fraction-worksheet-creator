@@ -26,7 +26,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
+/**This is a teacher’s profile as viewed by the Admin, where the Admin 
+ * can reset a teacher’s password on demand or delete the teacher account, 
+ * as well as makes changes to the teacher name and username.
  * Created by sarahakk on 4/25/16.
  */
 public class TeacherProfile extends JPanel {
@@ -45,7 +47,8 @@ public class TeacherProfile extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(FWCConfigurator.bgColor);
-        lblTitle = new TitleLabel("Teacher Profile", FWCConfigurator.TEACHER_PROFILE_IMG);
+        lblTitle = new TitleLabel("Teacher Profile", 
+                FWCConfigurator.TEACHER_PROFILE_IMG);
         pnNorth.add(lblTitle);
 
         // Build fields and center panel
@@ -134,7 +137,7 @@ public class TeacherProfile extends JPanel {
                 modifiedTeacher.setLastName(newLast);
 
                 // Check database update status
-                if (FWCConfigurator.getDbConn().updateTeacher(modifiedTeacher)) {
+                if (FWCConfigurator.getDbConn().updateTeacher(modifiedTeacher)){
                     JOptionPane.showMessageDialog(null,
                             "Teacher was successfully updated.",
                             "Teacher Update Successful",
@@ -215,7 +218,8 @@ public class TeacherProfile extends JPanel {
     }
 
     /**
-     * To be used when submitting changes to get the teacher object from the admin's list to update the DB with.
+     * To be used when submitting changes to get the teacher object from the
+     * admin's list to update the DB with.
      * @return
      */
     public int getTeacherIndex() {

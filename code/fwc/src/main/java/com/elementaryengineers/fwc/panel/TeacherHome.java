@@ -30,7 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-/**
+/**The teacher homepage is where the teacher can generate random fractions 
+ * worksheets of different difficulties and exercise types.
  * Created by sarahakk on 4/10/16.
  */
 public class TeacherHome extends JPanel {
@@ -58,27 +59,36 @@ public class TeacherHome extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
 
         // Make beginner buttons
-        btnBeg1 = new ImageButton("Beginner\nPie Charts", FWCConfigurator.BEG1_IMG, 200, 100);
+        btnBeg1 = new ImageButton("Beginner\nPie Charts", 
+                FWCConfigurator.BEG1_IMG, 200, 100);
         btnBeg1.addActionListener(new BeginnerActionListener());
-        btnBeg2 = new ImageButton("Beginner Addition", FWCConfigurator.BEG2_IMG, 200, 100);
+        btnBeg2 = new ImageButton("Beginner Addition", 
+                FWCConfigurator.BEG2_IMG, 200, 100);
         btnBeg2.addActionListener(new BeginnerActionListener());
-        btnBeg3 = new ImageButton("Beginner\nLeast to Greatest", FWCConfigurator.BEG3_IMG, 200, 100);
+        btnBeg3 = new ImageButton("Beginner\nLeast to Greatest", 
+                FWCConfigurator.BEG3_IMG, 200, 100);
         btnBeg3.addActionListener(new BeginnerActionListener());
 
         // Make intermediate buttons
-        btnInt1 = new ImageButton("Intermediate Addition", FWCConfigurator.INT1_IMG, 200, 100);
+        btnInt1 = new ImageButton("Intermediate Addition",
+                FWCConfigurator.INT1_IMG, 200, 100);
         btnInt1.addActionListener(new IntermediateActionListener());
-        btnInt2 = new ImageButton("Intermediate Subtraction", FWCConfigurator.INT2_IMG, 200, 100);
+        btnInt2 = new ImageButton("Intermediate Subtraction", 
+                FWCConfigurator.INT2_IMG, 200, 100);
         btnInt2.addActionListener(new IntermediateActionListener());
-        btnInt3 = new ImageButton("Intermediate Multiplication\nand Division", FWCConfigurator.INT3_IMG, 200, 100);
+        btnInt3 = new ImageButton("Intermediate Multiplication\nand Division", 
+                FWCConfigurator.INT3_IMG, 200, 100);
         btnInt3.addActionListener(new IntermediateActionListener());
 
         // Make advanced buttons
-        btnAdv1 = new ImageButton("Advanced Addition", FWCConfigurator.ADV1_IMG, 200, 100);
+        btnAdv1 = new ImageButton("Advanced Addition", 
+                FWCConfigurator.ADV1_IMG, 200, 100);
         btnAdv1.addActionListener(new AdvancedActionListener());
-        btnAdv2 = new ImageButton("Advanced Subtraction", FWCConfigurator.ADV2_IMG, 200, 100);
+        btnAdv2 = new ImageButton("Advanced Subtraction", 
+                FWCConfigurator.ADV2_IMG, 200, 100);
         btnAdv2.addActionListener(new AdvancedActionListener());
-        btnAdv3 = new ImageButton("Advanced Multiplication", FWCConfigurator.ADV3_IMG, 200, 100);
+        btnAdv3 = new ImageButton("Advanced Multiplication", 
+                FWCConfigurator.ADV3_IMG, 200, 100);
         btnAdv3.addActionListener(new AdvancedActionListener());
 
         // Add buttons to center panel
@@ -125,39 +135,48 @@ public class TeacherHome extends JPanel {
                     worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_Pie, 0);
-                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), 
+                            FWCConfigurator.WS_Beginner_Pie, 0);
+                    teacher.addWorksheet(newWorksheet); 
+// Add to Teacher's history
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                    JOptionPane.showMessageDialog(null, "An error occurred "
+                            + "while creating your worksheet!\n" +
+                                    "If the problem persists, please restart "
+                            + "the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else if (e.getSource() == btnBeg2) {
                 WS_Beginner_PieAdd worksheet =
                         new WS_Beginner_PieAdd (0, 20,
-                                1, 10, // Use default numerator and denominator limits
+                         1, 10, // Use default numerator and denominator limits
                                 2, 10,
-                                FWCConfigurator.GEN_DENOM_MATCHED + FWCConfigurator.GEN_WHOLENUM_NO);
+                                FWCConfigurator.GEN_DENOM_MATCHED + 
+                                        FWCConfigurator.GEN_WHOLENUM_NO);
 
                 try {
                     worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_PieAdd, 0);
-                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                            FWCConfigurator.WS_Beginner_PieAdd, 0);
+                    teacher.addWorksheet(newWorksheet); 
+// Add to Teacher's history
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                    JOptionPane.showMessageDialog(null, "An error occurred "
+                            + "while creating your worksheet!\n" +
+                                    "If the problem persists, please restart "
+                            + "the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else if (e.getSource() == btnBeg3) {
                 WS_Beginner_LG worksheet =
                         new WS_Beginner_LG (0, 50,
-                                1, 10, // Use default numerator and denominator limits
+                        1, 10, // Use default numerator and denominator limits
                                 2, 10,
                                 FWCConfigurator.GEN_UNIQUE5);
 
@@ -165,12 +184,16 @@ public class TeacherHome extends JPanel {
                     worksheet.CreateWorksheet(FWCConfigurator.ANSWER_SHEET);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_LG, 0);
-                    teacher.addWorksheet(newWorksheet); // Add to Teacher's history
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                            FWCConfigurator.WS_Beginner_LG, 0);
+                    teacher.addWorksheet(newWorksheet); 
+// Add to Teacher's history
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                    "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                    JOptionPane.showMessageDialog(null, "An error occurred "
+                            + "while creating your worksheet!\n" +
+                                    "If the problem persists, please restart "
+                            + "the Fraction Worksheet Creator and try again.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -194,14 +217,18 @@ public class TeacherHome extends JPanel {
 
                 // Create new worksheet object
                 Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
-                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Intermediate_Add :
-                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Intermediate_Sub :
+                        (e.getSource() == btnInt1) ? 
+                                FWCConfigurator.WS_Intermediate_Add :
+                                (e.getSource() == btnInt2) ? 
+                                        FWCConfigurator.WS_Intermediate_Sub :
                                         FWCConfigurator.WS_Intermediate_MD, 1);
                 teacher.addWorksheet(newWorksheet); // Add to Teacher's history
             }
             catch (IOException|COSVisitorException ex) {
-                JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                JOptionPane.showMessageDialog(null, "An error occurred while "
+                        + "creating your worksheet!\n" +
+                                "If the problem persists, please restart "
+                        + "the Fraction Worksheet Creator and try again.",
                         "Worksheet Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -224,14 +251,18 @@ public class TeacherHome extends JPanel {
 
                 // Create new worksheet object
                 Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
-                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Advanced_Add :
-                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Advanced_Sub :
+                        (e.getSource() == btnInt1) ? 
+                                FWCConfigurator.WS_Advanced_Add :
+                                (e.getSource() == btnInt2) ? 
+                                        FWCConfigurator.WS_Advanced_Sub :
                                         FWCConfigurator.WS_Advanced_MD, 2);
                 teacher.addWorksheet(newWorksheet); // Add to Teacher's history
             }
             catch (IOException|COSVisitorException ex) {
-                JOptionPane.showMessageDialog(null, "An error occurred while creating your worksheet!\n" +
-                                "If the problem persists, please restart the Fraction Worksheet Creator and try again.",
+                JOptionPane.showMessageDialog(null, "An error occurred "
+                        + "while creating your worksheet!\n" +
+                                "If the problem persists, please restart "
+                        + "the Fraction Worksheet Creator and try again.",
                         "Worksheet Error", JOptionPane.ERROR_MESSAGE);
             }
         }

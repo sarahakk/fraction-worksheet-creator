@@ -31,7 +31,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-/**
+/**The student homepage allows him/her to generate worksheets of his/her 
+ * assigned difficulty level.
  * Created by sarahakk on 4/26/16.
  */
 public class StudentHome extends JPanel {
@@ -60,12 +61,15 @@ public class StudentHome extends JPanel {
         pnDiff.setBackground(FWCConfigurator.bgColor);
 
         // Make difficulty buttons
-        btnBeg = new ImageButton("Beginner", FWCConfigurator.STUDENT_BEG_IMG, 250, 125);
+        btnBeg = new ImageButton("Beginner", FWCConfigurator.STUDENT_BEG_IMG, 
+                250, 125);
         btnBeg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_IMG); // Ensure button is colored
-                cardLayout.show(pnCard, "Beginner"); // Switch to beginner worksheet buttons
+                btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_IMG); 
+// Ensure button is colored
+                cardLayout.show(pnCard, "Beginner"); 
+// Switch to beginner worksheet buttons
 
                 // Gray out other buttons, if any
                 if (stu.getDifficultyID() > 0) {
@@ -88,11 +92,14 @@ public class StudentHome extends JPanel {
         // Make beginner buttons and panel
         pnBeg = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnBeg.setBackground(FWCConfigurator.bgColor);
-        btnBeg1 = new ImageButton("Pie Charts", FWCConfigurator.STUDENT_BEG_PIE_IMG, 250, 125);
+        btnBeg1 = new ImageButton("Pie Charts", 
+                FWCConfigurator.STUDENT_BEG_PIE_IMG, 250, 125);
         btnBeg1.addActionListener(new StudentHome.BeginnerActionListener());
-        btnBeg2 = new ImageButton("Addition", FWCConfigurator.STUDENT_BEG_ADD_IMG, 250, 125);
+        btnBeg2 = new ImageButton("Addition", 
+                FWCConfigurator.STUDENT_BEG_ADD_IMG, 250, 125);
         btnBeg2.addActionListener(new StudentHome.BeginnerActionListener());
-        btnBeg3 = new ImageButton("Least to Greatest", FWCConfigurator.STUDENT_BEG_LG_IMG, 250, 125);
+        btnBeg3 = new ImageButton("Least to Greatest",
+                FWCConfigurator.STUDENT_BEG_LG_IMG, 250, 125);
         btnBeg3.addActionListener(new StudentHome.BeginnerActionListener());
         pnBeg.add(btnBeg1);
         pnBeg.add(btnBeg2);
@@ -100,12 +107,15 @@ public class StudentHome extends JPanel {
         pnCard.add(pnBeg, "Beginner"); // Add worksheet buttons to card panel
 
         if (stu.getDifficultyID() > 0) {
-            btnInt = new ImageButton("Intermediate", FWCConfigurator.STUDENT_INT_IMG, 250, 125);
+            btnInt = new ImageButton("Intermediate", 
+                    FWCConfigurator.STUDENT_INT_IMG, 250, 125);
             btnInt.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    btnInt.swapImage(FWCConfigurator.STUDENT_INT_IMG); // Ensure button is colored
-                    cardLayout.show(pnCard, "Intermediate"); // Switch to intermediate worksheet buttons
+                    btnInt.swapImage(FWCConfigurator.STUDENT_INT_IMG); 
+// Ensure button is colored
+                    cardLayout.show(pnCard, "Intermediate"); 
+// Switch to intermediate worksheet buttons
 
                     // Gray out other buttons
                     btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_G_IMG);
@@ -120,26 +130,32 @@ public class StudentHome extends JPanel {
             // Make intermediate buttons and panel
             pnInt = new JPanel(new FlowLayout(FlowLayout.CENTER));
             pnInt.setBackground(FWCConfigurator.bgColor);
-            btnInt1 = new ImageButton("Addition", FWCConfigurator.STUDENT_INT_ADD_IMG, 250, 125);
-            btnInt1.addActionListener(new StudentHome.IntermediateActionListener());
-            btnInt2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_INT_SUB_IMG, 250, 125);
-            btnInt2.addActionListener(new StudentHome.IntermediateActionListener());
+            btnInt1 = new ImageButton("Addition", 
+                    FWCConfigurator.STUDENT_INT_ADD_IMG, 250, 125);
+        btnInt1.addActionListener(new StudentHome.IntermediateActionListener());
+        btnInt2 = new ImageButton("Subtraction", 
+                    FWCConfigurator.STUDENT_INT_SUB_IMG, 250, 125);
+        btnInt2.addActionListener(new StudentHome.IntermediateActionListener());
             btnInt3 = new ImageButton("Multiplication and Division",
                     FWCConfigurator.STUDENT_INT_MD_IMG, 250, 125);
-            btnInt3.addActionListener(new StudentHome.IntermediateActionListener());
+       btnInt3.addActionListener(new StudentHome.IntermediateActionListener());
             pnInt.add(btnInt1);
             pnInt.add(btnInt2);
             pnInt.add(btnInt3);
-            pnCard.add(pnInt, "Intermediate"); // Add worksheet buttons to card panel
+            pnCard.add(pnInt, "Intermediate"); 
+// Add worksheet buttons to card panel
             cardLayout.show(pnCard, "Intermediate");
 
             if (stu.getDifficultyID() > 1) {
-                btnAdv = new ImageButton("Advanced", FWCConfigurator.STUDENT_ADV_IMG, 250, 125);
+                btnAdv = new ImageButton("Advanced", 
+                        FWCConfigurator.STUDENT_ADV_IMG, 250, 125);
                 btnAdv.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        btnAdv.swapImage(FWCConfigurator.STUDENT_ADV_IMG); // Ensure button is colored
-                        cardLayout.show(pnCard, "Advanced"); // Switch to advanced worksheet buttons
+                        btnAdv.swapImage(FWCConfigurator.STUDENT_ADV_IMG); 
+// Ensure button is colored
+                        cardLayout.show(pnCard, "Advanced"); 
+// Switch to advanced worksheet buttons
 
                         // Gray out other buttons
                         btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_G_IMG);
@@ -151,16 +167,20 @@ public class StudentHome extends JPanel {
                 // Make advanced buttons and panel
                 pnAdv = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 pnAdv.setBackground(FWCConfigurator.bgColor);
-                btnAdv1 = new ImageButton("Addition", FWCConfigurator.STUDENT_ADV_ADD_IMG, 250, 125);
-                btnAdv1.addActionListener(new StudentHome.AdvancedActionListener());
-                btnAdv2 = new ImageButton("Subtraction", FWCConfigurator.STUDENT_ADV_SUB_IMG, 250, 125);
-                btnAdv2.addActionListener(new StudentHome.AdvancedActionListener());
-                btnAdv3 = new ImageButton("Multiplication", FWCConfigurator.STUDENT_ADV_MD_IMG, 250, 125);
-                btnAdv3.addActionListener(new StudentHome.AdvancedActionListener());
+                btnAdv1 = new ImageButton("Addition",
+                        FWCConfigurator.STUDENT_ADV_ADD_IMG, 250, 125);
+            btnAdv1.addActionListener(new StudentHome.AdvancedActionListener());
+                btnAdv2 = new ImageButton("Subtraction", 
+                        FWCConfigurator.STUDENT_ADV_SUB_IMG, 250, 125);
+            btnAdv2.addActionListener(new StudentHome.AdvancedActionListener());
+                btnAdv3 = new ImageButton("Multiplication", 
+                        FWCConfigurator.STUDENT_ADV_MD_IMG, 250, 125);
+            btnAdv3.addActionListener(new StudentHome.AdvancedActionListener());
                 pnAdv.add(btnAdv1);
                 pnAdv.add(btnAdv2);
                 pnAdv.add(btnAdv3);
-                pnCard.add(pnAdv, "Advanced"); // Add worksheet buttons to card panel
+                pnCard.add(pnAdv, "Advanced"); 
+// Add worksheet buttons to card panel
                 cardLayout.show(pnCard, "Advanced");
             }
         }
@@ -184,45 +204,49 @@ public class StudentHome extends JPanel {
             {
                 WS_Beginner_Pie worksheet =
                         new WS_Beginner_Pie (0, 10,
-                                1, 10, // Use default numerator and denominator limits
-                                2, 10,
-                                FWCConfigurator.GEN_WHOLENUM_NO);
+                         1, 10, // Use default numerator and denominator limits
+                         2, 10, FWCConfigurator.GEN_WHOLENUM_NO);
 
                 try {
                     worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_Pie, 0);
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                            FWCConfigurator.WS_Beginner_Pie, 0);
                     stu.addWorksheet(newWorksheet); // Add to Student's history
                 }
                 catch (IOException |COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "Oh no! Something went wrong. Please try again later.",
+                    JOptionPane.showMessageDialog(null, "Oh no! Something went"
+                            + " wrong. Please try again later.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else if (e.getSource() == btnBeg2) {
                 WS_Beginner_PieAdd worksheet =
                         new WS_Beginner_PieAdd (0, 20,
-                                1, 10, // Use default numerator and denominator limits
+                        1, 10, // Use default numerator and denominator limits
                                 2, 10,
-                                FWCConfigurator.GEN_DENOM_MATCHED + FWCConfigurator.GEN_WHOLENUM_NO);
+                                FWCConfigurator.GEN_DENOM_MATCHED +
+                                        FWCConfigurator.GEN_WHOLENUM_NO);
 
                 try {
                     worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_PieAdd, 0);
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                            FWCConfigurator.WS_Beginner_PieAdd, 0);
                     stu.addWorksheet(newWorksheet); // Add to Student's history
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "Oh no! Something went wrong. Please try again later.",
+                    JOptionPane.showMessageDialog(null, "Oh no! Something went"
+                            + " wrong. Please try again later.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else if (e.getSource() == btnBeg3) {
                 WS_Beginner_LG worksheet =
                         new WS_Beginner_LG (0, 50,
-                                1, 10, // Use default numerator and denominator limits
+                       1, 10, // Use default numerator and denominator limits
                                 2, 10,
                                 FWCConfigurator.GEN_UNIQUE5);
 
@@ -230,11 +254,13 @@ public class StudentHome extends JPanel {
                     worksheet.CreateWorksheet(FWCConfigurator.WORKSHEET_ONLY);
 
                     // Create new worksheet object
-                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(), FWCConfigurator.WS_Beginner_LG, 0);
+                    Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
+                            FWCConfigurator.WS_Beginner_LG, 0);
                     stu.addWorksheet(newWorksheet); // Add to Student's history
                 }
                 catch (IOException|COSVisitorException ex) {
-                    JOptionPane.showMessageDialog(null, "Oh no! Something went wrong. Please try again later.",
+                    JOptionPane.showMessageDialog(null, "Oh no! Something went"
+                            + " wrong. Please try again later.",
                             "Worksheet Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -258,13 +284,16 @@ public class StudentHome extends JPanel {
 
                 // Create new worksheet object
                 Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
-                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Intermediate_Add :
-                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Intermediate_Sub :
+                        (e.getSource() == btnInt1) ? 
+                                FWCConfigurator.WS_Intermediate_Add :
+                                (e.getSource() == btnInt2) ? 
+                                        FWCConfigurator.WS_Intermediate_Sub :
                                         FWCConfigurator.WS_Intermediate_MD, 1);
                 stu.addWorksheet(newWorksheet); // Add to Student's history
             }
             catch (IOException|COSVisitorException ex) {
-                JOptionPane.showMessageDialog(null, "Oh no! Something went wrong. Please try again later.",
+                JOptionPane.showMessageDialog(null, "Oh no! Something went "
+                        + "wrong. Please try again later.",
                         "Worksheet Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -287,13 +316,16 @@ public class StudentHome extends JPanel {
 
                 // Create new worksheet object
                 Worksheet newWorksheet = new Worksheet(worksheet.getSeed(),
-                        (e.getSource() == btnInt1) ? FWCConfigurator.WS_Advanced_Add :
-                                (e.getSource() == btnInt2) ? FWCConfigurator.WS_Advanced_Sub :
+                        (e.getSource() == btnInt1) ? 
+                                FWCConfigurator.WS_Advanced_Add :
+                                (e.getSource() == btnInt2) ? 
+                                        FWCConfigurator.WS_Advanced_Sub :
                                         FWCConfigurator.WS_Advanced_MD, 2);
                 stu.addWorksheet(newWorksheet); // Add to Student's history
             }
             catch (IOException|COSVisitorException ex) {
-                JOptionPane.showMessageDialog(null, "Oh no! Something went wrong. Please try again later.",
+                JOptionPane.showMessageDialog(null, "Oh no! Something went"
+                        + " wrong. Please try again later.",
                         "Worksheet Error", JOptionPane.ERROR_MESSAGE);
             }
         }

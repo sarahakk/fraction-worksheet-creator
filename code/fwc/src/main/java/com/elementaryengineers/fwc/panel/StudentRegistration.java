@@ -39,7 +39,8 @@ public class StudentRegistration extends JPanel{
 
     private JPanel pnNorth, pnFieldsLeft, pnFieldsRight, pnSouth;
     private TitleLabel lblTitle;
-    private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm, lblClass, lblDifficulty;
+    private JLabel lblFirst, lblLast, lblUser, lblPass, lblConfirm, lblClass, 
+            lblDifficulty;
     private JComboBox cbClassName, cbDifficulty;
     private JTextField txtFirst, txtLast, txtUser;
     private JPasswordField txtPass, txtConfirm;
@@ -165,10 +166,12 @@ public class StudentRegistration extends JPanel{
         difficulties = new ArrayList<>();
 
         FWCConfigurator.getTeacher().getClasses().stream()
-                .forEach(classroom -> classNames.add(classroom.getClassName()));
+                .forEach(classroom -> classNames.add(classroom.
+                        getClassName()));
 
         FWCConfigurator.getDifficulties().stream()
-                .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
+                .forEach(difficulty -> difficulties.add(difficulty.
+                        getDescription()));
 
         cbClassName = new JComboBox(classNames.toArray());
         cbClassName.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -216,7 +219,8 @@ public class StudentRegistration extends JPanel{
         pnSouth.setBackground(FWCConfigurator.bgColor);
         pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 
-        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 
+                150, 50);
         btnSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -257,16 +261,19 @@ public class StudentRegistration extends JPanel{
 
     private boolean verifyRegistration() {
         if (txtFirst.getText().equals("") || txtLast.getText().equals("") ||
-                txtUser.getText().equals("") || String.valueOf(txtPass.getPassword()).equals("") ||
+                txtUser.getText().equals("") || String.valueOf(txtPass.
+                        getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("")) {
-            JOptionPane.showMessageDialog(null, "Please enter all required information.", "Registration Failed",
+            JOptionPane.showMessageDialog(null, "Please enter all required "
+                    + "information.", "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Check if username is available
-        if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
-            JOptionPane.showMessageDialog(null, "Username is not available.", "Registration Failed",
+    if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
+            JOptionPane.showMessageDialog(null, "Username is not available.", 
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -284,11 +291,13 @@ public class StudentRegistration extends JPanel{
     }
 
     private Student getNewStudent() {
-        Classroom classroom = FWCConfigurator.getTeacher().getClasses().get(cbClassName
-                .getSelectedIndex());
+        Classroom classroom = FWCConfigurator.getTeacher().getClasses().
+                get(cbClassName.getSelectedIndex());
 
-        return new Student(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
-                String.valueOf(txtPass.getPassword()), cbDifficulty.getSelectedIndex(),
+        return new Student(txtUser.getText(), txtFirst.getText(), 
+                txtLast.getText(),
+                String.valueOf(txtPass.getPassword()), 
+                cbDifficulty.getSelectedIndex(),
                 classroom.getClassID(), classroom.getClassName());
     }
 
@@ -306,9 +315,9 @@ public class StudentRegistration extends JPanel{
                 .forEach(classroom -> classNames.add(classroom.getClassName()));
 
         FWCConfigurator.getDifficulties().stream()
-                .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
+         .forEach(difficulty -> difficulties.add(difficulty.getDescription()));
 
-        DefaultComboBoxModel model = new DefaultComboBoxModel(classNames.toArray());
+    DefaultComboBoxModel model = new DefaultComboBoxModel(classNames.toArray());
 
         cbClassName.setModel(model);
 

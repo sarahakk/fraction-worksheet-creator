@@ -30,7 +30,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
+/**Teachers can reset the passwords of students that have requested it in 
+ * the Forgot Password page by clicking the Password Reset button in the menu.
+ * They can reset the passwords of particular students or all students that 
+ * requested it at once.
  * Created by sarahakk on 4/27/16.
  */
 public class TeacherManagePasswords extends JPanel {
@@ -50,7 +53,8 @@ public class TeacherManagePasswords extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(FWCConfigurator.bgColor);
-        lblTitle = new TitleLabel("Reset Passwords", FWCConfigurator.RESET_PASSW_TITLE_IMG);
+        lblTitle = new TitleLabel("Reset Passwords", 
+                FWCConfigurator.RESET_PASSW_TITLE_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel
@@ -65,7 +69,8 @@ public class TeacherManagePasswords extends JPanel {
         studentsTable = new JTable(tableModel);
         studentsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         studentsTable.setFillsViewportHeight(true);
-        studentsTable.getTableHeader().setFont(new Font("Calibri", Font.PLAIN, 18));
+        studentsTable.getTableHeader().setFont(new Font("Calibri", 
+                Font.PLAIN, 18));
         studentsTable.setFont(new Font("Calibri", Font.PLAIN, 18));
         studentsTable.setRowHeight(studentsTable.getRowHeight() + 12);
 
@@ -87,9 +92,11 @@ public class TeacherManagePasswords extends JPanel {
         pnButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnButtons.setBackground(FWCConfigurator.bgColor);
         pnButtons.setBorder(BorderFactory.createEmptyBorder(0, 100, 20, 100));
-        btnReset = new ImageButton("Reset Selected", FWCConfigurator.RESET_SELECTED_IMG, 150, 50);
+        btnReset = new ImageButton("Reset Selected", 
+                FWCConfigurator.RESET_SELECTED_IMG, 150, 50);
         btnReset.addActionListener(new ResetListener());
-        btnResetAll = new ImageButton("Reset All", FWCConfigurator.RESET_ALL_IMG, 150, 50);
+        btnResetAll = new ImageButton("Reset All", 
+                FWCConfigurator.RESET_ALL_IMG, 150, 50);
         btnResetAll.addActionListener(new ResetListener());
         pnButtons.add(btnReset);
         pnButtons.add(btnResetAll);
@@ -115,7 +122,8 @@ public class TeacherManagePasswords extends JPanel {
     private class ResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == btnReset) { // If reset selected student's password
+            if (e.getSource() == btnReset) { 
+// If reset selected student's password
                 int index = studentsTable.getSelectedRow();
 
                 // Check if selected a student
@@ -127,8 +135,10 @@ public class TeacherManagePasswords extends JPanel {
                     // Check database update status
                     if (FWCConfigurator.getDbConn().updateStudent(student)) {
                         // Popup with new password
-                        JOptionPane.showMessageDialog(null, student.getUsername() + "'s password has been successfully " +
-                                "reset to:\n" + newPassword, "Password Reset Successful", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, 
+                student.getUsername() + "'s password has been successfully " +
+                "reset to:\n" + newPassword, "Password Reset Successful",
+                JOptionPane.INFORMATION_MESSAGE);
                     }
                     else {
                         JOptionPane.showMessageDialog(null, "Student could " +
@@ -141,13 +151,15 @@ public class TeacherManagePasswords extends JPanel {
                     JOptionPane.showMessageDialog(null, "Please select a " +
                             "student" +
                             " from the table first.",
-                            "Reset Password Error", JOptionPane.INFORMATION_MESSAGE);
+                       "Reset Password Error", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             // If reset all students' passwords
             else if (e.getSource() == btnResetAll) {
-                StringBuilder message = new StringBuilder("The following students' passwords have been reset.\n");
-                message.append("Please keep the new passwords in a safe place.\n\nUsername Password\n" +
+                StringBuilder message = new StringBuilder("The following "
+                        + "students' passwords have been reset.\n");
+                message.append("Please keep the new passwords in a "
+                        + "safe place.\n\nUsername Password\n" +
                         "-------- --------");
                 String newPassword;
                 boolean error = false;
@@ -159,7 +171,8 @@ public class TeacherManagePasswords extends JPanel {
 
                     // Check database update status
                     if (!FWCConfigurator.getDbConn().updateStudent(student)) {
-                        JOptionPane.showMessageDialog(null, "Student could not be updated in the database.",
+                        JOptionPane.showMessageDialog(null, 
+                                "Student could not be updated in the database.",
                                 "Student Update Failed",
                                 JOptionPane.ERROR_MESSAGE);
                         error = true;
@@ -176,7 +189,8 @@ public class TeacherManagePasswords extends JPanel {
 
                 if (!error || count > 0) {
                     // Popup with new passwords
-                    JOptionPane.showMessageDialog(null, message.toString(), "Password Reset Successful",
+                    JOptionPane.showMessageDialog(null, message.toString(),
+                            "Password Reset Successful",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }

@@ -331,7 +331,7 @@ public class Help extends JFrame {
                         "the student usernames and their new passwords.");
                 break;
             case STUDENT_HOME:
-               lblTitle = new JLabel("Student Home Page", SwingConstants.CENTER);
+              lblTitle = new JLabel("Student Home Page", SwingConstants.CENTER);
                 helpText.setText("On this page, you can create fraction "
                         + "worksheets by clicking any of the " +
                         "buttons below! Click the button for the type of "

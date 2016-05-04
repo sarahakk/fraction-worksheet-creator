@@ -92,7 +92,8 @@ public class Login extends JPanel {
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(FWCConfigurator.bgColor);
         btnLogin = new ImageButton("Login", FWCConfigurator.LOGIN_IMG, 150, 50);
-        btnForgotPass = new ImageButton("Forgot password?", FWCConfigurator.FORGOT_PASSW_IMG, 150, 50);
+        btnForgotPass = new ImageButton("Forgot password?", 
+                FWCConfigurator.FORGOT_PASSW_IMG, 150, 50);
         pnSouth.add(btnLogin);
         pnSouth.add(btnForgotPass);
 

@@ -195,7 +195,7 @@ public class TeacherHistory extends JPanel {
                     }
                     else {
                         JOptionPane.showMessageDialog(null,
-                                "Worksheet could not be deleted! Please try again later.",
+                     "Worksheet could not be deleted! Please try again later.",
                                 "Delete Worksheet Failed",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }

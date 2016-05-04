@@ -28,7 +28,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
+/**The StudentProfile page where a teacher can edit that student’s information,
+ * including changing the difficulty level or class assignment of that student, 
+ * resetting the student’s password, and deleting the student.Student worksheet
+ * history can also be reached from here.
  *
  * @author olgasheehan
  */

@@ -26,7 +26,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
+/**Teachers are registered by the Admin using this page, which is reached by 
+ * clicking the Add Teacher button in the menu.
  * Created by sarahakk on 4/25/16.
  */
 public class TeacherRegistration extends JPanel {
@@ -46,7 +47,8 @@ public class TeacherRegistration extends JPanel {
         // Build title and north panel
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(FWCConfigurator.bgColor);
-        lblTitle = new TitleLabel("Teacher Registration", FWCConfigurator.TEACHER_REG_IMG);
+        lblTitle = new TitleLabel("Teacher Registration", 
+                FWCConfigurator.TEACHER_REG_IMG);
         pnNorth.add(lblTitle);
 
         // Build center panel and form
@@ -152,7 +154,8 @@ public class TeacherRegistration extends JPanel {
         pnSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnSouth.setBackground(FWCConfigurator.bgColor);
         pnSouth.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        btnSubmit = new ImageButton("Submit", FWCConfigurator.SUBMIT_IMG, 150, 50);
+        btnSubmit = new ImageButton("Submit",
+                FWCConfigurator.SUBMIT_IMG, 150, 50);
         btnSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,10 +163,10 @@ public class TeacherRegistration extends JPanel {
                     Teacher newTeacher = getNewTeacher();
 
                     // If adding new teacher to database works
-                    if (FWCConfigurator.getDbConn().createTeacher(newTeacher)) {
+                    if (FWCConfigurator.getDbConn().createTeacher(newTeacher)){
 
                         // Add teacher to admin's list of teachers
-                        FWCConfigurator.getAdmin().getTeachers().add(newTeacher);
+                       FWCConfigurator.getAdmin().getTeachers().add(newTeacher);
 
                         // Clear fields in teacher registration form
                         clearFields();
@@ -197,13 +200,14 @@ public class TeacherRegistration extends JPanel {
                         getPassword()).equals("") ||
                 String.valueOf(txtConfirm.getPassword()).equals("")) {
             JOptionPane.showMessageDialog(null, 
-                    "Please enter all required information.", "Registration Failed",
+                    "Please enter all required information.", 
+                    "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         // Check if username is available
-        if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
+     if (!FWCConfigurator.getDbConn().isUsernameAvailable(txtUser.getText())) {
             JOptionPane.showMessageDialog(null, "Username is not available.",
                     "Registration Failed",
                     JOptionPane.ERROR_MESSAGE);
@@ -223,7 +227,8 @@ public class TeacherRegistration extends JPanel {
     }
 
     private Teacher getNewTeacher() {
-        return new Teacher(txtUser.getText(), txtFirst.getText(), txtLast.getText(),
+        return new Teacher(txtUser.getText(), txtFirst.getText(), 
+                txtLast.getText(),
                 String.valueOf(txtPass.getPassword()));
     }
 

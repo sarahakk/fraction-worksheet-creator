@@ -13,8 +13,6 @@
  * ****************************************************************************
  */
 
-
-
 package com.elementaryengineers.fwc.panel;
 
 import com.elementaryengineers.fwc.custom.DisabledTableModel;
@@ -31,7 +29,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
+/**Clicking the History button either next to a student in the Class Roster
+ * page or in a Student’s Profile displays the student’s worksheet history. Tea
+ * chers can print a student’s old worksheet or answer sheet, but cannot 
+ * delete student worksheets.
  * Created by sarahakk on 4/27/16.
  */
 public class TeacherStudentHistory extends JPanel {
@@ -118,7 +119,7 @@ public class TeacherStudentHistory extends JPanel {
 
         for (Worksheet sheet : sheets) {
             tableModel.addRow(new String[]{sheet.getDateCreated(),
-                    FWCConfigurator.getDifficulties().get(sheet.getDifficultyID()).
+                FWCConfigurator.getDifficulties().get(sheet.getDifficultyID()).
                             getDescription(),
                     sheet.getExercise()
             });

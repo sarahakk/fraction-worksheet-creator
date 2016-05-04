@@ -31,10 +31,14 @@ public class TeacherMenu extends UserMenu {
 
     public TeacherMenu() {
         btnHome = new ImageButton("Home", FWCConfigurator.HOME_IMG, 150, 50);
-        btnTutorials = new ImageButton("Tutorials", FWCConfigurator.TUTORIAL_IMG, 150, 50);
-        btnHistory = new ImageButton("History", FWCConfigurator.HISTORY_IMG, 150, 50);
-        btnClasses = new ImageButton("Classes", FWCConfigurator.CLASSES_IMG, 150, 50);
-        btnPasswords = new ImageButton("Passwords", FWCConfigurator.PASSWORDS_IMG, 150, 50);
+        btnTutorials = new ImageButton("Tutorials", 
+                FWCConfigurator.TUTORIAL_IMG, 150, 50);
+        btnHistory = new ImageButton("History", 
+                FWCConfigurator.HISTORY_IMG, 150, 50);
+        btnClasses = new ImageButton("Classes", 
+                FWCConfigurator.CLASSES_IMG, 150, 50);
+        btnPasswords = new ImageButton("Passwords", 
+                FWCConfigurator.PASSWORDS_IMG, 150, 50);
 
         this.add(btnHome);
         this.add(btnTutorials);

@@ -30,8 +30,10 @@ public class StudentMenu extends UserMenu {
 
     public StudentMenu() {
         btnHome = new ImageButton("Home", FWCConfigurator.HOME_IMG, 150, 50);
-        btnTutorials = new ImageButton("Tutorials", FWCConfigurator.TUTORIAL_IMG, 150, 50);
-        btnHistory = new ImageButton("History", FWCConfigurator.HISTORY_IMG, 150, 50);
+        btnTutorials = new ImageButton("Tutorials", 
+                FWCConfigurator.TUTORIAL_IMG, 150, 50);
+        btnHistory = new ImageButton("History", 
+                FWCConfigurator.HISTORY_IMG, 150, 50);
 
         this.add(btnHome);
         this.add(btnTutorials);
