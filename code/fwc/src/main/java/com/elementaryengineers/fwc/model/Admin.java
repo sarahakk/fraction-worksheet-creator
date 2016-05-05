@@ -91,12 +91,12 @@ public class Admin extends User {
     }
 
     public ArrayList<Teacher> searchTeachers(String keyword) {
-        keyword.toLowerCase();
+        String lowerKey = keyword.toLowerCase();
 
         List<Teacher> results = teachers.stream().filter(t ->
-                t.getFirstName().toLowerCase().contains(keyword) ||
-                        t.getLastName().toLowerCase().contains(keyword) ||
-                        t.getUsername().toLowerCase().contains(keyword)
+                t.getFirstName().toLowerCase().contains(lowerKey) ||
+                        t.getLastName().toLowerCase().contains(lowerKey) ||
+                        t.getUsername().toLowerCase().contains(lowerKey)
         ).collect(Collectors.toList());
 
         return new ArrayList<>(results);

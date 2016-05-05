@@ -77,14 +77,14 @@ public class Classroom {
     }
 
     public ArrayList<Student> searchStudents(String keyword) {
-        keyword.toLowerCase();
+        String lastKey = keyword.toLowerCase();
 
         List<Student> results = students.stream().filter(stu ->
-                stu.getFirstName().toLowerCase().contains(keyword) ||
-                stu.getLastName().toLowerCase().contains(keyword) ||
+                stu.getFirstName().toLowerCase().contains(lastKey) ||
+                stu.getLastName().toLowerCase().contains(lastKey) ||
                 FWCConfigurator.getDifficulties().get(stu.getDifficultyID())
-                        .getDescription().toLowerCase().contains(keyword) ||
-                stu.getUsername().toLowerCase().contains(keyword)
+                        .getDescription().toLowerCase().contains(lastKey) ||
+                stu.getUsername().toLowerCase().contains(lastKey)
                 ).collect(Collectors.toList());
 
         return new ArrayList<>(results);

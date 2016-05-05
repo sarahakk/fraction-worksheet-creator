@@ -60,7 +60,7 @@ public class CommonHeader extends JPanel {
             BufferedImage imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
-                img1.setIcon(new ImageIcon(imgBuff.getScaledInstance(150, 135,
+                img1.setIcon(new ImageIcon(imgBuff.getScaledInstance(167, 150,
                         Image.SCALE_SMOOTH)));
             }
 
@@ -69,7 +69,7 @@ public class CommonHeader extends JPanel {
             imgBuff = ImageIO.read(imgURL);
 
             if (imgURL != null) {
-                img2.setIcon(new ImageIcon(imgBuff.getScaledInstance(150, 135,
+                img2.setIcon(new ImageIcon(imgBuff.getScaledInstance(167, 150,
                         Image.SCALE_SMOOTH)));
             }
         }

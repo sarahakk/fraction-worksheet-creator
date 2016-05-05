@@ -130,10 +130,10 @@ public class FWCConfigurator {
     public static final String STUDENT_INT_IMG = "studentIntermediate.png";
     public static final String STUDENT_INT_G_IMG = "studentIntermediateGray.png";
     
-public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
-public static final String STUDENT_REG_IMG = "studentregistration.png";
-public static final String STUDENT_WS_HISTORY_IMG = "studentworksheethistory.png";
-public static final String TEACHER_PROFILE_IMG = "teacherprofile.png";
+    public static final String STUDENT_PROFILE_IMG = "studentprofile.png";
+    public static final String STUDENT_REG_IMG = "studentregistration.png";
+    public static final String STUDENT_WS_HISTORY_IMG = "studentworksheethistory.png";
+    public static final String TEACHER_PROFILE_IMG = "teacherprofile.png";
     
     public static final String TEACHER_REG_IMG = "teacherregistration.png";
     public static final String TUTORIAL_TITLE_IMG = "tutorialTitle.png";
