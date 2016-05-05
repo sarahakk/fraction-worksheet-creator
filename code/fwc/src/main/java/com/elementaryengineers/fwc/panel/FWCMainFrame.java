@@ -859,6 +859,10 @@ public class FWCMainFrame extends JFrame {
             pnCard.add(studentHistory, "StudentHistory");
         }
         else { // Refresh/reset panels for new student session
+            pnCard.remove(studentHome);
+            studentHome = new StudentHome();
+            pnCard.add(studentHome, "StudentHome");
+
             studentHistory.populateTable();
         }
 
