@@ -43,7 +43,7 @@ public class StudentProfile extends JPanel {
     private JLabel lblFirst, lblLast, lblUser, lblClass, lblDifficulty;
     private JTextField txtFirst, txtLast, txtUser;
     private JComboBox cbClassName, cbDifficulty;
-    private ImageButton btnSubmit, btnDelete, btnReset, btnHistory;
+    private ImageButton btnSubmit, btnDelete, btnReset, btnHistory, btnBack;
     private int classIndex, studentIndex;
 
     public StudentProfile() {
@@ -268,6 +268,8 @@ public class StudentProfile extends JPanel {
                 50);
         btnDelete = new ImageButton("Delete Student", FWCConfigurator
                 .DEL_STUDENT_IMG, 150, 50);
+        btnBack = new ImageButton("Back", FWCConfigurator
+                .BACK_IMG, 150, 50);
 
         pnUpBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnUpBtns.setBackground(FWCConfigurator.bgColor);
@@ -275,6 +277,7 @@ public class StudentProfile extends JPanel {
 
         pnDownBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnDownBtns.setBackground(FWCConfigurator.bgColor);
+        pnDownBtns.add(btnBack);
         pnDownBtns.add(btnHistory);
         pnDownBtns.add(btnReset);
         pnDownBtns.add(btnDelete);
@@ -331,5 +334,9 @@ public class StudentProfile extends JPanel {
 
     public void setDeleteListener(ActionListener deleteListener) {
         btnDelete.addActionListener(deleteListener);
+    }
+
+    public void setBackListener(ActionListener backListener) {
+        btnBack.addActionListener(backListener);
     }
 }

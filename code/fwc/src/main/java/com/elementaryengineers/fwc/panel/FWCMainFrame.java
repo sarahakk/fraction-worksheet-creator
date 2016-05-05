@@ -663,6 +663,14 @@ public class FWCMainFrame extends JFrame {
                         studentProfile.populateFields(original);
                         studentProfile.setStudentIndexes(cIndex, studentsCache
                                 .indexOf(original));
+                        studentProfile.setBackListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                teacherClassRoster.setClassIndex
+                                        (studentProfile.getClassIndex());
+                                cardLayout.show(pnCard, "ClassRoster");
+                            }
+                        });
 
                         cardLayout.show(pnCard, "StudentProfile");
                         FWCConfigurator.setCurrentPage(Page.STUDENT_PROFILE);
@@ -698,6 +706,12 @@ public class FWCMainFrame extends JFrame {
 
                         // Reset page
                         teacherStudentHistory.setStudent(original);
+                        teacherStudentHistory.setBackListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                cardLayout.show(pnCard, "ClassRoster");
+                            }
+                        });
 
                         cardLayout.show(pnCard, "TeacherStudentHistory");
                         FWCConfigurator.setCurrentPage(

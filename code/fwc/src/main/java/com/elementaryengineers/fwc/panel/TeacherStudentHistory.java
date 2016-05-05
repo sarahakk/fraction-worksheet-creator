@@ -40,7 +40,7 @@ public class TeacherStudentHistory extends JPanel {
     private JPanel pnNorth,pnCenter, pnButtons;
     private TitleLabel lblTitle;
     private JLabel lblName;
-    private JButton btnPrint, btnAnswerKey;
+    private ImageButton btnPrint, btnAnswerKey, btnBack;
     private DisabledTableModel tableModel;
     private JTable sheetsTable;
     private JScrollPane tableScroll;
@@ -101,6 +101,10 @@ public class TeacherStudentHistory extends JPanel {
                 FWCConfigurator.ANSWER_IMG, 150, 50);
         btnAnswerKey.addActionListener(new AnswerKeyListener());
 
+        btnBack = new ImageButton("Back", FWCConfigurator
+                .BACK_IMG, 150, 50);
+
+        pnButtons.add(btnBack);
         pnButtons.add(btnPrint);
         pnButtons.add(btnAnswerKey);
 
@@ -169,5 +173,9 @@ public class TeacherStudentHistory extends JPanel {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+
+    public void setBackListener(ActionListener backListener) {
+        btnBack.addActionListener(backListener);
     }
 }
