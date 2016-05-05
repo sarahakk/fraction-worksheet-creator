@@ -146,6 +146,8 @@ public class FWCConfigurator {
 
     public static final String RAINBOW1_IMG = "rainbow1.png";
     public static final String RAINBOW2_IMG = "rainbow2.png";
+    public static final String VIDEO1_IMG = "film_reel.png";
+    public static final String VIDEO2_IMG = "video.png";
 
     // Tutorial videos in resource folder
     public static final String BEG1_VID = "video - 1.m4v";

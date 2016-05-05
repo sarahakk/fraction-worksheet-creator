@@ -67,9 +67,9 @@ public class StudentHome extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_IMG); 
-// Ensure button is colored
+                // Ensure button is colored
                 cardLayout.show(pnCard, "Beginner"); 
-// Switch to beginner worksheet buttons
+                // Switch to beginner worksheet buttons
 
                 // Gray out other buttons, if any
                 if (stu.getDifficultyID() > 0) {
@@ -125,7 +125,11 @@ public class StudentHome extends JPanel {
                     }
                 }
             });
+
             pnDiff.add(btnInt); // Add to difficulties panel
+
+            // Gray out other buttons
+            btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_G_IMG);
 
             // Make intermediate buttons and panel
             pnInt = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -162,7 +166,12 @@ public class StudentHome extends JPanel {
                         btnInt.swapImage(FWCConfigurator.STUDENT_INT_G_IMG);
                     }
                 });
+
                 pnDiff.add(btnAdv); // Add to difficulties panel
+
+                // Gray out other buttons
+                btnBeg.swapImage(FWCConfigurator.STUDENT_BEG_G_IMG);
+                btnInt.swapImage(FWCConfigurator.STUDENT_INT_G_IMG);
 
                 // Make advanced buttons and panel
                 pnAdv = new JPanel(new FlowLayout(FlowLayout.CENTER));

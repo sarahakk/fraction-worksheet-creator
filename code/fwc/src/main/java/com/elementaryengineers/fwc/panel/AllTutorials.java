@@ -19,11 +19,14 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 
 /** Shows all available tutorial videos
  * Created by sarahakk on 4/26/16.
@@ -31,7 +34,8 @@ import java.io.*;
 public class AllTutorials extends JPanel {
 
     private JPanel pnNorth, pnButtons;
-    private JLabel lblTitle;
+    private TitleLabel lblTitle;
+    private JLabel vidImg1, vidImg2;
     private JButton btnBeg1, btnBeg2, btnBeg3,
             btnInt1, btnInt2, btnInt3,
             btnAdv1, btnAdv2, btnAdv3;
@@ -44,7 +48,36 @@ public class AllTutorials extends JPanel {
         pnNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pnNorth.setBackground(FWCConfigurator.bgColor);
         lblTitle = new TitleLabel("Tutorials", FWCConfigurator.TUTORIALS_IMG);
+        vidImg1 = new JLabel();
+        vidImg2 = new JLabel();
+
+        // Get images
+        try {
+            URL imgURL = CommonHeader.class.getClassLoader().getResource
+                    ("images/" + FWCConfigurator.VIDEO1_IMG);
+            BufferedImage imgBuff = ImageIO.read(imgURL);
+
+            if (imgURL != null) {
+                vidImg1.setIcon(new ImageIcon(imgBuff.getScaledInstance(77, 75,
+                        Image.SCALE_SMOOTH)));
+            }
+
+            imgURL = CommonHeader.class.getClassLoader().getResource
+                    ("images/" + FWCConfigurator.VIDEO2_IMG);
+            imgBuff = ImageIO.read(imgURL);
+
+            if (imgURL != null) {
+                vidImg2.setIcon(new ImageIcon(imgBuff.getScaledInstance(75, 75,
+                        Image.SCALE_SMOOTH)));
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pnNorth.add(vidImg1);
         pnNorth.add(lblTitle);
+        pnNorth.add(vidImg2);
 
         // Build buttons and center panel
         pnButtons = new JPanel(new GridBagLayout());
