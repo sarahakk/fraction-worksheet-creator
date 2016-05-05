@@ -20,6 +20,7 @@ import com.elementaryengineers.fwc.custom.ImageButton;
 import com.elementaryengineers.fwc.custom.TitleLabel;
 import com.elementaryengineers.fwc.db.FWCConfigurator;
 import com.elementaryengineers.fwc.model.Classroom;
+import com.elementaryengineers.fwc.model.Teacher;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -30,7 +31,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**The Classes displays the page which allows teachers to add a class, 
+/**
+ * The Classes displays the page which allows teachers to add a class,
  * add a student to an existing class, search classes, modify classes, 
  * and view a class’ roster
  * 
@@ -46,6 +48,7 @@ public class Classes extends JPanel {
     private DisabledTableModel tableModel;
     private JTable classesTable;
     private JScrollPane tableScroll;
+    private ArrayList<Classroom> currentList;
 
     public Classes() {
         super(new BorderLayout());
@@ -88,10 +91,10 @@ public class Classes extends JPanel {
                 String keyword = txtSearch.getText();
 
                 // Populate with search results, or all classes if empty
-                populateTable(!keyword.equals("") ?
+                currentList = !keyword.equals("") ?
                         FWCConfigurator.getTeacher().searchClasses(keyword) :
-                        FWCConfigurator.getTeacher().getClasses()
-                );
+                        FWCConfigurator.getTeacher().getClasses();
+                populateTable();
             }
         });
 
@@ -130,7 +133,7 @@ public class Classes extends JPanel {
         classesTable.setFont(new Font("Calibri", Font.PLAIN, 18));
         classesTable.setRowHeight(classesTable.getRowHeight() + 12);
 
-        populateTable(FWCConfigurator.getTeacher().getClasses());
+        refresh();
 
         tableScroll = new JScrollPane(classesTable,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -148,13 +151,13 @@ public class Classes extends JPanel {
         this.add(pnCenter, BorderLayout.CENTER);
     }
 
-    private void populateTable(ArrayList<Classroom> classes) {
+    private void populateTable() {
         // Remove all rows first
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 
-        for (Classroom classroom : classes) {
+        for (Classroom classroom : currentList) {
             tableModel.addRow(new String[]{classroom.getClassName(),
                     Integer.toString(classroom.getStudents().size())});
         }
@@ -165,7 +168,9 @@ public class Classes extends JPanel {
     }
 
     public void refresh() {
-        populateTable(FWCConfigurator.getTeacher().getClasses());
+        txtSearch.setText("");
+        currentList = FWCConfigurator.getTeacher().getClasses();
+        populateTable();
     }
 
     public void setEditListener(ActionListener editListener) {
@@ -182,5 +187,9 @@ public class Classes extends JPanel {
 
     public void setNewStudentListener(ActionListener newStudentListener) {
         btnNewStudent.addActionListener(newStudentListener);
+    }
+
+    public ArrayList<Classroom> getCurrentList() {
+        return currentList;
     }
 }

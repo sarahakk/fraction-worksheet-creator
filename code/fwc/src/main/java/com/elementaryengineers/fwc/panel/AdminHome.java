@@ -29,13 +29,11 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/*
+/**
 * A list of registered teachers is displayed on the Admin homepage. A profile 
-button next to each teacher allows the Admin to view a teacher’s profile 
-to make changes.
+* button next to each teacher allows the Admin to view a teacher’s profile
+* to make changes.
 */
-
-
 public class AdminHome extends JPanel {
 
     private JPanel pnNorth, pnCenter, pnSearch, pnProfile;
@@ -45,6 +43,7 @@ public class AdminHome extends JPanel {
     private DisabledTableModel tableModel;
     private JTable teachersTable;
     private JScrollPane tableScroll;
+    private ArrayList<Teacher> currentList;
 
     public AdminHome() {
         super(new BorderLayout());
@@ -87,10 +86,10 @@ public class AdminHome extends JPanel {
                 String keyword = txtSearch.getText();
 
                 // Populate with search results, or all teachers if search is empty
-                populateTable(!keyword.equals("") ?
+                currentList = !keyword.equals("") ?
                         FWCConfigurator.getAdmin().searchTeachers(keyword) :
-                        FWCConfigurator.getAdmin().getTeachers()
-                );
+                        FWCConfigurator.getAdmin().getTeachers();
+                populateTable();
             }
         });
 
@@ -110,7 +109,7 @@ public class AdminHome extends JPanel {
         teachersTable.setFont(new Font("Calibri", Font.PLAIN, 18));
         teachersTable.setRowHeight(teachersTable.getRowHeight() + 12);
 
-        populateTable(FWCConfigurator.getAdmin().getTeachers());
+        refresh(); // Populates table
 
         tableScroll = new JScrollPane(teachersTable, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -136,20 +135,22 @@ public class AdminHome extends JPanel {
         this.add(pnProfile, BorderLayout.SOUTH);
     }
 
-    private void populateTable(ArrayList<Teacher> teachers) {
+    private void populateTable() {
         // Remove all rows first
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 
-        for (Teacher teacher : teachers) {
+        for (Teacher teacher : currentList) {
                 tableModel.addRow(new String[]{teacher.getFirstName(),
                         teacher.getLastName(), teacher.getUsername()});
         }
     }
 
     public void refresh() {
-        populateTable(FWCConfigurator.getAdmin().getTeachers());
+        txtSearch.setText("");
+        currentList = FWCConfigurator.getAdmin().getTeachers();
+        populateTable();
     }
 
     public void setProfileListener(ActionListener profileListener) {
@@ -158,5 +159,9 @@ public class AdminHome extends JPanel {
 
     public int getSelectedTeacher() {
         return teachersTable.getSelectedRow();
+    }
+
+    public ArrayList<Teacher> getCurrentList() {
+        return currentList;
     }
 }

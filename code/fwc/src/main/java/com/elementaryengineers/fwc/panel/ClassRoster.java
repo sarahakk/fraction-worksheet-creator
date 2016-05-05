@@ -32,12 +32,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- *Class ClassRoster displays a roster for that class, a list of students 
+ * Class ClassRoster displays a roster for that class, a list of students
  * that have been assigned to that class.From here, teachers can search 
  * for students and view their profiles and worksheet history.
  * 
  * @author olgasheehan
-
  */
 public class ClassRoster extends JPanel {
 
@@ -51,6 +50,7 @@ public class ClassRoster extends JPanel {
     private JScrollPane tableScroll;
     private Classroom classroom;
     private int classIndex;
+    private ArrayList<Student> currentList;
 
     public ClassRoster() {
         super(new BorderLayout());
@@ -95,10 +95,11 @@ public class ClassRoster extends JPanel {
             public void search() {
                 String keyword = txtSearch.getText();
 
-                // Populate with search results, or all students if empty
-                populateTable(!keyword.equals("") ?
-                        classroom.searchStudents(keyword):
-                        classroom.getStudents());
+                // Populate with search results, or all classes if empty
+                currentList = !keyword.equals("") ?
+                        classroom.searchStudents(keyword) :
+                        classroom.getStudents();
+                populateTable();
             }
         });
 
@@ -157,13 +158,13 @@ public class ClassRoster extends JPanel {
         this.add(pnButtons, BorderLayout.SOUTH);
     }
 
-    private void populateTable(ArrayList<Student> students) {
+    private void populateTable() {
         // Remove all rows first
         for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
 
-        for (Student student : students) {
+        for (Student student : currentList) {
             tableModel.addRow(new String[]{student.getFirstName(),
                     student.getLastName(),
                     FWCConfigurator.getDifficulties().
@@ -176,7 +177,9 @@ public class ClassRoster extends JPanel {
         this.classroom = FWCConfigurator.getTeacher().getClasses()
                 .get(classIndex);
         lblName.setText("Class: " + classroom.getClassName());
-        populateTable(classroom.getStudents());
+        currentList = classroom.getStudents();
+        populateTable();
+        txtSearch.setText("");
     }
 
     public int getClassIndex() {
@@ -185,6 +188,10 @@ public class ClassRoster extends JPanel {
 
     public int getSelectedStudent() {
         return studentsTable.getSelectedRow();
+    }
+
+    public ArrayList<Student> getCurrentList() {
+        return currentList;
     }
 
     public void setBackListener(ActionListener backListener) {

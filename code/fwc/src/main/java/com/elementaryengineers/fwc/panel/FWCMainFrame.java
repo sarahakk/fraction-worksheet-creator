@@ -26,6 +26,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * TODO
@@ -529,9 +530,21 @@ public class FWCMainFrame extends JFrame {
 
                     // Check if selected a class
                     if (index >= 0) {
-                        teacherEditClass.populateFields(FWCConfigurator.
-                                getTeacher().getClasses().get(index));
-                        teacherEditClass.setClassIndex(index);
+                        ArrayList<Classroom> classesCache = FWCConfigurator
+                                .getTeacher()
+                                .getClasses();
+                        Classroom classroom = teacherClasses.getCurrentList().get(index);
+                        teacherEditClass.populateFields(classroom);
+
+                        // Find index of this class in the original
+                        // classes list
+                        Classroom original = classesCache.stream()
+                                .filter(classroom1 -> classroom1.getClassID()
+                                        == classroom.getClassID()).findFirst
+                                        ().get();
+
+                        teacherEditClass.setClassIndex(classesCache
+                                .indexOf(original));
                         cardLayout.show(pnCard, "ClassEdit");
                         FWCConfigurator.setCurrentPage(Page.EDIT_CLASS);
                     }
@@ -551,7 +564,20 @@ public class FWCMainFrame extends JFrame {
 
                     // Check if selected a class
                     if (index >= 0) {
-                        teacherClassRoster.setClassIndex(index);
+                        ArrayList<Classroom> classesCache = FWCConfigurator
+                                .getTeacher()
+                                .getClasses();
+                        Classroom classroom = teacherClasses.getCurrentList().get(index);
+
+                        // Find index of this class in the original
+                        // classes list
+                        Classroom original = classesCache.stream()
+                                .filter(classroom1 -> classroom1.getClassID()
+                                        == classroom.getClassID()).findFirst
+                                        ().get();
+
+                        teacherClassRoster.setClassIndex(classesCache
+                                .indexOf(original));
                         cardLayout.show(pnCard, "ClassRoster");
                         FWCConfigurator.setCurrentPage(Page.CLASS_ROSTER);
                     }
@@ -621,10 +647,22 @@ public class FWCMainFrame extends JFrame {
 
                     // Check if selected a student
                     if (sIndex >= 0) {
-                        studentProfile.populateFields(FWCConfigurator.
+                        ArrayList<Student> studentsCache = FWCConfigurator.
                                 getTeacher().getClasses().get(cIndex).
-                                getStudents().get(sIndex));
-                        studentProfile.setStudentIndexes(cIndex, sIndex);
+                                getStudents();
+                        Student student = teacherClassRoster.getCurrentList().get
+                                (sIndex);
+
+                        // Find index of this student in the original
+                        // students list
+                        Student original = studentsCache.stream()
+                                .filter(student1 -> student1.getStudentID()
+                                        == student.getStudentID()).findFirst
+                                        ().get();
+
+                        studentProfile.populateFields(original);
+                        studentProfile.setStudentIndexes(cIndex, studentsCache
+                                .indexOf(original));
 
                         cardLayout.show(pnCard, "StudentProfile");
                         FWCConfigurator.setCurrentPage(Page.STUDENT_PROFILE);
@@ -645,12 +683,21 @@ public class FWCMainFrame extends JFrame {
 
                     // Check if selected a student
                     if (sIndex >= 0) {
-                        teacherStudentHistory.setStudent(
-                                FWCConfigurator.getTeacher().getClasses().
-                                        get(cIndex).
-                                        getStudents().
-                                        get(sIndex)
-                        ); // Reset page
+                        ArrayList<Student> studentsCache = FWCConfigurator.
+                                getTeacher().getClasses().get(cIndex).
+                                getStudents();
+                        Student student = teacherClassRoster.getCurrentList().get
+                                (sIndex);
+
+                        // Find index of this student in the original
+                        // students list
+                        Student original = studentsCache.stream()
+                                .filter(student1 -> student1.getStudentID()
+                                        == student.getStudentID()).findFirst
+                                        ().get();
+
+                        // Reset page
+                        teacherStudentHistory.setStudent(original);
 
                         cardLayout.show(pnCard, "TeacherStudentHistory");
                         FWCConfigurator.setCurrentPage(
@@ -856,9 +903,20 @@ public class FWCMainFrame extends JFrame {
 
                     // Check if selected a teacher
                     if (index >= 0) {
-                        adminTeacherProfile.populateFields(FWCConfigurator.
-                        getAdmin().getTeachers().get(index));
-                        adminTeacherProfile.setTeacherIndex(index);
+                        ArrayList<Teacher> teachersCache = FWCConfigurator.getAdmin()
+                                .getTeachers();
+                        Teacher teacher = adminHome.getCurrentList().get(index);
+                        adminTeacherProfile.populateFields(teacher);
+
+                        // Find index of this teacher in the original
+                        // teachers list
+                        Teacher original = teachersCache.stream()
+                                .filter(teacher1 -> teacher1.getTeacherID()
+                                        == teacher.getTeacherID()).findFirst
+                                        ().get();
+
+                        adminTeacherProfile.setTeacherIndex(teachersCache
+                                .indexOf(original));
                         cardLayout.show(pnCard, "TeacherProfile");
                         FWCConfigurator.setCurrentPage(Page.TEACHER_PROFILE);
                     }
