@@ -341,7 +341,7 @@ public class WS_Advanced extends WS_Master
             //  Draw lines for the mixed fractions
             while (problems.hasNext())
             {
-                System.out.printf("%d\n", equationCount);
+                //System.out.printf("%d\n", equationCount);
                 if (equationCount == 5)
                 {
                     beginX = 566;

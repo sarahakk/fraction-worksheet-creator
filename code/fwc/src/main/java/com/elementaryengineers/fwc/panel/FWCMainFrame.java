@@ -70,7 +70,7 @@ public class FWCMainFrame extends JFrame {
     private StudentHistory studentHistory;
 
     // Dimensions of different panels to be used when switching between them
-    private static final int loginW = 534, loginH = 487,
+    private static final int loginW = 534, loginH = 500,
             adminRegW = 900, adminRegH = 629,
             adminForgotW = 850, adminForgotH = 579,
             standardW = 1000, standardH = 800;
@@ -218,6 +218,7 @@ public class FWCMainFrame extends JFrame {
                     forgotPass.setBackListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            login.clearFields();
                             cardLayout.show(pnCard, "Login");
                             FWCConfigurator.setCurrentPage(Page.LOGIN);
                             forgotPass.clearFields();
@@ -307,27 +308,29 @@ public class FWCMainFrame extends JFrame {
                                         Admin admin = (Admin) user;
 
                                         // Create panel if first time
-                                   if (adminResetPass == null) {
-                          adminResetPass = new AdminResetPassword();
-                          adminResetPass.setBackListener(new ActionListener() {
-                             @Override
-                          public void actionPerformed(ActionEvent e) {
-                                cardLayout.show(pnCard, "Login");
-                                setSize(new Dimension(loginW, loginH));
-                                setLocationRelativeTo(null);
-                                FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                        if (adminResetPass == null) {
+                                            adminResetPass = new AdminResetPassword();
+                                            adminResetPass.setBackListener(new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+                                                    login.clearFields();
+                                                    cardLayout.show(pnCard, "Login");
+                                                    setSize(new Dimension(loginW, loginH));
+                                                    setLocationRelativeTo(null);
+                                                    FWCConfigurator.setCurrentPage(Page.LOGIN);
                                                 }
                                             });
 
-                        adminResetPass.setSubmitListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                     // Go back to login panel if password reset was successful
-                        if (adminResetPass.verifyAndPerformReset()) {
-                                cardLayout.show(pnCard, "Login");
-                                setSize(new Dimension(loginW, loginH));
-                                setLocationRelativeTo(null);
-                                FWCConfigurator.setCurrentPage(Page.LOGIN);
+                                            adminResetPass.setSubmitListener(new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+                                                    // Go back to login panel if password reset was successful
+                                                    if (adminResetPass.verifyAndPerformReset()) {
+                                                        login.clearFields();
+                                                        cardLayout.show(pnCard, "Login");
+                                                        setSize(new Dimension(loginW, loginH));
+                                                        setLocationRelativeTo(null);
+                                                        FWCConfigurator.setCurrentPage(Page.LOGIN);
                                                     }
                                                 }
                                             });
@@ -367,7 +370,6 @@ public class FWCMainFrame extends JFrame {
                 // Switch to forgot password panel
                 cardLayout.show(pnCard, "ForgotPassword");
                 FWCConfigurator.setCurrentPage(Page.FORGOT_PASSWORD);
-                login.clearFields();
             }
         });
         
@@ -634,6 +636,7 @@ public class FWCMainFrame extends JFrame {
             teacherClassRoster.setBackListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    teacherClasses.refresh();
                     cardLayout.show(pnCard, "Classes");
                     FWCConfigurator.setCurrentPage(Page.CLASSES);
                 }

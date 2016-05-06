@@ -47,8 +47,10 @@ public class FWCDatabaseConnection implements DatabaseConnection {
             displayErrorPopup("Could not register the JDBC driver.");
         }
 
+        /*
         System.out.println(initialize ? "New database initialized." : "Using" +
 				" preexisting database.");
+        */
 	}
 
     /**
@@ -62,7 +64,7 @@ public class FWCDatabaseConnection implements DatabaseConnection {
         boolean dintiliaze;
 
         Class.forName("com.mysql.jdbc.Driver");
-        System.out.println("Connecting to database...");
+        //System.out.println("Connecting to database...");
         conn = DriverManager.getConnection(DB_URL, USER, PASS);
         stmt = conn.createStatement();
 
